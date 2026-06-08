@@ -117,6 +117,9 @@
     .pseudo-wrap{text-align:center;margin:7px 13px;}
     .pseudo-wrap input{background:#111;border:2px solid #ff2222;color:#fff;padding:8px 17px;border-radius:25px;font-size:.95rem;font-family:'Nunito',sans-serif;outline:none;width:min(285px,80vw);text-align:center;transition:border-color .2s,box-shadow .2s;}
     .pseudo-wrap input:focus{border-color:#ff6600;box-shadow:0 0 10px #ff660033;}
+    #pseudoBtn{display:block;margin:6px auto 0;background:#ff2222;border:none;color:#fff;font-family:'Bangers',cursive;font-size:1rem;letter-spacing:2px;padding:6px 24px;border-radius:20px;cursor:pointer;transition:transform .15s,background .2s;}
+    #pseudoBtn:hover{background:#ff5500;transform:scale(1.07);}
+    #pseudoBtn:active{transform:scale(.95);}
 
     /* MISSIONS */
     .missions{width:min(470px,93vw);margin:9px auto;background:#0e0e0e;border:1.5px solid #252525;border-radius:13px;padding:10px 12px;}
@@ -493,7 +496,9 @@
     </div>
 
     <div class="pseudo-wrap">
-      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
+      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20" autocomplete="off"/>
+      <button id="pseudoBtn" onclick="confirmPseudo()">✅ Confirmer</button>
+      <div id="pseudoTroll" style="font-size:.78rem;color:#ff6600;font-weight:900;min-height:18px;margin-top:4px;transition:opacity .3s;opacity:0;text-align:center;"></div>
     </div>
 
     <div class="missions">
@@ -975,6 +980,45 @@ function scheduleRender(){
   });
 }
 
+
+/* ══════ PSEUDO CONFIRM + TROLL ══════ */
+var TROLL_MSGS=[
+  "Bienvenue {p}... t\'avais vraiment rien de mieux à faire ?",
+  "Ah, {p}. On t\'attendait. (Non.)",
+  "{p} ? Sérieusement ? C\'est le meilleur que t\'as trouvé ?",
+  "Salut {p} 👋 Tu cliques sur un bouton inutile. Respect.",
+  "{p} vient de rejoindre. Le bouton s\'en fout.",
+  "Oh non, pas {p}... 😩",
+  "{p} : présent. Le sens de la vie : toujours absent.",
+  "Bienvenue {p} ! Le WiFi de tes voisins est plus utile que ce jeu.",
+  "{p} enregistré. Tes données sont... chez nous maintenant 😈",
+  "T\'inquiète {p}, personne ne regarde. (Tout le monde regarde.)",
+  "Ah {p}. Un autre qui a abandonné Netflix pour ça.",
+  "{p} s\'est connecté. Sa mère est déçue mais elle l\'aime quand même.",
+  "Pseudo enregistré : {p}. QI estimé : en cours de calcul...",
+  "{p} ? C\'est original. Tu l\'as trouvé où, dans un générateur de pseudos ?",
+  "Bienvenue {p}. Le bouton ne se souvient pas de toi. Lui si.",
+];
+function confirmPseudo(){
+  var input=document.getElementById('pseudoInput');
+  var p=input.value.trim();
+  if(!p){input.focus();input.style.borderColor='#ff0000';setTimeout(function(){input.style.borderColor='';},800);return;}
+  // Sauvegarder
+  localStorage.setItem('pseudo',p);
+  loadMyScore(p);
+  // Troll
+  var troll=document.getElementById('pseudoTroll');
+  var msg=TROLL_MSGS[Math.floor(Math.random()*TROLL_MSGS.length)].replace(/\{p\}/g,p);
+  troll.textContent=msg;
+  troll.style.opacity='1';
+  // Animation bouton
+  var btn=document.getElementById('pseudoBtn');
+  btn.textContent='✅ Sauvegardé !';
+  btn.style.background='#00aa44';
+  setTimeout(function(){btn.textContent='✅ Confirmer';btn.style.background='';},2500);
+  // Toast aussi
+  toast('👤 Pseudo : '+p+' — Bonne chance... t\'en auras besoin.','#ff6600');
+}
 /* ══════ OFFLINE ══════ */
 function updateOnlineStatus(){
   IS_ONLINE=navigator.onLine;
@@ -1563,6 +1607,7 @@ function init(){
   var saved=localStorage.getItem('pseudo');
   if(saved){document.getElementById('pseudoInput').value=saved;setTimeout(function(){loadMyScore(saved);},800);}
   document.getElementById('pseudoInput').addEventListener('input',function(){localStorage.setItem('pseudo',this.value);});
+  document.getElementById('pseudoInput').addEventListener('keydown',function(e){if(e.key==='Enter')confirmPseudo();});
   document.getElementById('pseudoInput').addEventListener('change',function(){var p=this.value.trim();if(p)loadMyScore(p);});
 
   // Bouton — pointerdown universel (PC, mobile, tablette, iOS, stylet)
