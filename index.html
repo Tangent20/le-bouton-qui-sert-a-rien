@@ -520,47 +520,54 @@ function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.inne
 resizeCanvas();
 window.addEventListener('resize',resizeCanvas);
 
-function burstParticles(x,y,count){
-  var emojis=SKIN_PT[curSkin]||['💥','⭐','✨'];
-  var n=count||Math.min(4+Math.floor(combo/4),15);
-  for(var i=0;i<n;i++){
-    var angle=Math.random()*Math.PI*2;
-    var speed=3+Math.random()*8;
-    particles.push({
-      x:x,y:y,
-      vx:Math.cos(angle)*speed,
-      vy:Math.sin(angle)*speed-4,
-      emoji:emojis[Math.floor(Math.random()*emojis.length)],
-      life:1,decay:0.018+Math.random()*0.018,
-      size:22+Math.random()*18,
-      rot:Math.random()*Math.PI*2,
-      rotV:(Math.random()-0.5)*0.2,
-    });
-  }
-  if(!rafId)rafLoop();
-}
-
-function rafLoop(){
+function drawLoop(){
   rafId=requestAnimationFrame(function(){
     ctx2d.clearRect(0,0,canvas.width,canvas.height);
     var alive=false;
     for(var i=0;i<particles.length;i++){
       var p=particles[i];
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.35;
-      p.vx*=0.97; p.life-=p.decay; p.rot+=p.rotV;
-      if(p.life<=0)continue;
+      p.x+=p.vx; p.y+=p.vy;
+      p.vy+=0.32; p.vx*=0.97;
+      p.life-=p.decay; p.rot+=p.rotV;
+      if(p.life<=0) continue;
       alive=true;
       ctx2d.save();
-      ctx2d.globalAlpha=p.life;
-      ctx2d.font=p.size+'px serif';
+      ctx2d.globalAlpha=Math.max(0,p.life);
       ctx2d.translate(p.x,p.y);
       ctx2d.rotate(p.rot);
-      ctx2d.fillText(p.emoji,-p.size/2,-p.size/2);
+      if(p.isConfetti){
+        ctx2d.fillStyle=p.color;
+        ctx2d.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
+      } else {
+        ctx2d.font=p.size+'px serif';
+        ctx2d.fillText(p.emoji,-p.size/2,-p.size/2);
+      }
       ctx2d.restore();
     }
     particles=particles.filter(function(p){return p.life>0;});
-    if(alive){rafLoop();}else{rafId=null;}
+    if(alive){ drawLoop(); } else { rafId=null; }
   });
+}
+
+function burstParticles(x,y,count){
+  var emojis=SKIN_PT[curSkin]||['💥','⭐','✨'];
+  var n=count||Math.min(4+Math.floor(combo/4),14);
+  for(var i=0;i<n;i++){
+    var angle=Math.random()*Math.PI*2;
+    var speed=3+Math.random()*7;
+    particles.push({
+      x:x, y:y,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed-3,
+      emoji:emojis[Math.floor(Math.random()*emojis.length)],
+      life:1, decay:0.016+Math.random()*0.016,
+      size:20+Math.random()*16,
+      rot:Math.random()*Math.PI*2,
+      rotV:(Math.random()-0.5)*0.18,
+      isConfetti:false,
+    });
+  }
+  if(!rafId) drawLoop();
 }
 
 function spawnParticles(ev,count){
@@ -569,63 +576,32 @@ function spawnParticles(ev,count){
     if(ev.touches&&ev.touches[0]){x=ev.touches[0].clientX;y=ev.touches[0].clientY;}
     else if(ev.changedTouches&&ev.changedTouches[0]){x=ev.changedTouches[0].clientX;y=ev.changedTouches[0].clientY;}
     else if(ev.clientX!=null){x=ev.clientX;y=ev.clientY;}
+    else if(ev.x!=null){x=ev.x;y=ev.y;}
   }
   burstParticles(x,y,count);
 }
 
 function spawnConfetti(){
+  var colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#fff'];
   for(var i=0;i<80;i++){
     (function(ii){
       setTimeout(function(){
-        var colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#fff'];
-        var x=Math.random()*canvas.width;
-        var angle=Math.PI/2+((Math.random()-0.5)*0.8);
-        var speed=4+Math.random()*5;
         particles.push({
-          x:x,y:-10,
-          vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,
-          emoji:'■',
-          color:colors[Math.floor(Math.random()*colors.length)],
-          life:1,decay:0.007+Math.random()*0.008,
-          size:8+Math.random()*8,
-          rot:Math.random()*Math.PI*2,rotV:(Math.random()-0.5)*0.3,
+          x:Math.random()*canvas.width, y:-10,
+          vx:(Math.random()-0.5)*4,
+          vy:2+Math.random()*4,
+          emoji:'', color:colors[Math.floor(Math.random()*colors.length)],
+          life:1, decay:0.006+Math.random()*0.007,
+          size:7+Math.random()*8,
+          rot:Math.random()*Math.PI*2,
+          rotV:(Math.random()-0.5)*0.25,
           isConfetti:true,
         });
-        if(!rafId)rafLoop();
-      },ii*18);
+        if(!rafId) drawLoop();
+      },ii*15);
     })(i);
   }
 }
-
-// Override rafLoop pour les confettis colorés
-var _origRaf=rafLoop;
-rafLoop=function(){
-  rafId=requestAnimationFrame(function(){
-    ctx2d.clearRect(0,0,canvas.width,canvas.height);
-    var alive=false;
-    for(var i=0;i<particles.length;i++){
-      var p=particles[i];
-      p.x+=p.vx;p.y+=p.vy;p.vy+=0.28;p.vx*=0.98;
-      p.life-=p.decay;p.rot+=p.rotV;
-      if(p.life<=0)continue;
-      alive=true;
-      ctx2d.save();
-      ctx2d.globalAlpha=p.life;
-      ctx2d.translate(p.x,p.y);
-      ctx2d.rotate(p.rot);
-      if(p.isConfetti){
-        ctx2d.fillStyle=p.color;
-        ctx2d.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
-      }else{
-        ctx2d.font=p.size+'px serif';
-        ctx2d.fillText(p.emoji,-p.size/2,-p.size/2);
-      }
-      ctx2d.restore();
-    }
-    particles=particles.filter(function(p){return p.life>0;});
-    if(alive){rafLoop();}else{rafId=null;}
-  });
-};
 
 /* ══════ THROTTLE RENDER ══════ */
 function scheduleRender(){
