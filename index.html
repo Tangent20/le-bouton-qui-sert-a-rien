@@ -739,10 +739,10 @@ function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITL
 function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
 
 var MISSIONS_DEF=[
-  {id:'d10',nm:'Clique 10 fois aujourd\'hui',tgt:10,type:'day'},
-  {id:'d50',nm:'Atteins 50 clics du jour',tgt:50,type:'day'},
-  {id:'combo',nm:'Fais un combo x10',tgt:10,type:'combo'},
-  {id:'d100',nm:'100 clics aujourd\'hui',tgt:100,type:'day'},
+  {id:'d50',  nm:'50 clics aujourd\'hui',       tgt:50,   type:'day'},
+  {id:'d200', nm:'200 clics dans la journée',     tgt:200,  type:'day'},
+  {id:'combo',nm:'Atteins un combo x25',          tgt:25,   type:'combo'},
+  {id:'d500', nm:'500 clics — pas de pause !',    tgt:500,  type:'day'},
 ];
 
 var REACTIONS=[
@@ -817,14 +817,17 @@ var MICRO_MILESTONES=(function(){
 })();
 
 var ACHIEVEMENTS=[
-  {id:'a1',e:'👆',nm:'Premier Clic',req:1},
-  {id:'a2',e:'🔟',nm:'Dizaine',req:10},
-  {id:'a3',e:'🔥',nm:'En Feu',req:50},
-  {id:'a4',e:'💯',nm:'Centenaire',req:100},
-  {id:'a5',e:'🤡',nm:'Vrai Clown',req:250},
-  {id:'a6',e:'💀',nm:'Aucune Vie',req:500},
-  {id:'a7',e:'👑',nm:'Roi du Vide',req:1000},
-  {id:'a8',e:'🐐',nm:'LÉGENDE',req:5000},
+  {id:'a1', e:'👆', nm:'Premier Clic',      req:1},
+  {id:'a2', e:'🔟', nm:'Dizaine',            req:10},
+  {id:'a3', e:'🔥', nm:'En Feu',             req:100},
+  {id:'a4', e:'💯', nm:'Centenaire',          req:500},
+  {id:'a5', e:'🤡', nm:'Vrai Clown',          req:1000},
+  {id:'a6', e:'💀', nm:'Aucune Vie',          req:2500},
+  {id:'a7', e:'👑', nm:'Roi du Vide',         req:5000},
+  {id:'a8', e:'🤯', nm:'Cerveau Cramé',       req:10000},
+  {id:'a9', e:'👽', nm:'Plus Humain',         req:20000},
+  {id:'a10',e:'🐐', nm:'LÉGENDE',             req:50000},
+  {id:'a11',e:'👁️', nm:'L\'ÉLU',            req:100000},
 ];
 
 /* ══════ STATE ══════ */
