@@ -267,6 +267,30 @@
 
     footer{text-align:center;padding:18px;color:#181818;font-size:.7rem;}
   
+  
+    /* ─── FOOTER ─── */
+    footer{text-align:center;padding:18px 14px 24px;border-top:1px solid #111;margin-top:10px;}
+    .footer-links{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:.75rem;color:#2a2a2a;margin-bottom:5px;}
+    .footer-links span{color:#1a1a1a;}
+    .footer-links a{color:#333;text-decoration:none;transition:color .2s;}
+    .footer-links a:hover{color:#ff4444;}
+    .footer-note{font-size:.62rem;color:#1a1a1a;margin-top:3px;}
+
+    /* ─── MODAUX LÉGAUX ─── */
+    .legal-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:16px;overflow-y:auto;}
+    .legal-modal.open{display:flex;}
+    .legal-box{background:#0d0d0d;border:1.5px solid #222;border-radius:16px;padding:24px 22px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative;color:#bbb;font-size:.82rem;line-height:1.6;}
+    .legal-box h2{font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:2px;color:#ff4444;margin-bottom:14px;text-align:center;}
+    .legal-box h3{font-size:.88rem;font-weight:900;color:#fff;margin:14px 0 4px;border-left:3px solid #ff4444;padding-left:8px;}
+    .legal-box p{margin-bottom:8px;color:#999;}
+    .legal-box ul{padding-left:18px;margin-bottom:8px;}
+    .legal-box ul li{margin-bottom:3px;color:#999;}
+    .legal-box a{color:#ff6644;text-decoration:none;}
+    .legal-box a:hover{text-decoration:underline;}
+    .legal-box strong{color:#ddd;}
+    .legal-box em{color:#555;font-style:italic;}
+    .legal-close{position:absolute;top:12px;right:14px;background:none;border:1px solid #333;color:#666;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;line-height:28px;text-align:center;padding:0;transition:all .2s;}
+    .legal-close:hover{background:#ff4444;color:#fff;border-color:#ff4444;}
   </style>
 </head>
 <body class="s-classic">
@@ -382,7 +406,130 @@
       <button style="background:linear-gradient(135deg,#aa0000,#ff6600);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="copyDefi()">⚔️ Mon défi</button>
     </div>
 
-    <footer>© 2026 Le Bouton Qui Sert À Rien™ 😈</footer>
+    <footer>
+    <div class="footer-links">
+      <span>© 2026 Le Bouton Qui Sert À Rien™ 😈</span>
+      <span>|</span>
+      <a href="#" onclick="openModal('modalMentions');return false;">Mentions légales</a>
+      <span>|</span>
+      <a href="#" onclick="openModal('modalCGU');return false;">CGU</a>
+      <span>|</span>
+      <a href="#" onclick="openModal('modalConfidentialite');return false;">Confidentialité</a>
+    </div>
+    <div class="footer-note">Site personnel à but non commercial — aucune donnée vendue ni partagée</div>
+  </footer>
+
+  <!-- MODAL MENTIONS LÉGALES -->
+  <div class="legal-modal" id="modalMentions">
+    <div class="legal-box">
+      <button class="legal-close" onclick="closeModal('modalMentions')">✕</button>
+      <h2>📋 Mentions Légales</h2>
+      <h3>Éditeur du site</h3>
+      <p>Ce site est édité à titre personnel par :<br>
+      <strong>Charly Soudan</strong><br>
+      36 avenue du Parc<br>
+      93290 Tremblay-en-France<br>
+      France<br>
+      <em>Particulier — démarches d'immatriculation en cours</em></p>
+
+      <h3>Hébergement</h3>
+      <p>Ce site est hébergé par :<br>
+      <strong>Base44</strong><br>
+      <a href="https://base44.com" target="_blank">https://base44.com</a></p>
+
+      <h3>Propriété intellectuelle</h3>
+      <p>L'ensemble du contenu de ce site (textes, visuels, code) est la propriété exclusive de Charly Soudan. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+
+      <h3>Responsabilité</h3>
+      <p>Ce site est un jeu en ligne à but purement ludique et non commercial. L'éditeur ne saurait être tenu responsable des dommages directs ou indirects liés à l'utilisation du site.</p>
+
+      <h3>Données personnelles</h3>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez l'éditeur via le formulaire de contact (email en cours de création).</p>
+    </div>
+  </div>
+
+  <!-- MODAL CGU -->
+  <div class="legal-modal" id="modalCGU">
+    <div class="legal-box">
+      <button class="legal-close" onclick="closeModal('modalCGU')">✕</button>
+      <h2>📜 Conditions Générales d'Utilisation</h2>
+
+      <h3>Article 1 — Objet</h3>
+      <p>Les présentes CGU régissent l'utilisation du site <strong>Le Bouton Qui Sert À Rien</strong>, jeu en ligne gratuit à but purement ludique et non commercial.</p>
+
+      <h3>Article 2 — Accès au site</h3>
+      <p>Le site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet. L'éditeur se réserve le droit de modifier, suspendre ou interrompre l'accès au site à tout moment, sans préavis.</p>
+
+      <h3>Article 3 — Pseudo et données</h3>
+      <p>En choisissant un pseudo, l'utilisateur s'engage à ne pas utiliser de noms offensants, discriminatoires ou portant atteinte à des tiers. L'éditeur se réserve le droit de supprimer tout pseudo inapproprié.</p>
+      <p>Le pseudo et le score de l'utilisateur sont enregistrés dans une base de données dans le seul but d'afficher le classement mondial. Aucune donnée n'est vendue ni transmise à des tiers.</p>
+
+      <h3>Article 4 — Comportement des utilisateurs</h3>
+      <p>Il est interdit d'utiliser des scripts automatisés (bots, autoclickers, etc.) pour gonfler artificiellement son score. L'éditeur se réserve le droit de supprimer les scores obtenus frauduleusement.</p>
+
+      <h3>Article 5 — Propriété intellectuelle</h3>
+      <p>Le contenu du site (code, textes, visuels) est la propriété de Charly Soudan. Toute reproduction sans autorisation est interdite.</p>
+
+      <h3>Article 6 — Limitation de responsabilité</h3>
+      <p>Le site est fourni "tel quel", sans garantie de disponibilité permanente. L'éditeur ne pourra être tenu responsable de tout préjudice résultant de l'utilisation du site.</p>
+
+      <h3>Article 7 — Droit applicable</h3>
+      <p>Les présentes CGU sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+
+      <h3>Article 8 — Contact</h3>
+      <p>Pour toute question : <strong>Charly Soudan</strong>, 36 avenue du Parc, 93290 Tremblay-en-France.<br>
+      <em>(Adresse email en cours de création — les coordonnées seront mises à jour dès disponibilité)</em></p>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIDENTIALITÉ / RGPD -->
+  <div class="legal-modal" id="modalConfidentialite">
+    <div class="legal-box">
+      <button class="legal-close" onclick="closeModal('modalConfidentialite')">✕</button>
+      <h2>🔒 Politique de Confidentialité</h2>
+
+      <h3>Responsable du traitement</h3>
+      <p><strong>Charly Soudan</strong><br>
+      36 avenue du Parc, 93290 Tremblay-en-France<br>
+      <em>(Email en cours de création)</em></p>
+
+      <h3>Données collectées</h3>
+      <p>Le site collecte uniquement les données suivantes :</p>
+      <ul>
+        <li><strong>Pseudo</strong> : choisi librement par l'utilisateur, stocké pour le classement</li>
+        <li><strong>Score de clics</strong> : compteur de clics associé au pseudo</li>
+        <li><strong>Données de session</strong> : stockées localement (localStorage) sur votre appareil</li>
+      </ul>
+      <p>Aucune donnée personnelle identifiable (nom, email, IP) n'est collectée.</p>
+
+      <h3>Finalité du traitement</h3>
+      <p>Les données sont utilisées uniquement pour :<br>
+      — Afficher le classement mondial des joueurs<br>
+      — Permettre la continuité du score entre sessions</p>
+
+      <h3>Durée de conservation</h3>
+      <p>Les données (pseudo + score) sont conservées tant que le service est actif. L'utilisateur peut demander leur suppression à tout moment.</p>
+
+      <h3>Cookies et stockage local</h3>
+      <p>Ce site utilise le <strong>localStorage</strong> du navigateur (pas de cookies) pour sauvegarder votre progression localement. Ces données ne sont pas transmises à des tiers.</p>
+
+      <h3>Vos droits (RGPD)</h3>
+      <p>Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679), vous disposez des droits suivants :</p>
+      <ul>
+        <li>Droit d'accès à vos données</li>
+        <li>Droit de rectification</li>
+        <li>Droit à l'effacement (« droit à l'oubli »)</li>
+        <li>Droit à la portabilité</li>
+      </ul>
+      <p>Pour exercer ces droits : <strong>Charly Soudan</strong>, 36 avenue du Parc, 93290 Tremblay-en-France.</p>
+
+      <h3>Hébergeur</h3>
+      <p><strong>Base44</strong> — <a href="https://base44.com" target="_blank">https://base44.com</a></p>
+
+      <h3>Autorité de contrôle</h3>
+      <p>Vous pouvez adresser une réclamation à la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
+    </div>
+  </div>
   </div>
 
 <script>
@@ -1278,6 +1425,22 @@ function init(){
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(3+Math.random()*2)*60000);
 }
+
+/* ══════ MODAUX LÉGAUX ══════ */
+function openModal(id){
+  var m=document.getElementById(id);
+  if(m){m.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeModal(id){
+  var m=document.getElementById(id);
+  if(m){m.classList.remove('open');document.body.style.overflow='';}
+}
+// Fermer en cliquant sur le fond
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('legal-modal')){
+    e.target.classList.remove('open');document.body.style.overflow='';
+  }
+});
 
 init();
 </script>
