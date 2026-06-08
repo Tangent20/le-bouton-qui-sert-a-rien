@@ -255,6 +255,20 @@
     @keyframes pwaIn{from{transform:translateY(20px);opacity:0;}to{transform:none;opacity:1;}}
 
     footer{text-align:center;padding:18px;color:#181818;font-size:.7rem;}
+  
+    /* DAILY d10 */
+    body.s-d10 #btn{background:radial-gradient(circle at 35% 35%,#ffee88,#ffaa00 60%,#cc6600);box-shadow:0 8px 0 #884400,0 12px 30px #ffaa0088,inset 0 -5px 15px rgba(0,0,0,0.3);animation:goldShimmer 1.2s infinite alternate;}
+    body.s-d10 .glow-ring{background:radial-gradient(circle,#ffaa0055 0%,transparent 70%);}
+    /* DAILY d50 */
+    body.s-d50 #btn{background:radial-gradient(circle at 35% 35%,#88ffee,#00ccaa 60%,#007766);box-shadow:0 8px 0 #004433,0 12px 30px #00ccaa88,inset 0 -5px 15px rgba(0,0,0,0.3);}
+    body.s-d50 .glow-ring{background:radial-gradient(circle,#00ccaa55 0%,transparent 70%);}
+    /* COMBO */
+    body.s-combo #btn{background:radial-gradient(circle at 35% 35%,#ff88ff,#cc00cc 60%,#880088);box-shadow:0 8px 0 #440044,0 12px 30px #ff00ff88,inset 0 -5px 15px rgba(0,0,0,0.3);animation:comboPulse 0.6s ease-in-out infinite alternate;}
+    @keyframes comboPulse{from{filter:brightness(1) hue-rotate(0deg);}to{filter:brightness(1.4) hue-rotate(30deg);}}
+    body.s-combo .glow-ring{background:radial-gradient(circle,#ff00ff55 0%,transparent 70%);animation:glowPulse 0.6s ease-in-out infinite;}
+    /* DAILY d100 */
+    body.s-d100 #btn{background:radial-gradient(circle at 30% 28%,#ffffff,#aaddff 40%,#5599ff 70%,#2255cc);box-shadow:0 8px 0 #112288,0 12px 40px #5599ffaa,inset 0 5px 20px rgba(200,230,255,0.6),inset 0 -5px 15px rgba(0,0,50,0.3);animation:diamondSpin 3s linear infinite;}
+    body.s-d100 .glow-ring{background:radial-gradient(circle,#aaddff66 0%,transparent 70%);animation:glowPulse 1s ease-in-out infinite;}
   </style>
 </head>
 <body class="s-classic">
@@ -496,7 +510,11 @@ var ACHIEVEMENTS=[
 
 /* ══════ STATE ══════ */
 var clicks=parseInt(localStorage.getItem('clicks')||'0');
-var curSkin=localStorage.getItem('skin')||'classic';
+var _savedSkin=localStorage.getItem('skin')||'classic';
+var curSkin=(function(){
+  for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===_savedSkin)return _savedSkin;}
+  return 'classic'; // skin invalide ou supprimé → fallback
+})();
 var combo=0,comboTimer=null,maxCombo=0;
 var lastReaction='';
 var panic=false,running=false,mysteryActive=false;
@@ -828,6 +846,10 @@ function renderSkins(){
   else nh.textContent='';
 }
 function setSkin(id,animate){
+  // Vérifier que le skin existe et est débloqué
+  var skinObj=null;
+  for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===id){skinObj=SKINS[i];break;}}
+  if(!skinObj||clicks<skinObj.req)return;
   for(var i=0;i<SKINS.length;i++)document.body.classList.remove('s-'+SKINS[i].id);
   document.body.classList.add('s-'+id);curSkin=id;localStorage.setItem('skin',id);
   document.getElementById('btn').innerHTML=SKIN_TXT[id]||'APPUIE<br>DESSUS';
