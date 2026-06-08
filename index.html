@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔴 LE BOUTON QUI SERT À RIEN</title>
+
+  <!-- Open Graph / WhatsApp / iMessage preview -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="🔴 LE BOUTON QUI SERT À RIEN" />
+  <meta property="og:description" content="Le jeu le plus débile d'internet. 1 seul bouton. Appuie dessus. C'est tout. 😂" />
+  <meta property="og:image"       content="https://i.imgur.com/KJ3JfQK.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="🔴 LE BOUTON QUI SERT À RIEN" />
+  <meta name="twitter:description" content="Le jeu le plus inutile et addictif de l'internet. Appuie. Tu peux pas t'arrêter." />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:#0a0a0a;color:#fff;
+      min-height:100vh;overflow-x:hidden;user-select:none;
+    }
+
+    /* PANIC */
+    body.panic{animation:panicBg 0.2s infinite alternate;}
+    @keyframes panicBg{from{background:#0a0000;filter:hue-rotate(0deg);}to{background:#200010;filter:hue-rotate(30deg);}}
+    body.panic header h1{animation:crazyTitle 0.15s infinite!important;}
+    @keyframes crazyTitle{
+      0%{transform:rotate(-3deg) scale(1.05);color:#ff0;}
+      25%{transform:rotate(3deg) skewX(5deg);color:#f0f;}
+      50%{transform:rotate(-2deg) scale(0.97);color:#0ff;}
+      75%{transform:rotate(4deg) skewY(-3deg);color:#ff2222;}
+      100%{transform:rotate(0deg) scale(1);color:#fff;}
+    }
+
+    .bg-anim{position:fixed;inset:0;background:radial-gradient(ellipse at center,#1a0020 0%,#0a0a0a 70%);z-index:-2;}
+    .stars{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .star{position:absolute;border-radius:50%;background:white;animation:twinkle 3s infinite alternate;}
+    @keyframes twinkle{from{opacity:0.2;transform:scale(0.8);}to{opacity:1;transform:scale(1.2);}}
+
+    /* CHALLENGER BANNER */
+    .challenger-banner{
+      background:linear-gradient(135deg,#ff2222,#ff6600);
+      text-align:center;padding:14px 20px;
+      font-size:clamp(0.9rem,2.5vw,1.2rem);font-weight:900;
+      display:none;
+    }
+    .challenger-banner.show{display:block;}
+    .challenger-banner span{font-size:1.6rem;}
+
+    header{text-align:center;padding:24px 20px 8px;}
+    header h1{
+      font-family:'Bangers',cursive;
+      font-size:clamp(2rem,8vw,5rem);letter-spacing:4px;color:#ff2222;
+      text-shadow:0 0 20px #ff000088,4px 4px 0 #880000;
+      animation:titlePulse 2s ease-in-out infinite;
+    }
+    @keyframes titlePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+    header p.subtitle{font-size:clamp(0.8rem,2.5vw,1.1rem);color:#aaa;margin-top:6px;}
+
+    /* LIVE STATS */
+    .live-stats{
+      display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+      margin:10px 20px;
+    }
+    .stat-box{
+      background:#111;border:2px solid #222;border-radius:12px;
+      padding:10px 18px;text-align:center;min-width:110px;
+    }
+    .stat-box .stat-val{
+      font-size:clamp(1.3rem,4vw,2rem);font-weight:900;color:#ff6600;
+      display:block;
+    }
+    .stat-box .stat-val.pop{animation:countPop 0.3s ease;}
+    @keyframes countPop{0%{transform:scale(1.4);}100%{transform:scale(1);}}
+    .stat-box .stat-label{font-size:0.75rem;color:#555;margin-top:2px;}
+    .live-dot{
+      display:inline-block;width:8px;height:8px;border-radius:50%;
+      background:#00ff88;margin-right:4px;
+      animation:liveDot 1s infinite alternate;
+    }
+    @keyframes liveDot{from{opacity:0.3;}to{opacity:1;}}
+
+    /* THERMO */
+    .thermo-section{text-align:center;margin:8px 20px;}
+    .thermo-label{font-size:0.85rem;color:#888;margin-bottom:4px;}
+    .thermo-wrap{display:inline-flex;align-items:center;gap:8px;}
+    .thermo-bar-bg{width:min(280px,70vw);height:18px;background:#1a1a1a;border-radius:9px;overflow:hidden;border:2px solid #333;}
+    .thermo-bar{height:100%;width:0%;background:linear-gradient(90deg,#3366ff,#00ccff,#00ff88,#ffcc00,#ff6600,#ff0000);border-radius:9px;transition:width 0.4s ease;}
+    .thermo-emoji{font-size:1.4rem;}
+    .thermo-text{font-size:0.85rem;color:#ff6600;margin-top:3px;min-height:18px;}
+
+    /* PSEUDO */
+    .pseudo-section{text-align:center;margin:8px 20px;}
+    .pseudo-section input{
+      background:#1a1a1a;border:2px solid #ff2222;color:#fff;
+      padding:8px 16px;border-radius:20px;font-size:1rem;
+      font-family:'Nunito',sans-serif;outline:none;
+      width:min(300px,80vw);text-align:center;
+    }
+    .pseudo-section input:focus{border-color:#ff6600;box-shadow:0 0 10px #ff660066;}
+
+    /* GAME */
+    .game-area{display:flex;flex-direction:column;align-items:center;padding:16px;gap:16px;}
+
+    .btn-container{position:relative;display:flex;align-items:center;justify-content:center;}
+    .glow-ring{
+      position:absolute;width:230px;height:230px;border-radius:50%;
+      background:radial-gradient(circle,#ff000066 0%,transparent 70%);
+      animation:glowPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.3);opacity:1;}}
+
+    #theButton{
+      position:relative;width:180px;height:180px;border-radius:50%;
+      border:none;cursor:pointer;font-family:'Bangers',cursive;
+      font-size:1.4rem;letter-spacing:2px;color:white;text-shadow:2px 2px 0 #660000;
+      background:radial-gradient(circle at 35% 35%,#ff5555,#cc0000 60%,#880000);
+      box-shadow:0 8px 0 #550000,0 12px 30px #ff000066,
+        inset 0 -5px 15px rgba(0,0,0,0.4),inset 0 5px 15px rgba(255,180,180,0.3);
+      transition:transform 0.08s,box-shadow 0.08s;
+      z-index:1;-webkit-tap-highlight-color:transparent;
+    }
+    #theButton:hover{
+      background:radial-gradient(circle at 35% 35%,#ff7777,#ee0000 60%,#aa0000);
+    }
+    #theButton.pressed{
+      transform:translateY(6px);
+      box-shadow:0 2px 0 #550000,0 4px 20px #ff000055,
+        inset 0 -2px 8px rgba(0,0,0,0.4),inset 0 3px 10px rgba(255,180,180,0.2);
+    }
+
+    .my-clicks{text-align:center;font-size:1rem;color:#888;}
+    .my-clicks span{color:#ff6600;font-size:1.5rem;font-weight:900;}
+
+    /* COMBO */
+    .combo-section{text-align:center;}
+    .combo-label{font-size:0.8rem;color:#555;margin-bottom:4px;}
+    .combo-bar-bg{width:min(300px,80vw);height:12px;background:#222;border-radius:6px;overflow:hidden;}
+    .combo-bar{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600,#ffcc00);border-radius:6px;transition:width 0.3s ease;width:0%;}
+    .combo-text{font-size:0.9rem;color:#ff6600;margin-top:4px;min-height:20px;}
+
+    /* REACTION */
+    .reaction-box{
+      min-height:100px;width:min(500px,90vw);
+      background:#111;border:2px solid #333;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      text-align:center;padding:16px 20px;
+      font-size:clamp(1rem,3vw,1.4rem);font-weight:700;color:#fff;
+      transition:all 0.2s;
+    }
+    .reaction-box.flash{animation:reactionFlash 0.5s ease;}
+    @keyframes reactionFlash{0%{transform:scale(1.05);border-color:#ff2222;background:#1a0505;}100%{transform:scale(1);border-color:#333;background:#111;}}
+    .reaction-emoji{font-size:2rem;display:block;margin-bottom:4px;}
+
+    /* PROVOCATION */
+    .provoc-section{
+      width:min(500px,90vw);margin:0 auto;
+      background:linear-gradient(135deg,#1a0000,#2a0010);
+      border:2px solid #ff2222;border-radius:16px;
+      padding:14px 18px;text-align:center;
+    }
+    .provoc-text{font-size:clamp(0.9rem,2.5vw,1.1rem);color:#ff9999;font-weight:700;margin-bottom:10px;}
+    .provoc-btn{
+      background:linear-gradient(135deg,#ff2222,#ff6600);
+      border:none;color:white;padding:10px 24px;border-radius:20px;
+      font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
+      cursor:pointer;transition:transform 0.1s;
+    }
+    .provoc-btn:hover{transform:scale(1.05);}
+
+    /* DEFI LINK */
+    .defi-section{
+      width:min(500px,90vw);margin:0 auto;
+      background:#111;border:2px solid #333;border-radius:16px;
+      padding:14px 18px;text-align:center;
+    }
+    .defi-section h3{font-family:'Bangers',cursive;font-size:1.4rem;color:#ffcc00;margin-bottom:8px;}
+    .defi-input-wrap{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+    .defi-link-box{
+      background:#0a0a0a;border:1px solid #333;color:#888;
+      padding:8px 12px;border-radius:10px;font-size:0.8rem;
+      flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+      font-family:monospace;
+    }
+    .copy-btn{
+      background:#333;border:none;color:#fff;padding:8px 14px;
+      border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
+      font-weight:700;font-size:0.9rem;white-space:nowrap;
+      transition:background 0.2s;
+    }
+    .copy-btn:hover{background:#555;}
+    .copy-btn.copied{background:#00aa55;}
+
+    /* ACHIEVEMENTS */
+    .achievements{width:min(500px,95vw);margin:0 auto;padding:16px;}
+    .achievements h2{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:#aa66ff;text-align:center;margin-bottom:12px;}
+    .achievement-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;}
+    .achievement{background:#1a1a1a;border:2px solid #333;border-radius:12px;padding:10px;text-align:center;font-size:0.8rem;color:#555;transition:all 0.3s;}
+    .achievement.unlocked{border-color:#aa66ff;color:#eee;background:#16001f;box-shadow:0 0 10px #aa66ff44;}
+    .achievement-icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+    .achievement-name{font-weight:700;display:block;}
+    .achievement-req{color:#777;font-size:0.7rem;}
+
+    /* LEADERBOARD */
+    .leaderboard{width:min(500px,95vw);margin:0 auto;padding:16px;background:#111;border:2px solid #222;border-radius:16px;}
+    .leaderboard h2{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:#ffcc00;text-align:center;margin-bottom:12px;}
+    .lb-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;margin-bottom:6px;background:#1a1a1a;font-size:0.95rem;}
+    .lb-rank{font-size:1.2rem;font-weight:900;width:28px;text-align:center;}
+    .lb-pseudo{flex:1;color:#eee;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .lb-clicks{font-weight:900;color:#ff6600;white-space:nowrap;}
+    .lb-row.me{background:#2a1500;border:1px solid #ff6600;}
+
+    /* JACKPOT */
+    .jackpot-banner{
+      display:none;position:fixed;inset:0;z-index:500;
+      background:rgba(0,0,0,0.88);
+      align-items:center;justify-content:center;flex-direction:column;text-align:center;
+    }
+    .jackpot-banner.show{display:flex;animation:fadeInOut 3s ease forwards;}
+    @keyframes fadeInOut{0%{opacity:0;}15%{opacity:1;}75%{opacity:1;}100%{opacity:0;pointer-events:none;}}
+    .jackpot-banner h2{
+      font-family:'Bangers',cursive;font-size:clamp(3rem,10vw,7rem);
+      letter-spacing:6px;color:#ffcc00;
+      text-shadow:0 0 40px #ffcc0088,6px 6px 0 #885500;
+      animation:jackpotWiggle 0.3s infinite;
+    }
+    @keyframes jackpotWiggle{0%,100%{transform:rotate(-2deg) scale(1.02);}50%{transform:rotate(2deg) scale(0.98);}}
+    .jackpot-banner p{font-size:1.5rem;color:#fff;margin-top:10px;}
+
+    /* SHARE */
+    .share-section{text-align:center;padding:14px;}
+    .share-btn{
+      background:linear-gradient(135deg,#1877f2,#42a5f5);
+      border:none;color:white;padding:10px 22px;border-radius:20px;
+      font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+      cursor:pointer;margin:5px;transition:transform 0.1s;
+    }
+    .share-btn:hover{transform:scale(1.05);}
+    .share-btn.twitter{background:linear-gradient(135deg,#000,#333);}
+    .share-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);}
+
+    /* CERT */
+    .certificate-section{text-align:center;padding:8px;}
+    .cert-btn{
+      background:linear-gradient(135deg,#ffcc00,#ff6600);
+      border:none;color:#000;padding:10px 22px;border-radius:20px;
+      font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
+      cursor:pointer;transition:transform 0.1s;
+    }
+    .cert-btn:hover{transform:scale(1.05);}
+
+    /* MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;}
+    .modal-overlay.show{display:flex;}
+    .cert-card{
+      background:linear-gradient(135deg,#fff9e6,#fff3cc);color:#000;border-radius:20px;
+      padding:30px;max-width:400px;width:90vw;text-align:center;border:6px solid #ffcc00;position:relative;
+    }
+    .cert-card h2{font-family:'Bangers',cursive;font-size:2rem;color:#cc0000;margin-bottom:10px;}
+    .cert-card p{font-size:1rem;color:#333;margin:8px 0;}
+    .cert-card .cert-name{font-size:1.5rem;font-weight:900;color:#cc0000;}
+    .cert-card .cert-clicks{font-size:2.5rem;font-weight:900;color:#ff6600;}
+    .cert-card .close-modal{position:absolute;top:10px;right:14px;font-size:1.5rem;cursor:pointer;color:#666;background:none;border:none;}
+
+    /* PARTICLES */
+    .particle{position:fixed;pointer-events:none;font-size:2rem;animation:particleFly 1.2s ease-out forwards;z-index:999;}
+    @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0.3) rotate(var(--dr));}}
+    .confetti-piece{position:fixed;pointer-events:none;width:10px;height:10px;border-radius:2px;z-index:998;animation:confettiFall var(--dur) ease-out forwards;}
+    @keyframes confettiFall{0%{opacity:1;transform:translate(0,0) rotate(0deg);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr));}}
+
+    /* TOAST */
+    .toast{
+      position:fixed;left:50%;transform:translateX(-50%);
+      background:#aa66ff;color:white;padding:10px 20px;border-radius:20px;
+      font-weight:700;z-index:9999;font-size:1rem;white-space:nowrap;
+      animation:toastAnim 2.5s ease forwards;
+    }
+    @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(20px);}15%{opacity:1;transform:translateX(-50%) translateY(0);}75%{opacity:1;}100%{opacity:0;}}
+
+    /* PANIC OVERLAY */
+    .panic-overlay{display:none;position:fixed;inset:0;z-index:200;pointer-events:none;border:6px solid red;box-shadow:inset 0 0 80px rgba(255,0,0,0.3);animation:panicBorder 0.3s infinite alternate;}
+    .panic-overlay.show{display:block;}
+    @keyframes panicBorder{from{border-color:red;}to{border-color:#ff00ff;}}
+
+    @keyframes shake{0%,100%{transform:translate(0,0);}10%,30%,50%,70%,90%{transform:translate(-3px,2px);}20%,40%,60%,80%{transform:translate(3px,-2px);}}
+    body.shake{animation:shake 0.4s ease;}
+
+    footer{text-align:center;padding:28px;color:#333;font-size:0.8rem;}
+
+    /* SECTION SPACING */
+    section, .achievements, .leaderboard, .provoc-section, .defi-section, .share-section{
+      margin-bottom:16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-anim"></div>
+  <div class="stars" id="stars"></div>
+  <div class="panic-overlay" id="panicOverlay"></div>
+
+  <!-- JACKPOT -->
+  <div class="jackpot-banner" id="jackpotBanner">
+    <h2>🎰 JACKPOT !!! 🎰</h2>
+    <p id="jackpotMsg">100 CLICS ! T'AS AUCUNE VIE !</p>
+  </div>
+
+  <!-- CHALLENGER BANNER -->
+  <div class="challenger-banner" id="challengerBanner">
+    <span>⚔️</span> <strong id="challengerName">???</strong> te défie ! Ils ont <strong id="challengerScore">0</strong> clics… T'es capable de faire mieux ?
+  </div>
+
+  <header>
+    <h1 id="mainTitle">🔴 LE BOUTON QUI SERT À RIEN 🔴</h1>
+    <p class="subtitle" id="subtitle">Le jeu le plus inutile — et pourtant tu vas pas t'arrêter</p>
+  </header>
+
+  <!-- LIVE STATS -->
+  <div class="live-stats">
+    <div class="stat-box">
+      <span class="stat-val" id="globalCount">…</span>
+      <div class="stat-label"><span class="live-dot"></span>Clics mondiaux</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-val" id="playerCount">…</span>
+      <div class="stat-label">Joueurs</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-val" id="myCount">0</span>
+      <div class="stat-label">Tes clics</div>
+    </div>
+  </div>
+
+  <!-- THERMO -->
+  <div class="thermo-section">
+    <div class="thermo-label">🌡️ NIVEAU DE DÉBILITÉ</div>
+    <div class="thermo-wrap">
+      <div class="thermo-bar-bg"><div class="thermo-bar" id="thermoBar"></div></div>
+      <span class="thermo-emoji" id="thermoEmoji">🧊</span>
+    </div>
+    <div class="thermo-text" id="thermoText">Montre ce que t'as dans le cerveau</div>
+  </div>
+
+  <!-- PSEUDO -->
+  <div class="pseudo-section">
+    <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20" />
+  </div>
+
+  <!-- GAME -->
+  <div class="game-area">
+    <div class="btn-container">
+      <div class="glow-ring"></div>
+      <button id="theButton" onclick="handleClick(event)">APPUIE<br>DESSUS</button>
+    </div>
+
+    <div class="combo-section">
+      <div class="combo-label">BARRE DE COMBO</div>
+      <div class="combo-bar-bg"><div class="combo-bar" id="comboBar"></div></div>
+      <div class="combo-text" id="comboText"></div>
+    </div>
+
+    <div class="reaction-box" id="reactionBox">
+      <span>👆 Appuie sur le bouton, espèce de curieux</span>
+    </div>
+  </div>
+
+  <!-- PROVOCATION -->
+  <div class="provoc-section" id="provocSection" style="display:none;width:min(500px,90vw);margin:0 auto 16px;">
+    <div class="provoc-text" id="provocText">Tu peux faire mieux que ça...</div>
+    <button class="provoc-btn" onclick="shareDefi()">😤 Défier mes amis !</button>
+  </div>
+
+  <!-- DÉFI LINK -->
+  <div class="defi-section" style="width:min(500px,90vw);margin:0 auto 16px;">
+    <h3>⚔️ ENVOIE UN DÉFI</h3>
+    <p style="color:#666;font-size:0.85rem;margin-bottom:10px;">Ton lien personnalisé — envoie-le à tes amis !</p>
+    <div class="defi-input-wrap">
+      <div class="defi-link-box" id="defiLink">Entre ton pseudo d'abord 👆</div>
+      <button class="copy-btn" id="copyBtn" onclick="copyDefiLink()">📋 Copier</button>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="achievements">
+    <h2>🏅 SUCCÈS INUTILES</h2>
+    <div class="achievement-grid" id="achievementGrid"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="leaderboard">
+    <h2>🏆 CLASSEMENT MONDIAL DES IDIOTS</h2>
+    <div id="lbContent"><p style="text-align:center;color:#444">Chargement...</p></div>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-section">
+    <p style="color:#666;margin-bottom:10px;font-size:0.9rem">Partage cette honte avec tes amis 👇</p>
+    <button class="share-btn twitter" onclick="shareTwitter()">🐦 Partager sur X</button>
+    <button class="share-btn whatsapp" onclick="shareWhatsapp()">💬 WhatsApp</button>
+  </div>
+
+  <!-- CERT -->
+  <div class="certificate-section">
+    <button class="cert-btn" onclick="showCertificate()">🎓 Mon certificat de débilité</button>
+  </div>
+
+  <!-- CERT MODAL -->
+  <div class="modal-overlay" id="certModal">
+    <div class="cert-card">
+      <button class="close-modal" onclick="closeCert()">✕</button>
+      <div style="font-size:3rem">🎓</div>
+      <h2>CERTIFICAT OFFICIEL DE DÉBILITÉ</h2>
+      <p>Ceci certifie que</p>
+      <div class="cert-name" id="certName">—</div>
+      <p>a cliqué sur un bouton qui ne sert à rien</p>
+      <div class="cert-clicks" id="certClicks">0</div>
+      <p>fois, prouvant ainsi une capacité inutile hors du commun.</p>
+      <p style="margin-top:16px;font-size:0.8rem;color:#999">Délivré par l'Institut International de l'Inutilité™</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Le Bouton Qui Sert À Rien™ — Aucune responsabilité pour le temps perdu 😈</p>
+    <p style="margin-top:4px;">Fait avec 0 ambition et 100% de bêtise assumée</p>
+  </footer>
+
+<script>
+const API_BASE = 'https://superagent-ceec4ffc.base44.app/functions';
+const PAGE_URL = window.location.href.split('?')[0];
+
+// ═══════════════ RÉACTIONS ═══════════════
+const REACTIONS_STATIC = [
+  {emoji:'🦆',text:'COIN COIN... et alors ?'},
+  {emoji:'💀',text:'Tu viens de perdre 2 secondes de ta vie.'},
+  {emoji:'🤡',text:'Bravo. T\'es fier de toi ?'},
+  {emoji:'🥔',text:'T\'es aussi utile qu\'une patate sans sel.'},
+  {emoji:'🎺',text:'♩ TADAAAAA ♩ ... c\'est tout.'},
+  {emoji:'🐌',text:'Même un escargot aurait trouvé mieux à faire.'},
+  {emoji:'🧻',text:'Ce bouton a plus de buts que toi là.'},
+  {emoji:'🎉',text:'FÉLICITATIONS... pour rien du tout !'},
+  {emoji:'🔔',text:'DING DONG. La maison du vide te dit bonjour.'},
+  {emoji:'😴',text:'Zzzzz... ah pardon, je dormais. T\'as cliqué ?'},
+  {emoji:'🐔',text:'Glou glou. C\'est la dinde en toi qui parle.'},
+  {emoji:'⚡',text:'ÉLECTRISAAANT... nan, pas vraiment.'},
+  {emoji:'🍕',text:'Quelque part, une pizza refroidit à cause de toi.'},
+  {emoji:'🚀',text:'DÉCOLLAGE... vers l\'inutilité totale.'},
+  {emoji:'🦧',text:'Les singes t\'observent et ils sont déçus.'},
+  {emoji:'🧠',text:'Ton cerveau vient d\'envoyer un message d\'erreur.'},
+  {emoji:'🌈',text:'RAINBOW POWER... pour strictement rien.'},
+  {emoji:'🦀',text:'CRABE ATTACK — sauf que non.'},
+  {emoji:'🤯',text:'TON CERVEAU EXPLOSE... parce que t\'es là.'},
+  {emoji:'🪐',text:'Dans une galaxie lointaine, quelqu\'un s\'en fout.'},
+  {emoji:'🎸',text:'Ta chanson : "la la la". Bonne nuit.'},
+  {emoji:'🦊',text:'Le renard dit : What does the fox say? Rien.'},
+  {emoji:'💾',text:'Données sauvegardées : ton inutilité certifiée.'},
+  {emoji:'🐠',text:'Nemo cherche son père. Toi t\'appuies sur un bouton.'},
+  {emoji:'🎪',text:'Bienvenue au cirque. T\'es la vedette.'},
+  {emoji:'🧲',text:'Ce bouton t\'attire comme un aimant. T\'as un problème ?'},
+  {emoji:'🐧',text:'Les manchots t\'envoient leur soutien. Ils rigolent aussi.'},
+  {emoji:'🦩',text:'Le flamant rose est déçu. TRÈS déçu.'},
+  {emoji:'🍌',text:'Glissement de terrain mental en cours.'},
+  {emoji:'🎯',text:'DANS LE MILLE ! Du rien. Bravo.'},
+  {emoji:'🐝',text:'Bzzzz... même les abeilles trouvent ça nul.'},
+  {emoji:'🌮',text:'Quelqu\'un mange un taco. Pas toi. T\'appuies.'},
+  {emoji:'🎻',text:'*Son de violon triste* ...voilà ta vie.'},
+  {emoji:'🦑',text:'La pieuvre te juge avec ses 8 yeux.'},
+  {emoji:'🎃',text:'Même les fantômes ont une raison d\'exister. Pas ce clic.'},
+  {emoji:'🍦',text:'Ta glace fond. T\'as cliqué.'},
+  {emoji:'🤖',text:'ERREUR 404 : UTILITÉ INTROUVABLE.'},
+  {emoji:'🎵',text:'♪ Lalala tu cliques, lalala pour rien ♪'},
+  {emoji:'🌙',text:'La lune te regarde et soupire.'},
+  {emoji:'🦋',text:'Un papillon bat des ailes. Ça sert à plus que toi là.'},
+  {emoji:'🎈',text:'PAN ! ... c\'était juste un ballon. Comme tes espoirs.'},
+  {emoji:'🐢',text:'La tortue est plus rapide que ta réflexion.'},
+  {emoji:'☕',text:'Ton café refroidit pendant que tu cliques.'},
+  {emoji:'🎭',text:'Drame. Comédie. Tragédie. Ton clic.'},
+  {emoji:'🦜',text:'Perroquet : "T\'es bête, T\'es bête !" — Perroquet.'},
+  {emoji:'🍄',text:'Tu pousses comme un champignon. Dans le noir. Pour rien.'},
+  {emoji:'🎀',text:'Joli ruban. Ça entoure ton vide existentiel.'},
+  {emoji:'🦴',text:'Ouaf ! ... t\'as même pas de chien.'},
+  {emoji:'🌊',text:'Une vague de néant t\'emporte. Bon voyage.'},
+  {emoji:'🦁',text:'Le lion rugit. Pas à cause de toi. C\'est juste sa vie.'},
+  {emoji:'🎩',text:'*POOF* ... rien. Le magicien est déçu.'},
+  {emoji:'🍩',text:'Un donut quelque part porte ton prénom. Dommage.'},
+  {emoji:'🎮',text:'Il y a des vrais jeux dehors tu sais.'},
+  {emoji:'🌺',text:'Une fleur s\'épanouit. Toi non. Tu cliques.'},
+  {emoji:'🏖️',text:'Quelqu\'un est à la plage. Pas toi. Tu cliques.'},
+  {emoji:'🧩',text:'Il manque une pièce. C\'est toi. La pièce inutile.'},
+  {emoji:'🎲',text:'T\'aurais pu jouer aux échecs. T\'as cliqué là.'},
+  {emoji:'🪄',text:'*Abracadabra* — Toujours aussi inutile.'},
+  {emoji:'🦄',text:'Même les licornes ont abandonné tes espoirs.'},
+  {emoji:'🌭',text:'Un hotdog quelque part te pleure. Mange-le.'},
+];
+
+function getReactionWithPseudo(pseudo) {
+  const p = [
+    {emoji:'😤',text:`${pseudo}, t'as vraiment rien de mieux à faire ?`},
+    {emoji:'🤦',text:`${pseudo} vient de prouver qu'on peut survivre sans cerveau.`},
+    {emoji:'👑',text:`${pseudo}, Roi/Reine officiel(le) du temps gaspillé.`},
+    {emoji:'📜',text:`Avis de recherche : le cerveau de ${pseudo}. Disparu lors d'un clic.`},
+    {emoji:'🏅',text:`${pseudo} mérite une médaille. En carton. Pour les nuls.`},
+    {emoji:'🔬',text:`Les scientifiques étudient ${pseudo}. Cas unique de bêtise assumée.`},
+    {emoji:'📺',text:`${pseudo} : le documentaire. Sous-titre : "Le vide absolu".`},
+    {emoji:'🗿',text:`${pseudo} : impassible, inutile, légendaire.`},
+  ];
+  return p[Math.floor(Math.random()*p.length)];
+}
+
+// ═══════════════ PROVOCATIONS ═══════════════
+const PROVOCS = [
+  "T'as même pas {next} clics... t'appelles ça jouer ?",
+  "Franchement {pseudo}, {next} clics c'est tout ce que t'as ?",
+  "Même ta grand-mère ferait mieux. Allez, {next} !",
+  "{next} clics et tes amis vont se moquer de toi.",
+  "Tu vas vraiment t'arrêter là ? À {current} misérables clics ?",
+  "Y'a des gens à {next} clics pendant que toi tu roupilles.",
+  "Le bouton te juge. {next} clics minimum pour son respect.",
+];
+
+// ═══════════════ ACHIEVEMENTS ═══════════════
+const ACHIEVEMENTS = [
+  {id:'first',  icon:'👆',name:'Premier Clic',  req:1,   label:'1 clic'},
+  {id:'ten',    icon:'🔟',name:'Dizaine',        req:10,  label:'10 clics'},
+  {id:'fifty',  icon:'🔥',name:'En Feu',         req:50,  label:'50 clics'},
+  {id:'hundred',icon:'💯',name:'Centenaire',     req:100, label:'100 clics'},
+  {id:'twofit', icon:'🤡',name:'Vrai Clown',     req:250, label:'250 clics'},
+  {id:'fivehun',icon:'💀',name:'Aucune Vie',     req:500, label:'500 clics'},
+  {id:'thousand',icon:'👑',name:'ROI DU VIDE',  req:1000,label:'1000 clics'},
+  {id:'legend', icon:'🐐',name:'LÉGENDE',        req:5000,label:'5000 clics'},
+];
+
+// ═══════════════ JACKPOT MESSAGES ═══════════════
+const JACKPOT_MSGS = [
+  "100 CLICS ! T'AS AUCUNE VIE !","200 CLICS ! APPELLE UN MÉDECIN !",
+  "300 CLICS ! C'EST CLINIQUE !","400 CLICS ! TA MÈRE EST FIÈRE ?",
+  "500 CLICS ! LÉGENDE DE L'INUTILE !","600 CLICS ! APPELLE LE 15 !",
+  "700 CLICS ! LES ALIENS T'OBSERVENT !","800 CLICS ! T'ES EN TRANSE !!",
+  "900 CLICS ! Y'A PLUS RIEN À FAIRE !","1000 CLICS ! TU ES LE BOUTON MAINTENANT !",
+];
+
+// ═══════════════ STATE ═══════════════
+let myClicks = parseInt(localStorage.getItem('myClicks')||'0');
+let combo = 0, comboTimer = null, lastReaction = '';
+let isPanicMode = false, isRunningAway = false;
+let jackpotNext = Math.ceil((myClicks+1)/100)*100;
+let lastLeaderboard = [];
+let audioCtx = null;
+
+// ═══════════════ AUDIO ═══════════════
+function getAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playTone(freq,type='sine',dur=0.15,vol=0.3){
+  try{const c=getAudio(),o=c.createOscillator(),g=c.createGain();
+  o.connect(g);g.connect(c.destination);o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(vol,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+dur);
+  o.start();o.stop(c.currentTime+dur);}catch(e){}
+}
+function playDuck(){[300,400,350,250].forEach((f,i)=>setTimeout(()=>playTone(f,'square',0.08,0.15),i*70));}
+function playJackpot(){[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,'square',0.3,0.25),i*80));}
+function playClick(){const s=[()=>playTone(440,'square',0.1,0.2),()=>playDuck(),()=>playTone(880,'sawtooth',0.08,0.15),()=>playTone(220,'triangle',0.12,0.2)];s[Math.floor(Math.random()*s.length)]();}
+
+// ═══════════════ INIT ═══════════════
+function init(){
+  generateStars();
+  renderAchievements();
+  updateMyCount();
+  updateThermo();
+  loadLeaderboard();
+
+  const saved=localStorage.getItem('pseudo');
+  if(saved) document.getElementById('pseudoInput').value=saved;
+  document.getElementById('pseudoInput').addEventListener('input',function(){
+    localStorage.setItem('pseudo',this.value);
+    updateDefiLink();
+  });
+  updateDefiLink();
+
+  // Check challenger URL param
+  const params = new URLSearchParams(window.location.search);
+  const challenger = params.get('challenger');
+  const challengerScore = params.get('score');
+  if(challenger){
+    document.getElementById('challengerName').textContent = decodeURIComponent(challenger);
+    document.getElementById('challengerScore').textContent = parseInt(challengerScore||0).toLocaleString('fr');
+    document.getElementById('challengerBanner').classList.add('show');
+  }
+
+  // Show provoc after a few clicks
+  if(myClicks >= 5) showProvoc();
+}
+
+function generateStars(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*3+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s;`;
+    c.appendChild(s);
+  }
+}
+
+// ═══════════════ CLICK ═══════════════
+function handleClick(event){
+  myClicks++;
+  localStorage.setItem('myClicks',myClicks);
+  playClick();
+
+  const btn=document.getElementById('theButton');
+  btn.classList.add('pressed');
+  setTimeout(()=>btn.classList.remove('pressed'),150);
+
+  updateMyCount();
+  showReaction();
+  updateCombo();
+  updateThermo();
+  spawnParticles(event);
+  checkAchievements();
+
+  if(myClicks===jackpotNext){triggerJackpot();jackpotNext+=100;}
+  if(myClicks%5===0){document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),400);}
+  if(combo>=20&&!isPanicMode) triggerPanicMode();
+  if(myClicks>30&&!isRunningAway&&Math.random()<0.08) makeButtonRunAway();
+  if(myClicks>=5) showProvoc();
+
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  trackClick(pseudo,lastReaction);
+}
+
+function updateMyCount(){
+  const el=document.getElementById('myCount');
+  el.textContent=myClicks.toLocaleString('fr');
+  el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+}
+
+// ═══════════════ REACTION ═══════════════
+function showReaction(){
+  const pseudo=(document.getElementById('pseudoInput').value.trim()||'').slice(0,15);
+  let r;
+  if(pseudo&&Math.random()<0.20) r=getReactionWithPseudo(pseudo);
+  else{do{r=REACTIONS_STATIC[Math.floor(Math.random()*REACTIONS_STATIC.length)];}while(r.text===lastReaction&&REACTIONS_STATIC.length>1);}
+  lastReaction=r.text;
+  const box=document.getElementById('reactionBox');
+  box.innerHTML=`<div><span class="reaction-emoji">${r.emoji}</span>${r.text}</div>`;
+  box.classList.remove('flash');void box.offsetWidth;box.classList.add('flash');
+}
+
+// ═══════════════ PROVOCATION ═══════════════
+function showProvoc(){
+  const sec=document.getElementById('provocSection');
+  sec.style.display='block';
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'toi';
+  const milestones=[10,25,50,100,250,500,1000,2000,5000];
+  const next=milestones.find(m=>m>myClicks)||myClicks*2;
+  const tpl=PROVOCS[Math.floor(Math.random()*PROVOCS.length)];
+  document.getElementById('provocText').textContent=tpl
+    .replace('{pseudo}',pseudo)
+    .replace('{next}',next.toLocaleString('fr'))
+    .replace('{current}',myClicks.toLocaleString('fr'));
+}
+
+// ═══════════════ DÉFI LINK ═══════════════
+function updateDefiLink(){
+  const pseudo=document.getElementById('pseudoInput').value.trim();
+  const box=document.getElementById('defiLink');
+  if(!pseudo){box.textContent='Entre ton pseudo d\'abord 👆';return;}
+  const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
+  box.textContent=url;
+  box.setAttribute('data-url',url);
+}
+
+function copyDefiLink(){
+  const pseudo=document.getElementById('pseudoInput').value.trim();
+  if(!pseudo){showToast('⚠️ Entre ton pseudo d\'abord !');return;}
+  // Update score before copying
+  const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='✅ Copié !';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copier';btn.classList.remove('copied');},2000);
+    showToast('🔗 Lien copié ! Envoie-le à tes victimes 😈');
+  }).catch(()=>{
+    // Fallback
+    const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    showToast('🔗 Lien copié !');
+  });
+}
+
+function shareDefi(){
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';
+  const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
+  const txt=encodeURIComponent(`😤 ${pseudo} te défie sur LE BOUTON QUI SERT À RIEN ! J'ai ${myClicks} clics... Tu fais mieux ? 🔴 ${url}`);
+  window.open('https://wa.me/?text='+txt,'_blank');
+}
+
+// ═══════════════ THERMO ═══════════════
+const THERMO=[
+  {min:0,max:10,pct:5,emoji:'🧊',text:'Cerveau froid. Encore.'},
+  {min:10,max:30,pct:15,emoji:'😐',text:'Légèrement débile. On progresse.'},
+  {min:30,max:60,pct:30,emoji:'🌡️',text:'Température de débilité : tiède.'},
+  {min:60,max:100,pct:45,emoji:'🔥',text:'Ça chauffe sérieusement.'},
+  {min:100,max:200,pct:60,emoji:'😵',text:'DANGER : cerveau surchauffé.'},
+  {min:200,max:500,pct:75,emoji:'💀',text:'ALERTE ROUGE : t\'as perdu la raison.'},
+  {min:500,max:1000,pct:90,emoji:'🌋',text:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!'},
+  {min:1000,max:Infinity,pct:100,emoji:'☢️',text:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.'},
+];
+function updateThermo(){
+  const l=THERMO.find(l=>myClicks>=l.min&&myClicks<l.max)||THERMO[THERMO.length-1];
+  document.getElementById('thermoBar').style.width=l.pct+'%';
+  document.getElementById('thermoEmoji').textContent=l.emoji;
+  document.getElementById('thermoText').textContent=l.text;
+}
+
+// ═══════════════ COMBO ═══════════════
+function updateCombo(){
+  combo++;clearTimeout(comboTimer);
+  comboTimer=setTimeout(()=>{combo=0;updateComboUI();if(isPanicMode)stopPanicMode();},1500);
+  updateComboUI();
+}
+function updateComboUI(){
+  const bar=document.getElementById('comboBar'),text=document.getElementById('comboText');
+  bar.style.width=Math.min(combo*5,100)+'%';
+  if(!combo){text.textContent='';return;}
+  if(combo<5)text.textContent=`x${combo} — Vas-y mollo`;
+  else if(combo<10)text.textContent=`x${combo} — 🔥 Ça chauffe !`;
+  else if(combo<20)text.textContent=`x${combo} — ⚡ COMBO ÉLECTRIQUE !`;
+  else if(combo<30)text.textContent=`x${combo} — 🤯 T'ES EN TRANSE !!`;
+  else text.textContent=`x${combo} — 😱 DIEU DU BOUTON !!!`;
+}
+
+// ═══════════════ JACKPOT ═══════════════
+function triggerJackpot(){
+  playJackpot();
+  const idx=Math.min(Math.floor(myClicks/100)-1,JACKPOT_MSGS.length-1);
+  document.getElementById('jackpotMsg').textContent=JACKPOT_MSGS[idx]||`${myClicks} CLICS ! T'ES MALADE !`;
+  const b=document.getElementById('jackpotBanner');
+  b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
+  setTimeout(()=>b.classList.remove('show'),3000);
+  spawnMassConfetti();
+}
+
+// ═══════════════ PANIC ═══════════════
+function triggerPanicMode(){
+  isPanicMode=true;document.body.classList.add('panic');
+  document.getElementById('panicOverlay').classList.add('show');
+  document.getElementById('mainTitle').textContent='😱 PANIQUE TOTALE 😱';
+  document.getElementById('subtitle').textContent='TON CERVEAU EST EN TRAIN DE FONDRE !!!';
+  showToast('😱 MODE PANIQUE ! ARRÊTE-TOI !!');
+  playTone(200,'sawtooth',0.5,0.4);
+}
+function stopPanicMode(){
+  isPanicMode=false;document.body.classList.remove('panic');
+  document.getElementById('panicOverlay').classList.remove('show');
+  document.getElementById('mainTitle').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
+  document.getElementById('subtitle').textContent='Le jeu le plus inutile — et pourtant tu vas pas t\'arrêter';
+}
+
+// ═══════════════ BUTTON RUNS AWAY ═══════════════
+function makeButtonRunAway(){
+  isRunningAway=true;
+  const btn=document.getElementById('theButton');
+  showToast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !');
+  let count=0;const times=3+Math.floor(Math.random()*4);
+  const iv=setInterval(()=>{
+    if(count>=times){btn.style.transform='';isRunningAway=false;clearInterval(iv);return;}
+    const dx=(Math.random()*120-60)+'px',dy=(Math.random()*70-35)+'px';
+    btn.style.transform=`translate(${dx},${dy}) rotate(${Math.random()*20-10}deg)`;
+    count++;
+  },280);
+  setTimeout(()=>{if(isRunningAway){btn.style.transform='';isRunningAway=false;clearInterval(iv);}},times*280+500);
+}
+
+// ═══════════════ PARTICLES ═══════════════
+function spawnParticles(e){
+  const emojis=['💥','⭐','✨','🎉','💫','🔥','💣','🎊','🌟','🤩'];
+  const count=Math.min(3+Math.floor(combo/4),12);
+  const x=(e&&e.clientX)?e.clientX:window.innerWidth/2;
+  const y=(e&&e.clientY)?e.clientY:window.innerHeight/2;
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');p.className='particle';
+    p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.left=x+'px';p.style.top=y+'px';
+    p.style.setProperty('--dx',(Math.random()*240-120)+'px');
+    p.style.setProperty('--dy',(Math.random()*-240-50)+'px');
+    p.style.setProperty('--dr',(Math.random()*720-360)+'deg');
+    p.style.animationDelay=(i*0.04)+'s';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1600);
+  }
+}
+function spawnMassConfetti(){
+  const colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#ffffff'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div');c.className='confetti-piece';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.left=(Math.random()*100)+'vw';c.style.top='-20px';
+    c.style.setProperty('--dx',(Math.random()*200-100)+'px');
+    c.style.setProperty('--dy',(80+Math.random()*60)+'vh');
+    c.style.setProperty('--dr',(Math.random()*720-360)+'deg');
+    c.style.setProperty('--dur',(1.5+Math.random())+'s');
+    c.style.animationDelay=(Math.random()*0.5)+'s';
+    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    document.body.appendChild(c);setTimeout(()=>c.remove(),2500);
+  }
+}
+
+// ═══════════════ ACHIEVEMENTS ═══════════════
+function renderAchievements(){
+  const grid=document.getElementById('achievementGrid');grid.innerHTML='';
+  ACHIEVEMENTS.forEach(a=>{
+    const unlocked=myClicks>=a.req;
+    const div=document.createElement('div');
+    div.className='achievement'+(unlocked?' unlocked':'');div.id='ach_'+a.id;
+    div.innerHTML=`<span class="achievement-icon">${unlocked?a.icon:'🔒'}</span><span class="achievement-name">${a.name}</span><span class="achievement-req">${a.label}</span>`;
+    grid.appendChild(div);
+  });
+}
+function checkAchievements(){
+  ACHIEVEMENTS.forEach(a=>{
+    const el=document.getElementById('ach_'+a.id);
+    if(!el||el.classList.contains('unlocked'))return;
+    if(myClicks>=a.req){
+      el.classList.add('unlocked');el.querySelector('.achievement-icon').textContent=a.icon;
+      showToast(`🏅 SUCCÈS : ${a.name} !`);
+    }
+  });
+}
+
+// ═══════════════ TOAST ═══════════════
+function showToast(msg){
+  const existing=document.querySelectorAll('.toast').length;
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  t.style.bottom=(20+existing*56)+'px';
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+}
+
+// ═══════════════ API ═══════════════
+async function trackClick(pseudo,reaction){
+  try{
+    await fetch(API_BASE+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo,reaction})});
+    if(myClicks%5===0){loadLeaderboard();updateDefiLink();}
+  }catch{}
+}
+
+async function loadLeaderboard(){
+  try{
+    const res=await fetch(API_BASE+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const data=await res.json();
+    // Check if someone passed us
+    const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+    const myPrevRank=lastLeaderboard.findIndex(r=>r.pseudo===pseudo);
+    const myNewRank=(data.leaderboard||[]).findIndex(r=>r.pseudo===pseudo);
+    if(myPrevRank>=0&&myNewRank>myPrevRank) showToast(`😱 ${(data.leaderboard||[])[myNewRank-1]?.pseudo||'Quelqu\'un'} t'a dépassé au classement !`);
+    lastLeaderboard=data.leaderboard||[];
+    renderLeaderboard(data.leaderboard||[],data.globalClicks||0,data.playerCount||0);
+  }catch{
+    document.getElementById('lbContent').innerHTML='<p style="color:#444;text-align:center">Classement indisponible</p>';
+  }
+}
+
+function renderLeaderboard(rows,globalClicks,playerCount){
+  const gc=document.getElementById('globalCount');
+  if(gc){gc.textContent=globalClicks.toLocaleString('fr');gc.classList.remove('pop');void gc.offsetWidth;gc.classList.add('pop');}
+  const pc=document.getElementById('playerCount');
+  if(pc) pc.textContent=(rows.length||1).toLocaleString('fr');
+  const medals=['🥇','🥈','🥉'];
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  const lb=document.getElementById('lbContent');
+  if(!rows.length){lb.innerHTML='<p style="color:#444;text-align:center">Sois le premier ! 👆</p>';return;}
+  lb.innerHTML=rows.map((r,i)=>`
+    <div class="lb-row ${r.pseudo===pseudo?'me':''}">
+      <span class="lb-rank">${medals[i]||(i+1)}</span>
+      <span class="lb-pseudo">${esc(r.pseudo||'Anonyme')} ${r.pseudo===pseudo?'← toi':''}</span>
+      <span class="lb-clicks">${(r.total_clicks||0).toLocaleString('fr')} clics</span>
+    </div>`).join('');
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ═══════════════ CERT ═══════════════
+function showCertificate(){
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  document.getElementById('certName').textContent=pseudo;
+  document.getElementById('certClicks').textContent=myClicks.toLocaleString('fr');
+  document.getElementById('certModal').classList.add('show');
+}
+function closeCert(){document.getElementById('certModal').classList.remove('show');}
+document.getElementById('certModal').addEventListener('click',function(e){if(e.target===this)closeCert();});
+
+// ═══════════════ SHARE ═══════════════
+function shareTwitter(){
+  const txt=encodeURIComponent(`J'ai cliqué ${myClicks} fois sur un bouton inutile et je regrette rien 🔴 Rejoins ma misère : ${PAGE_URL} #LeBoutonQuiSertARien`);
+  window.open('https://twitter.com/intent/tweet?text='+txt,'_blank');
+}
+function shareWhatsapp(){
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';
+  const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
+  const txt=encodeURIComponent(`😂 J'ai ${myClicks} clics sur un bouton inutile ! Tu fais mieux ? 🔴 ${url}`);
+  window.open('https://wa.me/?text='+txt,'_blank');
+}
+
+// ═══════════════ KEYBOARD ═══════════════
+document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='Enter'){e.preventDefault();handleClick(null);}});
+
+// ═══════════════ START ═══════════════
+init();
+setInterval(loadLeaderboard,10000); // refresh toutes les 10s
+</script>
+</body>
+</html>
