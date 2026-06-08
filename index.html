@@ -411,6 +411,25 @@
     .landing-hint{font-size:.7rem;color:#aaa;margin-top:10px;}
     .landing-features{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
     .lfeat{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:20px;padding:5px 12px;font-size:.72rem;color:#999;}
+
+    /* DEFI */
+    .lb-score-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+    .defi-btn{background:none;border:1px solid #ff6600;color:#ff6600;font-size:.6rem;font-family:'Nunito',sans-serif;font-weight:900;padding:2px 7px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .defi-btn:hover{background:#ff6600;color:#000;}
+    #defiModal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.85);align-items:center;justify-content:center;}
+    #defiModal.on{display:flex;}
+    .defi-box{background:#0e0e0e;border:2px solid #ff6600;border-radius:18px;padding:22px 24px;max-width:340px;width:90%;text-align:center;position:relative;}
+    .defi-box h2{font-family:'Bangers',cursive;font-size:2rem;color:#ff6600;letter-spacing:3px;margin-bottom:6px;}
+    .defi-box .defi-vs{font-size:.85rem;color:#aaa;margin-bottom:14px;}
+    .defi-progress{background:#1a1a1a;border-radius:8px;height:22px;margin:6px 0;overflow:hidden;border:1px solid #2a2a2a;}
+    .defi-bar-me{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600);transition:width .4s;}
+    .defi-bar-them{height:100%;background:linear-gradient(90deg,#0088ff,#00ccff);transition:width .4s;}
+    .defi-labels{display:flex;justify-content:space-between;font-size:.68rem;margin-bottom:4px;}
+    .defi-label-me{color:#ff4444;font-weight:900;}
+    .defi-label-them{color:#00ccff;font-weight:900;}
+    .defi-status{font-size:.95rem;font-weight:900;color:#ffcc00;min-height:28px;margin:8px 0;}
+    .defi-close{position:absolute;top:10px;right:12px;background:none;border:1px solid #333;color:#888;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.8rem;}
+    .defi-close:hover{background:#ff2222;color:#fff;border-color:#ff2222;}
   </style>
 </head>
 <body class="s-classic">
@@ -981,6 +1000,70 @@ function scheduleRender(){
 }
 
 
+
+/* ══════ SYSTÈME DÉFI VS JOUEUR ══════ */
+var _defiTarget=null,_defiTargetScore=0,_defiStartScore=0,_defiInterval=null;
+
+function startDefi(targetPseudo,targetScore){
+  var myPseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  _defiTarget=targetPseudo;
+  _defiTargetScore=targetScore;
+  _defiStartScore=clicks;
+  // Remplir le modal
+  document.getElementById('defiVsText').textContent=myPseudo+' vs '+targetPseudo;
+  document.getElementById('defiLabelThem').textContent=targetPseudo+' — '+targetScore.toLocaleString('fr');
+  updateDefi();
+  document.getElementById('defiModal').classList.add('on');
+  // Toast provocateur
+  var taunts=[
+    targetPseudo+' a '+targetScore.toLocaleString('fr')+' clics... t\'oses ?',
+    'Tu vas vraiment laisser '+targetPseudo+' te dominer ?',
+    targetPseudo+' pense que tu peux pas le battre. Prouve-lui le contraire.',
+    'Objectif : dépasser '+targetPseudo+'. Clique ou tais-toi.',
+    targetPseudo+' rigole de toi. MAINTENANT.',
+  ];
+  toast('⚔️ '+taunts[Math.floor(Math.random()*taunts.length)],'#ff6600');
+  // Rafraîchir toutes les 2s
+  clearInterval(_defiInterval);
+  _defiInterval=setInterval(function(){if(_defiTarget)updateDefi();},2000);
+}
+
+function updateDefi(){
+  if(!_defiTarget)return;
+  var myScore=clicks;
+  var theirScore=_defiTargetScore;
+  var total=Math.max(myScore,theirScore,1);
+  var myPct=Math.round((myScore/total)*100);
+  var theirPct=Math.round((theirScore/total)*100);
+  document.getElementById('defiBarMe').style.width=myPct+'%';
+  document.getElementById('defiBarThem').style.width=theirPct+'%';
+  var myPseudo=document.getElementById('pseudoInput').value.trim()||'Toi';
+  document.getElementById('defiLabelMe').textContent=myPseudo+' — '+myScore.toLocaleString('fr');
+  document.getElementById('defiLabelThem').textContent=_defiTarget+' — '+theirScore.toLocaleString('fr');
+  var diff=theirScore-myScore;
+  var status;
+  if(myScore>theirScore){
+    status='🏆 T\'as gagné ! '+_defiTarget+' est KO.';
+    document.getElementById('defiStatus').style.color='#00ff88';
+    clearInterval(_defiInterval);
+    // Confettis de victoire
+    toast('🏆 VICTOIRE ! T\'as dépassé '+_defiTarget+' !','#00ff88');
+    setTimeout(closeDefi,3000);
+  }else if(diff===0){
+    status='⚡ Égalité ! Encore un clic !';
+    document.getElementById('defiStatus').style.color='#ffcc00';
+  }else{
+    status='📍 Il te manque '+diff.toLocaleString('fr')+' clics pour écraser '+_defiTarget;
+    document.getElementById('defiStatus').style.color='#ff6600';
+  }
+  document.getElementById('defiStatus').textContent=status;
+}
+
+function closeDefi(){
+  document.getElementById('defiModal').classList.remove('on');
+  clearInterval(_defiInterval);
+  _defiTarget=null;
+}
 /* ══════ PSEUDO CONFIRM + TROLL ══════ */
 var TROLL_MSGS=[
   "Bienvenue {p}... t\'avais vraiment rien de mieux à faire ?",
@@ -1316,7 +1399,7 @@ function handleClick(ev){
   renderThermo();
   spawnParticles(ev,bonus>1?bonus*4:null);
   scheduleRender();
-  checkAch();
+  checkAch();if(_defiTarget)updateDefi();
   checkNewSkins();
   if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=500;}
   if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
@@ -1554,9 +1637,10 @@ function renderLB(rows,globalClicks){
   for(var i=0;i<rows.length;i++){
     var r=rows[i],isMe=r.pseudo===pseudo;
     var tt=getTitle(r.total_clicks||0).t;
+    var defiBtnHtml=!isMe?'<button class="defi-btn" onclick="startDefi(\''+esc(r.pseudo||'Anonyme')+'\','+((r.total_clicks||0))+')">⚔️ Défier</button>':'';
     html+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rank">'+(medals[i]||(i+1))+'</span>';
     html+='<span class="lb-pseudo">'+esc(r.pseudo||'Anonyme')+'<span class="lb-title">'+tt+'</span>'+(isMe?'<span class="lb-you">← toi</span>':'')+'</span>';
-    html+='<span class="lb-score">'+(r.total_clicks||0).toLocaleString('fr')+'</span></div>';
+    html+='<span class="lb-score-wrap"><span class="lb-score">'+(r.total_clicks||0).toLocaleString('fr')+'</span>'+defiBtnHtml+'</span></div>';
   }
   lb.innerHTML=html;
 }
@@ -1794,5 +1878,27 @@ updateLandingStats();
 
 init();
 </script>
+
+  <!-- MODAL DEFI -->
+  <div id="defiModal">
+    <div class="defi-box">
+      <button class="defi-close" onclick="closeDefi()">✕</button>
+      <h2>⚔️ DÉFI</h2>
+      <div class="defi-vs" id="defiVsText">Toi vs ???</div>
+      <div class="defi-labels">
+        <span class="defi-label-me" id="defiLabelMe">TOI — 0</span>
+        <span class="defi-label-them" id="defiLabelThem">??? — 0</span>
+      </div>
+      <div class="defi-progress">
+        <div class="defi-bar-me" id="defiBarMe" style="width:50%"></div>
+      </div>
+      <div class="defi-progress" style="margin-top:4px;">
+        <div class="defi-bar-them" id="defiBarThem" style="width:50%"></div>
+      </div>
+      <div class="defi-status" id="defiStatus">Clique pour dépasser !</div>
+      <div style="font-size:.65rem;color:#888;margin-top:8px;">Le défi se termine quand tu dépasses ton adversaire 🏁</div>
+    </div>
+  </div>
+
 </body>
 </html>
