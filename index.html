@@ -147,41 +147,16 @@
     #btn.pressed{transform:translateY(7px) scale(.94)!important;filter:brightness(.8);}
 
     /* SKINS */
-    body.s-classic #btn{background:radial-gradient(circle at 35% 35%,#ff5555,#cc0000 60%,#880000);box-shadow:0 8px 0 #550000,0 12px 26px #ff000044,inset 0 -4px 12px rgba(0,0,0,.4);}
-    body.s-classic .glow{background:radial-gradient(circle,#ff000044,transparent 70%);}
-    body.s-gold #btn{background:radial-gradient(circle at 35% 35%,#ffe066,#ffaa00 60%,#cc7700);box-shadow:0 8px 0 #885500,0 12px 26px #ffaa0066;animation:goldShine 1.4s infinite alternate;}
     @keyframes goldShine{from{filter:brightness(1);}to{filter:brightness(1.45) saturate(1.3);}}
-    body.s-gold .glow{background:radial-gradient(circle,#ffaa0044,transparent 70%);}
-    body.s-ice #btn{background:radial-gradient(circle at 35% 35%,#cceeFF,#4499cc 60%,#226699);box-shadow:0 8px 0 #114466,0 12px 26px #44aaff55,inset 0 5px 16px rgba(200,240,255,.4);}
-    body.s-ice .glow{background:radial-gradient(circle,#44aaff33,transparent 70%);}
-    body.s-space #btn{background:radial-gradient(circle at 35% 35%,#9966ff,#4411cc 60%,#110055);box-shadow:0 8px 0 #110033,0 12px 26px #6644ff55;}
-    body.s-space .glow{background:radial-gradient(circle,#6644ff33,transparent 70%);}
-    body.s-nuclear #btn{background:radial-gradient(circle at 35% 35%,#aaff44,#66cc00 60%,#336600);box-shadow:0 8px 0 #224400,0 12px 26px #66ff0066;}
-    body.s-nuclear .glow{background:radial-gradient(circle,#66ff0044,transparent 70%);animation:nuclearGlow .65s ease-in-out infinite;}
     @keyframes nuclearGlow{0%,100%{transform:scale(1);opacity:.4;}50%{transform:scale(1.65);opacity:1;}}
-    body.s-fire #btn{background:radial-gradient(circle at 35% 35%,#ffff44,#ff6600 48%,#cc0000 78%);box-shadow:0 8px 0 #660000,0 12px 26px #ff660066;animation:fireDance .22s infinite alternate;}
     @keyframes fireDance{from{filter:brightness(1);}to{filter:brightness(1.35) saturate(1.4);}}
-    body.s-fire .glow{background:radial-gradient(circle,#ff660044,transparent 70%);animation:glowPulse .45s ease-in-out infinite;}
-    body.s-lava #btn{background:radial-gradient(circle at 35% 35%,#ff8800,#cc3300 60%,#880000);box-shadow:0 8px 0 #440000,0 12px 26px #ff440066;animation:lavaBub 1.1s ease-in-out infinite alternate;}
     @keyframes lavaBub{from{border-radius:50%;}to{border-radius:45% 55% 53% 47%/47% 45% 55% 53%;}}
-    body.s-lava .glow{background:radial-gradient(circle,#ff440044,transparent 70%);}
-    body.s-toxic #btn{background:radial-gradient(circle at 35% 35%,#ccff00,#88cc00 60%,#446600);box-shadow:0 8px 0 #223300,0 12px 26px #aaff0066;animation:toxicDrip 1.4s ease-in-out infinite alternate;}
     @keyframes toxicDrip{from{box-shadow:0 8px 0 #223300,0 12px 26px #aaff0033;}to{box-shadow:0 8px 0 #223300,0 20px 46px #aaff0099;}}
-    body.s-toxic .glow{background:radial-gradient(circle,#aaff0033,transparent 70%);}
-    body.s-mystery #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#ff00ff,#ff0000);animation:mystBtn .5s linear infinite;box-shadow:0 8px 0 #000,0 12px 26px rgba(255,255,255,.2);}
     @keyframes mystBtn{0%{filter:hue-rotate(0deg) brightness(1.15);}100%{filter:hue-rotate(360deg) brightness(1.5);}}
-    body.s-mystery .glow{animation:mystGlow .4s linear infinite;}
     @keyframes mystGlow{0%{background:radial-gradient(circle,#ff000044,transparent 70%);}33%{background:radial-gradient(circle,#00ff0044,transparent 70%);}66%{background:radial-gradient(circle,#0000ff44,transparent 70%);}100%{background:radial-gradient(circle,#ff00ff44,transparent 70%);}}
-    body.s-disco #btn{background:radial-gradient(circle,#ff00ff,#aa00aa 60%,#660066);box-shadow:0 8px 0 #440044,0 12px 26px #ff00ff66;animation:discoFlash .38s infinite;}
     @keyframes discoFlash{0%{filter:hue-rotate(0deg) brightness(1);}50%{filter:hue-rotate(90deg) brightness(1.5);}100%{filter:hue-rotate(180deg) brightness(1);}}
-    body.s-disco .glow{animation:discoGlow .38s infinite;}
     @keyframes discoGlow{0%{background:radial-gradient(circle,#ff00ff33,transparent 70%);}50%{background:radial-gradient(circle,#00ffff33,transparent 70%);}100%{background:radial-gradient(circle,#ffff0033,transparent 70%);}}
-    body.s-rainbow #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff,#ff0000);animation:rainbowSpin 1.9s linear infinite;box-shadow:0 8px 0 #222,0 12px 26px rgba(255,255,255,.15);}
     @keyframes rainbowSpin{from{filter:hue-rotate(0deg);}to{filter:hue-rotate(360deg);}}
-    body.s-rainbow .glow{animation:rainbowSpin 1.9s linear infinite,glowPulse 1.6s ease-in-out infinite;}
-    body.s-diamond #btn{background:radial-gradient(circle at 30% 28%,#eeffff,#88ccff 38%,#4488bb 68%,#224466);box-shadow:0 8px 0 #112233,0 12px 26px #88ccff66,inset 0 5px 26px rgba(255,255,255,.6);}
-    body.s-diamond .glow{background:radial-gradient(circle,#88ccff33,transparent 70%);}
-
     /* COMBO */
     .combo-wrap{text-align:center;width:min(295px,80vw);}
     .combo-label{font-size:.65rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
@@ -408,7 +383,53 @@
     .landing-hint{font-size:.7rem;color:#aaa;margin-top:10px;}
     .landing-features{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
     .lfeat{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:20px;padding:5px 12px;font-size:.72rem;color:#999;}
-  </style>
+  
+/* ══ SKINS BOUTON ══ */
+body.s-classic  #btn{background:radial-gradient(circle at 35% 35%,#ff5555,#cc0000 60%,#880000);box-shadow:0 8px 0 #550000,0 14px 30px #ff000055,inset 0 -4px 12px rgba(0,0,0,.4);}
+body.s-classic  .glow{background:radial-gradient(circle,#ff000044,transparent 70%);}
+
+body.s-fart     #btn{background:radial-gradient(circle at 35% 35%,#ddff88,#88cc00 55%,#446600);box-shadow:0 8px 0 #334400,0 14px 30px #aaff0066,inset 0 -4px 12px rgba(0,0,0,.3);}
+body.s-fart     .glow{background:radial-gradient(circle,#88ff0044,transparent 70%);}
+
+body.s-dog      #btn{background:radial-gradient(circle at 35% 35%,#ffdd88,#cc8822 55%,#885500);box-shadow:0 8px 0 #553300,0 14px 30px #ffaa4466,inset 0 -4px 12px rgba(0,0,0,.3);}
+body.s-dog      .glow{background:radial-gradient(circle,#ffaa0044,transparent 70%);}
+
+body.s-cat      #btn{background:radial-gradient(circle at 35% 35%,#ffccee,#dd44aa 55%,#881166);box-shadow:0 8px 0 #551144,0 14px 30px #ff66aa55,inset 0 -4px 12px rgba(0,0,0,.3);}
+body.s-cat      .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
+
+body.s-gold     #btn{background:radial-gradient(circle at 35% 35%,#ffe066,#ffaa00 60%,#cc7700);box-shadow:0 8px 0 #885500,0 14px 30px #ffaa0066,inset 0 -4px 12px rgba(0,0,0,.3);animation:goldShine 1.4s infinite alternate;}
+body.s-gold     .glow{background:radial-gradient(circle,#ffcc0044,transparent 70%);}
+
+body.s-ice      #btn{background:radial-gradient(circle at 35% 35%,#cceeFF,#4499cc 60%,#226699);box-shadow:0 8px 0 #114466,0 14px 30px #44aaff55,inset 0 5px 16px rgba(200,240,255,.4);}
+body.s-ice      .glow{background:radial-gradient(circle,#44aaff44,transparent 70%);}
+
+body.s-fire     #btn{background:radial-gradient(circle at 35% 35%,#ffff44,#ff6600 48%,#cc0000 78%);box-shadow:0 8px 0 #660000,0 14px 30px #ff660066;animation:fireDance .22s infinite alternate;}
+body.s-fire     .glow{background:radial-gradient(circle,#ff660044,transparent 70%);}
+
+body.s-space    #btn{background:radial-gradient(circle at 35% 35%,#bb88ff,#6633cc 60%,#110055);box-shadow:0 8px 0 #110033,0 14px 30px #6644ff55,inset 0 -4px 12px rgba(0,0,0,.5);}
+body.s-space    .glow{background:radial-gradient(circle,#9944ff44,transparent 70%);}
+
+body.s-toxic    #btn{background:radial-gradient(circle at 35% 35%,#ccff00,#88cc00 60%,#446600);box-shadow:0 8px 0 #224400,0 14px 30px #aaff0066;animation:toxicDrip 1.4s ease-in-out infinite alternate;}
+body.s-toxic    .glow{background:radial-gradient(circle,#aaff0044,transparent 70%);}
+
+body.s-disco    #btn{background:radial-gradient(circle,#ff00ff,#aa00aa 60%,#660066);box-shadow:0 8px 0 #440044,0 14px 30px #ff00ff66;animation:discoFlash .38s infinite;}
+body.s-disco    .glow{background:radial-gradient(circle,#ff00ff44,transparent 70%);}
+
+body.s-lava     #btn{background:radial-gradient(circle at 35% 35%,#ff8800,#cc3300 60%,#880000);box-shadow:0 8px 0 #440000,0 14px 30px #ff440066;animation:lavaBub 1.1s ease-in-out infinite alternate;}
+body.s-lava     .glow{background:radial-gradient(circle,#ff440044,transparent 70%);}
+
+body.s-nuclear  #btn{background:radial-gradient(circle at 35% 35%,#aaff44,#66cc00 60%,#336600);box-shadow:0 8px 0 #224400,0 14px 30px #66ff0066;}
+body.s-nuclear  .glow{background:radial-gradient(circle,#66ff0044,transparent 70%);}
+
+body.s-rainbow  #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff,#ff0000);animation:rainbowSpin 1.9s linear infinite;box-shadow:0 8px 0 #222,0 14px 30px rgba(255,255,255,.15);}
+body.s-rainbow  .glow{background:radial-gradient(circle,#ffffff33,transparent 70%);}
+
+body.s-diamond  #btn{background:radial-gradient(circle at 30% 28%,#eeffff,#88ccff 38%,#4488bb 68%,#224466);box-shadow:0 8px 0 #112233,0 14px 30px #88ccff66,inset 0 5px 26px rgba(255,255,255,.6);}
+body.s-diamond  .glow{background:radial-gradient(circle,#88ccff55,transparent 70%);}
+
+body.s-mystery  #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#ff00ff,#ff0000);animation:mystBtn .5s linear infinite;box-shadow:0 8px 0 #000,0 14px 30px rgba(255,255,255,.2);}
+body.s-mystery  .glow{background:radial-gradient(circle,#ff00ff44,transparent 70%);}
+</style>
 </head>
 <body class="s-classic">
   <!-- ══════ LANDING SCREEN ══════ -->
@@ -725,7 +746,23 @@ var SKINS = [
   {id:'diamond', nm:'Diamant Noir',   e:'💎', req:7500, c:'#88ccff', desc:'Légende. On parle de toi en silence.'},
   {id:'mystery', nm:'??? CLASSIFIED',  e:'👁️', req:10000,c:'#ff00ff', desc:'Tu sais ce que tu as fait.'},
 ];
-var SKIN_TXT = {classic:'APPUIE<br>DESSUS',gold:'CLIQUE<br>OR!',ice:'❄️ ICE<br>CLICK',space:'🚀 SPACE<br>GO!',nuclear:'☢️ BOOM<br>!!!',fire:'🔥 FIRE<br>!!',lava:'🌋 HOT<br>!!!',toxic:'☣️ BIO<br>CLICK',mystery:'❓???<br>!!!',disco:'🪩 DISCO<br>BABY!',rainbow:'🌈 CLICK<br>FOU!',diamond:'💎 DIAM<br>CLICK'};
+var SKIN_TXT = {
+  classic:'🔴 APPUIE<br>DESSUS',
+  fart:   '💨 PROUT<br>MASTER',
+  dog:    '🐶 BON<br>CHIEN',
+  cat:    '🐱 CHAT<br>COOL',
+  gold:   '🥇 OR<br>MASSIF',
+  ice:    '❄️ GLAÇON<br>SUPRÊME',
+  fire:   '🔥 EN FEU<br>!!!',
+  space:  '🌌 SPACE<br>CLICK',
+  toxic:  '☣️ RADIO<br>ACTIF',
+  disco:  '🪩 DISCO<br>BABY',
+  lava:   '🌋 LAVE<br>TOTALE',
+  nuclear:'☢️ BOOM<br>BOOM',
+  rainbow:'🌈 CLICK<br>FOU',
+  diamond:'💎 DIAM<br>CLICK',
+  mystery:'👁️ ???<br>!!!!'
+};
 var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
 
 var TITLES = [
