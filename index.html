@@ -408,18 +408,7 @@
     .landing-hint{font-size:.7rem;color:#aaa;margin-top:10px;}
     .landing-features{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
     .lfeat{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:20px;padding:5px 12px;font-size:.72rem;color:#999;}
-  
-body.s-fart #btn{background:radial-gradient(circle at 35% 35%,#ddff88,#88cc00 55%,#446600);box-shadow:0 8px 0 #334400,0 14px 30px #aaff0066;}
-body.s-fart .glow{background:radial-gradient(circle,#88ff0044,transparent 70%);}
-body.s-dog  #btn{background:radial-gradient(circle at 35% 35%,#ffdd88,#cc8822 55%,#885500);box-shadow:0 8px 0 #553300,0 14px 30px #ffaa4466;}
-body.s-dog  .glow{background:radial-gradient(circle,#ffaa0044,transparent 70%);}
-body.s-cat  #btn{background:radial-gradient(circle at 35% 35%,#ffccee,#dd44aa 55%,#881166);box-shadow:0 8px 0 #551144,0 14px 30px #ff66aa55;}
-body.s-cat  .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
-
-    #pseudoBtn{margin-top:6px;background:linear-gradient(135deg,#cc0000,#ff3300);border:none;color:#fff;padding:7px 22px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:transform .1s;}
-    #pseudoBtn:hover{transform:scale(1.04);}
-    #pseudoTroll{display:block;}
-    </style>
+  </style>
 </head>
 <body class="s-classic">
   <!-- ══════ LANDING SCREEN ══════ -->
@@ -504,9 +493,7 @@ body.s-cat  .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
     </div>
 
     <div class="pseudo-wrap">
-      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20" autocomplete="off"/>
-      <button id="pseudoBtn" onclick="confirmPseudo()">✅ Confirmer</button>
-      <div id="pseudoTroll" style="font-size:.78rem;color:#ff6600;font-weight:900;min-height:18px;margin-top:4px;transition:opacity .3s;opacity:0;text-align:center;"></div>
+      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
     </div>
 
     <div class="missions">
@@ -700,7 +687,15 @@ body.s-cat  .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
       <p>Pour exercer ces droits : <strong>Charly Soudan</strong>, 36 avenue du Parc, 93290 Tremblay-en-France.</p>
 
       <h3>Hébergeur</h3>
-      <p><strong>Base44</strong> — <a href="https://bas
+      <p><strong>Base44</strong> — <a href="https://base44.com" target="_blank">https://base44.com</a></p>
+
+      <h3>Autorité de contrôle</h3>
+      <p>Vous pouvez adresser une réclamation à la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
+    </div>
+  </div>
+  </div>
+
+<script>
 'use strict';
 /* ══════ CONFIG ══════ */
 var API = 'https://superagent-ceec4ffc.base44.app/functions';
@@ -730,24 +725,7 @@ var SKINS = [
   {id:'diamond', nm:'Diamant Noir',   e:'💎', req:7500, c:'#88ccff', desc:'Légende. On parle de toi en silence.'},
   {id:'mystery', nm:'??? CLASSIFIED',  e:'👁️', req:10000,c:'#ff00ff', desc:'Tu sais ce que tu as fait.'},
 ];
-var TROLL_MSGS=[
-  "Bienvenue {p}... t\'avais vraiment rien de mieux à faire ?",
-  "Ah, {p}. On t\'attendait. (Non.)",
-  "{p} ? Sérieusement ? C\'est le meilleur que t\'as trouvé ?",
-  "Salut {p} 👋 Tu cliques sur un bouton inutile. Respect.",
-  "{p} vient de rejoindre. Le bouton s\'en fout.",
-  "Oh non, pas {p}... 😩",
-  "{p} : présent. Le sens de la vie : toujours absent.",
-  "Bienvenue {p} ! Le WiFi de tes voisins est plus utile que ce jeu.",
-  "{p} enregistré. Tes données sont... chez nous maintenant 😈",
-  "T\'inquiète {p}, personne ne regarde. (Tout le monde regarde.)",
-  "Ah {p}. Un autre qui a abandonné Netflix pour ça.",
-  "{p} s\'est connecté. Sa mère est déçue mais elle l\'aime quand même.",
-  "Pseudo enregistré : {p}. QI estimé : en cours de calcul...",
-  "{p} ? C\'est original. Tu l\'as trouvé où, dans un générateur de pseudos ?",
-  "Bienvenue {p}. Le bouton ne se souvient pas de toi. Lui si.",
-];
-var SKIN_TXT = {classic:'🔴 APPUIE<br>DESSUS',fart:'💨 PROUT<br>MASTER',dog:'🐶 BON<br>CHIEN',cat:'🐱 CHAT<br>COOL',gold:'🥇 OR<br>MASSIF',ice:'❄️ ICE<br>CLICK',fire:'🔥 EN FEU<br>!!!',space:'🌌 SPACE<br>GO',toxic:'☣️ BIO<br>CLICK',disco:'🪩 DISCO<br>BABY',lava:'🌋 HOT<br>!!!',nuclear:'☢️ BOOM<br>!!!',rainbow:'🌈 CLICK<br>FOU',diamond:'💎 DIAM<br>CLICK',mystery:'👁️ ???<br>!!!!'};
+var SKIN_TXT = {classic:'APPUIE<br>DESSUS',gold:'CLIQUE<br>OR!',ice:'❄️ ICE<br>CLICK',space:'🚀 SPACE<br>GO!',nuclear:'☢️ BOOM<br>!!!',fire:'🔥 FIRE<br>!!',lava:'🌋 HOT<br>!!!',toxic:'☣️ BIO<br>CLICK',mystery:'❓???<br>!!!',disco:'🪩 DISCO<br>BABY!',rainbow:'🌈 CLICK<br>FOU!',diamond:'💎 DIAM<br>CLICK'};
 var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
 
 var TITLES = [
@@ -1575,27 +1553,6 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ══════ INIT ══════ */
-function confirmPseudo(){
-  var input=document.getElementById('pseudoInput');
-  var p=input.value.trim();
-  if(!p){input.focus();input.style.borderColor='#ff0000';setTimeout(function(){input.style.borderColor='';},800);return;}
-  // Sauvegarder
-  localStorage.setItem('pseudo',p);
-  loadMyScore(p);
-  // Troll
-  var troll=document.getElementById('pseudoTroll');
-  var msg=TROLL_MSGS[Math.floor(Math.random()*TROLL_MSGS.length)].replace(/\{p\}/g,p);
-  troll.textContent=msg;
-  troll.style.opacity='1';
-  // Animation bouton
-  var btn=document.getElementById('pseudoBtn');
-  btn.textContent='✅ Sauvegardé !';
-  btn.style.background='#00aa44';
-  setTimeout(function(){btn.textContent='✅ Confirmer';btn.style.background='';},2500);
-  // Toast aussi
-  toast('👤 Pseudo : '+p+' — Bonne chance... t\'en auras besoin.','#ff6600');
-}
-
 function init(){
   genStars();
   checkStreak();
@@ -1783,15 +1740,6 @@ function updateLandingStats(){
   if(lp) lp.textContent = Math.floor(Math.random()*55+18)+'';
   fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
     .then(function(r){return r.json();})
-    .then(function(d){
-      if(lg && d.globalClicks) lg.textContent = parseInt(d.globalClicks).toLocaleString('fr');
-    }).catch(function(){if(lg) lg.textContent='∞';});
-}
-var _landingShownAt = Date.now();
-updateLandingStats();
-
-init();
-nction(r){return r.json();})
     .then(function(d){
       if(lg && d.globalClicks) lg.textContent = parseInt(d.globalClicks).toLocaleString('fr');
     }).catch(function(){if(lg) lg.textContent='∞';});
