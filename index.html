@@ -509,7 +509,13 @@ var eventMultiplier=1,comboFrozen=false,activeEvent=null,eventInterval=null;
 var _lastClickTime=0;
 var _pendingSync=[];  // clics en attente de sync hors ligne
 var _renderPending=false;  // throttle renders
-var _toastFlags={};  // empêche les toasts en double
+var _toastFlags=(function(){
+  // Persister les flags dans localStorage pour survivre aux rechargements
+  try{ return JSON.parse(localStorage.getItem('_tf')||'{}'); }
+  catch(e){ return {}; }
+})();
+function _saveToastFlags(){ try{localStorage.setItem('_tf',JSON.stringify(_toastFlags));}catch(e){} }
+var _lastPointerX=-1, _lastPointerY=-1;  // coords fiables du dernier touch
 
 /* ══════ CANVAS PARTICULES ══════ */
 var canvas=document.getElementById('particleCanvas');
@@ -531,6 +537,8 @@ window.addEventListener('resize',function(){resizeCanvas();});
 
 function drawLoop(){
   rafId=requestAnimationFrame(function(){
+    var dpr=window.devicePixelRatio||1;
+    ctx2d.setTransform(dpr,0,0,dpr,0,0);
     ctx2d.clearRect(0,0,canvas.width,canvas.height);
     var alive=false;
     for(var i=0;i<particles.length;i++){
@@ -580,24 +588,26 @@ function burstParticles(x,y,count){
 }
 
 function spawnParticles(ev,count){
-  var x=window.innerWidth/2, y=window.innerHeight/2;
-  if(ev){
-    // Touch events
-    if(ev.touches&&ev.touches[0]){
-      x=ev.touches[0].clientX; y=ev.touches[0].clientY;
-    } else if(ev.changedTouches&&ev.changedTouches[0]){
-      x=ev.changedTouches[0].clientX; y=ev.changedTouches[0].clientY;
-    }
-    // Pointer/Mouse events — vérifier que les coords sont valides (pas 0,0)
-    else if(ev.clientX!=null && (ev.clientX!==0 || ev.clientY!==0)){
-      x=ev.clientX; y=ev.clientY;
-    }
-    // Si les coords sont 0,0 (bug pointerdown sans position), 
-    // utiliser la position du bouton lui-même
-    if((x===0&&y===0)||(x===window.innerWidth/2&&y===window.innerHeight/2)){
-      var btn=document.getElementById('btn');
-      if(btn){var r=btn.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2;}
-    }
+  var x, y;
+  // Priorité 1 : coords capturées juste avant (les plus fiables)
+  if(_lastPointerX>=0){
+    x=_lastPointerX; y=_lastPointerY;
+  }
+  // Priorité 2 : touch events
+  else if(ev&&ev.touches&&ev.touches[0]){
+    x=ev.touches[0].clientX; y=ev.touches[0].clientY;
+  } else if(ev&&ev.changedTouches&&ev.changedTouches[0]){
+    x=ev.changedTouches[0].clientX; y=ev.changedTouches[0].clientY;
+  }
+  // Priorité 3 : pointer/mouse event valides
+  else if(ev&&ev.clientX!=null&&ev.clientX!==0){
+    x=ev.clientX; y=ev.clientY;
+  }
+  // Fallback : centre du bouton
+  else {
+    var btn=document.getElementById('btn');
+    var r=btn.getBoundingClientRect();
+    x=r.left+r.width/2; y=r.top+r.height/2;
   }
   burstParticles(x,y,count);
 }
@@ -738,8 +748,8 @@ function renderMicro(){
   else if(diff<=8){mf.style.background='linear-gradient(90deg,#ff6600,#ffcc00)';mn.style.color='#ff6600';}
   else{mf.style.background='linear-gradient(90deg,#aa66ff,#ff00ff)';mn.style.color='#aa66ff';}
   var toastKey5='t5_'+next, toastKey1='t1_'+next;
-  if(diff===5&&!_toastFlags[toastKey5]){_toastFlags[toastKey5]=1;toast('🎯 Plus que 5 clics pour le prochain palier !','#aa66ff');}
-  if(diff===1&&!_toastFlags[toastKey1]){_toastFlags[toastKey1]=1;toast('🔥 ENCORE 1 CLIC !!!','#ff2222');}
+  if(diff===5&&!_toastFlags[toastKey5]){_toastFlags[toastKey5]=1;_saveToastFlags();toast('🎯 Plus que 5 clics pour le prochain palier !','#aa66ff');}
+  if(diff===1&&!_toastFlags[toastKey1]){_toastFlags[toastKey1]=1;_saveToastFlags();toast('🔥 ENCORE 1 CLIC !!!','#ff2222');}
 }
 
 /* ══════ MISSIONS ══════ */
@@ -833,7 +843,7 @@ function checkNewSkins(){
     if(!el||!el.classList.contains('locked'))continue;
     if(clicks>=s.req){
       var k='skin_notif_'+s.id;
-      if(!_toastFlags[k]){_toastFlags[k]=1;toast('🎨 NOUVEAU SKIN : '+s.nm+' '+s.e+' DÉBLOQUÉ !','#ffcc00');}
+      if(!_toastFlags[k]){_toastFlags[k]=1;_saveToastFlags();toast('🎨 NOUVEAU SKIN : '+s.nm+' '+s.e+' DÉBLOQUÉ !','#ffcc00');}
       changed=true;
     }
   }
@@ -858,7 +868,7 @@ function checkAch(){
       el.classList.add('unlocked');
       el.querySelector('.ach-icon').textContent=a.e;
       var k='ach_notif_'+a.id;
-      if(!_toastFlags[k]){_toastFlags[k]=1;toast('🏅 SUCCÈS : '+a.nm+' !','#aa66ff');}
+      if(!_toastFlags[k]){_toastFlags[k]=1;_saveToastFlags();toast('🏅 SUCCÈS : '+a.nm+' !','#aa66ff');}
     }
   }
 }
@@ -981,7 +991,7 @@ function triggerJackpot(){
 function triggerPanic(){
   panic=true;document.body.classList.add('panic');document.getElementById('panicFrame').classList.add('on');
   document.getElementById('title').textContent='😱 PANIQUE TOTALE 😱';
-  toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000');playTone(200,'sawtooth',.5,.4);
+  toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000',true);playTone(200,'sawtooth',.5,.4);
 }
 function stopPanic(){
   panic=false;document.body.classList.remove('panic');document.getElementById('panicFrame').classList.remove('on');
@@ -989,7 +999,7 @@ function stopPanic(){
 }
 function makeButtonRun(){
   running=true;var b=document.getElementById('btn');
-  toast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !','#ff6600');
+  toast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !','#ff6600',true);
   var n=0,times=3+Math.floor(Math.random()*4);
   var iv=setInterval(function(){
     if(n>=times){b.style.transform='';running=false;clearInterval(iv);return;}
@@ -1045,11 +1055,23 @@ function playJackpot(){[523,659,784,1047,1319].forEach(function(f,i){setTimeout(
 
 /* ══════ TOAST ══════ */
 var _toastQueue=[], _toastBusy=false;
-function toast(msg,color){
+function toast(msg,color,urgent){
   color=color||'#aa66ff';
   // Ne pas dupliquer le même message dans la queue
   for(var i=0;i<_toastQueue.length;i++){if(_toastQueue[i].msg===msg)return;}
-  _toastQueue.push({msg:msg,color:color});
+  if(urgent){
+    // Toast urgent : vide la queue et passe en premier
+    _toastQueue=[];
+    if(_toastBusy){
+      document.querySelectorAll('.toast').forEach(function(el){el.remove();});
+      _toastBusy=false;
+    }
+    _toastQueue.unshift({msg:msg,color:color});
+  } else {
+    // Max 3 toasts en queue — ignorer le reste
+    if(_toastQueue.length>=3)return;
+    _toastQueue.push({msg:msg,color:color});
+  }
   if(!_toastBusy)_flushToast();
 }
 function _flushToast(){
@@ -1064,12 +1086,13 @@ function _flushToast(){
   t.style.background=item.color;
   t.style.bottom='24px';
   document.body.appendChild(t);
-  // Durée = 3s (correspond à l'animation CSS) + 200ms buffer
+  // Durée adaptée à la longueur du texte (min 2.5s, max 4s)
+  var dur=Math.min(4000, Math.max(2500, item.msg.length*60));
   setTimeout(function(){
     if(t.parentNode)t.remove();
     _toastBusy=false;
-    if(_toastQueue.length)setTimeout(_flushToast,120);
-  },3200);
+    if(_toastQueue.length)setTimeout(_flushToast,150);
+  },dur);
 }
 
 /* ══════ API ══════ */
@@ -1083,11 +1106,12 @@ function loadMyScore(pseudo){
         renderMyCount();renderThermo();renderAch();checkNewSkins();renderSkins();renderXP();renderMicro();
         toast('✅ Score récupéré : '+clicks.toLocaleString('fr')+' clics !','#00aa55');
       }else if(data.found){
-        toast('✅ Connecté — '+clicks.toLocaleString('fr')+' clics','#00aa55');
+        // Pas de toast "connecté" — inutile, encombre
       }else{
-        toast('👋 Nouveau joueur ! Clics sauvegardés.','#6644ff');
+        toast('👋 Nouveau joueur !','#6644ff');
       }
-      loadLeaderboard();
+      // Leaderboard APRÈS le toast de connexion (500ms)
+      setTimeout(loadLeaderboard, 500);
     }).catch(function(){});
 }
 function trackClick(pseudo,reaction){
@@ -1179,7 +1203,17 @@ function init(){
 
   // Bouton — pointerdown universel (PC, mobile, tablette, iOS, stylet)
   var btnEl=document.getElementById('btn');
-  btnEl.addEventListener('pointerdown',function(e){e.preventDefault();handleClick(e);});
+  btnEl.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    // Capturer les coords IMMÉDIATEMENT — avant tout traitement
+    if(e.clientX!=null && e.clientX!==0){
+      _lastPointerX=e.clientX; _lastPointerY=e.clientY;
+    } else {
+      var r=btnEl.getBoundingClientRect();
+      _lastPointerX=r.left+r.width/2; _lastPointerY=r.top+r.height/2;
+    }
+    handleClick(e);
+  });
   // Fallback pour navigateurs sans pointer events
   btnEl.addEventListener('click',function(e){if(e.pointerType||e._handled)return;handleClick(e);});
 
