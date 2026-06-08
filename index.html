@@ -539,6 +539,7 @@ let dayClicks=0;
 let streak=parseInt(localStorage.getItem('streak')||'0');
 let lastPlayDate=localStorage.getItem('lastPlayDate')||'';
 let prevLb=[],provocTimer=null,audioCtx=null;
+let eventMultiplier=1,comboFrozen=false;
 
 /* ════════════════════════════════════
    INIT
@@ -748,11 +749,10 @@ function handleClick(ev){
   clicks+=bonus;localStorage.setItem('clicks',clicks);
   const dk='dayClicks_'+new Date().toDateString();
   dayClicks+=bonus;localStorage.setItem(dk,dayClicks);
-  if(bonus>1){spawnParticles(ev,bonus*4);}
   markPlayed();
   playSound();
   const b=document.getElementById('btn');b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),115);
-  renderMyCount();showReaction();updateCombo();renderThermo();spawnParticles(ev,null);checkAch();checkNewSkins();renderMissions();renderXP();renderMicro();
+  renderMyCount();showReaction();updateCombo();renderThermo();spawnParticles(ev,bonus>1?bonus*4:null);checkAch();checkNewSkins();renderMissions();renderXP();renderMicro();
   if(clicks===jackpotNext){triggerJackpot();jackpotNext+=100;}
   if(clicks%5===0){document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),360);}
   if(combo>=20&&!panic)triggerPanic();
@@ -1005,8 +1005,7 @@ const EVENTS_LIST=[
   {name:'COMBO INFINI',mult:1,dur:480,desc:'Le combo ne se réinitialise JAMAIS pendant 8 min !',color:'#00ccff',specialCombo:true},
   {name:'CLICK STORM',mult:2,dur:240,desc:'Tempête de clics — x2 pendant 4 minutes !',color:'#ff6600'},
 ];
-let activeEvent=null,eventTimer=null,eventInterval=null,comboFrozen=false;
-let eventMultiplier=1;
+let activeEvent=null,eventTimer=null,eventInterval=null;
 
 function scheduleNextEvent(){
   // Événement toutes les 8-15 min
