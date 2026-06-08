@@ -245,8 +245,8 @@
     #particleCanvas{position:fixed;inset:0;pointer-events:none;z-index:9998;}
 
     /* TOAST */
-    .toast{position:fixed;left:50%;transform:translateX(-50%);color:#fff;padding:8px 17px;border-radius:17px;font-weight:700;z-index:9999;font-size:.86rem;white-space:nowrap;animation:toastAnim 2.5s ease forwards;max-width:88vw;overflow:hidden;text-overflow:ellipsis;pointer-events:none;}
-    @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(10px);}14%{opacity:1;transform:translateX(-50%) translateY(0);}76%{opacity:1;}100%{opacity:0;}}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);color:#fff;padding:10px 20px;border-radius:20px;font-weight:900;z-index:9999;font-size:clamp(.9rem,3.5vw,1.05rem);white-space:normal;text-align:center;animation:toastAnim 3s ease forwards;max-width:82vw;line-height:1.3;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.5);}
+    @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(12px) scale(.9);}12%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}75%{opacity:1;}100%{opacity:0;transform:translateX(-50%) translateY(-6px);}}
 
     /* INSTALL PWA */
     .pwa-btn{display:none;position:fixed;bottom:70px;right:14px;background:linear-gradient(135deg,#aa66ff,#ff00ff);border:none;color:#fff;padding:9px 16px;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:900;font-size:.82rem;cursor:pointer;z-index:8000;box-shadow:0 4px 14px #aa66ff44;}
@@ -582,10 +582,22 @@ function burstParticles(x,y,count){
 function spawnParticles(ev,count){
   var x=window.innerWidth/2, y=window.innerHeight/2;
   if(ev){
-    if(ev.touches&&ev.touches[0]){x=ev.touches[0].clientX;y=ev.touches[0].clientY;}
-    else if(ev.changedTouches&&ev.changedTouches[0]){x=ev.changedTouches[0].clientX;y=ev.changedTouches[0].clientY;}
-    else if(ev.clientX!=null){x=ev.clientX;y=ev.clientY;}
-    else if(ev.x!=null){x=ev.x;y=ev.y;}
+    // Touch events
+    if(ev.touches&&ev.touches[0]){
+      x=ev.touches[0].clientX; y=ev.touches[0].clientY;
+    } else if(ev.changedTouches&&ev.changedTouches[0]){
+      x=ev.changedTouches[0].clientX; y=ev.changedTouches[0].clientY;
+    }
+    // Pointer/Mouse events — vérifier que les coords sont valides (pas 0,0)
+    else if(ev.clientX!=null && (ev.clientX!==0 || ev.clientY!==0)){
+      x=ev.clientX; y=ev.clientY;
+    }
+    // Si les coords sont 0,0 (bug pointerdown sans position), 
+    // utiliser la position du bouton lui-même
+    if((x===0&&y===0)||(x===window.innerWidth/2&&y===window.innerHeight/2)){
+      var btn=document.getElementById('btn');
+      if(btn){var r=btn.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2;}
+    }
   }
   burstParticles(x,y,count);
 }
@@ -686,7 +698,7 @@ function checkStreak(){
   var pill=document.getElementById('streakPill');
   pill.textContent='🔥 Série : '+streak+' jour'+(streak>1?'s':'');
   pill.className='streak-pill'+(streak>0?'':' dead');
-  if(streak>=2)toast('🔥 Série de '+streak+' jours ! Continue !','#ff6600');
+  // Toast streak uniquement si nouveau jour
 }
 function markPlayed(){
   var today=new Date().toDateString();
@@ -1035,6 +1047,8 @@ function playJackpot(){[523,659,784,1047,1319].forEach(function(f,i){setTimeout(
 var _toastQueue=[], _toastBusy=false;
 function toast(msg,color){
   color=color||'#aa66ff';
+  // Ne pas dupliquer le même message dans la queue
+  for(var i=0;i<_toastQueue.length;i++){if(_toastQueue[i].msg===msg)return;}
   _toastQueue.push({msg:msg,color:color});
   if(!_toastBusy)_flushToast();
 }
@@ -1042,13 +1056,20 @@ function _flushToast(){
   if(!_toastQueue.length){_toastBusy=false;return;}
   _toastBusy=true;
   var item=_toastQueue.shift();
-  var existing=document.querySelectorAll('.toast');
-  if(existing.length>=2){existing[0].remove();}
-  var n=document.querySelectorAll('.toast').length;
-  var t=document.createElement('div');t.className='toast';t.textContent=item.msg;
-  t.style.background=item.color;t.style.bottom=(18+n*44)+'px';
+  // Max 1 toast visible à la fois
+  document.querySelectorAll('.toast').forEach(function(el){el.remove();});
+  var t=document.createElement('div');
+  t.className='toast';
+  t.textContent=item.msg;
+  t.style.background=item.color;
+  t.style.bottom='24px';
   document.body.appendChild(t);
-  setTimeout(function(){if(t.parentNode)t.remove();_flushToast();},1800);
+  // Durée = 3s (correspond à l'animation CSS) + 200ms buffer
+  setTimeout(function(){
+    if(t.parentNode)t.remove();
+    _toastBusy=false;
+    if(_toastQueue.length)setTimeout(_flushToast,120);
+  },3200);
 }
 
 /* ══════ API ══════ */
@@ -1152,7 +1173,7 @@ function init(){
   renderAch();renderXP();renderMicro();renderMissions();renderMyCount();renderThermo();
 
   var saved=localStorage.getItem('pseudo');
-  if(saved){document.getElementById('pseudoInput').value=saved;loadMyScore(saved);}
+  if(saved){document.getElementById('pseudoInput').value=saved;setTimeout(function(){loadMyScore(saved);},800);}
   document.getElementById('pseudoInput').addEventListener('input',function(){localStorage.setItem('pseudo',this.value);});
   document.getElementById('pseudoInput').addEventListener('change',function(){var p=this.value.trim();if(p)loadMyScore(p);});
 
@@ -1181,7 +1202,7 @@ function init(){
   updateFomo();
   setInterval(updateFomo,14000);
   if(clicks>=5)startProvoc();
-  if(IS_ONLINE){loadLeaderboard();setInterval(loadLeaderboard,15000);}
+  if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(3+Math.random()*2)*60000);
 }
