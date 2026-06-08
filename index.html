@@ -809,10 +809,10 @@ var EVENTS_LIST=[
 
 var MICRO_MILESTONES=(function(){
   var m=[];
-  for(var i=5;i<=50;i+=5)m.push(i);
-  for(var i=60;i<=200;i+=10)m.push(i);
-  for(var i=225;i<=500;i+=25)m.push(i);
-  for(var i=550;i<=5000;i+=50)m.push(i);
+  for(var i=50;i<=500;i+=50)m.push(i);
+  for(var i=600;i<=2000;i+=100)m.push(i);
+  for(var i=2500;i<=10000;i+=500)m.push(i);
+  for(var i=15000;i<=100000;i+=5000)m.push(i);
   return m;
 })();
 
@@ -840,7 +840,7 @@ var curSkin=(function(){
 var combo=0,comboTimer=null,maxCombo=0;
 var lastReaction='';
 var panic=false,running=false,mysteryActive=false;
-var jackpotNext=Math.ceil((clicks+1)/100)*100;
+var jackpotNext=Math.ceil((clicks+1)/500)*500;
 var dayClicks=0;
 var streak=parseInt(localStorage.getItem('streak')||'0');
 var lastPlayDate=localStorage.getItem('lastPlayDate')||'';
@@ -1137,7 +1137,7 @@ function startEvent(){
     if(remaining<=10)document.getElementById('evTimer').style.color='#ff2222';
     if(remaining<=0)endEvent();
   },1000);
-  setTimeout(startEvent,(8+Math.random()*7)*60000);
+  setTimeout(startEvent,(20+Math.random()*20)*60000);
 }
 function endEvent(){
   clearInterval(eventInterval);activeEvent=null;eventMultiplier=1;
@@ -1274,12 +1274,12 @@ function handleClick(ev){
   scheduleRender();
   checkAch();
   checkNewSkins();
-  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=100;}
+  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=500;}
   if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
-  if(combo>=20&&!panic)triggerPanic();
-  if(clicks>30&&!running&&Math.random()<.08)makeButtonRun();
+  if(combo>=40&&!panic)triggerPanic();
+  if(clicks>30&&!running&&Math.random()<.03)makeButtonRun();
   if(clicks>=5&&!provocTimer)startProvoc();
-  if(!mysteryActive&&Math.random()<.025)triggerMystery();
+  if(!mysteryActive&&Math.random()<.008)triggerMystery();
   // Sync
   var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
   if(IS_ONLINE){
@@ -1310,14 +1310,14 @@ function showReaction(){
 
 /* ══════ THERMO ══════ */
 var THERMO=[
-  {min:0,max:10,t:'Niveau débilité : glacial',c:'#555'},
-  {min:10,max:30,t:'Légèrement débile. On progresse.',c:'#555'},
-  {min:30,max:60,t:'Température de débilité : tiède.',c:'#ff6600'},
-  {min:60,max:100,t:'Ça chauffe sérieusement.',c:'#ff6600'},
-  {min:100,max:200,t:'DANGER : cerveau surchauffé.',c:'#ff4444'},
-  {min:200,max:500,t:'ALERTE ROUGE : t\'as perdu la raison.',c:'#ff2222'},
-  {min:500,max:1000,t:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!',c:'#ff0000'},
-  {min:1000,max:Infinity,t:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.',c:'#ff0000'},
+  {min:0,max:50,t:'Niveau débilité : glacial',c:'#555'},
+  {min:50,max:200,t:'Légèrement débile. On progresse.',c:'#555'},
+  {min:200,max:500,t:'Température de débilité : tiède.',c:'#ff6600'},
+  {min:500,max:1000,t:'Ça chauffe sérieusement.',c:'#ff6600'},
+  {min:1000,max:3000,t:'DANGER : cerveau surchauffé.',c:'#ff4444'},
+  {min:3000,max:8000,t:'ALERTE ROUGE : t\'as perdu la raison.',c:'#ff2222'},
+  {min:8000,max:20000,t:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!',c:'#ff0000'},
+  {min:20000,max:Infinity,t:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.',c:'#ff0000'},
 ];
 function renderThermo(){
   var l=THERMO[0];
@@ -1328,12 +1328,12 @@ function renderThermo(){
 /* ══════ COMBO ══════ */
 function updateCombo(){
   combo++;clearTimeout(comboTimer);
-  if(!comboFrozen)comboTimer=setTimeout(function(){combo=0;renderCombo();if(panic)stopPanic();},1500);
+  if(!comboFrozen)comboTimer=setTimeout(function(){combo=0;renderCombo();if(panic)stopPanic();},900);
   if(combo>maxCombo)maxCombo=combo;
   renderCombo();
 }
 function renderCombo(){
-  document.getElementById('comboFill').style.width=Math.min(combo*5,100)+'%';
+  document.getElementById('comboFill').style.width=Math.min(combo*2,100)+'%';
   var t=document.getElementById('comboText');
   if(!combo){t.textContent='';return;}
   if(combo<5)t.textContent='x'+combo+' — Vas-y mollo';
@@ -1600,7 +1600,7 @@ function init(){
   if(clicks>=5)startProvoc();
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
-  setTimeout(startEvent,(3+Math.random()*2)*60000);
+  setTimeout(startEvent,(10+Math.random()*10)*60000);
 }
 
 
