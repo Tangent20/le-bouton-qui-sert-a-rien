@@ -531,18 +531,17 @@ function resizeCanvas(){
   canvas.height=Math.round(h*dpr);
   canvas.style.width=w+'px';
   canvas.style.height=h+'px';
-  ctx2d.setTransform(dpr,0,0,dpr,0,0);
-  ctx2d.clearRect(0,0,w,h);
 }
 resizeCanvas();
 window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
-  rafId=requestAnimationFrame(function(){
+  if(rafId) return; // déjà en cours
+  function frame(){
+    // Reset propre : on travaille en physical pixels directement
     var dpr=window.devicePixelRatio||1;
-    ctx2d.setTransform(dpr,0,0,dpr,0,0);
-    // clearRect en CSS pixels (setTransform s'occupe du scaling)
-    ctx2d.clearRect(0,0,window.innerWidth,window.innerHeight);
+    ctx2d.setTransform(1,0,0,1,0,0); // reset absolu
+    ctx2d.clearRect(0,0,canvas.width,canvas.height);
     var alive=false;
     for(var i=0;i<particles.length;i++){
       var p=particles[i];
@@ -553,20 +552,23 @@ function drawLoop(){
       alive=true;
       ctx2d.save();
       ctx2d.globalAlpha=Math.max(0,p.life);
-      ctx2d.translate(p.x,p.y);
+      // Convertir CSS pixels → physical pixels pour le dessin
+      ctx2d.translate(p.x*dpr, p.y*dpr);
       ctx2d.rotate(p.rot);
       if(p.isConfetti){
         ctx2d.fillStyle=p.color;
-        ctx2d.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
+        ctx2d.fillRect(-p.size*dpr/2,-p.size*dpr/4,p.size*dpr,p.size*dpr/2);
       } else {
-        ctx2d.font=p.size+'px serif';
-        ctx2d.fillText(p.emoji,-p.size/2,-p.size/2);
+        ctx2d.font=(p.size*dpr)+'px serif';
+        ctx2d.fillText(p.emoji,-p.size*dpr/2,-p.size*dpr/2);
       }
       ctx2d.restore();
     }
     particles=particles.filter(function(p){return p.life>0;});
-    if(alive){ drawLoop(); } else { rafId=null; }
-  });
+    if(alive){ rafId=requestAnimationFrame(frame); }
+    else { rafId=null; }
+  }
+  rafId=requestAnimationFrame(frame);
 }
 
 function burstParticles(x,y,count){
