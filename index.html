@@ -40,7 +40,7 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Nunito',sans-serif;background:#080808;color:#fff;min-height:100vh;overflow-x:hidden;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;}
-    .wrap{max-width:680px;margin:0 auto;}
+    
     .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 30%,#1a0020 0%,#080808 65%);}
     .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;}
     .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s infinite alternate;will-change:opacity,transform;}
@@ -49,7 +49,7 @@
     /* PANIC */
     body.panic{animation:panicBg .18s infinite alternate;}
     @keyframes panicBg{from{background:#080000;}to{background:#1a0008;}}
-    body.panic #title{animation:panicTitle .12s infinite!important;}
+    body.panic 
     @keyframes panicTitle{0%{transform:rotate(-3deg) scale(1.05);color:#ff0;}33%{transform:rotate(3deg);color:#f0f;}66%{transform:rotate(-2deg);color:#0ff;}100%{transform:rotate(0);color:#fff;}}
     .panic-frame{display:none;position:fixed;inset:0;z-index:300;pointer-events:none;border:5px solid red;box-shadow:inset 0 0 60px rgba(255,0,0,.35);}
     .panic-frame.on{display:block;animation:panicFrame .25s infinite alternate;}
@@ -67,79 +67,79 @@
     .challenger.on{display:block;}
 
     /* TOPBAR */
-    .topbar{text-align:center;padding:6px 12px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+    
     .streak-pill{background:linear-gradient(135deg,#ff6600,#ffcc00);color:#000;font-weight:900;padding:3px 10px;border-radius:20px;font-size:.72rem;}
     .streak-pill.dead{background:#222;color:#bbb;}
-    .fomo{color:#00ff88;font-weight:900;}
-    .season-info{color:#aaa;font-size:.7rem;}
+    
+    
 
     /* EVENT */
-    .event-box{display:none;margin:7px 12px;background:linear-gradient(135deg,#0a0020,#1a0040);border:2px solid #aa66ff;border-radius:13px;padding:9px 13px;text-align:center;position:relative;overflow:hidden;}
-    .event-box.on{display:block;animation:eventPulse 1.5s ease-in-out infinite;}
+    
+    
     @keyframes eventPulse{0%,100%{border-color:#aa66ff;}50%{border-color:#ff00ff;box-shadow:0 0 18px #aa66ff33;}}
-    .event-box::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(170,102,255,.07),transparent);animation:shimmer 2s infinite;}
+    
     @keyframes shimmer{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
-    .event-name{font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:2px;color:#cc88ff;}
-    .event-badge{background:#1a0a00;color:#ffcc00;padding:2px 8px;border-radius:10px;font-weight:900;margin-left:6px;font-size:.85rem;}
-    .event-time{font-size:1.5rem;font-weight:900;color:#fff;display:block;margin:2px 0;}
-    .event-desc{font-size:.7rem;color:#886699;}
+    
+    
+    
+    
 
     /* HEADER */
-    header{text-align:center;padding:16px 14px 4px;}
-    #title{font-family:'Bangers',cursive;font-size:clamp(1.9rem,8.5vw,4.5rem);letter-spacing:4px;color:#ff2222;text-shadow:0 0 18px #ff000077,3px 3px 0 #660000;animation:titlePulse 2.2s ease-in-out infinite;display:block;will-change:transform;}
+    
+    
     @keyframes titlePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
-    #subtitle{display:block;font-size:clamp(.72rem,2.2vw,.92rem);color:#999;margin-top:3px;min-height:18px;transition:color .3s;}
+    
 
     /* STATS */
-    .stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:8px 12px 3px;}
-    .sbox{background:#111;border:1.5px solid #1e1e1e;border-radius:13px;padding:8px 11px;text-align:center;flex:1;min-width:65px;max-width:95px;}
-    .sval{font-size:clamp(1.1rem,3.8vw,1.75rem);font-weight:900;color:#ff6600;display:block;will-change:transform;}
-    .sval.pop{animation:pop .22s ease;}
+    
+    
+    
+    
     @keyframes pop{0%{transform:scale(1.55);}100%{transform:scale(1);}}
-    .slabel{font-size:.58rem;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-top:1px;}
-    .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#00ff88;margin-right:3px;animation:blink 1s infinite alternate;}
+    
+    
     @keyframes blink{from{opacity:.3;}to{opacity:1;}}
 
     /* XP */
-    .xp-wrap{margin:5px 13px 3px;}
-    .xp-info{display:flex;justify-content:space-between;font-size:.65rem;color:#999;margin-bottom:2px;}
-    .xp-bg{height:9px;background:#151515;border-radius:5px;overflow:hidden;border:1px solid #1e1e1e;}
-    .xp-fill{height:100%;background:linear-gradient(90deg,#3366ff,#00ccff,#00ff88,#ffcc00,#ff6600,#ff2222);border-radius:5px;transition:width .5s cubic-bezier(.34,1.56,.64,1);will-change:width;}
+    
+    
+    
+    
 
     /* MICRO PALIER */
-    .micro-wrap{margin:3px 13px 5px;display:flex;align-items:center;gap:7px;background:#0e0e0e;border:1px solid #1a1a1a;border-radius:9px;padding:5px 10px;}
-    .micro-label{font-size:.63rem;color:#999;flex-shrink:0;}
-    .micro-bg{flex:1;height:7px;background:#151515;border-radius:4px;overflow:hidden;}
-    .micro-fill{height:100%;background:linear-gradient(90deg,#aa66ff,#ff00ff);border-radius:4px;transition:width .4s cubic-bezier(.34,1.56,.64,1);will-change:width;}
-    .micro-next{font-size:.65rem;color:#aa66ff;font-weight:900;flex-shrink:0;white-space:nowrap;}
+    
+    
+    
+    
+    
 
     /* PSEUDO */
-    .pseudo-wrap{text-align:center;margin:7px 13px;}
-    .pseudo-wrap input{background:#111;border:2px solid #ff2222;color:#fff;padding:8px 17px;border-radius:25px;font-size:.95rem;font-family:'Nunito',sans-serif;outline:none;width:min(285px,80vw);text-align:center;transition:border-color .2s,box-shadow .2s;}
-    .pseudo-wrap input:focus{border-color:#ff6600;box-shadow:0 0 10px #ff660033;}
+    
+    
+    
 
     /* MISSIONS */
-    .missions{width:min(470px,93vw);margin:9px auto;background:#0e0e0e;border:1.5px solid #252525;border-radius:13px;padding:10px 12px;}
-    .mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
-    .mhead h2{font-family:'Bangers',cursive;font-size:1.25rem;letter-spacing:2px;color:#ffcc00;}
-    .mreset{font-size:.6rem;color:#999;background:#1a1a1a;padding:2px 6px;border-radius:7px;}
-    .mrow{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#141414;border-radius:9px;margin-bottom:4px;border:1px solid #1a1a1a;transition:border-color .3s;}
-    .mrow.done{border-color:#00aa5533;background:#00100a;}
-    .micon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
-    .minfo{flex:1;min-width:0;}
-    .mname{font-size:.75rem;font-weight:900;color:#eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .mrow.done .mname{color:#00ff88;}
-    .mprog-bg{height:4px;background:#222;border-radius:2px;margin-top:3px;overflow:hidden;}
-    .mprog{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600);border-radius:2px;transition:width .4s ease;will-change:width;}
-    .mrow.done .mprog{background:linear-gradient(90deg,#00aa55,#00ff88);}
-    .mreward{font-size:.62rem;color:#ffcc00;font-weight:700;flex-shrink:0;}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /* GAME */
-    .game{display:flex;flex-direction:column;align-items:center;padding:8px 13px;gap:9px;}
+    
 
     /* BUTTON */
-    .btn-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(210px,30vw,280px);height:clamp(210px,30vw,280px);}
-    .glow{position:absolute;width:clamp(200px,28vw,265px);height:clamp(200px,28vw,265px);border-radius:50%;animation:glowPulse 1.6s ease-in-out infinite;pointer-events:none;will-change:transform,opacity;}
+    
+    
     @keyframes glowPulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.3);opacity:1;}}
     #btn{width:clamp(170px,25vw,240px);height:clamp(170px,25vw,240px);border-radius:50%;border:none;cursor:pointer;font-family:'Bangers',cursive;font-size:clamp(1rem,2.5vw,1.35rem);letter-spacing:2px;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);z-index:1;position:relative;outline:none;transition:transform .08s,filter .08s;-webkit-tap-highlight-color:transparent;touch-action:none;will-change:transform;-webkit-user-select:none;}
     #btn::before{content:'';position:absolute;top:9%;left:16%;width:38%;height:26%;background:rgba(255,255,255,.2);border-radius:50%;transform:rotate(-30deg);pointer-events:none;}
@@ -158,74 +158,69 @@
     @keyframes discoGlow{0%{background:radial-gradient(circle,#ff00ff33,transparent 70%);}50%{background:radial-gradient(circle,#00ffff33,transparent 70%);}100%{background:radial-gradient(circle,#ffff0033,transparent 70%);}}
     @keyframes rainbowSpin{from{filter:hue-rotate(0deg);}to{filter:hue-rotate(360deg);}}
     /* COMBO */
-    .combo-wrap{text-align:center;width:min(295px,80vw);}
-    .combo-label{font-size:.65rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
-    .combo-bg{height:8px;background:#151515;border-radius:4px;overflow:hidden;border:1px solid #1e1e1e;}
-    .combo-fill{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600,#ffcc00);border-radius:4px;transition:width .15s ease;will-change:width;width:0%;}
-    .combo-text{font-size:.86rem;color:#ff6600;margin-top:3px;min-height:18px;font-weight:700;}
+    
+    
+    
+    
+    
 
     /* REACTION */
-    .reaction{min-height:78px;width:min(470px,92vw);background:#111;border:1.5px solid #1e1e1e;border-radius:13px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 14px;font-size:clamp(.88rem,2.5vw,1.1rem);font-weight:700;}
-    .reaction.flash{animation:rFlash .3s ease;}
+    
+    
     @keyframes rFlash{0%{transform:scale(1.03);border-color:#ff2222;background:#160404;}100%{transform:scale(1);border-color:#1e1e1e;background:#111;}}
-    .remoji{font-size:1.8rem;display:block;margin-bottom:2px;}
+    
 
     /* PROVOC */
-    .provoc{text-align:center;margin:1px 13px 5px;min-height:22px;}
-    .provoc-text{font-size:clamp(.76rem,2.2vw,.88rem);color:#ff4444;font-weight:900;}
-    .provoc-text.anim{animation:provocIn .3s ease;}
+    
+    
+    
     @keyframes provocIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
-    .provoc-btn{background:none;border:1px solid #ff333333;color:#ff5555;padding:3px 11px;border-radius:14px;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;margin-left:6px;vertical-align:middle;transition:all .2s;}
-    .provoc-btn:hover{background:#ff111122;color:#fff;border-color:#ff4444;}
+    
+    
 
     /* SKINS GRID */
-    .skins{width:min(490px,96vw);margin:3px auto;}
-    .skins h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#00ccff;text-align:center;margin-bottom:6px;}
-    .skins{padding:0 0 8px;}
-    .skins-header{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 4px;}
-    .skins h2{margin:0;font-size:1rem;}
-    .skins-progress{font-size:.7rem;color:#999;font-weight:700;}
-    .next-hint{text-align:center;font-size:.75rem;color:#bbb;padding:2px 14px 10px;}
-    .next-hint strong{color:#ff8800;font-weight:800;}
-    .skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 14px 4px;}
-    .skin-card{
-      background:#0d0d0d;border:2px solid #1c1c1c;border-radius:14px;
-      padding:11px 6px 9px;text-align:center;cursor:pointer;
-      transition:all .2s;position:relative;overflow:hidden;
-    }
-    .skin-card:hover:not(.locked){border-color:#999;transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.5);}
-    .skin-card.active{border-color:var(--sc,#ff2222);box-shadow:0 0 18px color-mix(in srgb,var(--sc,#ff2222) 35%,transparent);background:#0a0a0a;}
-    .skin-card.active::after{content:'✓';position:absolute;top:5px;right:7px;font-size:.65rem;font-weight:900;color:var(--sc,#ff2222);}
-    .skin-card.locked{opacity:.18;cursor:not-allowed;filter:grayscale(1);}
-    .skin-preview{width:42px;height:42px;border-radius:50%;background:var(--sc,#ff2222);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 3px 14px color-mix(in srgb,var(--sc,#ff2222) 50%,transparent);}
-    .skin-card.locked .skin-preview{background:#181818;box-shadow:none;}
-    .skin-nm{font-size:.66rem;font-weight:800;color:#bbb;display:block;margin-bottom:3px;}
-    .skin-card.active .skin-nm{color:#fff;}
-    .skin-rq{font-size:.58rem;display:block;font-weight:700;color:#aaa;}
-    .skin-card:not(.locked) .skin-rq{color:var(--sc,#ff2222);}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /* ACHIEVEMENTS */
-    .ach{width:min(470px,96vw);margin:0 auto 9px;padding:0 8px;}
-    .ach h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#aa66ff;text-align:center;margin-bottom:6px;}
-    .ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:5px;}
-    .ach-card{background:#111;border:1.5px solid #1a1a1a;border-radius:11px;padding:8px 5px;text-align:center;transition:all .3s;}
-    .ach-card.unlocked{border-color:#aa66ff;background:#0d001a;box-shadow:0 0 8px #aa66ff22;}
-    .ach-icon{font-size:1.25rem;display:block;margin-bottom:2px;}
-    .ach-name{font-weight:700;font-size:.65rem;color:#ccc;display:block;}
-    .ach-card.unlocked .ach-name{color:#fff;}
-    .ach-req{color:#aaa;font-size:.57rem;display:block;margin-top:1px;}
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /* LEADERBOARD */
-    .lb{width:min(470px,96vw);margin:0 auto 9px;background:#0c0c0c;border:1.5px solid #252525;border-radius:13px;padding:12px 11px;}
-    .lb h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#ffcc00;text-align:center;margin-bottom:8px;}
-    .lb-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;margin-bottom:4px;background:#111;font-size:.84rem;border:1px solid transparent;}
-    .lb-row.me{background:#150900;border-color:#ff660022;}
-    .lb-rank{font-size:.95rem;font-weight:900;width:22px;text-align:center;flex-shrink:0;}
-    .lb-pseudo{flex:1;color:#bbb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .lb-row.me .lb-pseudo{color:#fff;}
-    .lb-title{font-size:.54rem;color:#aa66ff;background:#150022;padding:1px 4px;border-radius:4px;margin-left:3px;}
-    .lb-you{font-size:.54rem;color:#ff6600;background:#180800;padding:1px 4px;border-radius:4px;margin-left:2px;}
-    .lb-score{font-weight:900;color:#ff6600;white-space:nowrap;}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /* OVERTAKE */
     .overtake{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:800;background:#090000;border:3px solid #ff2222;border-radius:17px;padding:18px 28px;text-align:center;min-width:260px;max-width:88vw;}
@@ -386,225 +381,264 @@
   
 /* ══ SKINS BOUTON ══ */
 body.s-classic  #btn{background:radial-gradient(circle at 35% 35%,#ff5555,#cc0000 60%,#880000);box-shadow:0 8px 0 #550000,0 14px 30px #ff000055,inset 0 -4px 12px rgba(0,0,0,.4);}
-body.s-classic  .glow{background:radial-gradient(circle,#ff000044,transparent 70%);}
+body.s-classic  
 
 body.s-fart     #btn{background:radial-gradient(circle at 35% 35%,#ddff88,#88cc00 55%,#446600);box-shadow:0 8px 0 #334400,0 14px 30px #aaff0066,inset 0 -4px 12px rgba(0,0,0,.3);}
-body.s-fart     .glow{background:radial-gradient(circle,#88ff0044,transparent 70%);}
+body.s-fart     
 
 body.s-dog      #btn{background:radial-gradient(circle at 35% 35%,#ffdd88,#cc8822 55%,#885500);box-shadow:0 8px 0 #553300,0 14px 30px #ffaa4466,inset 0 -4px 12px rgba(0,0,0,.3);}
-body.s-dog      .glow{background:radial-gradient(circle,#ffaa0044,transparent 70%);}
+body.s-dog      
 
 body.s-cat      #btn{background:radial-gradient(circle at 35% 35%,#ffccee,#dd44aa 55%,#881166);box-shadow:0 8px 0 #551144,0 14px 30px #ff66aa55,inset 0 -4px 12px rgba(0,0,0,.3);}
-body.s-cat      .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
+body.s-cat      
 
 body.s-gold     #btn{background:radial-gradient(circle at 35% 35%,#ffe066,#ffaa00 60%,#cc7700);box-shadow:0 8px 0 #885500,0 14px 30px #ffaa0066,inset 0 -4px 12px rgba(0,0,0,.3);animation:goldShine 1.4s infinite alternate;}
-body.s-gold     .glow{background:radial-gradient(circle,#ffcc0044,transparent 70%);}
+body.s-gold     
 
 body.s-ice      #btn{background:radial-gradient(circle at 35% 35%,#cceeFF,#4499cc 60%,#226699);box-shadow:0 8px 0 #114466,0 14px 30px #44aaff55,inset 0 5px 16px rgba(200,240,255,.4);}
-body.s-ice      .glow{background:radial-gradient(circle,#44aaff44,transparent 70%);}
+body.s-ice      
 
 body.s-fire     #btn{background:radial-gradient(circle at 35% 35%,#ffff44,#ff6600 48%,#cc0000 78%);box-shadow:0 8px 0 #660000,0 14px 30px #ff660066;animation:fireDance .22s infinite alternate;}
-body.s-fire     .glow{background:radial-gradient(circle,#ff660044,transparent 70%);}
+body.s-fire     
 
 body.s-space    #btn{background:radial-gradient(circle at 35% 35%,#bb88ff,#6633cc 60%,#110055);box-shadow:0 8px 0 #110033,0 14px 30px #6644ff55,inset 0 -4px 12px rgba(0,0,0,.5);}
-body.s-space    .glow{background:radial-gradient(circle,#9944ff44,transparent 70%);}
+body.s-space    
 
 body.s-toxic    #btn{background:radial-gradient(circle at 35% 35%,#ccff00,#88cc00 60%,#446600);box-shadow:0 8px 0 #224400,0 14px 30px #aaff0066;animation:toxicDrip 1.4s ease-in-out infinite alternate;}
-body.s-toxic    .glow{background:radial-gradient(circle,#aaff0044,transparent 70%);}
+body.s-toxic    
 
 body.s-disco    #btn{background:radial-gradient(circle,#ff00ff,#aa00aa 60%,#660066);box-shadow:0 8px 0 #440044,0 14px 30px #ff00ff66;animation:discoFlash .38s infinite;}
-body.s-disco    .glow{background:radial-gradient(circle,#ff00ff44,transparent 70%);}
+body.s-disco    
 
 body.s-lava     #btn{background:radial-gradient(circle at 35% 35%,#ff8800,#cc3300 60%,#880000);box-shadow:0 8px 0 #440000,0 14px 30px #ff440066;animation:lavaBub 1.1s ease-in-out infinite alternate;}
-body.s-lava     .glow{background:radial-gradient(circle,#ff440044,transparent 70%);}
+body.s-lava     
 
 body.s-nuclear  #btn{background:radial-gradient(circle at 35% 35%,#aaff44,#66cc00 60%,#336600);box-shadow:0 8px 0 #224400,0 14px 30px #66ff0066;}
-body.s-nuclear  .glow{background:radial-gradient(circle,#66ff0044,transparent 70%);}
+body.s-nuclear  
 
 body.s-rainbow  #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff,#ff0000);animation:rainbowSpin 1.9s linear infinite;box-shadow:0 8px 0 #222,0 14px 30px rgba(255,255,255,.15);}
-body.s-rainbow  .glow{background:radial-gradient(circle,#ffffff33,transparent 70%);}
+body.s-rainbow  
 
 body.s-diamond  #btn{background:radial-gradient(circle at 30% 28%,#eeffff,#88ccff 38%,#4488bb 68%,#224466);box-shadow:0 8px 0 #112233,0 14px 30px #88ccff66,inset 0 5px 26px rgba(255,255,255,.6);}
-body.s-diamond  .glow{background:radial-gradient(circle,#88ccff55,transparent 70%);}
+body.s-diamond  
 
 body.s-mystery  #btn{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#ff00ff,#ff0000);animation:mystBtn .5s linear infinite;box-shadow:0 8px 0 #000,0 14px 30px rgba(255,255,255,.2);}
-body.s-mystery  .glow{background:radial-gradient(circle,#ff00ff44,transparent 70%);}
+body.s-mystery  
+
+/* ══ TABS ══ */
+.tabs-nav{display:flex;position:sticky;top:0;z-index:500;background:#0d0d0d;border-bottom:2px solid #1a1a1a;}
+.tab-btn{flex:1;padding:13px 4px;background:none;border:none;color:#666;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.5px;}
+.tab-btn.active{color:#fff;border-bottom-color:#ff2222;}
+.tab-btn:hover:not(.active){color:#aaa;}
+.tab-pane{display:none;padding-bottom:60px;}
+.tab-pane.active{display:block;}
+.topbar{display:flex;justify-content:center;align-items:center;gap:10px;padding:7px 12px;font-size:.73rem;color:#777;flex-wrap:wrap;background:#0d0d0d;}
+.fomo{color:#ff4444;font-weight:700;}
+header{text-align:center;padding:16px 12px 6px;}
+#title{display:block;font-family:'Bangers','Impact',cursive;font-size:clamp(1.5rem,6vw,2.6rem);letter-spacing:3px;color:#ff2222;text-shadow:0 0 20px #ff000066;}
+#subtitle{display:block;font-size:.76rem;color:#888;margin-top:3px;}
+.stats{display:flex;justify-content:center;gap:7px;padding:8px 10px;flex-wrap:wrap;}
+.sbox{background:#111;border:1px solid #222;border-radius:11px;padding:9px 13px;text-align:center;min-width:68px;}
+.sval{display:block;font-size:1.3rem;font-weight:900;color:#fff;}
+.slabel{font-size:.63rem;color:#777;margin-top:2px;}
+.live-dot{display:inline-block;width:6px;height:6px;background:#ff2222;border-radius:50%;margin-right:3px;animation:pulse 1.2s infinite;}
+.xp-wrap{padding:0 14px;margin-bottom:5px;}
+.xp-info{display:flex;justify-content:space-between;font-size:.73rem;color:#aaa;margin-bottom:3px;}
+#xpTitle{color:#fff;font-weight:700;}
+.xp-bg{height:7px;background:#1a1a1a;border-radius:6px;overflow:hidden;}
+.xp-fill{height:100%;background:linear-gradient(90deg,#cc0000,#ff6600);border-radius:6px;transition:width .4s;}
+.micro-wrap{display:flex;align-items:center;gap:7px;padding:2px 14px 9px;font-size:.7rem;color:#888;}
+.micro-bg{flex:1;height:5px;background:#1a1a1a;border-radius:4px;overflow:hidden;}
+.micro-fill{height:100%;background:#ff4400;border-radius:4px;transition:width .3s;}
+.micro-next{white-space:nowrap;color:#aaa;}
+.pseudo-wrap{padding:0 14px 10px;}
+.pseudo-wrap input{width:100%;box-sizing:border-box;background:#111;border:1px solid #333;color:#fff;border-radius:10px;padding:8px 13px;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;}
+.pseudo-wrap input:focus{border-color:#ff2222;}
+.game{display:flex;flex-direction:column;align-items:center;padding:14px 0 0;}
+.btn-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.glow{position:absolute;width:clamp(210px,34vw,290px);height:clamp(210px,34vw,290px);border-radius:50%;pointer-events:none;transition:background .5s;}
+#btn{position:relative;z-index:2;width:clamp(160px,24vw,230px);height:clamp(160px,24vw,230px);border-radius:50%;border:none;cursor:pointer;font-family:'Bangers','Impact',cursive;font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:2px;color:#fff;transition:transform .08s,filter .08s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline:none;}
+#btn::before{content:'';position:absolute;top:9%;left:16%;width:38%;height:26%;background:rgba(255,255,255,.2);border-radius:50%;transform:rotate(-30deg);pointer-events:none;}
+#btn:hover:not(.pressed){filter:brightness(1.12);transform:scale(1.03);}
+#btn.pressed{transform:translateY(7px) scale(.94)!important;filter:brightness(.8);}
+.combo-wrap{width:clamp(190px,58vw,320px);text-align:center;margin-bottom:5px;}
+.combo-label{font-size:.68rem;color:#888;margin-bottom:2px;}
+.combo-bg{height:6px;background:#1a1a1a;border-radius:5px;overflow:hidden;}
+.combo-fill{height:100%;background:linear-gradient(90deg,#ff6600,#ff0000);border-radius:5px;transition:width .15s;}
+.combo-text{font-size:.78rem;color:#ff6600;font-weight:700;min-height:17px;margin-top:2px;}
+.reaction{min-height:34px;font-size:.83rem;color:#bbb;text-align:center;padding:3px 14px;}
+.reaction.flash{animation:flashIn .3s ease;}
+.remoji{margin-right:3px;}
+.provoc{text-align:center;padding:6px 14px 3px;}
+.provoc-text{font-size:.78rem;color:#888;font-style:italic;}
+.provoc-text.anim{animation:fadeSlide .4s ease;}
+.provoc-btn{margin-top:5px;background:linear-gradient(135deg,#aa0000,#ff3300);border:none;color:#fff;padding:5px 14px;border-radius:13px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;}
+.missions{padding:14px;}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.mhead h2{margin:0;font-size:.95rem;color:#fff;}
+.mreset{font-size:.68rem;color:#666;}
+.mrow{display:flex;align-items:center;gap:7px;padding:7px 9px;background:#111;border:1px solid #1e1e1e;border-radius:9px;margin-bottom:5px;}
+.mrow.done{border-color:#22aa44;background:#0a1a0f;}
+.micon{font-size:1rem;width:22px;text-align:center;}
+.minfo{flex:1;}
+.mname{font-size:.78rem;color:#ccc;margin-bottom:2px;}
+.mprog-bg{height:4px;background:#222;border-radius:3px;overflow:hidden;}
+.mprog{height:100%;background:linear-gradient(90deg,#ff4400,#ff8800);border-radius:3px;transition:width .3s;}
+.mrow.done .mprog{background:linear-gradient(90deg,#22aa44,#44ff88);}
+.mreward{font-size:.68rem;color:#888;min-width:28px;text-align:right;}
+.mrow.done .mreward{color:#44ff88;}
+.skins{padding:14px;}
+.skins-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.skins-header h2{margin:0;font-size:.95rem;color:#fff;}
+.skins-progress{font-size:.7rem;color:#888;}
+.next-hint{font-size:.73rem;color:#aaa;margin-bottom:9px;padding:5px 9px;background:#111;border-radius:7px;border:1px solid #222;}
+.skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.skin-card{background:#111;border:1px solid #222;border-radius:11px;padding:9px 5px;text-align:center;cursor:pointer;transition:all .2s;}
+.skin-card.active{border-color:var(--sc,#ff2222);box-shadow:0 0 11px var(--sc,#ff2222)44;}
+.skin-card.locked{opacity:.4;cursor:not-allowed;filter:grayscale(.85);}
+.skin-preview{font-size:1.55rem;margin-bottom:3px;}
+.skin-nm{display:block;font-size:.63rem;font-weight:700;color:#ccc;margin-bottom:1px;}
+.skin-rq{display:block;font-size:.58rem;color:#888;}
+.ach{padding:14px;}
+.ach h2{margin:0 0 11px;font-size:.95rem;color:#fff;}
+.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.ach-card{background:#111;border:1px solid #222;border-radius:9px;padding:9px 5px;text-align:center;}
+.ach-card.unlocked{border-color:#aa66ff;background:#110a22;}
+.ach-icon{display:block;font-size:1.4rem;margin-bottom:2px;}
+.ach-name{display:block;font-size:.63rem;color:#ccc;margin-bottom:1px;}
+.ach-req{display:block;font-size:.56rem;color:#666;}
+.ach-card.unlocked .ach-req{color:#aa66ff;}
+.lb{padding:14px;}
+.lb h2{margin:0 0 11px;font-size:.95rem;color:#fff;}
+#lbContent .lb-row{display:flex;align-items:center;gap:9px;padding:7px 9px;background:#111;border:1px solid #1e1e1e;border-radius:9px;margin-bottom:4px;}
+#lbContent .lb-rank{font-size:.95rem;width:26px;text-align:center;}
+#lbContent .lb-name{flex:1;font-size:.82rem;color:#ddd;font-weight:700;}
+#lbContent .lb-score{font-size:.82rem;color:#ff6644;font-weight:700;}
+.share-wrap{display:flex;gap:5px;justify-content:center;padding:8px 14px 14px;flex-wrap:wrap;}
+.share-btn{background:#111;border:1px solid #333;color:#fff;padding:7px 14px;border-radius:18px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;}
+.event-box{display:none;background:#111;border:2px solid #444;border-radius:11px;padding:9px 13px;margin:0 14px 7px;text-align:center;}
+.event-box.on{display:block;animation:evPulse 1.5s ease infinite alternate;}
+.event-name{font-weight:700;color:#fff;font-size:.88rem;}
+.event-badge{background:#ff6600;color:#fff;border-radius:7px;padding:1px 6px;font-weight:700;font-size:.78rem;margin-left:5px;}
+.event-time{display:block;font-size:.68rem;color:#aaa;margin-top:1px;}
+.event-desc{display:block;font-size:.7rem;color:#888;margin-top:1px;}
 </style>
 </head>
 <body class="s-classic">
-  <!-- ══════ LANDING SCREEN ══════ -->
-  <div id="landing">
-    <span class="landing-emoji">🔴</span>
-    <div class="landing-title">LE BOUTON<br>QUI SERT À RIEN</div>
-    <p class="landing-sub">Le jeu le plus inutile d'internet.<br><strong>Et pourtant… tu peux pas t'arrêter.</strong></p>
-    <div class="landing-features">
-      <span class="lfeat">🏆 Classement mondial</span>
-      <span class="lfeat">🎨 12 skins à débloquer</span>
-      <span class="lfeat">🔥 Streak quotidien</span>
-      <span class="lfeat">⚡ Événements en direct</span>
-    </div>
-    <div class="landing-stats">
-      <div class="lstat"><span class="lstat-val" id="landingGlobal">…</span><span class="lstat-label">Clics mondiaux</span></div>
-      <div class="lstat"><span class="lstat-val" id="landingPlayers">…</span><span class="lstat-label">Joueurs actifs</span></div>
-    </div>
-    <button class="landing-cta" onclick="startGame()">APPUIE ICI 👆</button>
-    <p class="landing-hint">👆 Appuie sur le bouton pour commencer</p>
-  </div>
-  <!-- ══════════════════════════════ -->
-
-
   <canvas id="particleCanvas"></canvas>
   <div class="bg"></div>
-  <div class="stars" id="stars"></div>
+  <div id="stars"></div>
   <div class="panic-frame" id="panicFrame"></div>
+  <div class="jackpot-modal" id="jackpotModal" style="display:none"><div class="jackpot-inner"><div class="jackpot-emoji">🎰</div><div id="jackpotMsg"></div><button onclick="document.getElementById('jackpotModal').style.display='none'">OK champion</button></div></div>
+  <div class="mystery-modal" id="mysteryModal" style="display:none"><div class="mystery-inner"><div class="mystery-emoji" id="mystEmoji">👁️</div><div id="mystText"></div><button onclick="document.getElementById('mysteryModal').style.display='none'">J'accepte</button></div></div>
+  <div class="overtake-modal" id="overtakeModal" style="display:none"><div id="overtakeMsg"></div><button class="overtake-btn" onclick="document.getElementById('overtakeModal').style.display='none'">OK</button></div>
+  <button id="pwaBtn" style="display:none" onclick="installPWA()">📲 Installer</button>
+  <div class="offline-bar" id="offlineBar" style="display:none">📴 Hors ligne — clics sauvegardés</div>
+  <div class="challenger" id="challenger" style="display:none">⚔️ <strong id="cName"></strong> te défie — <strong id="cScore"></strong> clics 😤</div>
 
-  <div class="jackpot" id="jackpotModal">
-    <div class="jackpot-inner"><h2>🎰 JACKPOT !!!</h2><p id="jackpotMsg"></p></div>
+  <div id="landing" style="position:fixed;inset:0;z-index:10000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;">
+    <span style="font-size:4rem;animation:landingBounce 1s ease-in-out infinite alternate;display:block;margin-bottom:8px;">🔴</span>
+    <span class="landing-title">LE BOUTON<br>QUI SERT À RIEN</span>
+    <p class="landing-sub">Le jeu le plus <strong>inutile</strong> d'internet.<br>Des milliers de gens perdent leur temps ici. <strong>Rejoins-les.</strong></p>
+    <div class="landing-stats">
+      <div class="lstat">👥 <span id="landingPlayers">…</span> joueurs</div>
+      <div class="lstat">🖱️ <span id="landingGlobal">…</span> clics</div>
+    </div>
+    <button class="landing-cta" onclick="startGame()">👆 APPUIE ICI</button>
+    <span class="landing-hint">C'est totalement inutile. Tu vas quand même le faire.</span>
   </div>
-  <div class="mystery" id="mysteryModal">
-    <div class="mystery-inner"><h2>🎲 MYSTÈRE !</h2><span class="myst-emoji" id="mystEmoji">❓</span><p id="mystText"></p></div>
-  </div>
-  <div class="overtake" id="overtakeModal">
-    <h3>😱 T'AS ÉTÉ DÉPASSÉ !</h3>
-    <p id="overtakeMsg"></p>
-    <button class="overtake-btn" onclick="closeOvertake()">⚡ REVANCHE !</button>
-  </div>
 
-  <button class="pwa-btn" id="pwaBtn">📲 Installer l'app</button>
-
-  <div class="wrap">
-    <div class="offline-bar" id="offlineBar">📴 Mode <span>HORS LIGNE</span> — tes clics sont sauvegardés localement !</div>
-    <div class="challenger" id="challenger">⚔️ <strong id="cName"></strong> te défie — Score à battre : <strong id="cScore"></strong> clics 😤</div>
-
+  <div class="wrap" id="mainWrap" style="display:none;">
     <div class="topbar">
       <div id="streakPill" class="streak-pill dead">🔥 0 jour</div>
       <span>|</span>
-      <span><span class="fomo" id="fomoCount">—</span> joueurs actifs 🔴</span>
+      <span><span class="fomo" id="fomoCount">—</span> actifs 🔴</span>
       <span>|</span>
-      <span class="season-info" id="seasonInfo">Saison en cours</span>
+      <span id="seasonInfo">Saison</span>
     </div>
-
     <div class="event-box" id="eventBox">
-      <div><span class="event-name" id="evName">DOUBLE CLICS</span><span class="event-badge" id="evBadge">x2</span></div>
+      <div><span class="event-name" id="evName">EVENT</span><span class="event-badge" id="evBadge">x2</span></div>
       <span class="event-time" id="evTimer">--:--</span>
-      <span class="event-desc" id="evDesc">Chaque clic compte double !</span>
+      <span class="event-desc" id="evDesc"></span>
     </div>
-
     <header>
       <span id="title">🔴 LE BOUTON QUI SERT À RIEN 🔴</span>
-      <span id="subtitle">Le jeu le plus inutile d'internet — et pourtant tu peux pas t'arrêter</span>
+      <span id="subtitle">Température : —</span>
     </header>
-
     <div class="stats">
       <div class="sbox"><span class="sval" id="globalCount">…</span><div class="slabel"><span class="live-dot"></span>Mondial</div></div>
       <div class="sbox"><span class="sval" id="myCount">0</span><div class="slabel">Tes clics</div></div>
       <div class="sbox"><span class="sval" id="myRank">—</span><div class="slabel">Rang</div></div>
       <div class="sbox"><span class="sval" id="streakCount">0</span><div class="slabel">🔥 Jours</div></div>
     </div>
-
     <div class="xp-wrap">
-      <div class="xp-info"><span id="xpTitle">Néophyte du Néant</span><span id="xpNext"></span></div>
+      <div class="xp-info"><span id="xpTitle">Néophyte</span><span id="xpNext"></span></div>
       <div class="xp-bg"><div class="xp-fill" id="xpFill"></div></div>
     </div>
-
     <div class="micro-wrap">
-      <span class="micro-label">🎯 Palier</span>
+      <span class="micro-label">🎯</span>
       <div class="micro-bg"><div class="micro-fill" id="microFill"></div></div>
       <span class="micro-next" id="microNext">…</span>
     </div>
-
     <div class="pseudo-wrap">
       <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
     </div>
 
-    <div class="missions">
-      <div class="mhead"><h2>🎯 MISSIONS DU JOUR</h2><span class="mreset" id="mReset">…</span></div>
-      <div id="mList"></div>
-    </div>
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('jeu',this)">👆 JEU</button>
+      <button class="tab-btn" onclick="switchTab('prog',this)">🎨 PROGRESSION</button>
+      <button class="tab-btn" onclick="switchTab('classement',this)">🌍 CLASSEMENT</button>
+    </nav>
 
-    <div class="game">
-      <div class="btn-wrap">
-        <div class="glow"></div>
-        <button id="btn">APPUIE<br>DESSUS</button>
+    <div class="tab-pane active" id="tab-jeu">
+      <div class="game">
+        <div class="btn-wrap">
+          <div class="glow"></div>
+          <button id="btn">APPUIE<br>DESSUS</button>
+        </div>
+        <div class="combo-wrap">
+          <div class="combo-label">Combo</div>
+          <div class="combo-bg"><div class="combo-fill" id="comboFill"></div></div>
+          <div class="combo-text" id="comboText"></div>
+        </div>
+        <div class="reaction" id="reaction"><span>👆 Appuie, espèce de curieux</span></div>
       </div>
-      <div class="combo-wrap">
-        <div class="combo-label">Combo</div>
-        <div class="combo-bg"><div class="combo-fill" id="comboFill"></div></div>
-        <div class="combo-text" id="comboText"></div>
+      <div class="provoc">
+        <span class="provoc-text" id="provocText"></span>
+        <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
       </div>
-      <div class="reaction" id="reaction"><span>👆 Appuie sur le bouton, espèce de curieux</span></div>
-    </div>
-
-    <div class="provoc">
-      <span class="provoc-text" id="provocText"></span>
-      <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
-    </div>
-
-    <div class="skins">
-      <div class="skins-header">
-        <h2>🎨 SKINS</h2>
-        <span class="skins-progress" id="skinsProgress"></span>
-      </div>
-      <div class="next-hint" id="nextHint"></div>
-      <div class="skin-grid" id="skinGrid"></div>
-    </div>
-
-    <div class="ach">
-      <h2>🏅 SUCCÈS INUTILES</h2>
-      <div class="ach-grid" id="achGrid"></div>
-    </div>
-
-    <div class="lb">
-      <h2>🏆 CLASSEMENT MONDIAL</h2>
-      <div id="lbContent"><p style="text-align:center;color:#aaa;padding:12px">Chargement...</p></div>
-    </div>
-
-    <div class="share" style="display:flex;gap:6px;justify-content:center;padding:5px 13px 16px;flex-wrap:wrap;">
-      <button style="background:linear-gradient(135deg,#111,#252525);border:1px solid #2a2a2a;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareTwitter()">🐦 Twitter/X</button>
-      <button style="background:linear-gradient(135deg,#128c7e,#25d366);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareWhatsapp()">💬 WhatsApp</button>
-      <button style="background:linear-gradient(135deg,#aa0000,#ff6600);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="copyDefi()">⚔️ Mon défi</button>
-    </div>
-
-    <footer>
-    <div class="footer-top">
-      <div class="footer-col">
-        <h4>🔴 Le Jeu</h4>
-        <p>Le jeu en ligne le plus inutile — et pourtant tu peux pas t'arrêter.<br>
-        Clique, grimpe dans le classement, débloque des skins.<br>
-        <strong style="color:#ff4444">100% gratuit. 0% utile.</strong></p>
-      </div>
-      <div class="footer-col">
-        <h4>📋 Éditeur</h4>
-        <address>
-          <strong style="color:#aaa">Charly Soudan</strong><br>
-          36 avenue du Parc<br>
-          93290 Tremblay-en-France<br>
-          France<br>
-          <span style="color:#bbb;font-size:.68rem;font-style:italic">Particulier — immatriculation en cours</span>
-        </address>
+      <div class="missions">
+        <div class="mhead"><h2>🎯 MISSIONS</h2><span class="mreset" id="mReset">…</span></div>
+        <div id="mList"></div>
       </div>
     </div>
 
-    <div class="footer-legal-links">
-      <a href="#" onclick="openModal('modalMentions');return false;">📋 Mentions légales</a>
-      <span>·</span>
-      <a href="#" onclick="openModal('modalCGU');return false;">📜 CGU</a>
-      <span>·</span>
-      <a href="#" onclick="openModal('modalConfidentialite');return false;">🔒 Confidentialité & RGPD</a>
-      <span>·</span>
-      <a href="https://www.cnil.fr" target="_blank">🛡️ CNIL</a>
+    <div class="tab-pane" id="tab-prog">
+      <div class="skins">
+        <div class="skins-header"><h2>🎨 SKINS</h2><span class="skins-progress" id="skinsProgress"></span></div>
+        <div class="next-hint" id="nextHint"></div>
+        <div class="skin-grid" id="skinGrid"></div>
+      </div>
+      <div class="ach">
+        <h2>🏅 SUCCÈS</h2>
+        <div class="ach-grid" id="achGrid"></div>
+      </div>
     </div>
 
-    <div class="footer-bottom">
-      <strong>© 2026 Le Bouton Qui Sert À Rien™</strong> — Tous droits réservés 😈<br>
-      Hébergé par <a href="https://base44.com" target="_blank" style="color:#888">Base44</a>
-      &nbsp;·&nbsp; Site personnel à but non commercial
-      &nbsp;·&nbsp; Aucune donnée vendue ni partagée
+    <div class="tab-pane" id="tab-classement">
+      <div class="lb">
+        <h2>🏆 CLASSEMENT MONDIAL</h2>
+        <div id="lbContent"><p style="text-align:center;color:#aaa;padding:12px">Chargement...</p></div>
+      </div>
+      <div class="share-wrap">
+        <button class="share-btn" onclick="shareTwitter()">🐦 Twitter/X</button>
+        <button class="share-btn" onclick="shareWhatsapp()">💬 WhatsApp</button>
+        <button class="share-btn" onclick="copyDefi()">⚔️ Mon défi</button>
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- MODAL MENTIONS LÉGALES -->
-  <div class="legal-modal" id="modalMentions">
+<div class="legal-modal" id="modalMentions">
     <div class="legal-box">
       <button class="legal-close" onclick="closeModal('modalMentions')">✕</button>
       <h2>📋 Mentions Légales</h2>
@@ -1827,6 +1861,1126 @@ var _landingShownAt = Date.now();
 updateLandingStats();
 
 init();
+</script>
+
+<script>
+
+'use strict';
+/* ══════ CONFIG ══════ */
+var API = 'https://superagent-ceec4ffc.base44.app/functions';
+var PAGE_URL = window.location.href.split('?')[0];
+var IS_ONLINE = navigator.onLine;
+
+/* ══════ DATA ══════ */
+var SKINS = [
+  // ── DÉBUTANT (0–200) ──
+  {id:'classic', nm:'Le Bouton',      e:'🔴', req:0,    c:'#ff2222', desc:'Le classique. T\'es personne.'},
+  {id:'fart',    nm:'Prout Master',   e:'💨', req:25,   c:'#88ff44', desc:'Chaque clic fait PRRRT 💀'},
+  {id:'dog',     nm:'Bon Chien',      e:'🐶', req:75,   c:'#ffaa44', desc:'Ouaf ouaf. T\'es fidèle au bouton.'},
+  {id:'cat',     nm:'Chat Indépendant',e:'🐱',req:150,  c:'#ffcc88', desc:'Tu cliques... mais à ta façon.'},
+  {id:'gold',    nm:'Or Massif',      e:'🥇', req:250,  c:'#ffcc00', desc:'Premier palier. Respect.'},
+
+  // ── INTERMÉDIAIRE (500–2000) ──
+  {id:'ice',     nm:'Glaçon Suprême', e:'❄️', req:500,  c:'#44aaff', desc:'Cool comme jamais.'},
+  {id:'fire',    nm:'En Feu 🔥',      e:'🔥', req:750,  c:'#ff6600', desc:'T\'arrêtes pas. Littéralement.'},
+  {id:'space',   nm:'Astronaute du Rien',e:'🌌',req:1000,c:'#9966ff', desc:'Tu cliques dans le vide cosmique.'},
+  {id:'toxic',   nm:'Radioactif',     e:'☣️', req:1500, c:'#aaff00', desc:'Dangereusement accro.'},
+  {id:'disco',   nm:'Roi de la Piste',e:'🪩', req:2000, c:'#ff44ff', desc:'Le bouton groove avec toi.'},
+
+  // ── EXPERT (3000–10000) ──
+  {id:'lava',    nm:'Cœur de Lave',   e:'🌋', req:3000, c:'#ff4400', desc:'T\'as pas de vie. C\'est assumé.'},
+  {id:'nuclear', nm:'Fission Totale', e:'☢️', req:4000, c:'#66ff00', desc:'Le bouton craint ta puissance.'},
+  {id:'rainbow', nm:'Arc-en-Ciel',    e:'🌈', req:5000, c:'#ffffff', desc:'Tellement de clics que la réalité glitch.'},
+  {id:'diamond', nm:'Diamant Noir',   e:'💎', req:7500, c:'#88ccff', desc:'Légende. On parle de toi en silence.'},
+  {id:'mystery', nm:'??? CLASSIFIED',  e:'👁️', req:10000,c:'#ff00ff', desc:'Tu sais ce que tu as fait.'},
+];
+var SKIN_TXT = {
+  classic:'🔴 APPUIE<br>DESSUS',
+  fart:   '💨 PROUT<br>MASTER',
+  dog:    '🐶 BON<br>CHIEN',
+  cat:    '🐱 CHAT<br>COOL',
+  gold:   '🥇 OR<br>MASSIF',
+  ice:    '❄️ GLAÇON<br>SUPRÊME',
+  fire:   '🔥 EN FEU<br>!!!',
+  space:  '🌌 SPACE<br>CLICK',
+  toxic:  '☣️ RADIO<br>ACTIF',
+  disco:  '🪩 DISCO<br>BABY',
+  lava:   '🌋 LAVE<br>TOTALE',
+  nuclear:'☢️ BOOM<br>BOOM',
+  rainbow:'🌈 CLICK<br>FOU',
+  diamond:'💎 DIAM<br>CLICK',
+  mystery:'👁️ ???<br>!!!!'
+};
+var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
+
+var TITLES = [
+  {req:0,      t:'Neophyte du Neant'},
+  {req:10,     t:'Apprenti Inutile'},
+  {req:50,     t:'Padawan du Vide'},
+  {req:150,    t:'Stagiaire Sans-But'},
+  {req:300,    t:'Maitre du Rien'},
+  {req:600,    t:'Seigneur des Clics'},
+  {req:1000,   t:'Baron Inutile'},
+  {req:1800,   t:'Comte Debile'},
+  {req:3000,   t:'Duc du Neant Total'},
+  {req:5000,   t:'Roi des Sans-Vie'},
+  {req:8000,   t:'Empereur du Vide'},
+  {req:12000,  t:'Dieu du Bouton'},
+  {req:20000,  t:'TITAN COSMIQUE'},
+  {req:35000,  t:'ANOMALIE GALACTIQUE'},
+  {req:60000,  t:'TRANSCENDE'},
+  {req:100000, t:'L\'ELU — FIN DU JEU ?'},
+];
+function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITLES[i].req)t=TITLES[i];}return t;}
+function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
+
+var MISSIONS_DEF=[
+  {id:'d25',   nm:'25 clics aujourd\'hui',              tgt:25,    type:'day',   xp:10},
+  {id:'d100',  nm:'100 clics dans la journee',           tgt:100,   type:'day',   xp:25},
+  {id:'d300',  nm:'300 clics - meme pas chaud',          tgt:300,   type:'day',   xp:60},
+  {id:'d750',  nm:'750 clics - t\'as pas de vie',       tgt:750,   type:'day',   xp:150},
+  {id:'d1500', nm:'1500 clics - diagnostic etabli',      tgt:1500,  type:'day',   xp:300},
+  {id:'d3000', nm:'3000 clics en 1 jour - legendaire',   tgt:3000,  type:'day',   xp:700},
+  {id:'c10',   nm:'Combo x10 en rafale',                 tgt:10,    type:'combo', xp:20},
+  {id:'c25',   nm:'Combo x25 - les doigts chauffent',    tgt:25,    type:'combo', xp:50},
+  {id:'c50',   nm:'Combo x50 - incontrôlable',           tgt:50,    type:'combo', xp:120},
+  {id:'c100',  nm:'Combo x100 - cerveau deconnecte',     tgt:100,   type:'combo', xp:300},
+  {id:'t500',  nm:'500 clics au total',                  tgt:500,   type:'total', xp:50},
+  {id:'t2000', nm:'2000 clics - t\'es malade',          tgt:2000,  type:'total', xp:150},
+  {id:'t5000', nm:'5000 clics - consulte un medecin',    tgt:5000,  type:'total', xp:400},
+  {id:'t10000',nm:'10 000 clics - MONSTRE',              tgt:10000, type:'total', xp:1000},
+  {id:'t25000',nm:'25 000 clics - plus rien a faire',    tgt:25000, type:'total', xp:2500},
+  {id:'t50000',nm:'50 000 clics - DIEU DU RIEN',         tgt:50000, type:'total', xp:5000},
+];
+
+var REACTIONS=[
+  {e:'🦆',t:'COIN COIN... et alors ?'},{e:'💀',t:'Tu viens de perdre 2 secondes de ta vie.'},
+  {e:'🤡',t:'Bravo. T\'es fier de toi ?'},{e:'🥔',t:'Aussi utile qu\'une patate sans sel.'},
+  {e:'🎺',t:'♩ TADAAAAA ♩ ... c\'est tout.'},{e:'🐌',t:'Même un escargot aurait trouvé mieux.'},
+  {e:'🎉',t:'FÉLICITATIONS... pour rien du tout !'},{e:'😴',t:'Zzzzz... T\'as cliqué ?'},
+  {e:'⚡',t:'ÉLECTRISAAANT... nan, pas vraiment.'},{e:'🍕',t:'Quelque part une pizza refroidit à cause de toi.'},
+  {e:'🚀',t:'DÉCOLLAGE... vers l\'inutilité totale.'},{e:'🦧',t:'Les singes t\'observent et sont déçus.'},
+  {e:'🧠',t:'Ton cerveau : ERREUR 404.'},{e:'🤯',t:'TON CERVEAU EXPLOSE... parce que t\'es là.'},
+  {e:'💾',t:'Données sauvegardées : ton inutilité.'},{e:'🎪',t:'Bienvenue au cirque. T\'es la vedette.'},
+  {e:'🦩',t:'Le flamant rose est TRÈS déçu.'},{e:'🎯',t:'DANS LE MILLE ! Du rien. Bravo.'},
+  {e:'🎻',t:'*violon triste* ...voilà ta vie.'},{e:'🤖',t:'ERREUR 404 : UTILITÉ INTROUVABLE.'},
+  {e:'🎵',t:'♪ Lalala tu cliques, lalala pour rien ♪'},{e:'🌙',t:'La lune te regarde et soupire.'},
+  {e:'🎈',t:'PAN ! ... comme tes espoirs.'},{e:'🐢',t:'La tortue est plus rapide que ta réflexion.'},
+  {e:'☕',t:'Ton café refroidit pendant que tu cliques.'},{e:'🦜',t:'"T\'es bête !" — Perroquet.'},
+  {e:'🪄',t:'*Abracadabra* — Toujours aussi inutile.'},{e:'🦄',t:'Même les licornes ont abandonné.'},
+  {e:'🏖️',t:'Quelqu\'un est à la plage. Pas toi.'},{e:'🍩',t:'Un donut porte ton prénom.'},
+];
+function personalReaction(p){
+  var a=[
+    {e:'😤',t:p+', t\'as vraiment rien de mieux à faire ?'},
+    {e:'🤦',t:p+' prouve qu\'on peut survivre sans cerveau.'},
+    {e:'👑',t:p+', Roi·Reine du temps gaspillé.'},
+    {e:'🗿',t:p+' : impassible, inutile, légendaire.'},
+  ];
+  return a[Math.floor(Math.random()*a.length)];
+}
+
+var PROVOCS=[
+  "T'as meme pas {next} clics... c'est ca jouer ?",
+  "Tu vas vraiment t'arreter la ? A {cur} clics ?",
+  "Meme ta grand-mere ferait mieux. Allez, {next} !",
+  "Le bouton te juge. {next} clics minimum.",
+  "Y'a des gens a {next} clics pendant que toi tu dors.",
+  "Serieusement ? {cur} clics ? C'est tout ?",
+  "Le record est loin. T'as peur ou t'es juste lent ?",
+  "T'es a {cur}... le prochain palier c'est {next}. ALLEZ.",
+  "Dans 5 minutes tu peux doubler ton score. Essaie.",
+  "Ta serie de {streak} jours merite mieux que ca.",
+  "Tu sais que {next} clics c'est la prochaine recompense... non ?",
+  "PSST. T'es a {cur}. Quelqu'un vient de passer devant toi.",
+  "{next} clics. C'est vraiment si dur que ca ?",
+  "J'ai vu des tortues plus rapides. {next} clics. Vas-y.",
+  "Ton cerveau dit stop. Ignore-le. {next} clics.",
+  "A {cur} clics t'es encore un amateur. {next} pour changer ca.",
+  "Le bouton attend. Il a toute la nuit. Toi aussi non ?",
+  "FOMO active : quelqu'un vient de debloquer un skin. T'es ou ?",
+  "Encore {next} clics et t'es dans une autre categorie.",
+  "Chaque clic te rapproche de... rien. Mais t'arrives pas a t'arreter.",
+];
+
+var MYSTERY_EVTS=[
+  {e:'🦆',t:'LE BOUTON FAIT COIN COIN',a:function(){[300,400,350,250].forEach(function(f,i){setTimeout(function(){playTone(f,'square',.12,.2);},i*80);});}},
+  {e:'💀',t:'TU VIENS DE PERDRE 10 SECONDES',a:function(){}},
+  {e:'🎰',t:'JACKPOT MYSTÈRE — CONFETTIS !',a:function(){spawnConfetti();}},
+  {e:'👻',t:'LE BOUTON EST HANTÉ. FUIS.',a:function(){makeButtonRun();}},
+  {e:'🤯',t:'COMBO x50 PENDANT 1 SECONDE !',a:function(){combo=50;renderCombo();setTimeout(function(){combo=0;renderCombo();},1000);}},
+  {e:'🌈',t:'TOUT DEVIENT ARC-EN-CIEL — 3 SEC !',a:function(){var prev=curSkin;setSkin('rainbow');setTimeout(function(){setSkin(prev);},3000);}},
+  {e:'💥',t:'EXPLOSION DE PARTICULES !!!',a:function(){for(var i=0;i<5;i++){(function(ii){setTimeout(function(){burstParticles(window.innerWidth/2,window.innerHeight/2,18);},ii*250);})(i);}}},
+];
+
+var JACKPOT_MSGS=[
+  "100 CLICS ! T'AS AUCUNE VIE !","200 CLICS ! APPELLE UN MÉDECIN !",
+  "300 CLICS ! C'EST CLINIQUE !","400 CLICS ! TA MÈRE EST FIÈRE ?",
+  "500 CLICS ! LÉGENDE DE L'INUTILE !","1000 CLICS ! TU ES LE BOUTON MAINTENANT !",
+];
+
+var EVENTS_LIST=[
+  {name:'DOUBLE CLICS',mult:2,dur:600,desc:'Chaque clic compte double !',color:'#aa66ff'},
+  {name:'TRIPLE FOLIE',mult:3,dur:300,desc:'x3 pendant 5 minutes !',color:'#ff00ff'},
+  {name:'CLICK STORM',mult:2,dur:240,desc:'Tempête de clics x2 !',color:'#ff6600'},
+];
+
+var MICRO_MILESTONES=(function(){
+  var m=[];
+  for(var i=50;i<=500;i+=50)m.push(i);
+  for(var i=600;i<=2000;i+=100)m.push(i);
+  for(var i=2500;i<=10000;i+=500)m.push(i);
+  for(var i=15000;i<=100000;i+=5000)m.push(i);
+  return m;
+})();
+
+var ACHIEVEMENTS=[
+  {id:'a1',  e:'👆', nm:'Premier Clic',             req:1},
+  {id:'a2',  e:'🔟', nm:'Dizaine de honte',           req:10},
+  {id:'a3',  e:'💪', nm:'Centenaire',                 req:100},
+  {id:'a4',  e:'🔥', nm:'En Feu',                     req:250},
+  {id:'a5',  e:'💯', nm:'Demi-millier',                req:500},
+  {id:'a6',  e:'🤡', nm:'Vrai Clown',                  req:1000},
+  {id:'a7',  e:'😤', nm:'Acharne du Bouton',           req:2000},
+  {id:'a8',  e:'💀', nm:'Aucune Vie',                  req:3500},
+  {id:'a9',  e:'👑', nm:'Roi du Vide',                 req:5000},
+  {id:'a10', e:'🤯', nm:'Cerveau Crame',               req:7500},
+  {id:'a11', e:'🧠', nm:'Anomalie Neurologique',       req:10000},
+  {id:'a12', e:'👽', nm:'Plus Vraiment Humain',        req:15000},
+  {id:'a13', e:'⚡', nm:'Force de la Nature',          req:20000},
+  {id:'a14', e:'🏔', nm:'Sommet de l\'Inutile',       req:30000},
+  {id:'a15', e:'🌋', nm:'Eruption Totale',             req:50000},
+  {id:'a16', e:'🐐', nm:'GOAT DU RIEN',                req:75000},
+  {id:'a17', e:'👁', nm:'L\'ELU',                    req:100000},
+];
+
+/* ══════ STATE ══════ */
+var clicks=parseInt(localStorage.getItem('clicks')||'0');
+var _savedSkin=localStorage.getItem('skin')||'classic';
+var curSkin=(function(){
+  for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===_savedSkin)return _savedSkin;}
+  return 'classic'; // skin invalide ou supprimé → fallback
+})();
+var combo=0,comboTimer=null,maxCombo=0;
+var lastReaction='';
+var panic=false,running=false,mysteryActive=false;
+var jackpotNext=Math.ceil((clicks+1)/750)*750;
+var dayClicks=0;
+var streak=parseInt(localStorage.getItem('streak')||'0');
+var lastPlayDate=localStorage.getItem('lastPlayDate')||'';
+var prevLb=[];
+var provocTimer=null,audioCtx=null;
+var eventMultiplier=1,comboFrozen=false,activeEvent=null,eventInterval=null;
+var _lastClickTime=0;
+var _pendingSync=[];  // clics en attente de sync hors ligne
+var _renderPending=false;  // throttle renders
+var _toastFlags=(function(){
+  // Persister les flags dans localStorage pour survivre aux rechargements
+  try{ return JSON.parse(localStorage.getItem('_tf')||'{}'); }
+  catch(e){ return {}; }
+})();
+function _saveToastFlags(){ try{localStorage.setItem('_tf',JSON.stringify(_toastFlags));}catch(e){} }
+var _lastPointerX=-1, _lastPointerY=-1;  // coords fiables du dernier touch
+
+/* ══════ CANVAS PARTICULES ══════ */
+var canvas=document.getElementById('particleCanvas');
+var ctx2d=canvas.getContext('2d');
+var particles=[];
+var rafId=null;
+
+function resizeCanvas(){
+  var dpr=window.devicePixelRatio||1;
+  var w=window.innerWidth, h=window.innerHeight;
+  canvas.width=Math.round(w*dpr);
+  canvas.height=Math.round(h*dpr);
+  canvas.style.width=w+'px';
+  canvas.style.height=h+'px';
+}
+resizeCanvas();
+window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
+
+function drawLoop(){
+  if(rafId) return; // déjà en cours
+  function frame(){
+    // Reset propre : on travaille en physical pixels directement
+    var dpr=window.devicePixelRatio||1;
+    ctx2d.setTransform(1,0,0,1,0,0); // reset absolu
+    ctx2d.clearRect(0,0,canvas.width,canvas.height);
+    var alive=false;
+    for(var i=0;i<particles.length;i++){
+      var p=particles[i];
+      p.x+=p.vx; p.y+=p.vy;
+      p.vy+=0.32; p.vx*=0.97;
+      p.life-=p.decay; p.rot+=p.rotV;
+      if(p.life<=0) continue;
+      alive=true;
+      ctx2d.save();
+      ctx2d.globalAlpha=Math.max(0,p.life);
+      // Convertir CSS pixels → physical pixels pour le dessin
+      ctx2d.translate(p.x*dpr, p.y*dpr);
+      ctx2d.rotate(p.rot);
+      ctx2d.fillStyle=p.color;
+      var w=p.size*dpr, h=(p.h||p.size)*dpr;
+      ctx2d.fillRect(-w/2,-h/2,w,h);
+      ctx2d.restore();
+    }
+    particles=particles.filter(function(p){return p.life>0;});
+    if(alive){ rafId=requestAnimationFrame(frame); }
+    else { rafId=null; }
+  }
+  rafId=requestAnimationFrame(frame);
+}
+
+function burstParticles(x,y,count){
+  // Couleur du skin actuel
+  var skin=SKINS.find(function(s){return s.id===curSkin;})||SKINS[0];
+  var baseColor=skin.c||'#ff2222';
+  var colors=[baseColor,'#ffffff','#ffcc00','#ff6600'];
+  var n=count||Math.min(6+Math.floor(combo/3),18);
+  for(var i=0;i<n;i++){
+    var angle=(Math.random()*Math.PI*1.6) - Math.PI*0.8 - Math.PI/2;
+    var speed=5+Math.random()*9;
+    var w=4+Math.random()*6;
+    var h=8+Math.random()*10;
+    particles.push({
+      x:x, y:y,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed,
+      life:1, decay:0.018+Math.random()*0.014,
+      size:w,
+      h:h,
+      rot:Math.random()*Math.PI*2,
+      rotV:(Math.random()-0.5)*0.25,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      isConfetti:true,
+    });
+  }
+  if(!rafId) drawLoop();
+}
+
+function spawnParticles(ev,count){
+  // Utiliser les coords figées au moment du clic (capturées dans _lastPointerX/Y)
+  // Ces coords ne changent PAS si le bouton se déplace ensuite
+  var x=_lastPointerX, y=_lastPointerY;
+  burstParticles(x,y,count);
+}
+
+function spawnConfetti(){
+  var colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#fff'];
+  for(var i=0;i<80;i++){
+    (function(ii){
+      setTimeout(function(){
+        particles.push({
+          x:Math.random()*canvas.width, y:-10,
+          vx:(Math.random()-0.5)*4,
+          vy:2+Math.random()*4,
+          emoji:'', color:colors[Math.floor(Math.random()*colors.length)],
+          life:1, decay:0.006+Math.random()*0.007,
+          size:7+Math.random()*8,
+          rot:Math.random()*Math.PI*2,
+          rotV:(Math.random()-0.5)*0.25,
+          isConfetti:true,
+        });
+        if(!rafId) drawLoop();
+      },ii*15);
+    })(i);
+  }
+}
+
+/* ══════ THROTTLE RENDER ══════ */
+function scheduleRender(){
+  if(_renderPending)return;
+  _renderPending=true;
+  requestAnimationFrame(function(){
+    _renderPending=false;
+    renderXP();
+    renderMicro();
+    renderMissions();
+  });
+}
+
+/* ══════ OFFLINE ══════ */
+function updateOnlineStatus(){
+  IS_ONLINE=navigator.onLine;
+  var bar=document.getElementById('offlineBar');
+  if(!IS_ONLINE){
+    bar.classList.add('on');
+  }else{
+    bar.classList.remove('on');
+    flushPendingSync();
+  }
+}
+window.addEventListener('online',updateOnlineStatus);
+window.addEventListener('offline',updateOnlineStatus);
+
+function flushPendingSync(){
+  if(!_pendingSync.length)return;
+  var toSync=_pendingSync.splice(0);
+  for(var i=0;i<toSync.length;i++){
+    (function(item){
+      fetch(API+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)}).catch(function(){});
+    })(toSync[i]);
+  }
+}
+
+/* ══════ PWA ══════ */
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('pwaBtn').classList.add('on');
+});
+document.getElementById('pwaBtn').addEventListener('click',function(){
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(){
+    deferredPrompt=null;
+    document.getElementById('pwaBtn').classList.remove('on');
+  });
+});
+
+/* ══════ STARS ══════ */
+function genStars(){
+  var c=document.getElementById('stars');
+  for(var i=0;i<60;i++){
+    var s=document.createElement('div');s.className='star';
+    var sz=Math.random()*2.4+.6;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-delay:'+Math.random()*4+'s;animation-duration:'+(2+Math.random()*4)+'s;';
+    c.appendChild(s);
+  }
+}
+
+/* ══════ STREAK ══════ */
+function checkStreak(){
+  var today=new Date().toDateString();
+  var yesterday=new Date(Date.now()-86400000).toDateString();
+  if(lastPlayDate===today){}
+  else if(lastPlayDate===yesterday){streak++;localStorage.setItem('streak',streak);}
+  else{streak=lastPlayDate?1:1;localStorage.setItem('streak',streak);}
+  document.getElementById('streakCount').textContent=streak;
+  var pill=document.getElementById('streakPill');
+  pill.textContent='🔥 Série : '+streak+' jour'+(streak>1?'s':'');
+  pill.className='streak-pill'+(streak>0?'':' dead');
+  // Toast streak uniquement si nouveau jour
+}
+function markPlayed(){
+  var today=new Date().toDateString();
+  if(lastPlayDate!==today){lastPlayDate=today;localStorage.setItem('lastPlayDate',today);}
+}
+
+/* ══════ FOMO ══════ */
+function updateFomo(){document.getElementById('fomoCount').textContent=Math.floor(Math.random()*55+18);}
+
+/* ══════ XP ══════ */
+function renderXP(){
+  var cur=getTitle(clicks),nxt=getNextTitle(clicks);
+  document.getElementById('xpTitle').textContent=cur.t;
+  if(nxt){
+    var prog=((clicks-cur.req)/(nxt.req-cur.req))*100;
+    document.getElementById('xpFill').style.width=Math.min(prog,100)+'%';
+    document.getElementById('xpNext').textContent=(nxt.req-clicks).toLocaleString('fr')+' clics → '+nxt.t;
+  }else{
+    document.getElementById('xpFill').style.width='100%';
+    document.getElementById('xpNext').textContent='MAX 🏆';
+  }
+}
+
+/* ══════ MICRO PALIERS ══════ */
+function renderMicro(){
+  var next=null;
+  for(var i=0;i<MICRO_MILESTONES.length;i++){if(MICRO_MILESTONES[i]>clicks){next=MICRO_MILESTONES[i];break;}}
+  if(!next){document.getElementById('microFill').style.width='100%';document.getElementById('microNext').textContent='MAX !';return;}
+  var prev=0;
+  for(var i=0;i<MICRO_MILESTONES.length;i++){if(MICRO_MILESTONES[i]<=clicks)prev=MICRO_MILESTONES[i];}
+  var pct=((clicks-prev)/(next-prev))*100;
+  document.getElementById('microFill').style.width=Math.min(pct,100)+'%';
+  var diff=next-clicks;
+  document.getElementById('microNext').textContent=diff===1?'1 CLIC !!!':diff+' clics → '+next;
+  var mf=document.getElementById('microFill'),mn=document.getElementById('microNext');
+  if(diff<=1){
+    mf.style.background='linear-gradient(90deg,#ff0000,#ff6600)';
+    mn.style.color='#ff2222';
+    mn.style.animation='pulse 0.4s ease infinite alternate';
+  } else if(diff<=3){
+    mf.style.background='linear-gradient(90deg,#ff2222,#ff6600)';
+    mn.style.color='#ff4444';
+    mn.style.animation='';
+  } else if(diff<=8){
+    mf.style.background='linear-gradient(90deg,#ff6600,#ffcc00)';
+    mn.style.color='#ff6600';
+    mn.style.animation='';
+  } else {
+    mf.style.background='linear-gradient(90deg,#aa66ff,#ff00ff)';
+    mn.style.color='#aa66ff';
+    mn.style.animation='';
+  }
+  // Pas de toast pour les micro-milestones — la barre rouge suffit
+  // (évite le spam si l'utilisateur va/vient autour du palier)
+}
+
+/* ══════ MISSIONS ══════ */
+function renderMissions(){
+  var dk='dc_'+new Date().toDateString();
+  dayClicks=parseInt(localStorage.getItem(dk)||'0');
+  var html='';
+  for(var i=0;i<MISSIONS_DEF.length;i++){
+    var m=MISSIONS_DEF[i];
+    var prog=0,done=false;
+    if(m.type==='combo'){prog=Math.min(maxCombo,m.tgt);done=maxCombo>=m.tgt;}
+    else if(m.type==='total'){prog=Math.min(clicks,m.tgt);done=clicks>=m.tgt;}
+    else{prog=Math.min(dayClicks,m.tgt);done=dayClicks>=m.tgt;}
+    var pct=Math.round((prog/m.tgt)*100);
+    html+='<div class="mrow'+(done?' done':'')+'"><span class="micon">'+(done?'✅':'🎯')+'</span>';
+    html+='<div class="minfo"><div class="mname">'+m.nm+'</div>';
+    html+='<div class="mprog-bg"><div class="mprog" style="width:'+pct+'%"></div></div></div>';
+    html+='<span class="mreward">'+(done?'✔️ GG':pct+'%')+'</span></div>';
+  }
+  document.getElementById('mList').innerHTML=html;
+  var now=new Date(),tom=new Date(now);
+  tom.setDate(now.getDate()+1);tom.setHours(0,0,0,0);
+  var diff=tom-now,h=Math.floor(diff/3600000),mn=Math.floor((diff%3600000)/60000);
+  document.getElementById('mReset').textContent='Reset dans '+h+'h'+mn+'m';
+}
+
+/* ══════ ÉVÉNEMENT ══════ */
+function startEvent(){
+  var ev=EVENTS_LIST[Math.floor(Math.random()*EVENTS_LIST.length)];
+  activeEvent=ev;eventMultiplier=ev.mult;
+  document.getElementById('evName').textContent=ev.name;
+  document.getElementById('evBadge').textContent='x'+ev.mult;
+  document.getElementById('evDesc').textContent=ev.desc;
+  document.getElementById('eventBox').style.borderColor=ev.color;
+  document.getElementById('eventBox').classList.add('on');
+  toast('⚡ ÉVÉNEMENT : '+ev.name+' — '+ev.desc,'#aa66ff');
+  playTone(660,'triangle',.3,.3);setTimeout(function(){playTone(880,'triangle',.3,.3);},150);
+  var remaining=ev.dur;
+  clearInterval(eventInterval);
+  eventInterval=setInterval(function(){
+    remaining--;
+    var m=Math.floor(remaining/60),s=remaining%60;
+    document.getElementById('evTimer').textContent=m+':'+(s<10?'0':'')+s;
+    if(remaining<=10)document.getElementById('evTimer').style.color='#ff2222';
+    if(remaining<=0)endEvent();
+  },1000);
+  setTimeout(startEvent,(20+Math.random()*20)*60000);
+}
+function endEvent(){
+  clearInterval(eventInterval);activeEvent=null;eventMultiplier=1;
+  document.getElementById('eventBox').classList.remove('on');
+  document.getElementById('evTimer').style.color='#fff';
+  toast('⏰ Événement terminé ! Prochain dans quelques minutes.','#444');
+}
+
+/* ══════ SKINS ══════ */
+function renderSkins(){
+  var grid=document.getElementById('skinGrid');grid.innerHTML='';
+  var unlocked=0;
+  for(var i=0;i<SKINS.length;i++){
+    var s=SKINS[i],ok=clicks>=s.req,active=curSkin===s.id;
+    if(ok)unlocked++;
+    var d=document.createElement('div');
+    d.className='skin-card'+(active?' active':'')+(ok?'':' locked');
+    d.id='sk_'+s.id;
+    d.style.setProperty('--sc',s.c);
+    // Aperçu : cercle coloré avec emoji dedans
+    var previewContent = ok ? s.e : '🔒';
+    var reqLabel = ok ? (active ? 'Actif' : 'Équiper') : s.req.toLocaleString('fr')+' clics';
+    var descTxt = ok && s.desc ? '<span class="skin-desc">'+s.desc+'</span>' : '';
+    d.innerHTML=
+      '<div class="skin-preview">'+previewContent+'</div>'+
+      '<span class="skin-nm">'+s.nm+'</span>'+
+      '<span class="skin-rq">'+reqLabel+'</span>'+
+      descTxt;
+    if(ok){(function(sid){d.onclick=function(){setSkin(sid,true);};})(s.id);}
+    grid.appendChild(d);
+  }
+  // Compteur déblocages
+  var prog=document.getElementById('skinsProgress');
+  if(prog)prog.textContent=unlocked+'/'+SKINS.length+' débloqués';
+  // Prochain skin
+  var next=null;
+  for(var i=0;i<SKINS.length;i++){if(clicks<SKINS[i].req){next=SKINS[i];break;}}
+  var nh=document.getElementById('nextHint');
+  if(next){
+    var left=(next.req-clicks).toLocaleString('fr');
+    nh.innerHTML='🎯 Prochain : '+next.e+' <strong>'+next.nm+'</strong> — encore <strong>'+left+'</strong> clics';
+  } else {
+    nh.innerHTML='🎉 Tous les skins débloqués — t\'es un dieu du rien';
+  }
+}
+function setSkin(id,animate){
+  // Vérifier que le skin existe et est débloqué
+  var skinObj=null;
+  for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===id){skinObj=SKINS[i];break;}}
+  if(!skinObj||clicks<skinObj.req)return;
+  for(var i=0;i<SKINS.length;i++)document.body.classList.remove('s-'+SKINS[i].id);
+  document.body.classList.add('s-'+id);curSkin=id;localStorage.setItem('skin',id);
+  document.getElementById('btn').innerHTML=SKIN_TXT[id]||'APPUIE<br>DESSUS';
+  if(animate){
+    var s=null;for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===id){s=SKINS[i];break;}}
+    var b=document.getElementById('btn');b.style.transform='scale(1.2) rotate(-5deg)';
+    setTimeout(function(){b.style.transform='';},280);
+    toast(s?s.e+' Skin '+s.nm+' équipé !':(id+' activé !'),s?s.c:'#aa66ff');
+    renderSkins();
+  }
+}
+function checkNewSkins(){
+  var changed=false;
+  for(var i=0;i<SKINS.length;i++){
+    var s=SKINS[i],el=document.getElementById('sk_'+s.id);
+    if(!el||!el.classList.contains('locked'))continue;
+    if(clicks>=s.req){
+      var k='skin_notif_'+s.id;
+      if(!_toastFlags[k]){_toastFlags[k]=1;_saveToastFlags();toast('🎨 NOUVEAU SKIN : '+s.nm+' '+s.e+' DÉBLOQUÉ !','#ffcc00');}
+      changed=true;
+    }
+  }
+  if(changed)renderSkins();
+}
+
+/* ══════ ACHIEVEMENTS ══════ */
+function renderAch(){
+  var g=document.getElementById('achGrid');g.innerHTML='';
+  for(var i=0;i<ACHIEVEMENTS.length;i++){
+    var a=ACHIEVEMENTS[i],ok=clicks>=a.req;
+    var d=document.createElement('div');d.className='ach-card'+(ok?' unlocked':'');d.id='ac_'+a.id;
+    d.innerHTML='<span class="ach-icon">'+(ok?a.e:'🔒')+'</span><span class="ach-name">'+a.nm+'</span><span class="ach-req">'+a.req+' clics</span>';
+    g.appendChild(d);
+  }
+}
+function checkAch(){
+  for(var i=0;i<ACHIEVEMENTS.length;i++){
+    var a=ACHIEVEMENTS[i],el=document.getElementById('ac_'+a.id);
+    if(!el||el.classList.contains('unlocked'))continue;
+    if(clicks>=a.req){
+      el.classList.add('unlocked');
+      el.querySelector('.ach-icon').textContent=a.e;
+      var k='ach_notif_'+a.id;
+      if(!_toastFlags[k]){_toastFlags[k]=1;_saveToastFlags();toast('🏅 SUCCÈS : '+a.nm+' !','#aa66ff');}
+    }
+  }
+}
+
+/* ══════ PROVOC ══════ */
+function startProvoc(){renderProvoc();clearInterval(provocTimer);provocTimer=setInterval(renderProvoc,5000);}
+function renderProvoc(){
+  var ms=[10,25,50,100,250,500,1000,2000,5000];
+  var next=ms[ms.length-1];
+  for(var i=0;i<ms.length;i++){if(ms[i]>clicks){next=ms[i];break;}}
+  var tpl=PROVOCS[Math.floor(Math.random()*PROVOCS.length)];
+  var txt=tpl.replace('{next}',next.toLocaleString('fr')).replace('{cur}',clicks.toLocaleString('fr')).replace('{streak}',streak);
+  var el=document.getElementById('provocText');
+  el.classList.remove('anim');void el.offsetWidth;el.textContent=txt;el.classList.add('anim');
+  document.getElementById('provocBtn').style.display='inline';
+}
+
+/* ══════ CLICK HANDLER ══════ */
+function handleClick(ev){
+  var now=Date.now();
+  if(now-_lastClickTime<150)return;
+  _lastClickTime=now;
+  var bonus=eventMultiplier||1;
+  clicks+=bonus;
+  localStorage.setItem('clicks',clicks);
+  var dk='dc_'+new Date().toDateString();
+  dayClicks+=bonus;
+  localStorage.setItem(dk,dayClicks);
+  markPlayed();
+  playSound();
+  playSpecialSkinSound(curSkin);
+  var b=document.getElementById('btn');
+  b.classList.add('pressed');
+  setTimeout(function(){b.classList.remove('pressed');},115);
+  renderMyCount();
+  showReaction();
+  updateCombo();
+  renderThermo();
+  spawnParticles(ev,bonus>1?bonus*4:null);
+  scheduleRender();
+  checkAch();
+  checkNewSkins();
+  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=750;}
+  if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
+  if(combo>=40&&!panic)triggerPanic();
+  if(clicks>30&&!running&&Math.random()<.03)makeButtonRun();
+  if(clicks>=5&&!provocTimer)startProvoc();
+  if(!mysteryActive&&Math.random()<.008)triggerMystery();
+  // Sync
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  if(IS_ONLINE){
+    trackClick(pseudo,lastReaction);
+  }else{
+    _pendingSync.push({pseudo:pseudo,reaction:lastReaction});
+    if(_pendingSync.length>50)_pendingSync.shift(); // max 50 en attente
+  }
+}
+
+function renderMyCount(){
+  var el=document.getElementById('myCount');
+  el.textContent=clicks.toLocaleString('fr');
+  el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+}
+
+/* ══════ REACTION ══════ */
+function showReaction(){
+  var p=(document.getElementById('pseudoInput').value.trim()||'').slice(0,15);
+  var r;
+  if(p&&Math.random()<.2)r=personalReaction(p);
+  else{do{r=REACTIONS[Math.floor(Math.random()*REACTIONS.length)];}while(r.t===lastReaction&&REACTIONS.length>1);}
+  lastReaction=r.t;
+  var box=document.getElementById('reaction');
+  box.innerHTML='<div><span class="remoji">'+r.e+'</span>'+r.t+'</div>';
+  box.classList.remove('flash');void box.offsetWidth;box.classList.add('flash');
+}
+
+/* ══════ THERMO ══════ */
+var THERMO=[
+  {min:0,     max:30,    t:'Temperature debi: ZERO',           c:'#555'},
+  {min:30,    max:100,   t:'Legerement debile. Rien de grave.', c:'#666'},
+  {min:100,   max:300,   t:'Tiede. T\'essaies au moins.',      c:'#888'},
+  {min:300,   max:700,   t:'Ca commence a chauffer serieux.',   c:'#ff9900'},
+  {min:700,   max:1500,  t:'DANGER : cerveau en surchauffe.',   c:'#ff6600'},
+  {min:1500,  max:3000,  t:'ALERTE : consulte un specialiste.', c:'#ff4400'},
+  {min:3000,  max:6000,  t:'ALERTE ROUGE : raison perdue.',     c:'#ff2222'},
+  {min:6000,  max:12000, t:'ERUPTION CEREBRALE IMMINENTE !!!',  c:'#ff0000'},
+  {min:12000, max:30000, t:'ZONE DE DANGER — EVACUEZ.',         c:'#ff0000'},
+  {min:30000, max:Infinity,t:'CERVEAU EN FEU. APPEL URGENCE.',  c:'#ff0000'},
+];
+function renderThermo(){
+  var l=THERMO[0];
+  for(var i=0;i<THERMO.length;i++){if(clicks>=THERMO[i].min&&clicks<THERMO[i].max){l=THERMO[i];break;}}
+  var sub=document.getElementById('subtitle');sub.textContent=l.t;sub.style.color=l.c;
+}
+
+/* ══════ COMBO ══════ */
+function updateCombo(){
+  combo++;clearTimeout(comboTimer);
+  if(!comboFrozen)comboTimer=setTimeout(function(){combo=0;renderCombo();if(panic)stopPanic();},900);
+  if(combo>maxCombo)maxCombo=combo;
+  renderCombo();
+}
+function renderCombo(){
+  document.getElementById('comboFill').style.width=Math.min(combo*2,100)+'%';
+  var t=document.getElementById('comboText');
+  if(!combo){t.textContent='';return;}
+  if(combo<5)t.textContent='x'+combo+' — Vas-y mollo';
+  else if(combo<10)t.textContent='x'+combo+' — 🔥 Ça chauffe !';
+  else if(combo<20)t.textContent='x'+combo+' — ⚡ COMBO ÉLECTRIQUE !';
+  else if(combo<30)t.textContent='x'+combo+' — 🤯 T\'ES EN TRANSE !!';
+  else t.textContent='x'+combo+' — 😱 DIEU DU BOUTON !!!';
+}
+
+/* ══════ SPECIAL ══════ */
+function triggerJackpot(){
+  playJackpot();
+  var idx=Math.min(Math.floor(clicks/100)-1,JACKPOT_MSGS.length-1);
+  document.getElementById('jackpotMsg').textContent=JACKPOT_MSGS[idx]||clicks.toLocaleString('fr')+' CLICS ! T\'ES MALADE !';
+  var m=document.getElementById('jackpotModal');
+  m.classList.remove('on');
+  setTimeout(function(){m.classList.add('on');spawnConfetti();setTimeout(function(){m.classList.remove('on');},3500);},50);
+}
+function triggerPanic(){
+  panic=true;document.body.classList.add('panic');document.getElementById('panicFrame').classList.add('on');
+  document.getElementById('title').textContent='😱 PANIQUE TOTALE 😱';
+  toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000',true);playTone(200,'sawtooth',.5,.4);
+}
+function stopPanic(){
+  panic=false;document.body.classList.remove('panic');document.getElementById('panicFrame').classList.remove('on');
+  document.getElementById('title').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
+}
+function makeButtonRun(){
+  running=true;var b=document.getElementById('btn');
+  toast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !','#ff6600',true);
+  var n=0,times=3+Math.floor(Math.random()*4);
+  var iv=setInterval(function(){
+    if(n>=times){b.style.transform='';running=false;clearInterval(iv);return;}
+    b.style.transform='translate('+(Math.random()*130-65)+'px,'+(Math.random()*80-40)+'px) rotate('+(Math.random()*25-12)+'deg)';
+    n++;
+  },280);
+  setTimeout(function(){if(running){b.style.transform='';running=false;clearInterval(iv);}},times*280+500);
+}
+function triggerMystery(){
+  mysteryActive=true;
+  var ev=MYSTERY_EVTS[Math.floor(Math.random()*MYSTERY_EVTS.length)];
+  document.getElementById('mystEmoji').textContent=ev.e;
+  document.getElementById('mystText').textContent=ev.t;
+  var m=document.getElementById('mysteryModal');
+  m.classList.remove('on');setTimeout(function(){m.classList.add('on');},50);
+  ev.a();playTone(800,'sawtooth',.3,.3);
+  setTimeout(function(){m.classList.remove('on');mysteryActive=false;},4000);
+}
+
+/* ══════ OVERTAKE ══════ */
+function showOvertake(name){
+  document.getElementById('overtakeMsg').textContent=name+' vient de te dépasser... Tu laisses faire ? 😤';
+  var el=document.getElementById('overtakeModal');
+  el.classList.remove('on');setTimeout(function(){el.classList.add('on');playTone(150,'sawtooth',.4,.4);setTimeout(closeOvertake,5000);},50);
+}
+function closeOvertake(){document.getElementById('overtakeModal').classList.remove('on');}
+
+/* ══════ AUDIO ══════ */
+function getACtx(){
+  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  return audioCtx;
+}
+function playTone(f,type,dur,vol){
+  type=type||'sine';dur=dur||.15;vol=vol||.3;
+  try{var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+  o.connect(g);g.connect(c.destination);o.type=type;o.frequency.value=f;
+  g.gain.setValueAtTime(vol,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);
+  o.start();o.stop(c.currentTime+dur);}catch(e){}
+}
+function playSound(){
+  var m={classic:function(){playTone(440,'square',.1,.2);},gold:function(){playTone(660,'triangle',.15,.25);},
+  ice:function(){playTone(880,'sine',.2,.15);},space:function(){playTone(220,'sawtooth',.15,.2);},
+  nuclear:function(){playTone(100,'sawtooth',.1,.3);setTimeout(function(){playTone(200,'sawtooth',.1,.3);},100);},
+  fire:function(){playTone(330,'sawtooth',.1,.25);},lava:function(){playTone(150,'sawtooth',.15,.3);},
+  toxic:function(){playTone(400,'square',.1,.2);},mystery:function(){playTone(Math.random()*800+200,'sawtooth',.15,.25);},
+  disco:function(){playTone(523,'square',.08,.2);setTimeout(function(){playTone(659,'square',.08,.2);},80);},
+  rainbow:function(){[300,400,350,250].forEach(function(f,i){setTimeout(function(){playTone(f,'square',.08,.15);},i*70);});},
+  diamond:function(){playTone(1047,'triangle',.2,.3);}};
+  (m[curSkin]||m.classic)();
+}
+function playJackpot(){[523,659,784,1047,1319].forEach(function(f,i){setTimeout(function(){playTone(f,'square',.3,.25);},i*80);});}
+
+/* ══════ TOAST ══════ */
+var _toastQueue=[], _toastBusy=false;
+function toast(msg,color,urgent){
+  color=color||'#aa66ff';
+  // Ne pas dupliquer le même message dans la queue
+  for(var i=0;i<_toastQueue.length;i++){if(_toastQueue[i].msg===msg)return;}
+  if(urgent){
+    // Toast urgent : vide la queue et passe en premier
+    _toastQueue=[];
+    if(_toastBusy){
+      document.querySelectorAll('.toast').forEach(function(el){el.remove();});
+      _toastBusy=false;
+    }
+    _toastQueue.unshift({msg:msg,color:color});
+  } else {
+    // Max 3 toasts en queue — ignorer le reste
+    if(_toastQueue.length>=3)return;
+    _toastQueue.push({msg:msg,color:color});
+  }
+  if(!_toastBusy)_flushToast();
+}
+function _flushToast(){
+  if(!_toastQueue.length){_toastBusy=false;return;}
+  _toastBusy=true;
+  var item=_toastQueue.shift();
+  // Max 1 toast visible à la fois
+  document.querySelectorAll('.toast').forEach(function(el){el.remove();});
+  var t=document.createElement('div');
+  t.className='toast';
+  t.textContent=item.msg;
+  t.style.background=item.color;
+  t.style.bottom='24px';
+  document.body.appendChild(t);
+  // Durée adaptée à la longueur du texte (min 2.5s, max 4s)
+  var dur=Math.min(4000, Math.max(2500, item.msg.length*60));
+  setTimeout(function(){
+    if(t.parentNode)t.remove();
+    _toastBusy=false;
+    if(_toastQueue.length)setTimeout(_flushToast,150);
+  },dur);
+}
+
+/* ══════ API ══════ */
+function loadMyScore(pseudo){
+  if(!pseudo||!IS_ONLINE)return;
+  fetch(API+'/getMyScore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo:pseudo})})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      if(data.found&&data.total_clicks>clicks){
+        clicks=data.total_clicks;localStorage.setItem('clicks',clicks);
+        renderMyCount();renderThermo();renderAch();checkNewSkins();renderSkins();renderXP();renderMicro();
+        toast('✅ Score récupéré : '+clicks.toLocaleString('fr')+' clics !','#00aa55');
+      }else if(data.found){
+        // Pas de toast "connecté" — inutile, encombre
+      }else{
+        toast('👋 Nouveau joueur !','#6644ff');
+      }
+      // Leaderboard APRÈS le toast de connexion (500ms)
+      setTimeout(loadLeaderboard, 500);
+    }).catch(function(){});
+}
+function trackClick(pseudo,reaction){
+  if(!IS_ONLINE)return;
+  fetch(API+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo:pseudo,reaction:reaction})})
+    .then(function(){if(clicks%5===0)loadLeaderboard();}).catch(function(){});
+}
+function loadLeaderboard(){
+  if(!IS_ONLINE){document.getElementById('lbContent').innerHTML='<p style="text-align:center;color:#999;padding:12px">📴 Classement indisponible hors ligne</p>';return;}
+  fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+      var rows=data.leaderboard||[];
+      var myPrev=-1,myNow=-1;
+      for(var i=0;i<prevLb.length;i++){if(prevLb[i].pseudo===pseudo){myPrev=i;break;}}
+      for(var i=0;i<rows.length;i++){if(rows[i].pseudo===pseudo){myNow=i;break;}}
+      if(myPrev>=0&&myNow>=0&&myNow>myPrev)showOvertake(rows[myNow-1]?rows[myNow-1].pseudo:'Quelqu\'un');
+      prevLb=rows;renderLB(rows,data.globalClicks||0);
+    }).catch(function(){});
+}
+function renderLB(rows,globalClicks){
+  var gc=document.getElementById('globalCount');
+  if(gc){gc.textContent=globalClicks.toLocaleString('fr');gc.classList.remove('pop');void gc.offsetWidth;gc.classList.add('pop');}
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  var medals=['🥇','🥈','🥉'];
+  var myIdx=-1;for(var i=0;i<rows.length;i++){if(rows[i].pseudo===pseudo){myIdx=i;break;}}
+  document.getElementById('myRank').textContent=myIdx>=0?'#'+(myIdx+1):'—';
+  var lb=document.getElementById('lbContent');
+  if(!rows.length){lb.innerHTML='<p style="text-align:center;color:#aaa;padding:12px">Sois le premier ! 👆</p>';return;}
+  var html='';
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i],isMe=r.pseudo===pseudo;
+    var tt=getTitle(r.total_clicks||0).t;
+    html+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rank">'+(medals[i]||(i+1))+'</span>';
+    html+='<span class="lb-pseudo">'+esc(r.pseudo||'Anonyme')+'<span class="lb-title">'+tt+'</span>'+(isMe?'<span class="lb-you">← toi</span>':'')+'</span>';
+    html+='<span class="lb-score">'+(r.total_clicks||0).toLocaleString('fr')+'</span></div>';
+  }
+  lb.innerHTML=html;
+}
+
+/* ══════ SHARE ══════ */
+function copyDefi(){
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Joueur';
+  var url=PAGE_URL+'?challenger='+encodeURIComponent(pseudo)+'&score='+clicks;
+  if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){toast('🔗 Lien copié ! Envoie-le à tes victimes 😈','#aa66ff');}).catch(function(){fallbackCopy(url);});}
+  else fallbackCopy(url);
+}
+function fallbackCopy(url){var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('🔗 Lien copié !','#aa66ff');}
+function shareDefi(){
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';
+  var url=PAGE_URL+'?challenger='+encodeURIComponent(pseudo)+'&score='+clicks;
+  window.open('https://wa.me/?text='+encodeURIComponent('😤 '+pseudo+' te défie ! J\'ai '+clicks+' clics... Tu fais mieux ? 🔴 '+url),'_blank');
+}
+function shareTwitter(){
+  var tt=getTitle(clicks).t;
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('J\'ai '+clicks+' clics sur LE BOUTON QUI SERT À RIEN 🔴\nMon titre : "'+tt+'"\n'+PAGE_URL+' #LeBoutonQuiSertARien'),'_blank');
+}
+function shareWhatsapp(){
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';
+  var url=PAGE_URL+'?challenger='+encodeURIComponent(pseudo)+'&score='+clicks;
+  window.open('https://wa.me/?text='+encodeURIComponent('😂 J\'ai '+clicks+' clics sur LE BOUTON QUI SERT À RIEN ! Tu fais mieux ? 🔴 '+url),'_blank');
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ══════ KEYBOARD ══════ */
+document.addEventListener('keydown',function(e){
+  if(e.code==='Space'||e.code==='Enter'){
+    e.preventDefault();
+    var fakeEv={clientX:window.innerWidth/2,clientY:window.innerHeight/2,pointerType:'keyboard'};
+    handleClick(fakeEv);
+    var b=document.getElementById('btn');b.classList.add('pressed');
+    setTimeout(function(){b.classList.remove('pressed');},115);
+  }
+});
+
+/* ══════ INIT ══════ */
+function init(){
+    var _ld=document.getElementById('landing');
+  var _mw=document.getElementById('mainWrap');
+  if(localStorage.getItem('landingDismissed')==='1'){
+    if(_ld){_ld.style.display='none';_ld.style.visibility='hidden';}
+    if(_mw)_mw.style.display='block';
+  }
+  genStars();
+  checkStreak();
+  updateOnlineStatus();
+  renderSkins();setSkin(curSkin,false);
+  renderAch();renderXP();renderMicro();renderMissions();renderMyCount();renderThermo();
+
+  var saved=localStorage.getItem('pseudo');
+  if(saved){document.getElementById('pseudoInput').value=saved;setTimeout(function(){loadMyScore(saved);},800);}
+  document.getElementById('pseudoInput').addEventListener('input',function(){localStorage.setItem('pseudo',this.value);});
+  document.getElementById('pseudoInput').addEventListener('change',function(){var p=this.value.trim();if(p)loadMyScore(p);});
+
+  // Bouton — pointerdown universel (PC, mobile, tablette, iOS, stylet)
+  var btnEl=document.getElementById('btn');
+  btnEl.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    // Capturer coords FIGÉES au moment du clic
+    var r=btnEl.getBoundingClientRect();
+    _lastPointerX=r.left+r.width/2;
+    _lastPointerY=r.top+r.height/2;
+    handleClick(e);
+  });
+  // Bloquer le click qui suit pointerdown pour éviter le double déclenchement
+  btnEl.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();});
+
+  // Challenger
+  var params=new URLSearchParams(window.location.search);
+  var cn=params.get('challenger'),cs=params.get('score');
+  if(cn){
+    document.getElementById('cName').textContent=decodeURIComponent(cn);
+    document.getElementById('cScore').textContent=parseInt(cs||0).toLocaleString('fr');
+    document.getElementById('challenger').classList.add('on');
+  }
+
+  var dk='dc_'+new Date().toDateString();
+  dayClicks=parseInt(localStorage.getItem(dk)||'0');
+
+  var now=new Date(),nxt=new Date(now.getFullYear(),now.getMonth()+1,1);
+  var d=Math.floor((nxt-now)/86400000);
+  document.getElementById('seasonInfo').textContent='🏆 Saison '+(now.getMonth()+1)+' — reset dans '+d+'j';
+
+  updateFomo();
+  setInterval(updateFomo,14000);
+  if(clicks>=5)startProvoc();
+  if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
+  setInterval(renderMissions,60000);
+  setTimeout(startEvent,(10+Math.random()*10)*60000);
+}
+
+
+/* ══════ SONS SPÉCIAUX SKINS ══════ */
+function playFartSound(){
+  try{
+    var c=getACtx();
+    // Bruit de pet = bruit blanc + oscillateur basse fréquence
+    var buf=c.createBuffer(1,c.sampleRate*0.5,c.sampleRate);
+    var data=buf.getChannelData(0);
+    for(var i=0;i<data.length;i++){
+      data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,0.5);
+    }
+    var src=c.createBufferSource();
+    src.buffer=buf;
+    var g=c.createGain();
+    var f=c.createBiquadFilter();
+    f.type='bandpass';
+    f.frequency.setValueAtTime(300,c.currentTime);
+    f.frequency.exponentialRampToValueAtTime(80,c.currentTime+0.5);
+    f.Q.value=0.8;
+    src.connect(f);f.connect(g);g.connect(c.destination);
+    g.gain.setValueAtTime(0.9,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.5);
+    src.start();src.stop(c.currentTime+0.55);
+  }catch(e){}
+}
+
+function playDogSound(){
+  try{
+    var c=getACtx();
+    // Aboiement = 2 oscillateurs courts
+    function bark(freq,start,dur){
+      var o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type='sawtooth';
+      o.frequency.setValueAtTime(freq,c.currentTime+start);
+      o.frequency.exponentialRampToValueAtTime(freq*0.6,c.currentTime+start+dur);
+      g.gain.setValueAtTime(0,c.currentTime+start);
+      g.gain.linearRampToValueAtTime(0.5,c.currentTime+start+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+start+dur);
+      o.start(c.currentTime+start);
+      o.stop(c.currentTime+start+dur+0.05);
+    }
+    bark(520,0,0.12);
+    bark(480,0.18,0.1);
+    bark(500,0.32,0.13);
+  }catch(e){}
+}
+
+function playCatSound(){
+  try{
+    var c=getACtx();
+    // Miaulement = oscillateur qui monte puis descend
+    var o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type='sine';
+    o.frequency.setValueAtTime(400,c.currentTime);
+    o.frequency.exponentialRampToValueAtTime(900,c.currentTime+0.15);
+    o.frequency.exponentialRampToValueAtTime(600,c.currentTime+0.45);
+    o.frequency.exponentialRampToValueAtTime(400,c.currentTime+0.7);
+    g.gain.setValueAtTime(0,c.currentTime);
+    g.gain.linearRampToValueAtTime(0.45,c.currentTime+0.05);
+    g.gain.setValueAtTime(0.45,c.currentTime+0.4);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.75);
+    // Vibrato pour le côté "miaou"
+    var lfo=c.createOscillator(),lfoG=c.createGain();
+    lfo.type='sine';lfo.frequency.value=5;
+    lfoG.gain.value=30;
+    lfo.connect(lfoG);lfoG.connect(o.frequency);
+    lfo.start();lfo.stop(c.currentTime+0.75);
+    o.start();o.stop(c.currentTime+0.8);
+  }catch(e){}
+}
+
+function playSpecialSkinSound(skinId){
+  if(skinId==='fart') playFartSound();
+  else if(skinId==='dog') playDogSound();
+  else if(skinId==='cat') playCatSound();
+}
+
+/* ══════ MODAUX LÉGAUX ══════ */
+function openModal(id){
+  var m=document.getElementById(id);
+  if(m){m.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeModal(id){
+  var m=document.getElementById(id);
+  if(m){m.classList.remove('open');document.body.style.overflow='';}
+}
+// Fermer en cliquant sur le fond
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('legal-modal')){
+    e.target.classList.remove('open');document.body.style.overflow='';
+  }
+});
+
+/* ══════ LANDING SCREEN ══════ */
+var landingDismissed = localStorage.getItem('landingDismissed') === '1';
+
+function startGame(){
+  var l=document.getElementById('landing');
+  var w=document.getElementById('mainWrap');
+  if(l){l.style.display='none';l.style.visibility='hidden';}
+  if(w){w.style.display='block';}
+  localStorage.setItem('landingDismissed','1');
+  try{var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.value=440;
+    g.gain.setValueAtTime(.3,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.4);
+    o.start();o.stop(c.currentTime+.4);
+  }catch(e){}
+}
+
+// Seul le bouton CTA démarre le jeu — pas de clic accidentel
+
+// Landing toujours visible à chaque visite
+localStorage.setItem('lastVisit', Date.now());
+
+// Stats live sur la landing
+function updateLandingStats(){
+  var lg = document.getElementById('landingGlobal');
+  var lp = document.getElementById('landingPlayers');
+  if(lg) lg.textContent = '…';
+  if(lp) lp.textContent = Math.floor(Math.random()*55+18)+'';
+  fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(lg && d.globalClicks) lg.textContent = parseInt(d.globalClicks).toLocaleString('fr');
+    }).catch(function(){if(lg) lg.textContent='∞';});
+}
+var _landingShownAt = Date.now();
+updateLandingStats();
+
+init();
+
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  var pane=document.getElementById('tab-'+id);
+  if(pane)pane.classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(id==='prog'){renderSkins();renderAch();}
+  if(id==='classement'){renderLeaderboard();}
+}
+
+document.addEventListener("DOMContentLoaded",function(){init();});
 </script>
 </body>
 </html>
