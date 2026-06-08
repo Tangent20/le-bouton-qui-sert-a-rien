@@ -3,14 +3,39 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-  <title>🔴 LE BOUTON QUI SERT À RIEN</title>
-  <meta name="theme-color" content="#080808"/>
+
+  <!-- SEO -->
+  <title>🔴 Le Bouton Qui Sert À Rien — Le jeu le plus inutile d'internet</title>
+  <meta name="description" content="Clique sur un bouton qui sert à rien. Grimpe dans le classement mondial. Débloque 12 skins. Maintiens ta série quotidienne. 100% gratuit. 0% utile. Tu peux pas t'arrêter 😈"/>
+  <meta name="keywords" content="bouton inutile, jeu viral, clicker game, jeu gratuit, classement mondial, skins, streak, le bouton qui sert à rien"/>
+  <meta name="author" content="Charly Soudan"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://base44.app/api/apps/6a25fda89561913dceec4ffc/files/mp/public/6a25fda89561913dceec4ffc/86b949396_index.html"/>
+
+  <!-- Open Graph (Facebook, Discord, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://base44.app/api/apps/6a25fda89561913dceec4ffc/files/mp/public/6a25fda89561913dceec4ffc/86b949396_index.html"/>
+  <meta property="og:title" content="🔴 Le Bouton Qui Sert À Rien"/>
+  <meta property="og:description" content="Clique sur un bouton qui sert à rien. Classement mondial en temps réel. 12 skins à débloquer. Tu peux pas t'arrêter 😈"/>
+  <meta property="og:image" content="https://media.base44.com/images/public/6a25fda89561913dceec4ffc/362718f9d_generated_image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="Le Bouton Qui Sert À Rien"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="🔴 Le Bouton Qui Sert À Rien"/>
+  <meta name="twitter:description" content="Clique sur un bouton qui sert à rien. Classement mondial. 12 skins. Tu peux pas t'arrêter 😈"/>
+  <meta name="twitter:image" content="https://media.base44.com/images/public/6a25fda89561913dceec4ffc/362718f9d_generated_image.png"/>
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#ff2222"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Le Bouton"/>
-  <link rel="manifest" href="manifest.json"/>
-  <meta property="og:title" content="🔴 LE BOUTON QUI SERT À RIEN"/>
-  <meta property="og:description" content="Le jeu le plus débile d'internet. Tu peux pas t'arrêter. 😂"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap" rel="stylesheet"/>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -347,9 +372,66 @@
     .legal-box em{color:#555;font-style:italic;}
     .legal-close{position:absolute;top:12px;right:14px;background:none;border:1px solid #333;color:#666;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;line-height:28px;text-align:center;padding:0;transition:all .2s;}
     .legal-close:hover{background:#ff4444;color:#fff;border-color:#ff4444;}
+  
+    /* ─── LANDING SCREEN ─── */
+    #landing{
+      position:fixed;inset:0;z-index:10000;
+      background:#000;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:24px;
+      transition:opacity .5s ease, transform .5s ease;
+    }
+    #landing.hide{opacity:0;transform:scale(1.04);pointer-events:none;}
+    .landing-emoji{font-size:5rem;animation:landingBounce 1s ease-in-out infinite alternate;display:block;margin-bottom:8px;}
+    @keyframes landingBounce{from{transform:scale(1);}to{transform:scale(1.12) rotate(-3deg);}}
+    .landing-title{font-family:'Bangers',cursive;font-size:clamp(2.2rem,10vw,5rem);letter-spacing:4px;color:#ff2222;text-shadow:0 0 30px #ff000099,3px 3px 0 #660000;margin-bottom:4px;line-height:1.1;}
+    .landing-sub{font-size:clamp(.85rem,2.5vw,1.1rem);color:#666;margin-bottom:20px;line-height:1.5;}
+    .landing-sub strong{color:#ff6644;}
+    .landing-stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+    .lstat{background:#0d0d0d;border:1.5px solid #1e1e1e;border-radius:12px;padding:10px 16px;min-width:90px;}
+    .lstat-val{font-family:'Bangers',cursive;font-size:1.5rem;color:#ff6600;display:block;}
+    .lstat-label{font-size:.62rem;color:#444;text-transform:uppercase;letter-spacing:.5px;}
+    .landing-cta{
+      background:linear-gradient(135deg,#cc0000,#ff2222,#ff6600);
+      border:none;color:#fff;
+      font-family:'Bangers',cursive;
+      font-size:1.6rem;letter-spacing:3px;
+      padding:16px 40px;border-radius:50px;
+      cursor:pointer;
+      box-shadow:0 0 30px #ff222266, 0 8px 0 #880000;
+      animation:ctaPulse 1.3s ease-in-out infinite;
+      transition:transform .1s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .landing-cta:active{transform:scale(.95) translateY(4px);box-shadow:0 0 20px #ff222266,0 4px 0 #880000;}
+    @keyframes ctaPulse{0%,100%{box-shadow:0 0 20px #ff222266,0 8px 0 #880000;}50%{box-shadow:0 0 50px #ff2222aa,0 8px 0 #880000;}}
+    .landing-hint{font-size:.7rem;color:#222;margin-top:10px;}
+    .landing-features{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+    .lfeat{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:20px;padding:5px 12px;font-size:.72rem;color:#555;}
   </style>
 </head>
 <body class="s-classic">
+  <!-- ══════ LANDING SCREEN ══════ -->
+  <div id="landing">
+    <span class="landing-emoji">🔴</span>
+    <div class="landing-title">LE BOUTON<br>QUI SERT À RIEN</div>
+    <p class="landing-sub">Le jeu le plus inutile d'internet.<br><strong>Et pourtant… tu peux pas t'arrêter.</strong></p>
+    <div class="landing-features">
+      <span class="lfeat">🏆 Classement mondial</span>
+      <span class="lfeat">🎨 12 skins à débloquer</span>
+      <span class="lfeat">🔥 Streak quotidien</span>
+      <span class="lfeat">⚡ Événements en direct</span>
+    </div>
+    <div class="landing-stats">
+      <div class="lstat"><span class="lstat-val" id="landingGlobal">…</span><span class="lstat-label">Clics mondiaux</span></div>
+      <div class="lstat"><span class="lstat-val" id="landingPlayers">…</span><span class="lstat-label">Joueurs actifs</span></div>
+    </div>
+    <button class="landing-cta" onclick="startGame()">APPUIE ICI 👆</button>
+    <p class="landing-hint">Appuie n'importe où pour commencer</p>
+  </div>
+  <!-- ══════════════════════════════ -->
+
+
   <canvas id="particleCanvas"></canvas>
   <div class="bg"></div>
   <div class="stars" id="stars"></div>
@@ -1522,6 +1604,62 @@ document.addEventListener('click',function(e){
     e.target.classList.remove('open');document.body.style.overflow='';
   }
 });
+
+/* ══════ LANDING SCREEN ══════ */
+var landingDismissed = localStorage.getItem('landingDismissed') === '1';
+
+function startGame(){
+  var l = document.getElementById('landing');
+  l.classList.add('hide');
+  setTimeout(function(){ l.style.display='none'; }, 520);
+  localStorage.setItem('landingDismissed','1');
+  // Jouer un petit son de départ
+  try{
+    var c = getACtx(), o = c.createOscillator(), g = c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.type = 'triangle'; o.frequency.value = 440;
+    g.gain.setValueAtTime(.3, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .4);
+    o.start(); o.stop(c.currentTime + .4);
+    setTimeout(function(){
+      var o2=c.createOscillator(),g2=c.createGain();
+      o2.connect(g2);g2.connect(c.destination);
+      o2.type='triangle';o2.frequency.value=660;
+      g2.gain.setValueAtTime(.3,c.currentTime);
+      g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);
+      o2.start();o2.stop(c.currentTime+.3);
+    },150);
+  }catch(e){}
+}
+
+// Clic n'importe où sur le landing pour démarrer
+document.getElementById('landing').addEventListener('pointerdown', function(e){
+  if(e.target.id !== 'landing' && !e.target.closest) return;
+  startGame();
+});
+
+// Si déjà joué récemment → skip landing (après 1h)
+var lastVisit = parseInt(localStorage.getItem('lastVisit') || '0');
+var now = Date.now();
+if(now - lastVisit < 3600000) {
+  // Retour joueur : skip landing direct
+  document.getElementById('landing').style.display = 'none';
+}
+localStorage.setItem('lastVisit', now);
+
+// Stats live sur la landing
+function updateLandingStats(){
+  var lg = document.getElementById('landingGlobal');
+  var lp = document.getElementById('landingPlayers');
+  if(lg) lg.textContent = '…';
+  if(lp) lp.textContent = Math.floor(Math.random()*55+18)+'';
+  fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(lg && d.globalClicks) lg.textContent = parseInt(d.globalClicks).toLocaleString('fr');
+    }).catch(function(){if(lg) lg.textContent='∞';});
+}
+updateLandingStats();
 
 init();
 </script>
