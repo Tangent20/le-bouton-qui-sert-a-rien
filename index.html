@@ -497,7 +497,9 @@
     .share-btn.wa{background:#25d366;color:#fff;}
     .share-btn.ch{background:linear-gradient(135deg,#ff2222,#ff6600);color:#fff;}
 
-  </style>
+  
+#mainWrap{display:none;}
+</style>
 </head>
 <body class="s-classic">
 
@@ -2078,6 +2080,13 @@ document.addEventListener('keydown',function(e){
 
 /* ══════ INIT ══════ */
 function init(){
+  // Bypass landing si déjà joué
+  if(localStorage.getItem('landingDismissed')==='1'){
+    var l=document.getElementById('landing');
+    var w=document.getElementById('mainWrap');
+    if(l) l.style.display='none';
+    if(w) w.style.display='block';
+  }
   genStars();
   checkStreak();
   updateOnlineStatus();
@@ -2227,11 +2236,11 @@ document.addEventListener('click',function(e){
 var landingDismissed = localStorage.getItem('landingDismissed') === '1';
 
 function startGame(){
-  // Anti-skip : ignorer si landing affiché depuis moins de 1.5s
-  if(Date.now() - _landingShownAt < 1500) return;
+  if(Date.now() - _landingShownAt < 800) return;
   var l = document.getElementById('landing');
-  l.classList.add('hide');
-  setTimeout(function(){ l.style.display='none'; }, 1300);
+  var w = document.getElementById('mainWrap');
+  if(l) { l.style.display='none'; }
+  if(w) { w.style.display='block'; }
   localStorage.setItem('landingDismissed','1');
   // Jouer un petit son de départ
   try{
@@ -2323,7 +2332,8 @@ window.addEventListener('beforeunload', function(){
   if(_batchTimer){ clearTimeout(_batchTimer); _batchTimer=null; }
 });
 
-init();
+
+window.addEventListener('DOMContentLoaded', function(){ init(); });
 </script>
 </body>
 </html>
