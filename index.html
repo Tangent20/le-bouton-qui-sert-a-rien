@@ -269,12 +269,68 @@
   
   
     /* ─── FOOTER ─── */
-    footer{text-align:center;padding:18px 14px 24px;border-top:1px solid #111;margin-top:10px;}
-    .footer-links{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:.75rem;color:#2a2a2a;margin-bottom:5px;}
-    .footer-links span{color:#1a1a1a;}
-    .footer-links a{color:#333;text-decoration:none;transition:color .2s;}
-    .footer-links a:hover{color:#ff4444;}
-    .footer-note{font-size:.62rem;color:#1a1a1a;margin-top:3px;}
+    footer{
+      background:#0a0a0a;
+      border-top:2px solid #1e1e1e;
+      margin-top:20px;
+      padding:0;
+    }
+    .footer-top{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      padding:22px 18px 16px;
+      border-bottom:1px solid #1a1a1a;
+      max-width:520px;
+      margin:0 auto;
+    }
+    .footer-col h4{
+      font-family:'Bangers',cursive;
+      font-size:1rem;
+      letter-spacing:1.5px;
+      color:#ff4444;
+      margin-bottom:7px;
+    }
+    .footer-col p, .footer-col address{
+      font-size:.72rem;
+      color:#666;
+      line-height:1.7;
+      font-style:normal;
+    }
+    .footer-col a{
+      color:#ff6644;
+      text-decoration:none;
+      font-size:.72rem;
+    }
+    .footer-col a:hover{text-decoration:underline;color:#ff4444;}
+    .footer-legal-links{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:12px 18px;
+      border-bottom:1px solid #161616;
+    }
+    .footer-legal-links a{
+      color:#555;
+      font-size:.72rem;
+      text-decoration:none;
+      padding:4px 10px;
+      border:1px solid #222;
+      border-radius:20px;
+      transition:all .2s;
+    }
+    .footer-legal-links a:hover{color:#ff4444;border-color:#ff4444;}
+    .footer-legal-links span{color:#222;font-size:.6rem;}
+    .footer-bottom{
+      text-align:center;
+      padding:10px 14px 18px;
+      font-size:.65rem;
+      color:#333;
+      line-height:1.8;
+    }
+    .footer-bottom strong{color:#555;}
 
     /* ─── MODAUX LÉGAUX ─── */
     .legal-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:16px;overflow-y:auto;}
@@ -407,16 +463,41 @@
     </div>
 
     <footer>
-    <div class="footer-links">
-      <span>© 2026 Le Bouton Qui Sert À Rien™ 😈</span>
-      <span>|</span>
-      <a href="#" onclick="openModal('modalMentions');return false;">Mentions légales</a>
-      <span>|</span>
-      <a href="#" onclick="openModal('modalCGU');return false;">CGU</a>
-      <span>|</span>
-      <a href="#" onclick="openModal('modalConfidentialite');return false;">Confidentialité</a>
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>🔴 Le Jeu</h4>
+        <p>Le jeu en ligne le plus inutile — et pourtant tu peux pas t'arrêter.<br>
+        Clique, grimpe dans le classement, débloque des skins.<br>
+        <strong style="color:#ff4444">100% gratuit. 0% utile.</strong></p>
+      </div>
+      <div class="footer-col">
+        <h4>📋 Éditeur</h4>
+        <address>
+          <strong style="color:#aaa">Charly Soudan</strong><br>
+          36 avenue du Parc<br>
+          93290 Tremblay-en-France<br>
+          France<br>
+          <span style="color:#444;font-size:.68rem;font-style:italic">Particulier — immatriculation en cours</span>
+        </address>
+      </div>
     </div>
-    <div class="footer-note">Site personnel à but non commercial — aucune donnée vendue ni partagée</div>
+
+    <div class="footer-legal-links">
+      <a href="#" onclick="openModal('modalMentions');return false;">📋 Mentions légales</a>
+      <span>·</span>
+      <a href="#" onclick="openModal('modalCGU');return false;">📜 CGU</a>
+      <span>·</span>
+      <a href="#" onclick="openModal('modalConfidentialite');return false;">🔒 Confidentialité & RGPD</a>
+      <span>·</span>
+      <a href="https://www.cnil.fr" target="_blank">🛡️ CNIL</a>
+    </div>
+
+    <div class="footer-bottom">
+      <strong>© 2026 Le Bouton Qui Sert À Rien™</strong> — Tous droits réservés 😈<br>
+      Hébergé par <a href="https://base44.com" target="_blank" style="color:#555">Base44</a>
+      &nbsp;·&nbsp; Site personnel à but non commercial
+      &nbsp;·&nbsp; Aucune donnée vendue ni partagée
+    </div>
   </footer>
 
   <!-- MODAL MENTIONS LÉGALES -->
