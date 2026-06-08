@@ -240,13 +240,13 @@
     .mystery-inner p{font-size:.9rem;color:#eee;}
 
     /* PARTICLES */
-    .pt{position:fixed;pointer-events:none;font-size:1.75rem;animation:ptFly 1.1s ease-out forwards;z-index:999;}
+    .pt{position:fixed;pointer-events:none;font-size:1.75rem;animation:ptFly 1.1s ease-out forwards;z-index:9998;}
     @keyframes ptFly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2) rotate(var(--dr));}}
     .cf{position:fixed;pointer-events:none;width:9px;height:9px;z-index:998;animation:cfFall var(--dur) ease-out forwards;}
     @keyframes cfFall{0%{opacity:1;transform:translate(0,0) rotate(0);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr));}}
 
     /* TOAST */
-    .toast{position:fixed;left:50%;transform:translateX(-50%);color:#fff;padding:8px 17px;border-radius:17px;font-weight:700;z-index:9999;font-size:.86rem;white-space:nowrap;animation:toastAnim 2.5s ease forwards;max-width:88vw;overflow:hidden;text-overflow:ellipsis;}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);color:#fff;padding:8px 17px;border-radius:17px;font-weight:700;z-index:9999;font-size:.86rem;white-space:nowrap;animation:toastAnim 2.5s ease forwards;max-width:88vw;overflow:hidden;text-overflow:ellipsis;pointer-events:none;}
     @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(10px);}14%{opacity:1;transform:translateX(-50%) translateY(0);}76%{opacity:1;}100%{opacity:0;}}
 
     footer{text-align:center;padding:18px;color:#181818;font-size:.7rem;}
@@ -547,7 +547,12 @@ function init() {
   });
 
   // Bouton click
-  document.getElementById('btn').addEventListener('click', handleClick);
+  var btnEl = document.getElementById('btn');
+  btnEl.addEventListener('click', handleClick);
+  btnEl.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    handleClick(e);
+  }, {passive: false});
 
   // Challenger
   var params = new URLSearchParams(window.location.search);
@@ -842,7 +847,11 @@ function renderProvoc() {
 /* ══════════════════════════════════════
    CLICK HANDLER
 ══════════════════════════════════════ */
+var _lastClickTime = 0;
 function handleClick(ev) {
+  var now = Date.now();
+  if (now - _lastClickTime < 80) return;
+  _lastClickTime = now;
   var bonus = eventMultiplier || 1;
   clicks += bonus;
   localStorage.setItem('clicks', clicks);
@@ -953,8 +962,8 @@ function triggerJackpot() {
   var idx = Math.min(Math.floor(clicks / 100) - 1, JACKPOT_MSGS.length - 1);
   document.getElementById('jackpotMsg').textContent = JACKPOT_MSGS[idx] || clicks.toLocaleString('fr') + ' CLICS ! T\'ES MALADE !';
   var m = document.getElementById('jackpotModal');
-  m.classList.remove('on'); void m.offsetWidth; m.classList.add('on');
-  setTimeout(function() { m.classList.remove('on'); }, 3500);
+  m.classList.remove('on');
+  setTimeout(function() { m.classList.add('on'); setTimeout(function(){ m.classList.remove('on'); }, 3500); }, 50);
   spawnConfetti();
 }
 
@@ -993,7 +1002,8 @@ function triggerMystery() {
   document.getElementById('mystEmoji').textContent = ev.e;
   document.getElementById('mystText').textContent = ev.t;
   var m = document.getElementById('mysteryModal');
-  m.classList.remove('on'); void m.offsetWidth; m.classList.add('on');
+  m.classList.remove('on');
+  setTimeout(function() { m.classList.add('on'); }, 50);
   ev.a();
   playTone(800, 'sawtooth', .3, .3);
   setTimeout(function() { m.classList.remove('on'); mysteryActive = false; }, 4000);
@@ -1005,9 +1015,12 @@ function triggerMystery() {
 function showOvertake(name) {
   document.getElementById('overtakeMsg').textContent = name + ' vient de te dépasser... Tu laisses faire ? 😤';
   var el = document.getElementById('overtakeModal');
-  el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
-  playTone(150, 'sawtooth', .4, .4);
-  setTimeout(closeOvertake, 5000);
+  el.classList.remove('on');
+  setTimeout(function() {
+    el.classList.add('on');
+    playTone(150, 'sawtooth', .4, .4);
+    setTimeout(closeOvertake, 5000);
+  }, 50);
 }
 function closeOvertake() { document.getElementById('overtakeModal').classList.remove('on'); }
 
@@ -1017,8 +1030,17 @@ function closeOvertake() { document.getElementById('overtakeModal').classList.re
 function spawnParticles(ev, count) {
   var emojis = SKIN_PT[curSkin] || ['💥', '⭐', '✨'];
   var n = count || Math.min(3 + Math.floor(combo / 4), 14);
-  var x = (ev && ev.clientX) ? ev.clientX : window.innerWidth / 2;
-  var y = (ev && ev.clientY) ? ev.clientY : window.innerHeight / 2;
+  var x = window.innerWidth / 2;
+  var y = window.innerHeight / 2;
+  if (ev) {
+    if (ev.touches && ev.touches[0]) {
+      x = ev.touches[0].clientX; y = ev.touches[0].clientY;
+    } else if (ev.changedTouches && ev.changedTouches[0]) {
+      x = ev.changedTouches[0].clientX; y = ev.changedTouches[0].clientY;
+    } else if (ev.clientX) {
+      x = ev.clientX; y = ev.clientY;
+    }
+  }
   for (var i = 0; i < n; i++) {
     var p = document.createElement('div');
     p.className = 'pt';
@@ -1089,12 +1111,14 @@ function playJackpot() { [523,659,784,1047,1319].forEach(function(f,i){setTimeou
 ══════════════════════════════════════ */
 function toast(msg, color) {
   color = color || '#aa66ff';
+  var existing = document.querySelectorAll('.toast');
+  if (existing.length >= 3) { existing[0].remove(); }
   var n = document.querySelectorAll('.toast').length;
   var t = document.createElement('div');
   t.className = 'toast'; t.textContent = msg;
   t.style.background = color; t.style.bottom = (18 + n * 48) + 'px';
   document.body.appendChild(t);
-  setTimeout(function() { t.remove(); }, 2600);
+  setTimeout(function() { if (t.parentNode) t.remove(); }, 2600);
 }
 
 /* ══════════════════════════════════════
