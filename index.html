@@ -400,8 +400,12 @@ function init(){
   generateStars();renderSkins();applySkin(currentSkin,false);
   renderAchievements();updateMyCount();updateThermo();loadLeaderboard();
   const saved=localStorage.getItem('pseudo');
-  if(saved)document.getElementById('pseudoInput').value=saved;
+  if(saved){document.getElementById('pseudoInput').value=saved;loadMyScore(saved);}
   document.getElementById('pseudoInput').addEventListener('input',function(){localStorage.setItem('pseudo',this.value);updateDefiLink();});
+  document.getElementById('pseudoInput').addEventListener('change',function(){
+    const pseudo=this.value.trim();
+    if(pseudo) loadMyScore(pseudo);
+  });
   updateDefiLink();
   const params=new URLSearchParams(window.location.search);
   const challenger=params.get('challenger'),cs=params.get('score');
@@ -601,6 +605,26 @@ function showToast(msg,color='#aa66ff'){
   const t=document.createElement('div');t.className='toast';t.textContent=msg;
   t.style.background=color;t.style.bottom=(20+existing*56)+'px';
   document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+}
+
+async function loadMyScore(pseudo){
+  if(!pseudo) return;
+  try{
+    showToast('🔄 Chargement de ton score...','#333');
+    const res=await fetch(API_BASE+'/getMyScore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo})});
+    const data=await res.json();
+    if(data.found && data.total_clicks > myClicks){
+      myClicks=data.total_clicks;
+      localStorage.setItem('myClicks',myClicks);
+      updateMyCount();updateThermo();renderAchievements();checkNewSkins();renderSkins();
+      showToast(`✅ Score récupéré : ${myClicks.toLocaleString('fr')} clics !`,'#00aa55');
+    } else if(data.found){
+      showToast(`✅ Connecté ! ${myClicks.toLocaleString('fr')} clics`,'#00aa55');
+    } else {
+      showToast('👋 Nouveau joueur ! Tes clics seront sauvegardés.','#aa66ff');
+    }
+    loadLeaderboard();
+  }catch(e){}
 }
 
 async function trackClick(pseudo,reaction){
