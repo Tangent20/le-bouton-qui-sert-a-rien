@@ -144,7 +144,7 @@
     .btn-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(210px,30vw,280px);height:clamp(210px,30vw,280px);}
     .glow{position:absolute;width:clamp(200px,28vw,265px);height:clamp(200px,28vw,265px);border-radius:50%;animation:glowPulse 1.6s ease-in-out infinite;pointer-events:none;will-change:transform,opacity;}
     @keyframes glowPulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.3);opacity:1;}}
-    #btn{width:clamp(170px,25vw,240px);height:clamp(170px,25vw,240px);border-radius:50%;border:none;cursor:pointer;font-family:'Bangers',cursive;font-size:clamp(1rem,2.5vw,1.35rem);letter-spacing:2px;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);z-index:1;position:relative;outline:none;transition:transform .08s,filter .08s;-webkit-tap-highlight-color:transparent;touch-action:none;will-change:transform;-webkit-user-select:none;}
+    #btn{width:clamp(170px,25vw,240px);height:clamp(170px,25vw,240px);border-radius:50%;border:none;cursor:pointer;font-family:'Bangers',cursive;font-size:clamp(1rem,2.5vw,1.35rem);letter-spacing:2px;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);z-index:1;position:relative;outline:none;transition:transform .08s,filter .08s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;will-change:transform;-webkit-user-select:none;}
     #btn::before{content:'';position:absolute;top:9%;left:16%;width:38%;height:26%;background:rgba(255,255,255,.2);border-radius:50%;transform:rotate(-30deg);pointer-events:none;}
     #btn:hover:not(.pressed){filter:brightness(1.12);transform:scale(1.03);}
     #btn.pressed{transform:translateY(7px) scale(.94)!important;filter:brightness(.8);}
@@ -1056,8 +1056,7 @@ function _saveToastFlags(){ try{localStorage.setItem('_tf',JSON.stringify(_toast
 var _lastPointerX=-1, _lastPointerY=-1;  // coords fiables du dernier touch
 
 /* ══════ CANVAS PARTICULES ══════ */
-var canvas=document.getElementById('particleCanvas');
-var ctx2d=canvas.getContext('2d');
+var canvas=null, ctx2d=null;
 var particles=[];
 var rafId=null;
 
@@ -1073,11 +1072,12 @@ resizeCanvas();
 window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
-  if(rafId) return; // déjà en cours
+  if(!ctx2d||!canvas)return;
+  if(rafId) return;
   function frame(){
-    // Reset propre : on travaille en physical pixels directement
+    if(!ctx2d||!canvas){rafId=null;return;}
     var dpr=window.devicePixelRatio||1;
-    ctx2d.setTransform(1,0,0,1,0,0); // reset absolu
+    ctx2d.setTransform(1,0,0,1,0,0);
     ctx2d.clearRect(0,0,canvas.width,canvas.height);
     var alive=false;
     for(var i=0;i<particles.length;i++){
@@ -1758,7 +1758,7 @@ function renderProvoc(){
   var txt=tpl.replace('{next}',next.toLocaleString('fr')).replace('{cur}',clicks.toLocaleString('fr')).replace('{streak}',streak);
   var el=document.getElementById('provocText');
   el.classList.remove('anim');void el.offsetWidth;el.textContent=txt;el.classList.add('anim');
-  document.getElementById('provocBtn').style.display='inline';
+  var _pb=document.getElementById('provocBtn');if(_pb)_pb.style.display='inline';
 }
 
 /* ══════ CLICK HANDLER ══════ */
@@ -1834,7 +1834,7 @@ var THERMO=[
 function renderThermo(){
   var l=THERMO[0];
   for(var i=0;i<THERMO.length;i++){if(clicks>=THERMO[i].min&&clicks<THERMO[i].max){l=THERMO[i];break;}}
-  var sub=document.getElementById('subtitle');sub.textContent=l.t;sub.style.color=l.c;
+  var sub=document.getElementById('subtitle');if(sub){sub.textContent=l.t;sub.style.color=l.c;}
 }
 
 /* ══════ COMBO ══════ */
@@ -1866,12 +1866,12 @@ function triggerJackpot(){
 }
 function triggerPanic(){
   panic=true;document.body.classList.add('panic');document.getElementById('panicFrame').classList.add('on');
-  document.getElementById('title').textContent='😱 PANIQUE TOTALE 😱';
+  var _t1=document.getElementById('title');if(_t1)_t1.textContent='😱 PANIQUE TOTALE 😱';
   toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000',true);playTone(200,'sawtooth',.5,.4);
 }
 function stopPanic(){
   panic=false;document.body.classList.remove('panic');document.getElementById('panicFrame').classList.remove('on');
-  document.getElementById('title').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
+  var _t2=document.getElementById('title');if(_t2)_t2.textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
 }
 function makeButtonRun(){
   running=true;var b=document.getElementById('btn');
@@ -2077,6 +2077,9 @@ document.addEventListener('keydown',function(e){
 
 /* ══════ INIT ══════ */
 function init(){
+  showTab('jeu');
+  canvas=document.getElementById('particleCanvas');
+  if(canvas){ctx2d=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;canvas.width=window.innerWidth*dpr;canvas.height=window.innerHeight*dpr;if(ctx2d)ctx2d.setTransform(dpr,0,0,dpr,0,0);}
   genStars();
   checkStreak();
   updateOnlineStatus();
@@ -2092,9 +2095,6 @@ function init(){
   // Bouton — pointerdown universel (PC, mobile, tablette, iOS, stylet)
   var btnEl=document.getElementById('btn');
   btnEl.addEventListener('pointerdown',function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    // Capturer coords FIGÉES au moment du clic
     var r=btnEl.getBoundingClientRect();
     _lastPointerX=r.left+r.width/2;
     _lastPointerY=r.top+r.height/2;
@@ -2125,8 +2125,6 @@ function init(){
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(10+Math.random()*10)*60000);
-  // Forcer l'affichage du premier onglet
-  showTab('jeu');
 }
 
 
