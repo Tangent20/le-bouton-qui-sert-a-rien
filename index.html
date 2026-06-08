@@ -594,22 +594,9 @@ function burstParticles(x,y,count){
 }
 
 function spawnParticles(ev,count){
-  // TOUJOURS utiliser getBCR du bouton = coords viewport CSS réelles
-  // C'est la méthode la plus fiable sur tous les appareils
-  var btn=document.getElementById('btn');
-  var r=btn.getBoundingClientRect();
-  var cx=r.left+r.width/2;
-  var cy=r.top+r.height/2;
-  // Si on a des coords de touch/pointer ET qu'elles sont dans la zone du bouton
-  // on les utilise pour placer les emojis là où l'utilisateur a vraiment appuyé
-  var x=cx, y=cy;
-  if(_lastPointerX>=0){
-    // Vérifier que les coords sont raisonnables (dans le viewport)
-    var vw=window.innerWidth, vh=window.innerHeight;
-    if(_lastPointerX>0 && _lastPointerX<vw && _lastPointerY>0 && _lastPointerY<vh){
-      x=_lastPointerX; y=_lastPointerY;
-    }
-  }
+  // Utiliser les coords figées au moment du clic (capturées dans _lastPointerX/Y)
+  // Ces coords ne changent PAS si le bouton se déplace ensuite
+  var x=_lastPointerX, y=_lastPointerY;
   burstParticles(x,y,count);
 }
 
@@ -903,7 +890,7 @@ function renderProvoc(){
 /* ══════ CLICK HANDLER ══════ */
 function handleClick(ev){
   var now=Date.now();
-  if(now-_lastClickTime<50)return;
+  if(now-_lastClickTime<150)return;
   _lastClickTime=now;
   var bonus=eventMultiplier||1;
   clicks+=bonus;
@@ -1219,22 +1206,15 @@ function init(){
   var btnEl=document.getElementById('btn');
   btnEl.addEventListener('pointerdown',function(e){
     e.preventDefault();
-    // Capturer coords du pointeur (en CSS viewport pixels)
-    if(e.clientX>0 && e.clientY>0){
-      _lastPointerX=e.clientX; _lastPointerY=e.clientY;
-    } else if(e.pageX>0){
-      // pageX/Y moins courant mais utile sur certains Android
-      _lastPointerX=e.pageX - window.scrollX;
-      _lastPointerY=e.pageY - window.scrollY;
-    } else {
-      // Fallback : centre du bouton
-      var r=btnEl.getBoundingClientRect();
-      _lastPointerX=r.left+r.width/2; _lastPointerY=r.top+r.height/2;
-    }
+    e.stopPropagation();
+    // Capturer coords FIGÉES au moment du clic
+    var r=btnEl.getBoundingClientRect();
+    _lastPointerX=r.left+r.width/2;
+    _lastPointerY=r.top+r.height/2;
     handleClick(e);
   });
-  // Fallback pour navigateurs sans pointer events
-  btnEl.addEventListener('click',function(e){if(e.pointerType||e._handled)return;handleClick(e);});
+  // Bloquer le click qui suit pointerdown pour éviter le double déclenchement
+  btnEl.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();});
 
   // Challenger
   var params=new URLSearchParams(window.location.search);
