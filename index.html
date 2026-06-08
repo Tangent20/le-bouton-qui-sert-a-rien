@@ -1061,15 +1061,14 @@ var particles=[];
 var rafId=null;
 
 function resizeCanvas(){
-  if(!canvas)return;
   var dpr=window.devicePixelRatio||1;
   var w=window.innerWidth, h=window.innerHeight;
   canvas.width=Math.round(w*dpr);
   canvas.height=Math.round(h*dpr);
   canvas.style.width=w+'px';
   canvas.style.height=h+'px';
-  if(ctx2d)ctx2d.setTransform(dpr,0,0,dpr,0,0);
 }
+resizeCanvas();
 window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
@@ -2081,7 +2080,7 @@ document.addEventListener('keydown',function(e){
 function init(){
   showTab('jeu');
   canvas=document.getElementById('particleCanvas');
-  if(canvas){ctx2d=canvas.getContext('2d');resizeCanvas();}
+  if(canvas){ctx2d=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;canvas.width=window.innerWidth*dpr;canvas.height=window.innerHeight*dpr;if(ctx2d)ctx2d.setTransform(dpr,0,0,dpr,0,0);}
   genStars();
   checkStreak();
   updateOnlineStatus();
@@ -2305,11 +2304,23 @@ function loadLeaderboardVs(){
       if(!rows.length){el.innerHTML='<p style="color:#666;text-align:center">Aucun joueur encore...</p>';return;}
       var me = (document.getElementById('pseudoInput').value||'').trim().toLowerCase();
       var html2='';
-      rows.slice(0,10).forEach(function(r,i){
-        var isMe = me && r.pseudo && r.pseudo.toLowerCase()===me;
-        html2+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rank">#'+(i+1)+'</span><span class="lb-name">'+r.pseudo+'</span><span class="lb-score">'+parseInt(r.total_clicks||0).toLocaleString('fr')+'</span><button class="lb-defi" onclick="openDefi(''+r.pseudo+'','+parseInt(r.total_clicks||0)+')">⚔️</button></div>';
+      rows.slice(0,10).forEach(function(row,i){
+        var isMe = me && row.pseudo && row.pseudo.toLowerCase()===me;
+        var sc = parseInt(row.total_clicks||0);
+        html2+='<div class="lb-row'+(isMe?' me':'')+'">';
+        html2+='<span class="lb-rank">#'+(i+1)+'</span>';
+        html2+='<span class="lb-name">'+row.pseudo+'</span>';
+        html2+='<span class="lb-score">'+sc.toLocaleString('fr')+'</span>';
+        html2+='<button class="lb-defi" data-pseudo="'+row.pseudo.replace(/"/g,'&quot;')+'" data-score="'+sc+'">⚔️</button>';
+        html2+='</div>';
       });
       el.innerHTML=html2;
+      // Attacher les listeners APRÈS injection HTML
+      el.querySelectorAll('.lb-defi').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          openDefi(this.getAttribute('data-pseudo'), parseInt(this.getAttribute('data-score')));
+        });
+      });
     }).catch(function(){el.innerHTML='<p style="color:#f55;text-align:center">Erreur chargement</p>';});
 }
 
