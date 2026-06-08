@@ -430,6 +430,54 @@
     .defi-status{font-size:.95rem;font-weight:900;color:#ffcc00;min-height:28px;margin:8px 0;}
     .defi-close{position:absolute;top:10px;right:12px;background:none;border:1px solid #333;color:#888;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.8rem;}
     .defi-close:hover{background:#ff2222;color:#fff;border-color:#ff2222;}
+
+    /* ═══ MODE VERSUS ═══ */
+    .versus-section{width:min(470px,93vw);margin:9px auto;background:#0e0e0e;border:1.5px solid #ff6600;border-radius:13px;padding:12px 14px;}
+    .versus-section h2{font-family:'Bangers',cursive;font-size:1.3rem;letter-spacing:2px;color:#ff6600;margin:0 0 10px;}
+    .versus-tabs{display:flex;gap:6px;margin-bottom:12px;}
+    .vtab{flex:1;padding:7px 0;border:1px solid #333;background:#111;color:#888;font-family:'Nunito',sans-serif;font-weight:900;font-size:.78rem;border-radius:8px;cursor:pointer;transition:all .2s;}
+    .vtab.active{background:#ff6600;color:#000;border-color:#ff6600;}
+    .vcontent{display:none;}
+    .vcontent.active{display:block;}
+    /* Créer salle */
+    .vs-create-btn{width:100%;padding:10px;background:linear-gradient(135deg,#ff2222,#ff6600);border:none;color:#fff;font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:2px;border-radius:10px;cursor:pointer;transition:transform .15s;}
+    .vs-create-btn:hover{transform:scale(1.03);}
+    .vs-room-info{background:#111;border:1px solid #ff6600;border-radius:10px;padding:10px 12px;margin-top:10px;display:none;}
+    .vs-room-code{font-family:'Bangers',cursive;font-size:2rem;color:#ff6600;letter-spacing:6px;text-align:center;}
+    .vs-room-link{font-size:.65rem;color:#888;word-break:break-all;text-align:center;margin:4px 0;}
+    .vs-copy-btn{width:100%;padding:6px;background:#222;border:1px solid #444;color:#aaa;border-radius:8px;cursor:pointer;font-size:.75rem;margin-top:4px;}
+    .vs-copy-btn:hover{background:#333;color:#fff;}
+    .vs-waiting{text-align:center;color:#ffcc00;font-size:.8rem;margin-top:8px;animation:blink 1s infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+    /* Rejoindre salle */
+    .vs-join-input{width:100%;padding:8px 12px;background:#111;border:1px solid #ff6600;color:#fff;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:4px;border-radius:8px;text-align:center;text-transform:uppercase;box-sizing:border-box;}
+    .vs-join-btn{width:100%;margin-top:8px;padding:9px;background:#0088ff;border:none;color:#fff;font-family:'Bangers',cursive;font-size:1rem;letter-spacing:2px;border-radius:10px;cursor:pointer;}
+    .vs-join-btn:hover{background:#00aaff;}
+    /* DUEL EN COURS */
+    #duelModal{display:none;position:fixed;inset:0;z-index:700;background:#000;flex-direction:column;align-items:center;justify-content:center;}
+    #duelModal.on{display:flex;}
+    .duel-header{font-family:'Bangers',cursive;font-size:clamp(1.5rem,6vw,2.5rem);color:#ff6600;letter-spacing:4px;margin-bottom:8px;}
+    .duel-timer{font-family:'Bangers',cursive;font-size:clamp(3rem,15vw,7rem);color:#fff;line-height:1;transition:color .2s;}
+    .duel-timer.danger{color:#ff2222;animation:shake .1s infinite;}
+    .duel-scores{display:flex;gap:16px;margin:16px 0;width:min(400px,90vw);}
+    .duel-score-box{flex:1;background:#111;border-radius:12px;padding:10px;text-align:center;border:2px solid #222;}
+    .duel-score-box.me{border-color:#ff2222;}
+    .duel-score-box.them{border-color:#0088ff;}
+    .duel-score-box .dslabel{font-size:.65rem;font-weight:900;text-transform:uppercase;color:#888;letter-spacing:2px;}
+    .duel-score-box.me .dslabel{color:#ff4444;}
+    .duel-score-box.them .dslabel{color:#00aaff;}
+    .duel-score-box .dsnum{font-family:'Bangers',cursive;font-size:clamp(1.8rem,8vw,3rem);color:#fff;}
+    .duel-bars{width:min(400px,90vw);margin-bottom:10px;}
+    .duel-bar-wrap{background:#1a1a1a;border-radius:6px;height:14px;overflow:hidden;margin-bottom:4px;}
+    .duel-bar-me-fill{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600);transition:width .15s;}
+    .duel-bar-them-fill{height:100%;background:linear-gradient(90deg,#0088ff,#00ccff);transition:width .15s;}
+    .duel-btn{padding:14px 40px;background:linear-gradient(135deg,#ff2222,#ff6600);border:none;color:#fff;font-family:'Bangers',cursive;font-size:clamp(1.2rem,5vw,2rem);letter-spacing:3px;border-radius:14px;cursor:pointer;margin-top:8px;transition:transform .1s;}
+    .duel-btn:active{transform:scale(.95);}
+    .duel-result{font-family:'Bangers',cursive;font-size:clamp(2rem,10vw,4rem);letter-spacing:4px;text-align:center;}
+    .duel-result.win{color:#00ff88;}
+    .duel-result.lose{color:#ff2222;}
+    .duel-result.draw{color:#ffcc00;}
+    .duel-taunt{font-size:.85rem;color:#aaa;margin-top:6px;text-align:center;}
   </style>
 </head>
 <body class="s-classic">
@@ -555,6 +603,31 @@
     <div class="ach">
       <h2>🏅 SUCCÈS INUTILES</h2>
       <div class="ach-grid" id="achGrid"></div>
+    </div>
+
+
+    <!-- ═══ SECTION VERSUS ═══ -->
+    <div class="versus-section">
+      <h2>⚔️ MODE VERSUS</h2>
+      <div class="versus-tabs">
+        <button class="vtab active" onclick="switchVTab('create')">🆕 Créer un duel</button>
+        <button class="vtab" onclick="switchVTab('join')">🔗 Rejoindre</button>
+      </div>
+      <!-- CRÉER -->
+      <div class="vcontent active" id="vtab-create">
+        <button class="vs-create-btn" onclick="createRoom()">⚡ CRÉER UNE SALLE</button>
+        <div class="vs-room-info" id="roomInfo">
+          <div class="vs-room-code" id="roomCode">----</div>
+          <div class="vs-room-link" id="roomLink"></div>
+          <button class="vs-copy-btn" onclick="copyRoomLink()">📋 Copier le lien à envoyer</button>
+          <div class="vs-waiting" id="vsWaiting">⏳ En attente d'un adversaire...</div>
+        </div>
+      </div>
+      <!-- REJOINDRE -->
+      <div class="vcontent" id="vtab-join">
+        <input class="vs-join-input" id="joinCodeInput" placeholder="CODE" maxlength="4" oninput="this.value=this.value.toUpperCase()"/>
+        <button class="vs-join-btn" onclick="joinRoom()">🎮 REJOINDRE LE DUEL</button>
+      </div>
     </div>
 
     <div class="lb">
@@ -1001,6 +1074,218 @@ function scheduleRender(){
 
 
 
+
+/* ══════════════════════════════════════════
+   MODE VERSUS — DUEL EN DIRECT 60 SECONDES
+   ══════════════════════════════════════════ */
+var _vsRoom=null,_vsRole=null,_vsMyDuelScore=0,_vsThemDuelScore=0;
+var _vsTimer=60,_vsTimerInterval=null,_vsPollInterval=null,_vsStarted=false;
+var _vsMyPseudo='',_vsThemPseudo='';
+
+/* Générer un code salle 4 lettres */
+function genRoomCode(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ';
+  var code='';
+  for(var i=0;i<4;i++)code+=chars[Math.floor(Math.random()*chars.length)];
+  return code;
+}
+
+/* Switcher les onglets */
+function switchVTab(tab){
+  document.querySelectorAll('.vtab').forEach(function(b,i){b.classList.toggle('active',i===(tab==='create'?0:1));});
+  document.querySelectorAll('.vcontent').forEach(function(c){c.classList.remove('active');});
+  document.getElementById('vtab-'+tab).classList.add('active');
+}
+
+/* Créer une salle — on stocke dans localStorage avec polling */
+function createRoom(){
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  var code=genRoomCode();
+  _vsRoom=code;_vsRole='host';_vsMyPseudo=pseudo;
+  _vsMyDuelScore=0;_vsThemDuelScore=0;_vsStarted=false;
+  /* Stocker la salle dans localStorage simulé (ou via API si dispo) */
+  var roomData={code:code,host:pseudo,guest:null,hostScore:0,guestScore:0,status:'waiting',created:Date.now()};
+  try{localStorage.setItem('vsRoom_'+code,JSON.stringify(roomData));}catch(e){}
+  /* Afficher UI */
+  var ri=document.getElementById('roomInfo');
+  ri.style.display='block';
+  document.getElementById('roomCode').textContent=code;
+  var link=window.location.href.split('?')[0]+'?duel='+code;
+  document.getElementById('roomLink').textContent=link;
+  toast('🎮 Salle créée ! Code : '+code,'#ff6600');
+  /* Polling attente guest */
+  clearInterval(_vsPollInterval);
+  _vsPollInterval=setInterval(function(){pollRoom(code,'host');},1500);
+}
+
+/* Copier le lien */
+function copyRoomLink(){
+  var link=window.location.href.split('?')[0]+'?duel='+_vsRoom;
+  if(navigator.clipboard){navigator.clipboard.writeText(link);}
+  else{var t=document.createElement('textarea');t.value=link;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
+  toast('📋 Lien copié !','#00ff88');
+}
+
+/* Rejoindre une salle */
+function joinRoom(){
+  var code=document.getElementById('joinCodeInput').value.trim().toUpperCase();
+  if(code.length!==4){toast('❌ Code invalide — 4 lettres','#ff2222');return;}
+  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  _vsRoom=code;_vsRole='guest';_vsMyPseudo=pseudo;
+  _vsMyDuelScore=0;_vsThemDuelScore=0;_vsStarted=false;
+  /* Rejoindre */
+  var roomRaw=localStorage.getItem('vsRoom_'+code);
+  if(!roomRaw){toast('❌ Salle introuvable. Vérifie le code !','#ff2222');return;}
+  var room=JSON.parse(roomRaw);
+  room.guest=pseudo;room.status='ready';
+  localStorage.setItem('vsRoom_'+code,JSON.stringify(room));
+  _vsThemPseudo=room.host;
+  toast('⚔️ Connecté à la salle de '+room.host+' !','#00ccff');
+  clearInterval(_vsPollInterval);
+  _vsPollInterval=setInterval(function(){pollRoom(code,'guest');},1000);
+}
+
+/* Polling — vérifier l'état de la salle */
+function pollRoom(code,role){
+  var raw=localStorage.getItem('vsRoom_'+code);
+  if(!raw)return;
+  var room=JSON.parse(raw);
+  if(role==='host'){
+    /* Host attend que guest arrive */
+    if(!_vsStarted&&room.guest&&room.status==='ready'){
+      _vsThemPseudo=room.guest;
+      document.getElementById('vsWaiting').textContent='⚡ '+room.guest+' a rejoint ! Démarrage...';
+      setTimeout(function(){startDuel(code,role,room.host,room.guest);},1200);
+    }
+    /* Host met à jour son score dans la salle */
+    if(_vsStarted){
+      room.hostScore=_vsMyDuelScore;
+      localStorage.setItem('vsRoom_'+code,JSON.stringify(room));
+      _vsThemDuelScore=room.guestScore;
+      updateDuelUI();
+    }
+  } else {
+    /* Guest — host a-t-il démarré ? */
+    if(!_vsStarted&&room.status==='started'){
+      startDuel(code,role,room.host,room.guest);
+    }
+    /* Guest met à jour son score */
+    if(_vsStarted){
+      room.guestScore=_vsMyDuelScore;
+      localStorage.setItem('vsRoom_'+code,JSON.stringify(room));
+      _vsThemDuelScore=room.hostScore;
+      updateDuelUI();
+    }
+    /* Jeu terminé ? */
+    if(room.status==='done'){endDuel(true);}
+  }
+}
+
+/* Démarrer le duel */
+function startDuel(code,role,hostP,guestP){
+  if(_vsStarted)return;
+  _vsStarted=true;
+  _vsTimer=60;_vsMyDuelScore=0;_vsThemDuelScore=0;
+  /* Marquer started dans localStorage */
+  var raw=localStorage.getItem('vsRoom_'+code);
+  if(raw){var r=JSON.parse(raw);r.status='started';r.hostScore=0;r.guestScore=0;localStorage.setItem('vsRoom_'+code,JSON.stringify(r));}
+  /* Labels */
+  var myP=role==='host'?hostP:guestP;
+  var thP=role==='host'?guestP:hostP;
+  document.getElementById('duelVsLabel').textContent=myP+' ⚔️ '+thP;
+  document.getElementById('duelMeLabel').textContent=myP;
+  document.getElementById('duelThemLabel').textContent=thP;
+  document.getElementById('duelMeScore').textContent='0';
+  document.getElementById('duelThemScore').textContent='0';
+  document.getElementById('duelTimer').textContent='60';
+  document.getElementById('duelTimer').classList.remove('danger');
+  /* Ouvrir modal */
+  document.getElementById('duelModal').classList.add('on');
+  /* Compte à rebours */
+  clearInterval(_vsTimerInterval);
+  _vsTimerInterval=setInterval(function(){
+    _vsTimer--;
+    var timerEl=document.getElementById('duelTimer');
+    timerEl.textContent=_vsTimer;
+    if(_vsTimer<=10)timerEl.classList.add('danger');
+    if(_vsTimer<=0){clearInterval(_vsTimerInterval);endDuel(false);}
+  },1000);
+}
+
+/* Clic dans le duel */
+function duelClick(e){
+  if(e)e.preventDefault();
+  if(!_vsStarted||_vsTimer<=0)return;
+  _vsMyDuelScore++;
+  document.getElementById('duelMeScore').textContent=_vsMyDuelScore;
+  /* Animation bouton */
+  var btn=document.getElementById('duelClickBtn');
+  btn.style.transform='scale(.93)';
+  setTimeout(function(){btn.style.transform='';},80);
+  updateDuelUI();
+}
+
+/* Mettre à jour les barres */
+function updateDuelUI(){
+  var total=Math.max(_vsMyDuelScore+_vsThemDuelScore,1);
+  document.getElementById('duelBarMe').style.width=Math.round((_vsMyDuelScore/total)*100)+'%';
+  document.getElementById('duelBarThem').style.width=Math.round((_vsThemDuelScore/total)*100)+'%';
+  document.getElementById('duelMeScore').textContent=_vsMyDuelScore;
+  document.getElementById('duelThemScore').textContent=_vsThemDuelScore;
+}
+
+/* Fin du duel */
+function endDuel(forced){
+  _vsStarted=false;
+  clearInterval(_vsTimerInterval);
+  clearInterval(_vsPollInterval);
+  /* Marquer done */
+  if(_vsRoom){
+    var raw=localStorage.getItem('vsRoom_'+_vsRoom);
+    if(raw){var r=JSON.parse(raw);r.status='done';localStorage.setItem('vsRoom_'+_vsRoom,JSON.stringify(r));}
+  }
+  var win=_vsMyDuelScore>_vsThemDuelScore;
+  var draw=_vsMyDuelScore===_vsThemDuelScore;
+  var tauntsWin=['T'as tout déchiré 🔥','Même ton adversaire applaudit (de loin).','GG ! Il reviendra se venger.','Facile. Trop facile. 😏'];
+  var tauntsLose=['Ouch... Même le bouton est déçu.','Il t'a crush comme une crêpe.','T'avais qu'à cliquer plus vite, non ?','Next fois tu dors pas avant le duel.'];
+  var tauntsDraw=['Égalité... Vous êtes aussi inutiles l'un que l'autre.','Match nul. Le bouton rigole de vous deux.','Personne n'a gagné. Personne n'a perdu. Personne ne gagne au final.'];
+  var taunts=draw?tauntsDraw:win?tauntsWin:tauntsLose;
+  var taunt=taunts[Math.floor(Math.random()*taunts.length)];
+  document.getElementById('duelModal').classList.remove('on');
+  var rm=document.getElementById('duelResultModal');
+  var rt=document.getElementById('duelResultText');
+  rt.textContent=draw?'ÉGALITÉ !':win?'VICTOIRE ! 🏆':'DÉFAITE... 💀';
+  rt.className='duel-result '+(draw?'draw':win?'win':'lose');
+  document.getElementById('duelResultTaunt').textContent=taunt;
+  document.getElementById('duelResultScores').textContent='Toi : '+_vsMyDuelScore+' clics  |  Adversaire : '+_vsThemDuelScore+' clics';
+  rm.style.display='flex';
+  /* Ajouter les clics du duel au total global */
+  clicks+=_vsMyDuelScore;
+  localStorage.setItem('clicks',clicks);
+  renderMyCount();
+  if(IS_ONLINE){
+    var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+    trackClick(pseudo,'duel_'+( win?'win':draw?'draw':'lose'));
+  }
+}
+
+function closeDuelResult(){
+  document.getElementById('duelResultModal').style.display='none';
+  _vsRoom=null;_vsRole=null;_vsStarted=false;
+  document.getElementById('roomInfo').style.display='none';
+  document.getElementById('joinCodeInput').value='';
+}
+
+/* Vérifier si on arrive via lien avec code duel */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var code=params.get('duel');
+  if(code&&code.length===4){
+    switchVTab('join');
+    document.getElementById('joinCodeInput').value=code.toUpperCase();
+    setTimeout(function(){toast('⚔️ Code duel détecté : '+code+' — entre ton pseudo et rejoins !','#ff6600');},1500);
+  }
+})();
 /* ══════ SYSTÈME DÉFI VS JOUEUR ══════ */
 var _defiTarget=null,_defiTargetScore=0,_defiStartScore=0,_defiInterval=null;
 
@@ -1878,6 +2163,38 @@ updateLandingStats();
 
 init();
 </script>
+
+
+  <!-- MODAL DUEL PLEIN ÉCRAN -->
+  <div id="duelModal">
+    <div class="duel-header">⚔️ DUEL EN DIRECT</div>
+    <div style="font-size:.75rem;color:#888;margin-bottom:4px;" id="duelVsLabel">vs ???</div>
+    <div class="duel-timer" id="duelTimer">60</div>
+    <div class="duel-scores">
+      <div class="duel-score-box me">
+        <div class="dslabel" id="duelMeLabel">TOI</div>
+        <div class="dsnum" id="duelMeScore">0</div>
+      </div>
+      <div class="duel-score-box them">
+        <div class="dslabel" id="duelThemLabel">ADVERSAIRE</div>
+        <div class="dsnum" id="duelThemScore">0</div>
+      </div>
+    </div>
+    <div class="duel-bars">
+      <div class="duel-bar-wrap"><div class="duel-bar-me-fill" id="duelBarMe" style="width:50%"></div></div>
+      <div class="duel-bar-wrap"><div class="duel-bar-them-fill" id="duelBarThem" style="width:50%"></div></div>
+    </div>
+    <button class="duel-btn" id="duelClickBtn" onpointerdown="duelClick(event)">APPUIE !!!</button>
+    <div style="font-size:.6rem;color:#555;margin-top:6px;">Clique le bouton pour scorer des points</div>
+  </div>
+
+  <!-- MODAL RÉSULTAT DUEL -->
+  <div id="duelResultModal" style="display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;">
+    <div class="duel-result" id="duelResultText">VICTOIRE !</div>
+    <div class="duel-taunt" id="duelResultTaunt"></div>
+    <div style="margin-top:18px;font-size:.85rem;color:#888;" id="duelResultScores"></div>
+    <button onclick="closeDuelResult()" style="margin-top:20px;padding:10px 30px;background:#ff2222;border:none;color:#fff;font-family:'Bangers',cursive;font-size:1.1rem;border-radius:10px;cursor:pointer;letter-spacing:2px;">REJOUER ⚔️</button>
+  </div>
 
   <!-- MODAL DEFI -->
   <div id="defiModal">
