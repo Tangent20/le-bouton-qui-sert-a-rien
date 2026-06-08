@@ -204,33 +204,29 @@
     .provoc-btn:hover{background:#ff111122;color:#fff;border-color:#ff4444;}
 
     /* SKINS GRID */
-    .skins{width:min(490px,96vw);margin:3px auto;}
+    /* cleaned */
     .skins h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#00ccff;text-align:center;margin-bottom:6px;}
     .skins{padding:0 0 8px;}
-    .skins-header{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 4px;}
+    /* cleaned */
     .skins h2{margin:0;font-size:1rem;}
     .skins-progress{font-size:.7rem;color:#555;font-weight:700;}
-    .next-hint{text-align:center;font-size:.75rem;color:#444;padding:2px 14px 10px;}
+    /* cleaned */
     .next-hint strong{color:#ff8800;font-weight:800;}
-    .skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 14px 4px;}
-    .skin-card{
-      background:#0d0d0d;border:2px solid #1c1c1c;border-radius:14px;
-      padding:11px 6px 9px;text-align:center;cursor:pointer;
-      transition:all .2s;position:relative;overflow:hidden;
-    }
-    .skin-card:hover:not(.locked){border-color:#2a2a2a;transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.5);}
-    .skin-card.active{border-color:var(--sc,#ff2222);box-shadow:0 0 18px color-mix(in srgb,var(--sc,#ff2222) 35%,transparent);background:#0a0a0a;}
+    /* cleaned */
+    /* cleaned */
+    /* cleaned */
+    /* cleaned */
     .skin-card.active::after{content:'✓';position:absolute;top:5px;right:7px;font-size:.65rem;font-weight:900;color:var(--sc,#ff2222);}
-    .skin-card.locked{opacity:.18;cursor:not-allowed;filter:grayscale(1);}
-    .skin-preview{width:42px;height:42px;border-radius:50%;background:var(--sc,#ff2222);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 3px 14px color-mix(in srgb,var(--sc,#ff2222) 50%,transparent);}
+    /* cleaned */
+    /* cleaned */
     .skin-card.locked .skin-preview{background:#181818;box-shadow:none;}
-    .skin-nm{font-size:.66rem;font-weight:800;color:#bbb;display:block;margin-bottom:3px;}
+    /* cleaned */
     .skin-card.active .skin-nm{color:#fff;}
-    .skin-rq{font-size:.58rem;display:block;font-weight:700;color:#333;}
+    /* cleaned */
     .skin-card:not(.locked) .skin-rq{color:var(--sc,#ff2222);}
 
     /* ACHIEVEMENTS */
-    .ach{width:min(470px,96vw);margin:0 auto 9px;padding:0 8px;}
+    /* cleaned */
     .ach h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#aa66ff;text-align:center;margin-bottom:6px;}
     .ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:5px;}
     .ach-card{background:#111;border:1.5px solid #1a1a1a;border-radius:11px;padding:8px 5px;text-align:center;transition:all .3s;}
@@ -241,7 +237,7 @@
     .ach-req{color:#222;font-size:.57rem;display:block;margin-top:1px;}
 
     /* LEADERBOARD */
-    .lb{width:min(470px,96vw);margin:0 auto 9px;background:#0c0c0c;border:1.5px solid #1a1a1a;border-radius:13px;padding:12px 11px;}
+    /* cleaned */
     .lb h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#ffcc00;text-align:center;margin-bottom:8px;}
     .lb-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;margin-bottom:4px;background:#111;font-size:.84rem;border:1px solid transparent;}
     .lb-row.me{background:#150900;border-color:#ff660022;}
@@ -519,29 +515,61 @@
       <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
     </div>
 
-    <div class="skins">
+    <!-- ══════ NAVIGATION ONGLETS ══════ -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('skins')" id="tabBtnSkins">🎨 Skins</button>
+      <button class="tab-btn" onclick="switchTab('lb')" id="tabBtnLb">🏆 Classement</button>
+      <button class="tab-btn" onclick="switchTab('ach')" id="tabBtnAch">🏅 Succès</button>
+      <button class="tab-btn" onclick="switchTab('share')" id="tabBtnShare">📤 Partager</button>
+    </div>
+
+    <!-- ══ ONGLET SKINS ══ -->
+    <div class="tab-panel active" id="tabSkins">
       <div class="skins-header">
-        <h2>🎨 SKINS</h2>
         <span class="skins-progress" id="skinsProgress"></span>
+        <span class="next-hint" id="nextHint"></span>
       </div>
-      <div class="next-hint" id="nextHint"></div>
       <div class="skin-grid" id="skinGrid"></div>
     </div>
 
-    <div class="ach">
-      <h2>🏅 SUCCÈS INUTILES</h2>
+    <!-- ══ ONGLET CLASSEMENT ══ -->
+    <div class="tab-panel" id="tabLb">
+      <div class="lb-inner">
+        <div id="lbContent"><p style="text-align:center;color:#333;padding:20px">Chargement...</p></div>
+      </div>
+    </div>
+
+    <!-- ══ ONGLET SUCCÈS ══ -->
+    <div class="tab-panel" id="tabAch">
       <div class="ach-grid" id="achGrid"></div>
     </div>
 
-    <div class="lb">
-      <h2>🏆 CLASSEMENT MONDIAL</h2>
-      <div id="lbContent"><p style="text-align:center;color:#222;padding:12px">Chargement...</p></div>
-    </div>
-
-    <div class="share" style="display:flex;gap:6px;justify-content:center;padding:5px 13px 16px;flex-wrap:wrap;">
-      <button style="background:linear-gradient(135deg,#111,#252525);border:1px solid #2a2a2a;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareTwitter()">🐦 Twitter/X</button>
-      <button style="background:linear-gradient(135deg,#128c7e,#25d366);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareWhatsapp()">💬 WhatsApp</button>
-      <button style="background:linear-gradient(135deg,#aa0000,#ff6600);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="copyDefi()">⚔️ Mon défi</button>
+    <!-- ══ ONGLET PARTAGER ══ -->
+    <div class="tab-panel" id="tabShare">
+      <div class="share-grid">
+        <a class="share-btn twitter" onclick="shareTwitter()">
+          <span class="share-icon">🐦</span>
+          <span class="share-label">Twitter / X</span>
+        </a>
+        <a class="share-btn whatsapp" onclick="shareWhatsApp()">
+          <span class="share-icon">💬</span>
+          <span class="share-label">WhatsApp</span>
+        </a>
+        <a class="share-btn copy" onclick="copyDefi()">
+          <span class="share-icon">⚔️</span>
+          <span class="share-label">Mon défi</span>
+        </a>
+        <a class="share-btn discord" onclick="shareDefi ? shareDefi() : copyDefi()">
+          <span class="share-icon">🎮</span>
+          <span class="share-label">Discord</span>
+        </a>
+      </div>
+      <div class="share-score-card">
+        <div class="ssc-title">📊 Mon score</div>
+        <div class="ssc-pseudo" id="shareScorePseudo">—</div>
+        <div class="ssc-clicks" id="shareScoreClicks">0 clics</div>
+        <div class="ssc-skin" id="shareScoreSkin">🔴 Le Bouton</div>
+      </div>
     </div>
 
     <footer>
@@ -1158,7 +1186,12 @@ function renderSkins(){
     var previewContent = ok ? s.e : '🔒';
     var reqLabel = ok ? (active ? 'Actif' : 'Équiper') : s.req.toLocaleString('fr')+' clics';
     var descTxt = ok && s.desc ? '<span class="skin-desc">'+s.desc+'</span>' : '';
+    var badge = '';
+    if(s.id==='mystery') badge = '<span class="skin-badge">???</span>';
+    else if(s.id==='fart'||s.id==='dog'||s.id==='cat') badge = '<span class="skin-badge">SON</span>';
+    else if(s.id==='diamond'||s.id==='rainbow') badge = '<span class="skin-badge">RARE</span>';
     d.innerHTML=
+      badge+
       '<div class="skin-preview">'+previewContent+'</div>'+
       '<span class="skin-nm">'+s.nm+'</span>'+
       '<span class="skin-rq">'+reqLabel+'</span>'+
@@ -1677,6 +1710,31 @@ function playSpecialSkinSound(skinId){
   if(skinId==='fart') playFartSound();
   else if(skinId==='dog') playDogSound();
   else if(skinId==='cat') playCatSound();
+}
+
+/* ══════ NAVIGATION ONGLETS ══════ */
+function switchTab(name){
+  var tabs=['skins','lb','ach','share'];
+  for(var i=0;i<tabs.length;i++){
+    var panel=document.getElementById('tab'+tabs[i].charAt(0).toUpperCase()+tabs[i].slice(1));
+    var btn=document.getElementById('tabBtn'+tabs[i].charAt(0).toUpperCase()+tabs[i].slice(1));
+    if(panel) panel.classList.toggle('active', tabs[i]===name);
+    if(btn)   btn.classList.toggle('active',   tabs[i]===name);
+  }
+  // Refresh contenu si besoin
+  if(name==='lb') loadLB();
+  if(name==='share') updateShareCard();
+}
+
+function updateShareCard(){
+  var pseudo = document.getElementById('pseudoInput') ? document.getElementById('pseudoInput').value.trim() : 'Anonyme';
+  var skin = SKINS.find(function(s){return s.id===curSkin;}) || SKINS[0];
+  var sp=document.getElementById('shareScorePseudo');
+  var sc=document.getElementById('shareScoreClicks');
+  var ss=document.getElementById('shareScoreSkin');
+  if(sp) sp.textContent = pseudo || 'Anonyme';
+  if(sc) sc.textContent = clicks.toLocaleString('fr') + ' clics';
+  if(ss) ss.textContent = skin.e + ' ' + skin.nm;
 }
 
 /* ══════ MODAUX LÉGAUX ══════ */
