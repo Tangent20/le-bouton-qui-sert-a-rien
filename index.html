@@ -1061,14 +1061,15 @@ var particles=[];
 var rafId=null;
 
 function resizeCanvas(){
+  if(!canvas)return;
   var dpr=window.devicePixelRatio||1;
   var w=window.innerWidth, h=window.innerHeight;
   canvas.width=Math.round(w*dpr);
   canvas.height=Math.round(h*dpr);
   canvas.style.width=w+'px';
   canvas.style.height=h+'px';
+  if(ctx2d)ctx2d.setTransform(dpr,0,0,dpr,0,0);
 }
-resizeCanvas();
 window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
@@ -2080,7 +2081,7 @@ document.addEventListener('keydown',function(e){
 function init(){
   showTab('jeu');
   canvas=document.getElementById('particleCanvas');
-  if(canvas){ctx2d=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;canvas.width=window.innerWidth*dpr;canvas.height=window.innerHeight*dpr;if(ctx2d)ctx2d.setTransform(dpr,0,0,dpr,0,0);}
+  if(canvas){ctx2d=canvas.getContext('2d');resizeCanvas();}
   genStars();
   checkStreak();
   updateOnlineStatus();
