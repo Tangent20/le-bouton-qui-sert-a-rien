@@ -246,6 +246,7 @@
 
     /* TOAST */
     .toast{position:fixed;left:50%;transform:translateX(-50%);color:#fff;padding:10px 20px;border-radius:20px;font-weight:900;z-index:9999;font-size:clamp(.9rem,3.5vw,1.05rem);white-space:normal;text-align:center;animation:toastAnim 3s ease forwards;max-width:82vw;line-height:1.3;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.5);}
+    @keyframes pulse{0%{opacity:1;}100%{opacity:.4;}}
     @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(12px) scale(.9);}12%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}75%{opacity:1;}100%{opacity:0;transform:translateX(-50%) translateY(-6px);}}
 
     /* INSTALL PWA */
@@ -531,15 +532,17 @@ function resizeCanvas(){
   canvas.style.width=w+'px';
   canvas.style.height=h+'px';
   ctx2d.setTransform(dpr,0,0,dpr,0,0);
+  ctx2d.clearRect(0,0,w,h);
 }
 resizeCanvas();
-window.addEventListener('resize',function(){resizeCanvas();});
+window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
   rafId=requestAnimationFrame(function(){
     var dpr=window.devicePixelRatio||1;
     ctx2d.setTransform(dpr,0,0,dpr,0,0);
-    ctx2d.clearRect(0,0,canvas.width,canvas.height);
+    // clearRect en CSS pixels (setTransform s'occupe du scaling)
+    ctx2d.clearRect(0,0,window.innerWidth,window.innerHeight);
     var alive=false;
     for(var i=0;i<particles.length;i++){
       var p=particles[i];
@@ -570,17 +573,18 @@ function burstParticles(x,y,count){
   var emojis=SKIN_PT[curSkin]||['💥','⭐','✨'];
   var n=count||Math.min(4+Math.floor(combo/4),14);
   for(var i=0;i<n;i++){
-    var angle=Math.random()*Math.PI*2;
-    var speed=3+Math.random()*7;
+    // Angles variés : toutes directions mais biais vers le haut
+    var angle=(Math.random()*Math.PI*1.6) - Math.PI*0.8 - Math.PI/2;
+    var speed=4+Math.random()*8;
     particles.push({
       x:x, y:y,
       vx:Math.cos(angle)*speed,
-      vy:Math.sin(angle)*speed-3,
+      vy:Math.sin(angle)*speed,   // pas de décalage — l'angle gère la direction
       emoji:emojis[Math.floor(Math.random()*emojis.length)],
-      life:1, decay:0.016+Math.random()*0.016,
-      size:20+Math.random()*16,
+      life:1, decay:0.014+Math.random()*0.014,
+      size:22+Math.random()*16,
       rot:Math.random()*Math.PI*2,
-      rotV:(Math.random()-0.5)*0.18,
+      rotV:(Math.random()-0.5)*0.2,
       isConfetti:false,
     });
   }
@@ -588,26 +592,21 @@ function burstParticles(x,y,count){
 }
 
 function spawnParticles(ev,count){
-  var x, y;
-  // Priorité 1 : coords capturées juste avant (les plus fiables)
+  // TOUJOURS utiliser getBCR du bouton = coords viewport CSS réelles
+  // C'est la méthode la plus fiable sur tous les appareils
+  var btn=document.getElementById('btn');
+  var r=btn.getBoundingClientRect();
+  var cx=r.left+r.width/2;
+  var cy=r.top+r.height/2;
+  // Si on a des coords de touch/pointer ET qu'elles sont dans la zone du bouton
+  // on les utilise pour placer les emojis là où l'utilisateur a vraiment appuyé
+  var x=cx, y=cy;
   if(_lastPointerX>=0){
-    x=_lastPointerX; y=_lastPointerY;
-  }
-  // Priorité 2 : touch events
-  else if(ev&&ev.touches&&ev.touches[0]){
-    x=ev.touches[0].clientX; y=ev.touches[0].clientY;
-  } else if(ev&&ev.changedTouches&&ev.changedTouches[0]){
-    x=ev.changedTouches[0].clientX; y=ev.changedTouches[0].clientY;
-  }
-  // Priorité 3 : pointer/mouse event valides
-  else if(ev&&ev.clientX!=null&&ev.clientX!==0){
-    x=ev.clientX; y=ev.clientY;
-  }
-  // Fallback : centre du bouton
-  else {
-    var btn=document.getElementById('btn');
-    var r=btn.getBoundingClientRect();
-    x=r.left+r.width/2; y=r.top+r.height/2;
+    // Vérifier que les coords sont raisonnables (dans le viewport)
+    var vw=window.innerWidth, vh=window.innerHeight;
+    if(_lastPointerX>0 && _lastPointerX<vw && _lastPointerY>0 && _lastPointerY<vh){
+      x=_lastPointerX; y=_lastPointerY;
+    }
   }
   burstParticles(x,y,count);
 }
@@ -744,12 +743,25 @@ function renderMicro(){
   var diff=next-clicks;
   document.getElementById('microNext').textContent=diff===1?'1 CLIC !!!':diff+' clics → '+next;
   var mf=document.getElementById('microFill'),mn=document.getElementById('microNext');
-  if(diff<=3){mf.style.background='linear-gradient(90deg,#ff2222,#ff6600)';mn.style.color='#ff4444';}
-  else if(diff<=8){mf.style.background='linear-gradient(90deg,#ff6600,#ffcc00)';mn.style.color='#ff6600';}
-  else{mf.style.background='linear-gradient(90deg,#aa66ff,#ff00ff)';mn.style.color='#aa66ff';}
-  var toastKey5='t5_'+next, toastKey1='t1_'+next;
-  if(diff===5&&!_toastFlags[toastKey5]){_toastFlags[toastKey5]=1;_saveToastFlags();toast('🎯 Plus que 5 clics pour le prochain palier !','#aa66ff');}
-  if(diff===1&&!_toastFlags[toastKey1]){_toastFlags[toastKey1]=1;_saveToastFlags();toast('🔥 ENCORE 1 CLIC !!!','#ff2222');}
+  if(diff<=1){
+    mf.style.background='linear-gradient(90deg,#ff0000,#ff6600)';
+    mn.style.color='#ff2222';
+    mn.style.animation='pulse 0.4s ease infinite alternate';
+  } else if(diff<=3){
+    mf.style.background='linear-gradient(90deg,#ff2222,#ff6600)';
+    mn.style.color='#ff4444';
+    mn.style.animation='';
+  } else if(diff<=8){
+    mf.style.background='linear-gradient(90deg,#ff6600,#ffcc00)';
+    mn.style.color='#ff6600';
+    mn.style.animation='';
+  } else {
+    mf.style.background='linear-gradient(90deg,#aa66ff,#ff00ff)';
+    mn.style.color='#aa66ff';
+    mn.style.animation='';
+  }
+  // Pas de toast pour les micro-milestones — la barre rouge suffit
+  // (évite le spam si l'utilisateur va/vient autour du palier)
 }
 
 /* ══════ MISSIONS ══════ */
@@ -1205,10 +1217,15 @@ function init(){
   var btnEl=document.getElementById('btn');
   btnEl.addEventListener('pointerdown',function(e){
     e.preventDefault();
-    // Capturer les coords IMMÉDIATEMENT — avant tout traitement
-    if(e.clientX!=null && e.clientX!==0){
+    // Capturer coords du pointeur (en CSS viewport pixels)
+    if(e.clientX>0 && e.clientY>0){
       _lastPointerX=e.clientX; _lastPointerY=e.clientY;
+    } else if(e.pageX>0){
+      // pageX/Y moins courant mais utile sur certains Android
+      _lastPointerX=e.pageX - window.scrollX;
+      _lastPointerY=e.pageY - window.scrollY;
     } else {
+      // Fallback : centre du bouton
       var r=btnEl.getBoundingClientRect();
       _lastPointerX=r.left+r.width/2; _lastPointerY=r.top+r.height/2;
     }
