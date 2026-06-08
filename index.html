@@ -499,6 +499,16 @@
 
   
 #mainWrap{display:none;}
+
+/* ── Skin Fart ── */
+.s-fart #btn{background:radial-gradient(circle at 35% 35%,#bbff44,#88cc00 55%,#556600);box-shadow:0 8px 0 #334400,0 12px 26px #aaff0066;animation:toxicDrip 1.1s infinite;}
+.s-fart .glow{background:radial-gradient(circle,#aaff0044,transparent 70%);}
+/* ── Skin Dog ── */
+.s-dog #btn{background:radial-gradient(circle at 35% 35%,#ffdd99,#cc8833 55%,#885500);box-shadow:0 8px 0 #553300,0 12px 26px #ffaa4466;}
+.s-dog .glow{background:radial-gradient(circle,#cc883344,transparent 70%);}
+/* ── Skin Cat ── */
+.s-cat #btn{background:radial-gradient(circle at 35% 35%,#ff99cc,#cc4488 55%,#882266);box-shadow:0 8px 0 #551144,0 12px 26px #ff66aa55;}
+.s-cat .glow{background:radial-gradient(circle,#ff66aa44,transparent 70%);}
 </style>
 </head>
 <body class="s-classic">
@@ -938,10 +948,6 @@ function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITL
 function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
 
 var MISSIONS_DEF=[
-  {id:'d50',  nm:'50 clics aujourd\'hui',       tgt:50,   type:'day'},
-  {id:'d200', nm:'200 clics dans la journée',     tgt:200,  type:'day'},
-  {id:'combo',nm:'Atteins un combo x25',          tgt:25,   type:'combo'},
-  {id:'d500', nm:'500 clics — pas de pause !',    tgt:500,  type:'day'},
 ];
 
 var REACTIONS=[
@@ -1016,17 +1022,6 @@ var MICRO_MILESTONES=(function(){
 })();
 
 var ACHIEVEMENTS=[
-  {id:'a1', e:'👆', nm:'Premier Clic',      req:1},
-  {id:'a2', e:'🔟', nm:'Dizaine',            req:10},
-  {id:'a3', e:'🔥', nm:'En Feu',             req:100},
-  {id:'a4', e:'💯', nm:'Centenaire',          req:500},
-  {id:'a5', e:'🤡', nm:'Vrai Clown',          req:1000},
-  {id:'a6', e:'💀', nm:'Aucune Vie',          req:2500},
-  {id:'a7', e:'👑', nm:'Roi du Vide',         req:5000},
-  {id:'a8', e:'🤯', nm:'Cerveau Cramé',       req:10000},
-  {id:'a9', e:'👽', nm:'Plus Humain',         req:20000},
-  {id:'a10',e:'🐐', nm:'LÉGENDE',             req:50000},
-  {id:'a11',e:'👁️', nm:'L\'ÉLU',            req:100000},
 ];
 
 /* ══════ STATE ══════ */
@@ -1681,7 +1676,11 @@ function renderSkins(){
       '<span class="skin-nm">'+s.nm+'</span>'+
       '<span class="skin-rq">'+reqLabel+'</span>'+
       descTxt;
-    if(ok){(function(sid){d.onclick=function(){setSkin(sid,true);};})(s.id);}
+    if(ok){
+      (function(sid,card){
+        card.addEventListener('click', function(){ setSkin(sid, true); });
+      })(s.id, d);
+    }
     grid.appendChild(d);
   }
   // Compteur déblocages
@@ -2333,7 +2332,122 @@ window.addEventListener('beforeunload', function(){
 });
 
 
-window.addEventListener('DOMContentLoaded', function(){ init(); });
-</script>
+window.addEventListener('DOMContentLoaded', function(){ init(); });;
+var IS_ONLINE = navigator.onLine;
+
+/* ══════ DATA ══════ */
+var SKINS = [
+  // ── DÉBUTANT (0–200) ──
+  {id:'classic', nm:'Le Bouton',      e:'🔴', req:0,    c:'#ff2222', desc:'Le classique. T\'es personne.'},
+  {id:'fart',    nm:'Prout Master',   e:'💨', req:25,   c:'#88ff44', desc:'Chaque clic fait PRRRT 💀'},
+  {id:'dog',     nm:'Bon Chien',      e:'🐶', req:75,   c:'#ffaa44', desc:'Ouaf ouaf. T\'es fidèle au bouton.'},
+  {id:'cat',     nm:'Chat Indépendant',e:'🐱',req:150,  c:'#ffcc88', desc:'Tu cliques... mais à ta façon.'},
+  {id:'gold',    nm:'Or Massif',      e:'🥇', req:250,  c:'#ffcc00', desc:'Premier palier. Respect.'},
+
+  // ── INTERMÉDIAIRE (500–2000) ──
+  {id:'ice',     nm:'Glaçon Suprême', e:'❄️', req:500,  c:'#44aaff', desc:'Cool comme jamais.'},
+  {id:'fire',    nm:'En Feu 🔥',      e:'🔥', req:750,  c:'#ff6600', desc:'T\'arrêtes pas. Littéralement.'},
+  {id:'space',   nm:'Astronaute du Rien',e:'🌌',req:1000,c:'#9966ff', desc:'Tu cliques dans le vide cosmique.'},
+  {id:'toxic',   nm:'Radioactif',     e:'☣️', req:1500, c:'#aaff00', desc:'Dangereusement accro.'},
+  {id:'disco',   nm:'Roi de la Piste',e:'🪩', req:2000, c:'#ff44ff', desc:'Le bouton groove avec toi.'},
+
+  // ── EXPERT (3000–10000) ──
+  {id:'lava',    nm:'Cœur de Lave',   e:'🌋', req:3000, c:'#ff4400', desc:'T\'as pas de vie. C\'est assumé.'},
+  {id:'nuclear', nm:'Fission Totale', e:'☢️', req:4000, c:'#66ff00', desc:'Le bouton craint ta puissance.'},
+  {id:'rainbow', nm:'Arc-en-Ciel',    e:'🌈', req:5000, c:'#ffffff', desc:'Tellement de clics que la réalité glitch.'},
+  {id:'diamond', nm:'Diamant Noir',   e:'💎', req:7500, c:'#88ccff', desc:'Légende. On parle de toi en silence.'},
+  {id:'mystery', nm:'??? CLASSIFIED',  e:'👁️', req:10000,c:'#ff00ff', desc:'Tu sais ce que tu as fait.'},
+];
+var SKIN_TXT = {classic:'APPUIE<br>DESSUS',gold:'CLIQUE<br>OR!',ice:'❄️ ICE<br>CLICK',space:'🚀 SPACE<br>GO!',nuclear:'☢️ BOOM<br>!!!',fire:'🔥 FIRE<br>!!',lava:'🌋 HOT<br>!!!',toxic:'☣️ BIO<br>CLICK',mystery:'❓???<br>!!!',disco:'🪩 DISCO<br>BABY!',rainbow:'🌈 CLICK<br>FOU!',diamond:'💎 DIAM<br>CLICK'};
+var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
+
+var TITLES = [
+  {req:0,t:'Néophyte du Néant'},{req:10,t:'Apprenti Inutile'},
+  {req:50,t:'Padawan du Vide'},{req:100,t:'Maître du Rien'},
+  {req:250,t:'Seigneur des Clics'},{req:500,t:'Baron de l\'Inutilité'},
+  {req:1000,t:'Roi des Sans-Vie'},{req:2000,t:'Dieu du Bouton'},
+  {req:5000,t:'LÉGENDE ÉTERNELLE'},
+];
+function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITLES[i].req)t=TITLES[i];}return t;}
+function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
+
+var MISSIONS_DEF=[
+];
+
+var REACTIONS=[
+  {e:'🦆',t:'COIN COIN... et alors ?'},{e:'💀',t:'Tu viens de perdre 2 secondes de ta vie.'},
+  {e:'🤡',t:'Bravo. T\'es fier de toi ?'},{e:'🥔',t:'Aussi utile qu\'une patate sans sel.'},
+  {e:'🎺',t:'♩ TADAAAAA ♩ ... c\'est tout.'},{e:'🐌',t:'Même un escargot aurait trouvé mieux.'},
+  {e:'🎉',t:'FÉLICITATIONS... pour rien du tout !'},{e:'😴',t:'Zzzzz... T\'as cliqué ?'},
+  {e:'⚡',t:'ÉLECTRISAAANT... nan, pas vraiment.'},{e:'🍕',t:'Quelque part une pizza refroidit à cause de toi.'},
+  {e:'🚀',t:'DÉCOLLAGE... vers l\'inutilité totale.'},{e:'🦧',t:'Les singes t\'observent et sont déçus.'},
+  {e:'🧠',t:'Ton cerveau : ERREUR 404.'},{e:'🤯',t:'TON CERVEAU EXPLOSE... parce que t\'es là.'},
+  {e:'💾',t:'Données sauvegardées : ton inutilité.'},{e:'🎪',t:'Bienvenue au cirque. T\'es la vedette.'},
+  {e:'🦩',t:'Le flamant rose est TRÈS déçu.'},{e:'🎯',t:'DANS LE MILLE ! Du rien. Bravo.'},
+  {e:'🎻',t:'*violon triste* ...voilà ta vie.'},{e:'🤖',t:'ERREUR 404 : UTILITÉ INTROUVABLE.'},
+  {e:'🎵',t:'♪ Lalala tu cliques, lalala pour rien ♪'},{e:'🌙',t:'La lune te regarde et soupire.'},
+  {e:'🎈',t:'PAN ! ... comme tes espoirs.'},{e:'🐢',t:'La tortue est plus rapide que ta réflexion.'},
+  {e:'☕',t:'Ton café refroidit pendant que tu cliques.'},{e:'🦜',t:'"T\'es bête !" — Perroquet.'},
+  {e:'🪄',t:'*Abracadabra* — Toujours aussi inutile.'},{e:'🦄',t:'Même les licornes ont abandonné.'},
+  {e:'🏖️',t:'Quelqu\'un est à la plage. Pas toi.'},{e:'🍩',t:'Un donut porte ton prénom.'},
+];
+function personalReaction(p){
+  var a=[
+    {e:'😤',t:p+', t\'as vraiment rien de mieux à faire ?'},
+    {e:'🤦',t:p+' prouve qu\'on peut survivre sans cerveau.'},
+    {e:'👑',t:p+', Roi·Reine du temps gaspillé.'},
+    {e:'🗿',t:p+' : impassible, inutile, légendaire.'},
+  ];
+  return a[Math.floor(Math.random()*a.length)];
+}
+
+var PROVOCS=[
+  "T'as même pas {next} clics... t'appelles ça jouer ?",
+  "Tu vas vraiment t'arrêter là ? À {cur} clics ?",
+  "Même ta grand-mère ferait mieux. Allez, {next} !",
+  "Le bouton te juge. {next} clics minimum.",
+  "Y'a des gens à {next} clics pendant que toi tu roupilles.",
+  "Sérieusement ? {cur} clics ? C'est tout ?",
+  "Le record est loin. T'as peur ?",
+  "T'es à {cur}... le prochain palier c'est {next}.",
+  "Dans 5 minutes tu peux doubler ton score. Essaie.",
+  "Ta série de {streak} jours mérite mieux que ça.",
+];
+
+var MYSTERY_EVTS=[
+  {e:'🦆',t:'LE BOUTON FAIT COIN COIN',a:function(){[300,400,350,250].forEach(function(f,i){setTimeout(function(){playTone(f,'square',.12,.2);},i*80);});}},
+  {e:'💀',t:'TU VIENS DE PERDRE 10 SECONDES',a:function(){}},
+  {e:'🎰',t:'JACKPOT MYSTÈRE — CONFETTIS !',a:function(){spawnConfetti();}},
+  {e:'👻',t:'LE BOUTON EST HANTÉ. FUIS.',a:function(){makeButtonRun();}},
+  {e:'🤯',t:'COMBO x50 PENDANT 1 SECONDE !',a:function(){combo=50;renderCombo();setTimeout(function(){combo=0;renderCombo();},1000);}},
+  {e:'🌈',t:'TOUT DEVIENT ARC-EN-CIEL — 3 SEC !',a:function(){var prev=curSkin;setSkin('rainbow');setTimeout(function(){setSkin(prev);},3000);}},
+  {e:'💥',t:'EXPLOSION DE PARTICULES !!!',a:function(){for(var i=0;i<5;i++){(function(ii){setTimeout(function(){burstParticles(window.innerWidth/2,window.innerHeight/2,18);},ii*250);})(i);}}},
+];
+
+var JACKPOT_MSGS=[
+  "100 CLICS ! T'AS AUCUNE VIE !","200 CLICS ! APPELLE UN MÉDECIN !",
+  "300 CLICS ! C'EST CLINIQUE !","400 CLICS ! TA MÈRE EST FIÈRE ?",
+  "500 CLICS ! LÉGENDE DE L'INUTILE !","1000 CLICS ! TU ES LE BOUTON MAINTENANT !",
+];
+
+var EVENTS_LIST=[
+  {name:'DOUBLE CLICS',mult:2,dur:600,desc:'Chaque clic compte double !',color:'#aa66ff'},
+  {name:'TRIPLE FOLIE',mult:3,dur:300,desc:'x3 pendant 5 minutes !',color:'#ff00ff'},
+  {name:'CLICK STORM',mult:2,dur:240,desc:'Tempête de clics x2 !',color:'#ff6600'},
+];
+
+var MICRO_MILESTONES=(function(){
+  var m=[];
+  for(var i=50;i<=500;i+=50)m.push(i);
+  for(var i=600;i<=2000;i+=100)m.push(i);
+  for(var i=2500;i<=10000;i+=500)m.push(i);
+  for(var i=15000;i<=100000;i+=5000)m.push(i);
+  return m;
+})();
+
+var ACHIEVEMENTS=[
+];
+
+/* ══════ STATE ══════ */</script>
 </body>
 </html>
