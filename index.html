@@ -181,17 +181,28 @@
     /* SKINS GRID */
     .skins{width:min(490px,96vw);margin:3px auto;}
     .skins h2{font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:#00ccff;text-align:center;margin-bottom:6px;}
-    .skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:5px;padding:0 8px;}
-    .skin-card{background:#111;border:1.5px solid #1a1a1a;border-radius:11px;padding:7px 4px;text-align:center;cursor:pointer;transition:all .18s;position:relative;}
-    .skin-card:hover:not(.locked){border-color:#333;transform:translateY(-2px);}
-    .skin-card.active{border-color:#00ccff;box-shadow:0 0 12px #00ccff22;background:#001318;}
-    .skin-card.locked{opacity:.25;cursor:not-allowed;filter:grayscale(1);}
-    .skin-prev{font-size:1.7rem;display:block;height:32px;line-height:32px;margin-bottom:2px;}
-    .skin-nm{font-size:.63rem;font-weight:900;color:#bbb;display:block;}
-    .skin-rq{font-size:.55rem;display:block;margin-top:1px;}
-    .skin-lock{position:absolute;top:2px;right:3px;font-size:.58rem;opacity:.6;}
-    .next-hint{text-align:center;font-size:.68rem;color:#2a2a2a;margin:3px 0 9px;font-style:italic;}
-    .next-hint span{color:#ff6600;font-weight:900;}
+    .skins{padding:0 0 8px;}
+    .skins-header{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 4px;}
+    .skins h2{margin:0;font-size:1rem;}
+    .skins-progress{font-size:.7rem;color:#555;font-weight:700;}
+    .next-hint{text-align:center;font-size:.75rem;color:#444;padding:2px 14px 10px;}
+    .next-hint strong{color:#ff8800;font-weight:800;}
+    .skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 14px 4px;}
+    .skin-card{
+      background:#0d0d0d;border:2px solid #1c1c1c;border-radius:14px;
+      padding:11px 6px 9px;text-align:center;cursor:pointer;
+      transition:all .2s;position:relative;overflow:hidden;
+    }
+    .skin-card:hover:not(.locked){border-color:#2a2a2a;transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.5);}
+    .skin-card.active{border-color:var(--sc,#ff2222);box-shadow:0 0 18px color-mix(in srgb,var(--sc,#ff2222) 35%,transparent);background:#0a0a0a;}
+    .skin-card.active::after{content:'✓';position:absolute;top:5px;right:7px;font-size:.65rem;font-weight:900;color:var(--sc,#ff2222);}
+    .skin-card.locked{opacity:.18;cursor:not-allowed;filter:grayscale(1);}
+    .skin-preview{width:42px;height:42px;border-radius:50%;background:var(--sc,#ff2222);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 3px 14px color-mix(in srgb,var(--sc,#ff2222) 50%,transparent);}
+    .skin-card.locked .skin-preview{background:#181818;box-shadow:none;}
+    .skin-nm{font-size:.66rem;font-weight:800;color:#bbb;display:block;margin-bottom:3px;}
+    .skin-card.active .skin-nm{color:#fff;}
+    .skin-rq{font-size:.58rem;display:block;font-weight:700;color:#333;}
+    .skin-card:not(.locked) .skin-rq{color:var(--sc,#ff2222);}
 
     /* ACHIEVEMENTS */
     .ach{width:min(470px,96vw);margin:0 auto 9px;padding:0 8px;}
@@ -347,10 +358,13 @@
     </div>
 
     <div class="skins">
-      <h2>🎨 SKINS</h2>
+      <div class="skins-header">
+        <h2>🎨 SKINS</h2>
+        <span class="skins-progress" id="skinsProgress"></span>
+      </div>
+      <div class="next-hint" id="nextHint"></div>
       <div class="skin-grid" id="skinGrid"></div>
     </div>
-    <div class="next-hint" id="nextHint"></div>
 
     <div class="ach">
       <h2>🏅 SUCCÈS INUTILES</h2>
@@ -814,23 +828,37 @@ function endEvent(){
 /* ══════ SKINS ══════ */
 function renderSkins(){
   var grid=document.getElementById('skinGrid');grid.innerHTML='';
+  var unlocked=0;
   for(var i=0;i<SKINS.length;i++){
     var s=SKINS[i],ok=clicks>=s.req,active=curSkin===s.id;
+    if(ok)unlocked++;
     var d=document.createElement('div');
     d.className='skin-card'+(active?' active':'')+(ok?'':' locked');
     d.id='sk_'+s.id;
-    d.innerHTML=(!ok?'<span class="skin-lock">🔒</span>':'')+
-      '<span class="skin-prev">'+s.e+'</span>'+
+    d.style.setProperty('--sc',s.c);
+    // Aperçu : cercle coloré avec emoji dedans
+    var previewContent = ok ? s.e : '🔒';
+    var reqLabel = ok ? (active ? 'Actif' : 'Équiper') : s.req.toLocaleString('fr')+' clics';
+    d.innerHTML=
+      '<div class="skin-preview">'+previewContent+'</div>'+
       '<span class="skin-nm">'+s.nm+'</span>'+
-      '<span class="skin-rq" style="color:'+(ok?s.c:'#ff6600')+'">'+(ok?(active?'✅ En cours':'Sélectionner'):s.req+' clics')+'</span>';
+      '<span class="skin-rq">'+reqLabel+'</span>';
     if(ok){(function(sid){d.onclick=function(){setSkin(sid,true);};})(s.id);}
     grid.appendChild(d);
   }
+  // Compteur déblocages
+  var prog=document.getElementById('skinsProgress');
+  if(prog)prog.textContent=unlocked+'/'+SKINS.length+' débloqués';
+  // Prochain skin
   var next=null;
   for(var i=0;i<SKINS.length;i++){if(clicks<SKINS[i].req){next=SKINS[i];break;}}
   var nh=document.getElementById('nextHint');
-  if(next)nh.innerHTML='Prochain skin : '+next.e+' '+next.nm+' — encore <span>'+(next.req-clicks).toLocaleString('fr')+' clics</span>';
-  else nh.textContent='';
+  if(next){
+    var left=(next.req-clicks).toLocaleString('fr');
+    nh.innerHTML='🎯 Prochain : '+next.e+' <strong>'+next.nm+'</strong> — encore <strong>'+left+'</strong> clics';
+  } else {
+    nh.innerHTML='🎉 Tous les skins débloqués — t'es un dieu du rien';
+  }
 }
 function setSkin(id,animate){
   // Vérifier que le skin existe et est débloqué
@@ -844,7 +872,8 @@ function setSkin(id,animate){
     var s=null;for(var i=0;i<SKINS.length;i++){if(SKINS[i].id===id){s=SKINS[i];break;}}
     var b=document.getElementById('btn');b.style.transform='scale(1.2) rotate(-5deg)';
     setTimeout(function(){b.style.transform='';},280);
-    toast('🎨 Skin "'+(s?s.nm:id)+'" activé !',s?s.c:'#aa66ff');
+    toast(s?s.e+' Skin '+s.nm+' équipé !':(id+' activé !'),s?s.c:'#aa66ff');
+    renderSkins();
   }
 }
 function checkNewSkins(){
