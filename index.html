@@ -1105,6 +1105,7 @@ function drawLoop(){
 }
 
 function burstParticles(x,y,count){
+  if(!ctx2d||!canvas)return;
   // Couleur du skin actuel
   var skin=SKINS.find(function(s){return s.id===curSkin;})||SKINS[0];
   var baseColor=skin.c||'#ff2222';
@@ -2100,8 +2101,6 @@ function init(){
     _lastPointerY=r.top+r.height/2;
     handleClick(e);
   });
-  // Bloquer le click qui suit pointerdown pour éviter le double déclenchement
-  btnEl.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();});
 
   // Challenger
   var params=new URLSearchParams(window.location.search);
