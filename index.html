@@ -283,6 +283,17 @@ body.shake{animation:bodyShake .35s ease;}
       <button id="btn">APPUIE<br>DESSUS</button>
     </div>
     <div class="reaction" id="reaction">… en attente de génie …</div>
+
+    <!-- THERMO -->
+    <div style="padding:0 13px 8px;">
+      <div style="font-size:.7rem;color:#666;margin-bottom:3px;text-align:center;" id="thermoLabel">Niveau débilité : glacial</div>
+      <div style="height:7px;background:#111;border-radius:4px;overflow:hidden;">
+        <div id="thermoFill" style="height:100%;width:0%;background:linear-gradient(90deg,#555,#ff6600,#ff2222);border-radius:4px;transition:width .5s ease;"></div>
+      </div>
+    </div>
+    <!-- EVENT BOX -->
+    <div id="eventBox" style="display:none;margin:0 13px 8px;background:#1a0a00;border:2px solid #ff6600;border-radius:10px;padding:8px 12px;text-align:center;font-size:.82rem;font-weight:900;color:#ff6600;"></div>
+
     <!-- COMBO -->
     <div class="combo-wrap">
       <div class="combo-label">COMBO</div>
@@ -895,7 +906,14 @@ function loadLeaderboard(){
   fetch(API + '/getLeaderboard', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'})
     .then(function(r){ return r.json(); })
     .then(function(data){
-      renderLB(data.leaderboard || [], data.globalClicks || 0);
+      var rows = data.leaderboard || [];
+      var pseudo = (document.getElementById('pseudoInput').value || '').trim() || 'Anonyme';
+      var myPrev=-1, myNow=-1;
+      for(var i=0;i<prevLb.length;i++) if(prevLb[i].pseudo===pseudo){myPrev=i;break;}
+      for(var i=0;i<rows.length;i++) if(rows[i].pseudo===pseudo){myNow=i;break;}
+      if(myPrev>=0 && myNow>=0 && myNow>myPrev) showOvertake(rows[myNow-1]?rows[myNow-1].pseudo:'Quelqu\u2019un');
+      prevLb = rows;
+      renderLB(rows, data.globalClicks || 0);
     }).catch(function(){});
 }
 
@@ -1079,7 +1097,12 @@ function handleClick(ev){
   var b = document.getElementById('btn');
   if (b){ b.classList.add('btn-pressed'); setTimeout(function(){ b.classList.remove('btn-pressed'); }, 120); }
   renderMyCount(); renderXP(); renderMicro(); showReaction(); updateCombo(); spawnParticles(ev, bonus > 1 ? bonus*4 : null);
-  checkAch(); checkNewSkins(); updateDefi(); renderMissions();
+  checkAch(); checkNewSkins(); updateDefi(); renderMissions(); renderThermo(); markPlayed();
+  playSpecialSkinSound(curSkin);
+  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=Math.floor(200+clicks*0.5);}
+  if(!mysteryActive&&Math.random()<0.008)triggerMystery();
+  if(clicks>30&&!running&&Math.random()<0.025)makeButtonRun();
+  if(clicks>=5&&!provocTimer)startProvoc();
   if (combo >= 40 && !panic) triggerPanic();
   if (clicks % 50 === 0){ document.body.classList.add('shake'); setTimeout(function(){ document.body.classList.remove('shake'); }, 360); }
   // Sync API
@@ -1216,6 +1239,191 @@ function init(){
 
 // Lancement
 window.addEventListener('DOMContentLoaded', init);
+
+
+/* ══════ FEATURES ADDITIONNELLES ══════ */
+
+/* ── THERMO ── */
+function renderThermo(){
+  var el = document.getElementById('thermoFill');
+  var lbl = document.getElementById('thermoLabel');
+  if(!el) return;
+  var t = THERMO[0];
+  for(var i=0;i<THERMO.length;i++) if(clicks>=THERMO[i].min) t=THERMO[i];
+  var pct = t.max===Infinity ? 100 : Math.min(100,(clicks-t.min)/(t.max-t.min)*100);
+  el.style.width = pct+'%';
+  el.style.background = 'linear-gradient(90deg,'+t.c+','+t.c+'99)';
+  if(lbl){ lbl.textContent=t.t; lbl.style.color=t.c; }
+}
+
+/* ── SONS SPÉCIAUX SKINS ── */
+function playSpecialSkinSound(id){
+  try{
+    if(id==='fart'){
+      var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type='sawtooth';o.frequency.value=80+Math.random()*40;
+      g.gain.setValueAtTime(0.2,c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.22);
+      o.start();o.stop(c.currentTime+0.22);
+    } else if(id==='dog'){
+      var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type='triangle';o.frequency.value=620;
+      g.gain.setValueAtTime(0.18,c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.12);
+      o.start();o.stop(c.currentTime+0.12);
+    } else if(id==='cat'){
+      var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type='sine';o.frequency.value=900;
+      g.gain.setValueAtTime(0.14,c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.1);
+      o.start();o.stop(c.currentTime+0.1);
+    }
+  }catch(e){}
+}
+
+/* ── PROVOCATION AUTOMATIQUE ── */
+var _provocMsgs = [
+  "T'as encore cliqué. Bien sûr.",
+  "Toujours là ? Respect (non).",
+  "Le bouton te regarde. Il juge.",
+  "Tu pourrais lire un livre. Mais non.",
+  "Chaque clic = 0.0001 calorie brûlée. Continue.",
+  "Scientifiquement prouvé : inutile.",
+  "Le bouton ne te remerciera jamais.",
+  "Tes doigts méritent mieux. Pas toi.",
+  "Tu es exactement là où tu mérites d'être.",
+  "N'arrête surtout pas. (Si.)",
+];
+function startProvoc(){
+  if(provocTimer) return;
+  provocTimer = setInterval(function(){
+    var el = document.getElementById('reaction');
+    if(el && Math.random()<0.4){
+      el.textContent = _provocMsgs[Math.floor(Math.random()*_provocMsgs.length)];
+    }
+  }, 8000);
+}
+
+/* ── JACKPOT ── */
+var _jackpotMsgs = [
+  "500 clics ! T'as officiellement aucune vie.",
+  "1000 clics ! Ton cerveau est en feu.",
+  "T'as atteint un pallier inutile. Félicitations.",
+  "JACKPOT ! (Ça sert à rien mais quand même.)",
+  "Wow. Juste... wow.",
+];
+function triggerJackpot(){
+  var modal = document.getElementById('jackpotModal');
+  var msg = document.getElementById('jackpotMsg');
+  if(!modal) return;
+  if(msg) msg.textContent = _jackpotMsgs[Math.floor(Math.random()*_jackpotMsgs.length)] + ' (' + clicks.toLocaleString('fr') + ' clics !)';
+  modal.style.display='flex';
+  setTimeout(function(){ if(modal) modal.style.display='none'; }, 4000);
+  toast('🎰 JACKPOT à '+clicks.toLocaleString('fr')+' clics !','#ffcc00');
+}
+
+/* ── MYSTERY ── */
+var _mysteryEvents = [
+  {e:'⚡',t:'SUPER CLIC ! x3 pendant 10 secondes !', mult:3, dur:10000},
+  {e:'🐌',t:'Ralentissement... x0.5 pendant 8 secondes.', mult:0.5, dur:8000},
+  {e:'💥',t:'EXPLOSION ! x5 pendant 5 secondes !', mult:5, dur:5000},
+  {e:'🎁',t:'+50 clics bonus !', bonus:50},
+  {e:'🔮',t:'Le bouton vibre... rien ne se passe.', mult:1, dur:0},
+];
+function triggerMystery(){
+  if(mysteryActive) return;
+  mysteryActive = true;
+  var ev = _mysteryEvents[Math.floor(Math.random()*_mysteryEvents.length)];
+  var modal = document.getElementById('mysteryModal');
+  var emoji = document.getElementById('mystEmoji');
+  var txt = document.getElementById('mystText');
+  if(emoji) emoji.textContent = ev.e;
+  if(txt) txt.textContent = ev.t;
+  if(modal) { modal.style.display='flex'; setTimeout(function(){ modal.style.display='none'; }, 3500); }
+  if(ev.bonus){ clicks+=ev.bonus; localStorage.setItem('clicks',clicks); renderMyCount(); renderXP(); renderMicro(); }
+  if(ev.mult && ev.mult!==1 && ev.dur){
+    eventMultiplier = ev.mult;
+    var box = document.getElementById('eventBox');
+    if(box){ box.style.display='block'; box.textContent = ev.e+' MULTIPLICATEUR x'+ev.mult+' !'; }
+    setTimeout(function(){
+      eventMultiplier=1; mysteryActive=false;
+      if(box) box.style.display='none';
+    }, ev.dur);
+  } else {
+    setTimeout(function(){ mysteryActive=false; }, 5000);
+  }
+}
+
+/* ── BOUTON QUI S'ENFUIT ── */
+function makeButtonRun(){
+  if(running) return;
+  running = true;
+  var btn = document.getElementById('btn');
+  if(!btn) { running=false; return; }
+  toast('\uD83D\uDE02 LE BOUTON ESSAIE DE S\u2019ENFUIR !','#ff6600');
+  var moves = 0, maxMoves = 8;
+  var interval = setInterval(function(){
+    if(moves>=maxMoves){ 
+      btn.style.transform=''; btn.style.position=''; btn.style.left=''; btn.style.top='';
+      running=false; clearInterval(interval); return;
+    }
+    var area = document.querySelector('.btn-area');
+    var areaW = area ? area.offsetWidth : 300;
+    var rx = (Math.random()-0.5)*Math.min(80, areaW*0.25);
+    var ry = (Math.random()-0.5)*40;
+    btn.style.transform = 'translate('+rx+'px,'+ry+'px) rotate('+(Math.random()*20-10)+'deg)';
+    moves++;
+  }, 280);
+}
+
+/* ── SHOW OVERTAKE ── */
+function showOvertake(pseudo){
+  var modal = document.getElementById('overtakeModal');
+  var msg = document.getElementById('overtakeMs');
+  if(!modal) return;
+  if(msg) msg.textContent = (pseudo||'Quelqu\u2019un') + ' t\u2019a dépassé dans le classement ! Mets les gaz 🔥';
+  modal.style.display='flex';
+  setTimeout(function(){ if(modal) modal.style.display='none'; }, 4000);
+}
+
+/* ── MARK PLAYED ── */
+function markPlayed(){
+  var today = new Date().toDateString();
+  localStorage.setItem('lastDay', today);
+}
+
 </script>
+
+  <!-- JACKPOT MODAL -->
+  <div id="jackpotModal" style="display:none;position:fixed;inset:0;z-index:6000;background:#000c;align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#1a1a00,#111);border:3px solid #ffcc00;border-radius:20px;padding:28px;text-align:center;max-width:320px;width:90%;animation:fadeIn .3s ease;">
+      <h2 style="font-family:Bangers,cursive;font-size:2.2rem;color:#ffcc00;letter-spacing:3px;margin-bottom:8px;">🎰 JACKPOT !!!</h2>
+      <p id="jackpotMsg" style="color:#fff;font-size:1rem;margin-bottom:16px;"></p>
+      <button onclick="document.getElementById('jackpotModal').style.display='none'" style="background:#ffcc00;border:none;color:#000;font-weight:900;padding:10px 28px;border-radius:20px;cursor:pointer;font-size:1rem;">YOLO 🎊</button>
+    </div>
+  </div>
+
+  <!-- MYSTERY MODAL -->
+  <div id="mysteryModal" style="display:none;position:fixed;inset:0;z-index:6000;background:#000c;align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#0a001a,#111);border:3px solid #9966ff;border-radius:20px;padding:28px;text-align:center;max-width:320px;width:90%;animation:fadeIn .3s ease;">
+      <h2 style="font-family:Bangers,cursive;font-size:2rem;color:#9966ff;letter-spacing:3px;margin-bottom:8px;">🎲 MYSTÈRE !</h2>
+      <span id="mystEmoji" style="font-size:3rem;display:block;margin-bottom:8px;">❓</span>
+      <p id="mystText" style="color:#ccc;font-size:.9rem;margin-bottom:16px;"></p>
+      <button onclick="document.getElementById('mysteryModal').style.display='none'" style="background:#9966ff;border:none;color:#fff;font-weight:900;padding:10px 28px;border-radius:20px;cursor:pointer;">OK COOL</button>
+    </div>
+  </div>
+
+  <!-- OVERTAKE MODAL -->
+  <div id="overtakeModal" style="display:none;position:fixed;inset:0;z-index:6000;background:#000c;align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#1a0000,#111);border:3px solid #ff2222;border-radius:20px;padding:28px;text-align:center;max-width:320px;width:90%;animation:fadeIn .3s ease;">
+      <h3 style="font-family:Bangers,cursive;font-size:1.8rem;color:#ff2222;letter-spacing:2px;margin-bottom:8px;">😱 T'AS ÉTÉ DÉPASSÉ !</h3>
+      <p id="overtakeMs" style="color:#ccc;font-size:.9rem;margin-bottom:16px;"></p>
+      <button onclick="document.getElementById('overtakeModal').style.display='none'" style="background:#ff2222;border:none;color:#fff;font-weight:900;padding:10px 28px;border-radius:20px;cursor:pointer;">VENGER 😤</button>
+    </div>
+  </div>
+
 </body>
 </html>
