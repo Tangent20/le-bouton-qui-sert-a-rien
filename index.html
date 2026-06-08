@@ -40,7 +40,7 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Nunito',sans-serif;background:#080808;color:#fff;min-height:100vh;overflow-x:hidden;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;}
-    .wrap{max-width:680px;margin:0 auto;}
+    .wrap{max-width:680px;margin:0 auto;} #mainWrap{display:none;}
     .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 30%,#1a0020 0%,#080808 65%);}
     .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;}
     .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s infinite alternate;will-change:opacity,transform;}
@@ -382,9 +382,9 @@
       background:#000;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;padding:24px;
-      transition:opacity 1.2s ease, transform 1.2s ease;
+      /* no transition */
     }
-    #landing.hide{opacity:0;transform:scale(1.04);pointer-events:none;}
+    #landing.hide{display:none !important;}
     .landing-emoji{font-size:5rem;animation:landingBounce 1s ease-in-out infinite alternate;display:block;margin-bottom:8px;}
     @keyframes landingBounce{from{transform:scale(1);}to{transform:scale(1.12) rotate(-3deg);}}
     .landing-title{font-family:'Bangers',cursive;font-size:clamp(2.2rem,10vw,5rem);letter-spacing:4px;color:#ff2222;text-shadow:0 0 30px #ff000099,3px 3px 0 #660000;margin-bottom:4px;line-height:1.1;}
@@ -2125,6 +2125,8 @@ function init(){
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(10+Math.random()*10)*60000);
+  // Forcer l'affichage du premier onglet
+  showTab('jeu');
 }
 
 
@@ -2226,28 +2228,24 @@ document.addEventListener('click',function(e){
 var landingDismissed = localStorage.getItem('landingDismissed') === '1';
 
 function startGame(){
-  // Anti-skip : ignorer si landing affiché depuis moins de 1.5s
-  if(Date.now() - _landingShownAt < 1500) return;
+  // Anti-spam : 1s minimum sur la landing
+  if(Date.now() - _landingShownAt < 1000) return;
+  // 1. Cacher landing IMMÉDIATEMENT
   var l = document.getElementById('landing');
-  l.classList.add('hide');
-  setTimeout(function(){ l.style.display='none'; }, 1300);
+  if(l){ l.classList.add('hide'); l.style.display='none'; }
+  // 2. Montrer le jeu IMMÉDIATEMENT
+  var w = document.getElementById('mainWrap');
+  if(w){ w.style.display='block'; }
+  // 3. Sauvegarder
   localStorage.setItem('landingDismissed','1');
-  // Jouer un petit son de départ
+  // 4. Son optionnel
   try{
-    var c = getACtx(), o = c.createOscillator(), g = c.createGain();
-    o.connect(g); g.connect(c.destination);
-    o.type = 'triangle'; o.frequency.value = 440;
-    g.gain.setValueAtTime(.3, c.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .4);
-    o.start(); o.stop(c.currentTime + .4);
-    setTimeout(function(){
-      var o2=c.createOscillator(),g2=c.createGain();
-      o2.connect(g2);g2.connect(c.destination);
-      o2.type='triangle';o2.frequency.value=660;
-      g2.gain.setValueAtTime(.3,c.currentTime);
-      g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);
-      o2.start();o2.stop(c.currentTime+.3);
-    },150);
+    var c=getACtx(),o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type='triangle';o.frequency.value=440;
+    g.gain.setValueAtTime(.2,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);
+    o.start();o.stop(c.currentTime+.3);
   }catch(e){}
 }
 
@@ -2271,9 +2269,14 @@ var _landingShownAt = Date.now();
 // Bypass landing si déjà visité
 (function(){
   var l = document.getElementById('landing');
+  var w = document.getElementById('mainWrap');
   if(localStorage.getItem('landingDismissed')==='1'){
-    l.style.display='none';
+    // Joueur connu → jeu direct
+    if(l){ l.style.display='none'; }
+    if(w){ w.style.display='block'; }
   } else {
+    // Nouveau joueur → landing visible, jeu caché
+    if(w){ w.style.display='none'; }
     updateLandingStats();
   }
 })();
