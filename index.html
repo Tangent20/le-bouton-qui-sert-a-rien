@@ -2253,8 +2253,7 @@ function startGame(){
 
 // Seul le bouton CTA démarre le jeu — pas de clic accidentel
 
-// Landing toujours visible à chaque visite
-localStorage.setItem('lastVisit', Date.now());
+// lastVisit supprimé — plus de landing forcé
 
 // Stats live sur la landing
 function updateLandingStats(){
@@ -2269,7 +2268,15 @@ function updateLandingStats(){
     }).catch(function(){if(lg) lg.textContent='∞';});
 }
 var _landingShownAt = Date.now();
-updateLandingStats();
+// Bypass landing si déjà visité
+(function(){
+  var l = document.getElementById('landing');
+  if(localStorage.getItem('landingDismissed')==='1'){
+    l.style.display='none';
+  } else {
+    updateLandingStats();
+  }
+})();
 
 
 /* ══════ NAVIGATION ONGLETS ══════ */
