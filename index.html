@@ -1,313 +1,206 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔴 LE BOUTON QUI SERT À RIEN</title>
-  <meta property="og:title" content="🔴 LE BOUTON QUI SERT À RIEN"/>
-  <meta property="og:description" content="Le jeu le plus débile d'internet. 1 bouton. Tu peux pas t'arrêter. 😂"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap" rel="stylesheet"/>
+  <meta property="og:title" content="🔴 LE BOUTON QUI SERT À RIEN" />
+  <meta property="og:description" content="Le jeu le plus débile d'internet. Appuie. Tu peux pas t'arrêter. 😂" />
   <style>
-    :root{
-      --accent:#ff2222;--accent2:#ff6600;--gold:#ffcc00;--cyan:#00ccff;--purple:#aa66ff;
-      --bg:#080810;--card:#0f0f1a;--card2:#13131f;--border:#1e1e2e;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap');
     *{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Nunito',sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-x:hidden;user-select:none;}
-
-    /* ── ANIMATED BG ── */
-    .bg-wrap{position:fixed;inset:0;z-index:-3;overflow:hidden;}
-    .bg-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:orbFloat 8s ease-in-out infinite alternate;}
-    .bg-orb:nth-child(1){width:500px;height:500px;background:#ff000022;top:-100px;left:-100px;animation-delay:0s;}
-    .bg-orb:nth-child(2){width:400px;height:400px;background:#6600ff22;bottom:-100px;right:-100px;animation-delay:-3s;}
-    .bg-orb:nth-child(3){width:300px;height:300px;background:#ff660011;top:40%;left:40%;animation-delay:-6s;}
-    @keyframes orbFloat{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,30px) scale(1.15);}}
-    .grid-overlay{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;}
-
-    /* ── STARS ── */
-    .stars{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+    body{font-family:'Nunito',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;overflow-x:hidden;user-select:none;}
+    body.panic{animation:panicBg 0.2s infinite alternate;}
+    @keyframes panicBg{from{background:#0a0000;filter:hue-rotate(0deg);}to{background:#200010;filter:hue-rotate(30deg);}}
+    body.panic header h1{animation:crazyTitle 0.15s infinite!important;}
+    @keyframes crazyTitle{0%{transform:rotate(-3deg) scale(1.05);color:#ff0;}25%{transform:rotate(3deg) skewX(5deg);color:#f0f;}50%{transform:rotate(-2deg) scale(0.97);color:#0ff;}75%{transform:rotate(4deg) skewY(-3deg);color:#ff2222;}100%{transform:rotate(0deg) scale(1);color:#fff;}}
+    .bg-anim{position:fixed;inset:0;background:radial-gradient(ellipse at center,#1a0020 0%,#0a0a0a 70%);z-index:-2;}
+    .stars{position:fixed;inset:0;z-index:-1;overflow:hidden;}
     .star{position:absolute;border-radius:50%;background:white;animation:twinkle 3s infinite alternate;}
-    @keyframes twinkle{from{opacity:0.1;transform:scale(0.7);}to{opacity:0.9;transform:scale(1.3);}}
-
-    /* ── PANIC ── */
-    body.panic{animation:panicBg 0.15s infinite alternate;}
-    @keyframes panicBg{from{background:#0a0005;}to{background:#1a0010;}}
-    @keyframes crazyTitle{0%{transform:rotate(-3deg) scale(1.05);color:#ff0;}25%{transform:rotate(3deg) skewX(5deg);color:#f0f;}50%{transform:rotate(-2deg);color:#0ff;}75%{transform:rotate(4deg);color:#ff2222;}100%{transform:rotate(0);color:#fff;}}
-    body.panic #mainTitle{animation:crazyTitle 0.12s infinite!important;}
-    .panic-overlay{display:none;position:fixed;inset:0;z-index:200;pointer-events:none;box-shadow:inset 0 0 100px rgba(255,0,0,0.4);border:4px solid rgba(255,0,0,0.6);animation:panicBorder 0.2s infinite alternate;}
-    .panic-overlay.show{display:block;}
-    @keyframes panicBorder{from{border-color:rgba(255,0,0,0.6);}to{border-color:rgba(255,0,255,0.6);}}
-    @keyframes shake{0%,100%{transform:translate(0,0);}20%,60%{transform:translate(-4px,3px);}40%,80%{transform:translate(4px,-3px);}}
-    body.shake{animation:shake 0.35s ease;}
-
-    /* ── CHALLENGER BANNER ── */
-    .challenger-banner{display:none;background:linear-gradient(135deg,#ff2222,#ff6600);text-align:center;padding:16px 24px;font-size:clamp(0.9rem,2.5vw,1.1rem);font-weight:900;border-bottom:2px solid #ff000044;position:relative;overflow:hidden;}
-    .challenger-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmerBanner 2s infinite;}
-    @keyframes shimmerBanner{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
+    @keyframes twinkle{from{opacity:0.2;transform:scale(0.8);}to{opacity:1;transform:scale(1.2);}}
+    .challenger-banner{background:linear-gradient(135deg,#ff2222,#ff6600);text-align:center;padding:14px 20px;font-size:clamp(0.9rem,2.5vw,1.2rem);font-weight:900;display:none;}
     .challenger-banner.show{display:block;}
+    header{text-align:center;padding:24px 20px 8px;}
+    header h1{font-family:'Bangers',cursive;font-size:clamp(2rem,8vw,5rem);letter-spacing:4px;color:#ff2222;text-shadow:0 0 20px #ff000088,4px 4px 0 #880000;animation:titlePulse 2s ease-in-out infinite;}
+    @keyframes titlePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+    header p.subtitle{font-size:clamp(0.8rem,2.5vw,1.1rem);color:#aaa;margin-top:6px;}
+    .live-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 16px;}
+    .stat-box{background:#111;border:2px solid #222;border-radius:12px;padding:10px 16px;text-align:center;min-width:90px;}
+    .stat-val{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:900;color:#ff6600;display:block;}
+    .stat-val.pop{animation:countPop 0.3s ease;}
+    @keyframes countPop{0%{transform:scale(1.5);}100%{transform:scale(1);}}
+    .stat-label{font-size:0.7rem;color:#555;margin-top:2px;}
+    .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#00ff88;margin-right:4px;animation:liveDot 1s infinite alternate;}
+    @keyframes liveDot{from{opacity:0.3;}to{opacity:1;}}
+    .thermo-section{text-align:center;margin:8px 20px;}
+    .thermo-label{font-size:0.85rem;color:#888;margin-bottom:4px;}
+    .thermo-wrap{display:inline-flex;align-items:center;gap:8px;}
+    .thermo-bar-bg{width:min(260px,65vw);height:16px;background:#1a1a1a;border-radius:8px;overflow:hidden;border:2px solid #333;}
+    .thermo-bar{height:100%;width:0%;background:linear-gradient(90deg,#3366ff,#00ccff,#00ff88,#ffcc00,#ff6600,#ff0000);border-radius:8px;transition:width 0.4s ease;}
+    .thermo-emoji{font-size:1.4rem;}
+    .thermo-text{font-size:0.8rem;color:#ff6600;margin-top:3px;min-height:18px;}
+    .pseudo-section{text-align:center;margin:8px 20px;}
+    .pseudo-section input{background:#1a1a1a;border:2px solid #ff2222;color:#fff;padding:8px 16px;border-radius:20px;font-size:1rem;font-family:'Nunito',sans-serif;outline:none;width:min(300px,80vw);text-align:center;}
+    .pseudo-section input:focus{border-color:#ff6600;box-shadow:0 0 10px #ff660066;}
+    .game-area{display:flex;flex-direction:column;align-items:center;padding:16px;gap:14px;}
 
-    /* ── HEADER ── */
-    header{text-align:center;padding:32px 20px 12px;position:relative;}
-    header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
-    #mainTitle{font-family:'Bangers',cursive;font-size:clamp(2.2rem,9vw,5.5rem);letter-spacing:5px;background:linear-gradient(135deg,#ff6666,#ff2222,#cc0000);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(255,0,0,0.5));animation:titlePulse 2.5s ease-in-out infinite;}
-    @keyframes titlePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(255,0,0,0.5));}50%{filter:drop-shadow(0 0 40px rgba(255,0,0,0.9));}}
-    header p.subtitle{font-size:clamp(0.8rem,2.5vw,1rem);color:#666;margin-top:8px;letter-spacing:1px;}
+    /* ══════ SKINS SECTION ══════ */
+    .skin-section{width:min(580px,96vw);margin:0 auto 16px;padding:0 8px;}
+    .skin-section h2{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:#00ccff;text-align:center;margin-bottom:10px;text-shadow:0 0 10px #00ccff44;}
+    .skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;}
+    .skin-card{background:#111;border:2px solid #222;border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+    .skin-card:hover:not(.locked){border-color:#555;transform:translateY(-3px);box-shadow:0 6px 20px rgba(255,255,255,0.05);}
+    .skin-card.active{border-color:#00ccff;box-shadow:0 0 18px #00ccff66;background:#001a2a;}
+    .skin-card.locked{opacity:0.35;cursor:not-allowed;filter:grayscale(0.9);}
+    .skin-preview{font-size:2.2rem;display:block;margin-bottom:4px;height:40px;line-height:40px;}
+    .skin-name{font-size:0.72rem;font-weight:900;color:#eee;display:block;}
+    .skin-req{font-size:0.62rem;color:#555;margin-top:2px;display:block;}
+    .skin-card.locked .skin-req{color:#ff6600;}
+    .skin-card.active .skin-req{color:#00ccff;}
+    .skin-lock-icon{position:absolute;top:3px;right:5px;font-size:0.75rem;}
 
-    /* ── LIVE STATS ── */
-    .live-stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 16px 10px;}
-    .stat-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px 18px;text-align:center;min-width:90px;position:relative;overflow:hidden;transition:border-color 0.3s;}
-    .stat-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent);pointer-events:none;}
-    .stat-box:hover{border-color:#333;}
-    .stat-val{font-size:clamp(1.3rem,4vw,2rem);font-weight:900;display:block;background:linear-gradient(135deg,#ff9966,#ff6600);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .stat-val.pop{animation:countPop 0.25s cubic-bezier(0.36,0.07,0.19,0.97);}
-    @keyframes countPop{0%{transform:scale(1.6);}60%{transform:scale(0.95);}100%{transform:scale(1);}}
-    .stat-label{font-size:0.68rem;color:#444;margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
-    .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#00ff88;margin-right:4px;animation:liveDot 1s infinite alternate;box-shadow:0 0 6px #00ff88;}
-    @keyframes liveDot{from{opacity:0.3;transform:scale(0.8);}to{opacity:1;transform:scale(1.2);}}
+    /* ══════ BUTTON CONTAINER ══════ */
+    .btn-container{position:relative;display:flex;align-items:center;justify-content:center;width:220px;height:220px;}
+    .glow-ring{position:absolute;width:210px;height:210px;border-radius:50%;animation:glowPulse 1.5s ease-in-out infinite;}
+    @keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.3);opacity:1;}}
+    #theButton{position:relative;width:180px;height:180px;border-radius:50%;border:none;cursor:pointer;font-family:'Bangers',cursive;font-size:1.3rem;letter-spacing:2px;color:white;text-shadow:2px 2px 0 rgba(0,0,0,0.5);transition:transform 0.08s,box-shadow 0.08s;z-index:1;-webkit-tap-highlight-color:transparent;}
+    #theButton.pressed{transform:translateY(6px) scale(0.96)!important;}
 
-    /* ── THERMO ── */
-    .thermo-section{text-align:center;margin:12px 20px;}
-    .thermo-label{font-size:0.75rem;color:#444;margin-bottom:6px;text-transform:uppercase;letter-spacing:2px;}
-    .thermo-wrap{display:inline-flex;align-items:center;gap:10px;}
-    .thermo-bar-bg{width:min(280px,68vw);height:14px;background:#111;border-radius:7px;overflow:hidden;border:1px solid #222;position:relative;}
-    .thermo-bar{height:100%;width:0%;background:linear-gradient(90deg,#3366ff,#00ccff,#00ff88,#ffcc00,#ff6600,#ff0000);border-radius:7px;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
-    .thermo-bar::after{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:rgba(255,255,255,0.2);border-radius:7px;}
-    .thermo-emoji{font-size:1.3rem;}
-    .thermo-text{font-size:0.78rem;color:#ff6600;margin-top:4px;min-height:18px;font-style:italic;}
-
-    /* ── PSEUDO INPUT ── */
-    .pseudo-section{text-align:center;margin:12px 20px;}
-    .pseudo-wrap{display:inline-flex;align-items:center;background:var(--card);border:1px solid #ff2222;border-radius:30px;padding:4px 4px 4px 16px;gap:8px;width:min(340px,85vw);transition:border-color 0.3s,box-shadow 0.3s;}
-    .pseudo-wrap:focus-within{border-color:#ff6600;box-shadow:0 0 0 3px rgba(255,102,0,0.15);}
-    .pseudo-wrap input{background:transparent;border:none;color:#fff;font-size:0.95rem;font-family:'Nunito',sans-serif;outline:none;flex:1;min-width:0;}
-    .pseudo-wrap input::placeholder{color:#333;}
-    .pseudo-icon{font-size:1.1rem;flex-shrink:0;}
-
-    /* ── GAME AREA ── */
-    .game-area{display:flex;flex-direction:column;align-items:center;padding:20px 16px;gap:16px;}
-
-    /* ── BUTTON ── */
-    .btn-container{position:relative;display:flex;align-items:center;justify-content:center;width:260px;height:260px;}
-    .glow-ring-outer{position:absolute;width:250px;height:250px;border-radius:50%;animation:glowOuter 2s ease-in-out infinite;opacity:0.4;}
-    @keyframes glowOuter{0%,100%{transform:scale(1);}50%{transform:scale(1.4);}}
-    .glow-ring{position:absolute;width:220px;height:220px;border-radius:50%;animation:glowPulse 1.5s ease-in-out infinite;}
-    @keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.8;}50%{transform:scale(1.25);opacity:1;}}
-    #theButton{position:relative;width:190px;height:190px;border-radius:50%;border:none;cursor:pointer;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;color:white;text-shadow:2px 2px 4px rgba(0,0,0,0.6);transition:transform 0.08s,filter 0.08s;z-index:1;-webkit-tap-highlight-color:transparent;outline:none;}
-    #theButton.pressed{transform:translateY(8px) scale(0.94)!important;filter:brightness(0.85);}
-    #theButton::before{content:'';position:absolute;top:8%;left:15%;width:40%;height:30%;background:rgba(255,255,255,0.25);border-radius:50%;transform:rotate(-30deg);pointer-events:none;}
-
-    /* ── SKIN STYLES ── */
-    body.s-classic #theButton{background:radial-gradient(circle at 38% 35%,#ff7777,#dd0000 55%,#880000);box-shadow:0 10px 0 #550000,0 16px 40px #ff000077,inset 0 -6px 18px rgba(0,0,0,0.5);}
-    body.s-classic .glow-ring{background:radial-gradient(circle,#ff000055,transparent 70%);}
-    body.s-classic .glow-ring-outer{background:radial-gradient(circle,#ff000033,transparent 70%);}
-    body.s-gold #theButton{background:radial-gradient(circle at 38% 35%,#ffe888,#ffaa00 55%,#aa6600);box-shadow:0 10px 0 #774400,0 16px 40px #ffaa0077,inset 0 -6px 18px rgba(0,0,0,0.4);animation:goldShimmer 1.2s infinite alternate;}
-    @keyframes goldShimmer{from{filter:brightness(1);}to{filter:brightness(1.5) saturate(1.4);}}
-    body.s-gold .glow-ring{background:radial-gradient(circle,#ffaa0066,transparent 70%);}
-    body.s-gold .glow-ring-outer{background:radial-gradient(circle,#ffaa0033,transparent 70%);}
-    body.s-ice #theButton{background:radial-gradient(circle at 38% 35%,#ddf4ff,#55aadd 55%,#2266aa);box-shadow:0 10px 0 #114466,0 16px 40px #44aaff66,inset 0 -6px 18px rgba(0,0,0,0.2),inset 0 6px 20px rgba(200,240,255,0.5);}
-    body.s-ice .glow-ring{background:radial-gradient(circle,#44aaff44,transparent 70%);}
-    body.s-ice .glow-ring-outer{background:radial-gradient(circle,#44aaff22,transparent 70%);}
-    body.s-rainbow #theButton{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff,#ff0000);animation:rainbowSpin 1.8s linear infinite;box-shadow:0 10px 0 #222,0 16px 40px rgba(255,255,255,0.25);}
+    /* ══════ SKIN STYLES ══════ */
+    /* CLASSIC */
+    body.s-classic #theButton{background:radial-gradient(circle at 35% 35%,#ff5555,#cc0000 60%,#880000);box-shadow:0 8px 0 #550000,0 12px 30px #ff000066,inset 0 -5px 15px rgba(0,0,0,0.4),inset 0 5px 15px rgba(255,180,180,0.3);}
+    body.s-classic .glow-ring{background:radial-gradient(circle,#ff000066 0%,transparent 70%);}
+    /* GOLD */
+    body.s-gold #theButton{background:radial-gradient(circle at 35% 35%,#ffe066,#ffaa00 60%,#cc7700);box-shadow:0 8px 0 #885500,0 12px 30px #ffaa0099,inset 0 -5px 15px rgba(0,0,0,0.3),inset 0 5px 15px rgba(255,230,100,0.4);animation:goldShimmer 1.5s infinite alternate;}
+    @keyframes goldShimmer{from{filter:brightness(1);}to{filter:brightness(1.4) saturate(1.3);}}
+    body.s-gold .glow-ring{background:radial-gradient(circle,#ffaa0066 0%,transparent 70%);}
+    /* ICE */
+    body.s-ice #theButton{background:radial-gradient(circle at 35% 35%,#cceeFF,#4499cc 60%,#226699);box-shadow:0 8px 0 #114466,0 12px 30px #44aaff88,inset 0 -5px 15px rgba(0,0,0,0.2),inset 0 5px 20px rgba(200,240,255,0.5);}
+    body.s-ice .glow-ring{background:radial-gradient(circle,#44aaff44 0%,transparent 70%);}
+    /* RAINBOW */
+    body.s-rainbow #theButton{background:conic-gradient(#ff0000,#ff7700,#ffff00,#00ff00,#0000ff,#8b00ff,#ff0000);animation:rainbowSpin 2s linear infinite;box-shadow:0 8px 0 #333,0 12px 40px rgba(255,255,255,0.3);}
     @keyframes rainbowSpin{from{filter:hue-rotate(0deg);}to{filter:hue-rotate(360deg);}}
-    body.s-rainbow .glow-ring{animation:rainbowSpin 1.8s linear infinite,glowPulse 1.5s ease-in-out infinite;}
-    body.s-nuclear #theButton{background:radial-gradient(circle at 38% 35%,#ccff55,#77dd00 55%,#336600);box-shadow:0 10px 0 #224400,0 16px 40px #66ff0077,inset 0 -6px 18px rgba(0,0,0,0.4);}
-    body.s-nuclear .glow-ring{background:radial-gradient(circle,#66ff0055,transparent 70%);animation:nuclearPulse 0.6s ease-in-out infinite;}
-    @keyframes nuclearPulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.7);opacity:1;}}
-    body.s-fire #theButton{background:radial-gradient(circle at 38% 35%,#ffff55,#ff6600 45%,#cc0000 75%);box-shadow:0 10px 0 #660000,0 16px 40px #ff660077;animation:fireDance 0.2s infinite alternate;}
-    @keyframes fireDance{from{filter:brightness(1);}to{filter:brightness(1.4) saturate(1.5);}}
-    body.s-fire .glow-ring{background:radial-gradient(circle,#ff660055,transparent 70%);animation:glowPulse 0.4s ease-in-out infinite;}
-    body.s-lava #theButton{background:radial-gradient(circle at 38% 35%,#ff9900,#cc3300 55%,#880000);box-shadow:0 10px 0 #440000,0 16px 40px #ff440077;animation:lavaBubble 1s ease-in-out infinite alternate;}
-    @keyframes lavaBubble{from{border-radius:50%;}to{border-radius:45% 55% 53% 47%/47% 45% 55% 53%;}}
-    body.s-lava .glow-ring{background:radial-gradient(circle,#ff440055,transparent 70%);}
-    body.s-space #theButton{background:radial-gradient(circle at 38% 35%,#aa77ff,#5522dd 55%,#110055);box-shadow:0 10px 0 #110033,0 16px 40px #6644ff77,inset 0 6px 20px rgba(180,150,255,0.3);}
-    body.s-space .glow-ring{background:radial-gradient(circle,#6644ff44,transparent 70%);}
-    body.s-toxic #theButton{background:radial-gradient(circle at 38% 35%,#ddff00,#99dd00 55%,#446600);box-shadow:0 10px 0 #223300,0 16px 40px #aaff0077;animation:toxicDrip 1.2s ease-in-out infinite alternate;}
-    @keyframes toxicDrip{from{box-shadow:0 10px 0 #223300,0 16px 40px #aaff0055;}to{box-shadow:0 10px 0 #223300,0 24px 60px #aaff00bb;}}
-    body.s-toxic .glow-ring{background:radial-gradient(circle,#aaff0044,transparent 70%);}
-    body.s-disco #theButton{background:radial-gradient(circle,#ff44ff,#bb00bb 55%,#660066);box-shadow:0 10px 0 #440044,0 16px 40px #ff00ff77;animation:discoFlash 0.35s infinite;}
-    @keyframes discoFlash{0%{filter:hue-rotate(0deg) brightness(1);}50%{filter:hue-rotate(120deg) brightness(1.6);}100%{filter:hue-rotate(240deg) brightness(1);}}
-    body.s-disco .glow-ring{animation:discoGlow 0.35s infinite,glowPulse 1.5s ease-in-out infinite;}
+    body.s-rainbow .glow-ring{background:conic-gradient(#ff000044,#ff770044,#ffff0044,#00ff0044,#0000ff44,#8b00ff44,#ff000044);animation:rainbowSpin 2s linear infinite,glowPulse 1.5s ease-in-out infinite;}
+    /* NUCLEAR */
+    body.s-nuclear #theButton{background:radial-gradient(circle at 35% 35%,#aaff44,#66cc00 60%,#336600);box-shadow:0 8px 0 #224400,0 12px 40px #66ff0099,inset 0 -5px 15px rgba(0,0,0,0.4);}
+    body.s-nuclear .glow-ring{background:radial-gradient(circle,#66ff0066 0%,transparent 70%);animation:nuclearPulse 0.7s ease-in-out infinite;}
+    @keyframes nuclearPulse{0%,100%{transform:scale(1);opacity:0.4;}50%{transform:scale(1.6);opacity:1;}}
+    /* FIRE */
+    body.s-fire #theButton{background:radial-gradient(circle at 35% 35%,#ffff44,#ff6600 50%,#cc0000 80%);box-shadow:0 8px 0 #660000,0 12px 40px #ff660099,inset 0 -5px 15px rgba(0,0,0,0.3);animation:fireDance 0.25s infinite alternate;}
+    @keyframes fireDance{from{filter:brightness(1) saturate(1);}to{filter:brightness(1.3) saturate(1.4);}}
+    body.s-fire .glow-ring{background:radial-gradient(circle,#ff660066 0%,transparent 70%);animation:glowPulse 0.5s ease-in-out infinite;}
+    /* LAVA */
+    body.s-lava #theButton{background:radial-gradient(circle at 35% 35%,#ff8800,#cc3300 60%,#880000);box-shadow:0 8px 0 #440000,0 12px 40px #ff440099,inset 0 -5px 15px rgba(0,0,0,0.4);animation:lavaBubble 1.2s ease-in-out infinite alternate;}
+    @keyframes lavaBubble{from{border-radius:50%;}to{border-radius:46% 54% 52% 48%/48% 46% 54% 52%;}}
+    body.s-lava .glow-ring{background:radial-gradient(circle,#ff440066 0%,transparent 70%);}
+    /* SPACE */
+    body.s-space #theButton{background:radial-gradient(circle at 35% 35%,#9966ff,#4411cc 60%,#110055);box-shadow:0 8px 0 #110033,0 12px 40px #6644ff99,inset 0 5px 20px rgba(180,150,255,0.3);}
+    body.s-space .glow-ring{background:radial-gradient(circle,#6644ff44 0%,transparent 70%);}
+    /* TOXIC */
+    body.s-toxic #theButton{background:radial-gradient(circle at 35% 35%,#ccff00,#88cc00 60%,#446600);box-shadow:0 8px 0 #223300,0 12px 40px #aaff0099,inset 0 5px 20px rgba(200,255,0,0.3);animation:toxicDrip 1.5s ease-in-out infinite alternate;}
+    @keyframes toxicDrip{from{box-shadow:0 8px 0 #223300,0 12px 40px #aaff0066;}to{box-shadow:0 8px 0 #223300,0 22px 60px #aaff00cc;}}
+    body.s-toxic .glow-ring{background:radial-gradient(circle,#aaff0055 0%,transparent 70%);}
+    /* DISCO */
+    body.s-disco #theButton{background:radial-gradient(circle,#ff00ff,#aa00aa 60%,#660066);box-shadow:0 8px 0 #440044,0 12px 40px #ff00ff99;animation:discoFlash 0.4s infinite;}
+    @keyframes discoFlash{0%{filter:hue-rotate(0deg) brightness(1);}50%{filter:hue-rotate(90deg) brightness(1.5);}100%{filter:hue-rotate(180deg) brightness(1);}}
+    body.s-disco .glow-ring{animation:discoGlow 0.4s infinite,glowPulse 1.5s ease-in-out infinite;}
     @keyframes discoGlow{0%{background:radial-gradient(circle,#ff00ff44,transparent 70%);}50%{background:radial-gradient(circle,#00ffff44,transparent 70%);}100%{background:radial-gradient(circle,#ffff0044,transparent 70%);}}
-    body.s-diamond #theButton{background:radial-gradient(circle at 32% 28%,#efffff,#99ddff 38%,#55aacc 65%,#224466);box-shadow:0 10px 0 #112233,0 16px 40px #88ccff77,inset 0 6px 30px rgba(255,255,255,0.7);}
-    body.s-diamond .glow-ring{background:radial-gradient(circle,#88ccff44,transparent 70%);}
+    /* DIAMOND */
+    body.s-diamond #theButton{background:radial-gradient(circle at 30% 30%,#eeffff,#88ccff 40%,#4488bb 70%,#224466);box-shadow:0 8px 0 #112233,0 12px 40px #88ccff99,inset 0 5px 30px rgba(255,255,255,0.7);}
+    body.s-diamond .glow-ring{background:radial-gradient(circle,#88ccff55 0%,transparent 70%);}
 
-    /* ── COMBO ── */
-    .combo-section{text-align:center;width:min(340px,85vw);}
-    .combo-label{font-size:0.65rem;color:#333;margin-bottom:5px;text-transform:uppercase;letter-spacing:2px;}
-    .combo-bar-bg{width:100%;height:10px;background:#111;border-radius:5px;overflow:hidden;border:1px solid #1a1a1a;}
-    .combo-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));border-radius:5px;transition:width 0.25s ease;width:0%;}
-    .combo-text{font-size:0.85rem;color:var(--accent2);margin-top:5px;min-height:20px;font-weight:700;}
-
-    /* ── REACTION BOX ── */
-    .reaction-box{width:min(520px,92vw);background:var(--card);border:1px solid var(--border);border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 22px;font-size:clamp(0.95rem,2.8vw,1.2rem);font-weight:700;color:#ddd;min-height:90px;position:relative;overflow:hidden;transition:all 0.2s;}
-    .reaction-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.02),transparent);pointer-events:none;}
-    .reaction-box.flash{animation:reactionFlash 0.4s ease;}
-    @keyframes reactionFlash{0%{transform:scale(1.04);border-color:var(--accent);background:#180505;}100%{transform:scale(1);border-color:var(--border);background:var(--card);}}
-    .reaction-emoji{font-size:2.2rem;display:block;margin-bottom:6px;}
-
-    /* ── SECTION HEADERS ── */
-    .section-title{font-family:'Bangers',cursive;font-size:1.7rem;letter-spacing:3px;text-align:center;margin-bottom:12px;position:relative;display:flex;align-items:center;justify-content:center;gap:10px;}
-    .section-title::before,.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,currentColor);}
-    .section-title::after{background:linear-gradient(90deg,currentColor,transparent);}
-
-    /* ── SKINS ── */
-    .skin-section{width:min(600px,96vw);margin:0 auto 20px;padding:0 12px;}
-    .skin-section .section-title{color:var(--cyan);text-shadow:0 0 10px rgba(0,204,255,0.3);}
-    .skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;}
-    .skin-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
-    .skin-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent);pointer-events:none;}
-    .skin-card:hover:not(.locked){border-color:#333;transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.4);}
-    .skin-card.active{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,204,255,0.2);background:#001820;}
-    .skin-card.locked{opacity:0.3;cursor:not-allowed;filter:grayscale(1);}
-    .skin-preview{font-size:2rem;display:block;margin-bottom:4px;height:38px;line-height:38px;}
-    .skin-name{font-size:0.7rem;font-weight:900;color:#ccc;display:block;}
-    .skin-req{font-size:0.6rem;margin-top:2px;display:block;}
-    .skin-card.locked .skin-req{color:var(--accent2);}
-    .skin-card.active .skin-req{color:var(--cyan);}
-    .skin-lock-icon{position:absolute;top:3px;right:5px;font-size:0.7rem;opacity:0.6;}
-    .skin-card.active::after{content:'✓';position:absolute;top:3px;left:6px;font-size:0.7rem;color:var(--cyan);font-weight:900;}
-
-    /* ── PROVOC ── */
-    .provoc-section{width:min(520px,92vw);margin:0 auto 20px;background:linear-gradient(135deg,#1a0005,#250010);border:1px solid rgba(255,34,34,0.3);border-radius:20px;padding:16px 20px;text-align:center;position:relative;overflow:hidden;}
-    .provoc-section::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,34,34,0.04),transparent 60%);animation:provocAura 3s ease-in-out infinite alternate;}
-    @keyframes provocAura{from{transform:scale(0.8);}to{transform:scale(1.2);}}
-    .provoc-text{font-size:clamp(0.85rem,2.5vw,1rem);color:#ff9999;font-weight:700;margin-bottom:12px;position:relative;z-index:1;}
-    .provoc-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:white;padding:10px 26px;border-radius:25px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;transition:all 0.2s;position:relative;z-index:1;}
-    .provoc-btn:hover{transform:scale(1.06);box-shadow:0 4px 20px rgba(255,102,0,0.4);}
-
-    /* ── DÉFI ── */
-    .defi-section{width:min(520px,92vw);margin:0 auto 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px 20px;text-align:center;}
-    .defi-input-wrap{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
-    .defi-link-box{background:#080810;border:1px solid #1e1e2e;color:#555;padding:8px 12px;border-radius:12px;font-size:0.75rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;}
-    .copy-btn{background:linear-gradient(135deg,#222,#333);border:1px solid #333;color:#fff;padding:8px 16px;border-radius:12px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:0.85rem;white-space:nowrap;transition:all 0.2s;}
-    .copy-btn:hover{background:linear-gradient(135deg,#333,#444);}
-    .copy-btn.copied{background:linear-gradient(135deg,#004422,#006633);border-color:#00aa55;color:#00ff88;}
-
-    /* ── ACHIEVEMENTS ── */
-    .achievements{width:min(520px,96vw);margin:0 auto 20px;padding:0 12px;}
-    .achievements .section-title{color:var(--purple);}
+    /* ══════ REST OF UI ══════ */
+    .combo-section{text-align:center;}
+    .combo-label{font-size:0.8rem;color:#555;margin-bottom:4px;}
+    .combo-bar-bg{width:min(300px,80vw);height:12px;background:#222;border-radius:6px;overflow:hidden;}
+    .combo-bar{height:100%;background:linear-gradient(90deg,#ff2222,#ff6600,#ffcc00);border-radius:6px;transition:width 0.3s ease;width:0%;}
+    .combo-text{font-size:0.9rem;color:#ff6600;margin-top:4px;min-height:20px;}
+    .reaction-box{min-height:90px;width:min(500px,90vw);background:#111;border:2px solid #333;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px 20px;font-size:clamp(0.95rem,3vw,1.3rem);font-weight:700;color:#fff;}
+    .reaction-box.flash{animation:reactionFlash 0.5s ease;}
+    @keyframes reactionFlash{0%{transform:scale(1.05);border-color:#ff2222;background:#1a0505;}100%{transform:scale(1);border-color:#333;background:#111;}}
+    .reaction-emoji{font-size:2rem;display:block;margin-bottom:4px;}
+    .provoc-section{width:min(500px,90vw);margin:0 auto;background:linear-gradient(135deg,#1a0000,#2a0010);border:2px solid #ff2222;border-radius:16px;padding:14px 18px;text-align:center;margin-bottom:16px;}
+    .provoc-text{font-size:clamp(0.85rem,2.5vw,1rem);color:#ff9999;font-weight:700;margin-bottom:10px;}
+    .provoc-btn{background:linear-gradient(135deg,#ff2222,#ff6600);border:none;color:white;padding:10px 24px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;transition:transform 0.1s;}
+    .provoc-btn:hover{transform:scale(1.05);}
+    .defi-section{width:min(500px,90vw);margin:0 auto 16px;background:#111;border:2px solid #333;border-radius:16px;padding:14px 18px;text-align:center;}
+    .defi-section h3{font-family:'Bangers',cursive;font-size:1.4rem;color:#ffcc00;margin-bottom:8px;}
+    .defi-input-wrap{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+    .defi-link-box{background:#0a0a0a;border:1px solid #333;color:#888;padding:8px 12px;border-radius:10px;font-size:0.75rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;}
+    .copy-btn{background:#333;border:none;color:#fff;padding:8px 14px;border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:0.9rem;white-space:nowrap;transition:background 0.2s;}
+    .copy-btn:hover{background:#555;}
+    .copy-btn.copied{background:#00aa55;}
+    .achievements{width:min(500px,95vw);margin:0 auto 16px;padding:0 8px;}
+    .achievements h2{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:#aa66ff;text-align:center;margin-bottom:12px;}
     .achievement-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
-    .achievement{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
-    .achievement::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent);pointer-events:none;}
-    .achievement.unlocked{border-color:var(--purple);background:#0e0018;box-shadow:0 0 12px rgba(170,102,255,0.15);}
-    .achievement-icon{font-size:1.6rem;display:block;margin-bottom:4px;}
-    .achievement-name{font-weight:900;display:block;font-size:0.72rem;color:#bbb;}
-    .achievement.unlocked .achievement-name{color:#fff;}
-    .achievement-req{color:#333;font-size:0.62rem;margin-top:2px;display:block;}
-    .achievement.unlocked .achievement-req{color:#aa66ff88;}
-
-    /* ── LEADERBOARD ── */
-    .leaderboard{width:min(520px,96vw);margin:0 auto 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;overflow:hidden;}
-    .leaderboard .section-title{color:var(--gold);}
-    .lb-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;margin-bottom:6px;background:#0a0a14;border:1px solid transparent;transition:all 0.2s;}
-    .lb-row:hover{border-color:#1e1e2e;}
-    .lb-rank{font-size:1.2rem;font-weight:900;width:30px;text-align:center;flex-shrink:0;}
-    .lb-pseudo{flex:1;color:#ccc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.9rem;}
-    .lb-clicks{font-weight:900;color:var(--accent2);white-space:nowrap;font-size:0.9rem;}
-    .lb-row.me{background:#180a00;border-color:rgba(255,102,0,0.3);}
-    .lb-row.me .lb-pseudo{color:#fff;}
-    .lb-you-tag{font-size:0.65rem;color:var(--accent2);background:rgba(255,102,0,0.15);padding:2px 6px;border-radius:6px;margin-left:4px;}
-
-    /* ── JACKPOT ── */
-    .jackpot-banner{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
-    .jackpot-banner.show{display:flex;animation:fadeInOut 3.5s ease forwards;}
-    @keyframes fadeInOut{0%{opacity:0;}12%{opacity:1;}75%{opacity:1;}100%{opacity:0;pointer-events:none;}}
-    .jackpot-inner{background:linear-gradient(135deg,#1a1000,#2a1800);border:2px solid var(--gold);border-radius:24px;padding:40px;max-width:400px;}
-    .jackpot-inner h2{font-family:'Bangers',cursive;font-size:clamp(3rem,10vw,5rem);letter-spacing:5px;background:linear-gradient(135deg,var(--gold),#ff9900);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:jackpotWiggle 0.25s infinite;}
-    @keyframes jackpotWiggle{0%,100%{transform:rotate(-1.5deg) scale(1.02);}50%{transform:rotate(1.5deg) scale(0.98);}}
-    .jackpot-inner p{font-size:1.2rem;color:#eee;margin-top:10px;}
-
-    /* ── SHARE ── */
-    .share-section{text-align:center;padding:10px 16px 20px;}
-    .share-subtitle{color:#444;margin-bottom:12px;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;}
-    .share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
-    .share-btn{border:none;color:white;padding:11px 22px;border-radius:25px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
-    .share-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
-    .share-btn.twitter{background:linear-gradient(135deg,#111,#222);border:1px solid #333;}
-    .share-btn.whatsapp{background:linear-gradient(135deg,#128c7e,#25d366);}
-
-    /* ── CERTIFICATE ── */
-    .certificate-section{text-align:center;padding:0 16px 24px;}
-    .cert-btn{background:linear-gradient(135deg,#aa8800,var(--gold));border:none;color:#000;padding:12px 28px;border-radius:25px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(255,204,0,0.3);}
-    .cert-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,204,0,0.5);}
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center;padding:20px;}
+    .achievement{background:#1a1a1a;border:2px solid #333;border-radius:12px;padding:10px;text-align:center;font-size:0.8rem;color:#555;transition:all 0.3s;}
+    .achievement.unlocked{border-color:#aa66ff;color:#eee;background:#16001f;box-shadow:0 0 10px #aa66ff44;}
+    .achievement-icon{font-size:1.5rem;display:block;margin-bottom:4px;}
+    .achievement-name{font-weight:700;display:block;font-size:0.75rem;}
+    .achievement-req{color:#777;font-size:0.65rem;}
+    .leaderboard{width:min(500px,95vw);margin:0 auto 16px;padding:16px;background:#111;border:2px solid #222;border-radius:16px;}
+    .leaderboard h2{font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:#ffcc00;text-align:center;margin-bottom:12px;}
+    .lb-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;margin-bottom:6px;background:#1a1a1a;font-size:0.95rem;}
+    .lb-rank{font-size:1.2rem;font-weight:900;width:28px;text-align:center;}
+    .lb-pseudo{flex:1;color:#eee;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .lb-clicks{font-weight:900;color:#ff6600;white-space:nowrap;}
+    .lb-row.me{background:#2a1500;border:1px solid #ff6600;}
+    .jackpot-banner{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;flex-direction:column;text-align:center;}
+    .jackpot-banner.show{display:flex;animation:fadeInOut 3s ease forwards;}
+    @keyframes fadeInOut{0%{opacity:0;}15%{opacity:1;}75%{opacity:1;}100%{opacity:0;pointer-events:none;}}
+    .jackpot-banner h2{font-family:'Bangers',cursive;font-size:clamp(3rem,10vw,7rem);letter-spacing:6px;color:#ffcc00;animation:jackpotWiggle 0.3s infinite;}
+    @keyframes jackpotWiggle{0%,100%{transform:rotate(-2deg) scale(1.02);}50%{transform:rotate(2deg) scale(0.98);}}
+    .jackpot-banner p{font-size:1.4rem;color:#fff;margin-top:10px;}
+    .share-section{text-align:center;padding:14px;}
+    .share-btn{background:linear-gradient(135deg,#1877f2,#42a5f5);border:none;color:white;padding:10px 22px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin:5px;transition:transform 0.1s;}
+    .share-btn:hover{transform:scale(1.05);}
+    .share-btn.twitter{background:linear-gradient(135deg,#000,#333);}
+    .share-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);}
+    .certificate-section{text-align:center;padding:8px 16px 16px;}
+    .cert-btn{background:linear-gradient(135deg,#ffcc00,#ff6600);border:none;color:#000;padding:10px 22px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;transition:transform 0.1s;}
+    .cert-btn:hover{transform:scale(1.05);}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;}
     .modal-overlay.show{display:flex;}
-    .cert-card{background:linear-gradient(135deg,#fffbee,#fff3cc);color:#000;border-radius:24px;padding:32px;max-width:420px;width:100%;text-align:center;border:4px solid var(--gold);position:relative;box-shadow:0 20px 60px rgba(255,204,0,0.3);}
+    .cert-card{background:linear-gradient(135deg,#fff9e6,#fff3cc);color:#000;border-radius:20px;padding:30px;max-width:400px;width:90vw;text-align:center;border:6px solid #ffcc00;position:relative;}
     .cert-card h2{font-family:'Bangers',cursive;font-size:2rem;color:#cc0000;margin-bottom:10px;}
-    .cert-card p{font-size:0.95rem;color:#444;margin:6px 0;}
-    .cert-name{font-size:1.6rem;font-weight:900;color:#cc0000;display:block;margin:4px 0;}
-    .cert-clicks{font-size:2.8rem;font-weight:900;color:var(--accent2);display:block;margin:4px 0;}
-    .close-modal{position:absolute;top:12px;right:16px;font-size:1.4rem;cursor:pointer;color:#999;background:none;border:none;transition:color 0.2s;}
-    .close-modal:hover{color:#333;}
-
-    /* ── PARTICLES ── */
-    .particle{position:fixed;pointer-events:none;font-size:1.8rem;animation:particleFly 1.1s ease-out forwards;z-index:999;}
-    @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0.2) rotate(var(--dr));}}
-    .confetti-piece{position:fixed;pointer-events:none;width:9px;height:9px;z-index:998;animation:confettiFall var(--dur) ease-out forwards;}
+    .cert-card p{font-size:1rem;color:#333;margin:8px 0;}
+    .cert-card .cert-name{font-size:1.5rem;font-weight:900;color:#cc0000;}
+    .cert-card .cert-clicks{font-size:2.5rem;font-weight:900;color:#ff6600;}
+    .cert-card .close-modal{position:absolute;top:10px;right:14px;font-size:1.5rem;cursor:pointer;color:#666;background:none;border:none;}
+    .particle{position:fixed;pointer-events:none;font-size:2rem;animation:particleFly 1.2s ease-out forwards;z-index:999;}
+    @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0.3) rotate(var(--dr));}}
+    .confetti-piece{position:fixed;pointer-events:none;width:10px;height:10px;border-radius:2px;z-index:998;animation:confettiFall var(--dur) ease-out forwards;}
     @keyframes confettiFall{0%{opacity:1;transform:translate(0,0) rotate(0deg);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr));}}
-
-    /* ── TOAST ── */
-    .toast{position:fixed;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:25px;font-weight:700;z-index:9999;font-size:0.95rem;white-space:nowrap;animation:toastAnim 2.5s ease forwards;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);}
-    @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(16px);}15%{opacity:1;transform:translateX(-50%) translateY(0);}75%{opacity:1;}100%{opacity:0;}}
-
-    /* ── NEXT SKIN PROGRESS ── */
-    .next-skin-hint{text-align:center;font-size:0.75rem;color:#333;margin:-8px 0 8px;font-style:italic;}
-    .next-skin-hint span{color:var(--accent2);}
-
-    /* ── FOOTER ── */
-    footer{text-align:center;padding:32px;color:#222;font-size:0.75rem;border-top:1px solid #111;}
-    footer span{color:#333;}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);color:white;padding:10px 20px;border-radius:20px;font-weight:700;z-index:9999;font-size:1rem;white-space:nowrap;animation:toastAnim 2.5s ease forwards;}
+    @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(20px);}15%{opacity:1;transform:translateX(-50%) translateY(0);}75%{opacity:1;}100%{opacity:0;}}
+    .panic-overlay{display:none;position:fixed;inset:0;z-index:200;pointer-events:none;border:6px solid red;box-shadow:inset 0 0 80px rgba(255,0,0,0.3);animation:panicBorder 0.3s infinite alternate;}
+    .panic-overlay.show{display:block;}
+    @keyframes panicBorder{from{border-color:red;}to{border-color:#ff00ff;}}
+    @keyframes shake{0%,100%{transform:translate(0,0);}10%,30%,50%,70%,90%{transform:translate(-3px,2px);}20%,40%,60%,80%{transform:translate(3px,-2px);}}
+    body.shake{animation:shake 0.4s ease;}
+    footer{text-align:center;padding:28px;color:#333;font-size:0.8rem;}
   </style>
 </head>
 <body class="s-classic">
-  <!-- BG -->
-  <div class="bg-wrap">
-    <div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div>
-  </div>
-  <div class="grid-overlay"></div>
+  <div class="bg-anim"></div>
   <div class="stars" id="stars"></div>
   <div class="panic-overlay" id="panicOverlay"></div>
+  <div class="jackpot-banner" id="jackpotBanner"><h2>🎰 JACKPOT !!! 🎰</h2><p id="jackpotMsg"></p></div>
+  <div class="challenger-banner" id="challengerBanner">⚔️ <strong id="challengerName"></strong> te défie ! Score : <strong id="challengerScore"></strong> clics</div>
 
-  <!-- JACKPOT -->
-  <div class="jackpot-banner" id="jackpotBanner">
-    <div class="jackpot-inner">
-      <h2>🎰 JACKPOT</h2>
-      <p id="jackpotMsg"></p>
-    </div>
-  </div>
-
-  <!-- CHALLENGER -->
-  <div class="challenger-banner" id="challengerBanner">
-    ⚔️ <strong id="challengerName"></strong> te défie ! Score : <strong id="challengerScore"></strong> clics… T'es capable de faire mieux ?
-  </div>
-
-  <!-- HEADER -->
   <header>
     <h1 id="mainTitle">🔴 LE BOUTON QUI SERT À RIEN 🔴</h1>
-    <p class="subtitle">Le jeu le plus inutile d'internet — et pourtant tu vas pas t'arrêter</p>
+    <p class="subtitle" id="subtitle">Le jeu le plus inutile — et pourtant tu vas pas t'arrêter</p>
   </header>
 
-  <!-- STATS -->
   <div class="live-stats">
-    <div class="stat-box">
-      <span class="stat-val" id="globalCount">…</span>
-      <div class="stat-label"><span class="live-dot"></span>Clics mondiaux</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-val" id="myCount">0</span>
-      <div class="stat-label">Tes clics</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-val" id="myRank">—</span>
-      <div class="stat-label">Ton rang</div>
-    </div>
+    <div class="stat-box"><span class="stat-val" id="globalCount">…</span><div class="stat-label"><span class="live-dot"></span>Mondial</div></div>
+    <div class="stat-box"><span class="stat-val" id="myCount">0</span><div class="stat-label">Tes clics</div></div>
+    <div class="stat-box"><span class="stat-val" id="myRank">—</span><div class="stat-label">Ton rang</div></div>
   </div>
 
-  <!-- THERMO -->
   <div class="thermo-section">
-    <div class="thermo-label">🌡️ Niveau de débilité</div>
+    <div class="thermo-label">🌡️ NIVEAU DE DÉBILITÉ</div>
     <div class="thermo-wrap">
       <div class="thermo-bar-bg"><div class="thermo-bar" id="thermoBar"></div></div>
       <span class="thermo-emoji" id="thermoEmoji">🧊</span>
@@ -315,50 +208,39 @@
     <div class="thermo-text" id="thermoText">Montre ce que t'as dans le cerveau</div>
   </div>
 
-  <!-- PSEUDO -->
   <div class="pseudo-section">
-    <div class="pseudo-wrap">
-      <span class="pseudo-icon">👤</span>
-      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
-    </div>
+    <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20" />
   </div>
 
-  <!-- GAME -->
   <div class="game-area">
     <div class="btn-container">
-      <div class="glow-ring-outer"></div>
       <div class="glow-ring"></div>
       <button id="theButton" onclick="handleClick(event)">APPUIE<br>DESSUS</button>
     </div>
-
     <div class="combo-section">
-      <div class="combo-label">Barre de combo</div>
+      <div class="combo-label">BARRE DE COMBO</div>
       <div class="combo-bar-bg"><div class="combo-bar" id="comboBar"></div></div>
       <div class="combo-text" id="comboText"></div>
     </div>
-
-    <div class="reaction-box" id="reactionBox">
-      <span>👆 Appuie sur le bouton, espèce de curieux</span>
-    </div>
+    <div class="reaction-box" id="reactionBox"><span>👆 Appuie sur le bouton, espèce de curieux</span></div>
   </div>
 
   <!-- SKINS -->
   <div class="skin-section">
-    <div class="section-title">🎨 Skins du bouton</div>
+    <h2>🎨 SKINS DU BOUTON</h2>
     <div class="skin-grid" id="skinGrid"></div>
-    <div class="next-skin-hint" id="nextSkinHint"></div>
   </div>
 
   <!-- PROVOC -->
-  <div class="provoc-section" id="provocSection" style="display:none">
+  <div class="provoc-section" id="provocSection" style="display:none;">
     <div class="provoc-text" id="provocText"></div>
     <button class="provoc-btn" onclick="shareDefi()">😤 Défier mes amis !</button>
   </div>
 
-  <!-- DÉFI -->
+  <!-- DEFI -->
   <div class="defi-section">
-    <div class="section-title" style="color:var(--gold);font-size:1.4rem;">⚔️ Envoyer un défi</div>
-    <p style="color:#444;font-size:0.8rem;margin-bottom:2px;">Ton lien perso — envoie-le à tes victimes 😈</p>
+    <h3>⚔️ ENVOIE UN DÉFI</h3>
+    <p style="color:#666;font-size:0.8rem;margin-bottom:8px;">Ton lien personnalisé — envoie-le à tes amis !</p>
     <div class="defi-input-wrap">
       <div class="defi-link-box" id="defiLink">Entre ton pseudo d'abord 👆</div>
       <button class="copy-btn" id="copyBtn" onclick="copyDefiLink()">📋 Copier</button>
@@ -367,73 +249,81 @@
 
   <!-- ACHIEVEMENTS -->
   <div class="achievements">
-    <div class="section-title">🏅 Succès inutiles</div>
+    <h2>🏅 SUCCÈS INUTILES</h2>
     <div class="achievement-grid" id="achievementGrid"></div>
   </div>
 
   <!-- LEADERBOARD -->
   <div class="leaderboard">
-    <div class="section-title">🏆 Classement mondial des idiots</div>
-    <div id="lbContent"><p style="text-align:center;color:#222;padding:20px">Chargement...</p></div>
+    <h2>🏆 CLASSEMENT MONDIAL DES IDIOTS</h2>
+    <div id="lbContent"><p style="text-align:center;color:#444">Chargement...</p></div>
   </div>
 
   <!-- SHARE -->
   <div class="share-section">
-    <p class="share-subtitle">Partage cette honte</p>
-    <div class="share-btns">
-      <button class="share-btn twitter" onclick="shareTwitter()">🐦 X / Twitter</button>
-      <button class="share-btn whatsapp" onclick="shareWhatsapp()">💬 WhatsApp</button>
-    </div>
+    <p style="color:#666;margin-bottom:10px;font-size:0.9rem">Partage cette honte 👇</p>
+    <button class="share-btn twitter" onclick="shareTwitter()">🐦 X / Twitter</button>
+    <button class="share-btn whatsapp" onclick="shareWhatsapp()">💬 WhatsApp</button>
   </div>
 
-  <!-- CERT -->
   <div class="certificate-section">
     <button class="cert-btn" onclick="showCertificate()">🎓 Mon certificat de débilité</button>
   </div>
 
-  <!-- CERT MODAL -->
   <div class="modal-overlay" id="certModal">
     <div class="cert-card">
       <button class="close-modal" onclick="closeCert()">✕</button>
       <div style="font-size:3rem">🎓</div>
       <h2>CERTIFICAT OFFICIEL DE DÉBILITÉ</h2>
       <p>Ceci certifie que</p>
-      <span class="cert-name" id="certName">—</span>
+      <div class="cert-name" id="certName">—</div>
       <p>a cliqué sur un bouton qui ne sert à rien</p>
-      <span class="cert-clicks" id="certClicks">0</span>
+      <div class="cert-clicks" id="certClicks">0</div>
       <p>fois, prouvant ainsi une capacité inutile hors du commun.</p>
-      <p style="margin-top:16px;font-size:0.75rem;color:#999">Délivré par l'Institut International de l'Inutilité™</p>
+      <p style="margin-top:16px;font-size:0.8rem;color:#999">Délivré par l'Institut International de l'Inutilité™</p>
     </div>
   </div>
 
-  <footer>© 2026 Le Bouton Qui Sert À Rien™ — <span>Aucune responsabilité pour le temps perdu 😈</span></footer>
+  <footer><p>© 2026 Le Bouton Qui Sert À Rien™ — Aucune responsabilité pour le temps perdu 😈</p></footer>
 
 <script>
-const API='https://superagent-ceec4ffc.base44.app/functions';
+const API_BASE='https://superagent-ceec4ffc.base44.app/functions';
 const PAGE_URL=window.location.href.split('?')[0];
 
-// ── SKINS ──
+// ══════ SKINS ══════
 const SKINS=[
-  {id:'classic',name:'Classique',emoji:'🔴',req:0,color:'#ff2222'},
-  {id:'gold',name:'Or',emoji:'🥇',req:50,color:'#ffaa00'},
-  {id:'ice',name:'Glace',emoji:'❄️',req:100,color:'#44aaff'},
-  {id:'space',name:'Espace',emoji:'🌌',req:200,color:'#9966ff'},
-  {id:'nuclear',name:'Nucléaire',emoji:'☢️',req:300,color:'#66ff00'},
-  {id:'fire',name:'Feu',emoji:'🔥',req:400,color:'#ff6600'},
-  {id:'lava',name:'Lave',emoji:'🌋',req:500,color:'#ff4400'},
-  {id:'toxic',name:'Toxique',emoji:'☣️',req:750,color:'#aaff00'},
-  {id:'disco',name:'Disco',emoji:'🪩',req:1000,color:'#ff00ff'},
-  {id:'rainbow',name:'Arc-en-ciel',emoji:'🌈',req:2000,color:'#ffffff'},
-  {id:'diamond',name:'Diamant',emoji:'💎',req:5000,color:'#88ccff'},
+  {id:'classic', name:'Classique', emoji:'🔴', req:0,    color:'#aa66ff'},
+  {id:'gold',    name:'Or',        emoji:'🥇', req:50,   color:'#ffaa00'},
+  {id:'ice',     name:'Glace',     emoji:'❄️', req:100,  color:'#44aaff'},
+  {id:'space',   name:'Espace',    emoji:'🌌', req:200,  color:'#9966ff'},
+  {id:'nuclear', name:'Nucléaire', emoji:'☢️', req:300,  color:'#66ff00'},
+  {id:'fire',    name:'Feu',       emoji:'🔥', req:400,  color:'#ff6600'},
+  {id:'lava',    name:'Lave',      emoji:'🌋', req:500,  color:'#ff4400'},
+  {id:'toxic',   name:'Toxique',   emoji:'☣️', req:750,  color:'#aaff00'},
+  {id:'disco',   name:'Disco',     emoji:'🪩', req:1000, color:'#ff00ff'},
+  {id:'rainbow', name:'Arc-en-ciel',emoji:'🌈',req:2000, color:'#ffffff'},
+  {id:'diamond', name:'Diamant',   emoji:'💎', req:5000, color:'#88ccff'},
 ];
-const SKIN_TEXTS={classic:'APPUIE<br>DESSUS',gold:'CLIQUE<br>OR !',ice:'❄️ ICE<br>CLICK',space:'🚀 SPACE<br>GO!',nuclear:'☢️ BOOM<br>!!!',fire:'🔥 FIRE<br>!!',lava:'🌋 LAVE<br>HOT!',toxic:'☣️ BIO<br>CLICK',disco:'🪩 DISCO<br>BABY!',rainbow:'🌈 CLICK<br>FOU!',diamond:'💎 DIAM<br>CLICK'};
-const SKIN_PARTICLES={classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️','⚪'],space:['🌟','🚀','⭐','🛸'],nuclear:['☢️','💥','💚','🌊'],fire:['🔥','💥','✨','🧨'],lava:['🌋','🔥','💥','🩸'],toxic:['☣️','💚','🟢','🫧'],disco:['🎉','✨','🎊','🪩'],rainbow:['🌈','✨','🎉','💫'],diamond:['💎','✨','⭐','💠']};
 
-// ── RÉACTIONS ──
+const SKIN_TEXTS={
+  classic:'APPUIE<br>DESSUS', gold:'CLIQUE<br>OR !', ice:'❄️ ICE<br>CLICK',
+  space:'🚀 GO<br>SPACE', nuclear:'☢️ BOOM<br>!!!', fire:'🔥 FIRE<br>CLICK!',
+  lava:'🌋 LAVA<br>CLICK', toxic:'☣️ BIO<br>CLICK', disco:'🪩 DISCO<br>BABY!',
+  rainbow:'🌈 CLICK<br>FOU!', diamond:'💎 DIAM<br>CLICK'
+};
+
+const SKIN_PARTICLES={
+  classic:['💥','⭐','✨','🎉'], gold:['⭐','✨','🌟','💛'], ice:['❄️','🌨️','💙','❄️'],
+  space:['🌟','🚀','⭐','🛸'], nuclear:['☢️','💥','🌊','💚'], fire:['🔥','💥','✨','🧨'],
+  lava:['🌋','🔥','💥','🩸'], toxic:['☣️','💚','🟢','🫧'], disco:['🎉','✨','🎊','🪩'],
+  rainbow:['🌈','✨','🎉','💫'], diamond:['💎','✨','⭐','💠']
+};
+
+// ══════ RÉACTIONS ══════
 const REACTIONS=[
   {emoji:'🦆',text:'COIN COIN... et alors ?'},{emoji:'💀',text:'Tu viens de perdre 2 secondes de ta vie.'},
   {emoji:'🤡',text:'Bravo. T\'es fier de toi ?'},{emoji:'🥔',text:'T\'es aussi utile qu\'une patate sans sel.'},
-  {emoji:'🎺',text:'♩ TADAAAAA ♩ ... c\'est tout.'},{emoji:'🐌',text:'Même un escargon aurait trouvé mieux à faire.'},
+  {emoji:'🎺',text:'♩ TADAAAAA ♩ ... c\'est tout.'},{emoji:'🐌',text:'Même un escargot aurait trouvé mieux à faire.'},
   {emoji:'🎉',text:'FÉLICITATIONS... pour rien du tout !'},{emoji:'😴',text:'Zzzzz... T\'as cliqué ?'},
   {emoji:'⚡',text:'ÉLECTRISAAANT... nan, pas vraiment.'},{emoji:'🍕',text:'Quelque part, une pizza refroidit à cause de toi.'},
   {emoji:'🚀',text:'DÉCOLLAGE... vers l\'inutilité totale.'},{emoji:'🦧',text:'Les singes t\'observent et sont déçus.'},
@@ -445,26 +335,34 @@ const REACTIONS=[
   {emoji:'🤖',text:'ERREUR 404 : UTILITÉ INTROUVABLE.'},{emoji:'🎵',text:'♪ Lalala tu cliques, lalala pour rien ♪'},
   {emoji:'🌙',text:'La lune te regarde et soupire.'},{emoji:'🎈',text:'PAN ! ... comme tes espoirs.'},
   {emoji:'🐢',text:'La tortue est plus rapide que ta réflexion.'},{emoji:'☕',text:'Ton café refroidit pendant que tu cliques.'},
-  {emoji:'🦜',text:'Perroquet : "T\'es bête !" — Perroquet.'},{emoji:'🪄',text:'*Abracadabra* — Toujours aussi inutile.'},
+  {emoji:'🦜',text:'Perroquet : "T\'es bête, T\'es bête !" — Perroquet.'},{emoji:'🪄',text:'*Abracadabra* — Toujours aussi inutile.'},
   {emoji:'🦄',text:'Même les licornes ont abandonné tes espoirs.'},{emoji:'🏖️',text:'Quelqu\'un est à la plage. Pas toi.'},
   {emoji:'🎮',text:'Il y a des vrais jeux dehors tu sais.'},{emoji:'🌺',text:'Une fleur s\'épanouit. Toi non. Tu cliques.'},
   {emoji:'🎩',text:'*POOF* ... rien. Le magicien est déçu.'},{emoji:'🍩',text:'Un donut quelque part porte ton prénom.'},
   {emoji:'🦁',text:'Le lion rugit. Pas à cause de toi.'},{emoji:'🌊',text:'Une vague de néant t\'emporte.'},
-  {emoji:'🧩',text:'Il manque une pièce. C\'est toi. La pièce inutile.'},{emoji:'🐠',text:'Même le poisson rouge a une vie plus riche.'},
-  {emoji:'🎸',text:'*riff de guitare épique* ...pour rien.'},{emoji:'🏆',text:'Prix Darwin de l\'inutilité. C\'est toi.'},
+  {emoji:'🧩',text:'Il manque une pièce. C\'est toi. La pièce inutile.'},
 ];
+
 function getPersonalReaction(p){
   const a=[
     {emoji:'😤',text:`${p}, t'as vraiment rien de mieux à faire ?`},
     {emoji:'🤦',text:`${p} prouve qu'on peut survivre sans cerveau.`},
     {emoji:'👑',text:`${p}, Roi/Reine du temps gaspillé.`},
-    {emoji:'📜',text:`Avis de recherche : cerveau de ${p}. Disparu.`},
+    {emoji:'📜',text:`Avis de recherche : le cerveau de ${p}. Disparu.`},
     {emoji:'🏅',text:`${p} mérite une médaille. En carton.`},
     {emoji:'🗿',text:`${p} : impassible, inutile, légendaire.`},
   ];
   return a[Math.floor(Math.random()*a.length)];
 }
-const PROVOCS=["T'as même pas {next} clics... t'appelles ça jouer ?","Tu vas vraiment t'arrêter là ? À {current} misérables clics ?","Même ta grand-mère ferait mieux. Allez, {next} !","Le bouton te juge. {next} clics minimum pour son respect.","Y'a des gens à {next} clics pendant que toi tu roupilles."];
+
+const PROVOCS=[
+  "T'as même pas {next} clics... t'appelles ça jouer ?",
+  "Tu vas vraiment t'arrêter là ? À {current} misérables clics ?",
+  "Même ta grand-mère ferait mieux. Allez, {next} !",
+  "Le bouton te juge. {next} clics minimum pour son respect.",
+  "Y'a des gens à {next} clics pendant que toi tu roupilles.",
+];
+
 const ACHIEVEMENTS=[
   {id:'first',icon:'👆',name:'Premier Clic',req:1,label:'1 clic'},
   {id:'ten',icon:'🔟',name:'Dizaine',req:10,label:'10 clics'},
@@ -475,31 +373,39 @@ const ACHIEVEMENTS=[
   {id:'thousand',icon:'👑',name:'ROI DU VIDE',req:1000,label:'1000 clics'},
   {id:'legend',icon:'🐐',name:'LÉGENDE',req:5000,label:'5000 clics'},
 ];
-const JACKPOT_MSGS=["100 CLICS ! T'AS AUCUNE VIE !","200 CLICS ! APPELLE UN MÉDECIN !","300 CLICS ! C'EST CLINIQUE !","400 CLICS ! TA MÈRE EST FIÈRE ?","500 CLICS ! LÉGENDE DE L'INUTILE !","600 CLICS ! LES ALIENS T'OBSERVENT !","1000 CLICS ! TU ES LE BOUTON MAINTENANT !"];
-const THERMO=[{min:0,max:10,pct:5,emoji:'🧊',text:'Cerveau froid. Encore.'},{min:10,max:30,pct:15,emoji:'😐',text:'Légèrement débile. On progresse.'},{min:30,max:60,pct:28,emoji:'🌡️',text:'Température de débilité : tiède.'},{min:60,max:100,pct:44,emoji:'🔥',text:'Ça chauffe sérieusement.'},{min:100,max:200,pct:58,emoji:'😵',text:'DANGER : cerveau surchauffé.'},{min:200,max:500,pct:74,emoji:'💀',text:'ALERTE ROUGE : t\'as perdu la raison.'},{min:500,max:1000,pct:89,emoji:'🌋',text:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!'},{min:1000,max:Infinity,pct:100,emoji:'☢️',text:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.'}];
 
-// ── STATE ──
+const JACKPOT_MSGS=["100 CLICS ! T'AS AUCUNE VIE !","200 CLICS ! APPELLE UN MÉDECIN !","300 CLICS ! C'EST CLINIQUE !","400 CLICS ! TA MÈRE EST FIÈRE ?","500 CLICS ! LÉGENDE DE L'INUTILE !","600 CLICS ! APPELLE LE 15 !","700 CLICS ! LES ALIENS T'OBSERVENT !","1000 CLICS ! TU ES LE BOUTON MAINTENANT !"];
+
+// ══════ STATE ══════
 let myClicks=parseInt(localStorage.getItem('myClicks')||'0');
-let combo=0,comboTimer=null,lastReaction='',isPanicMode=false,isRunningAway=false;
+let combo=0,comboTimer=null,lastReaction='';
+let isPanicMode=false,isRunningAway=false;
 let jackpotNext=Math.ceil((myClicks+1)/100)*100;
 let currentSkin=localStorage.getItem('currentSkin')||'classic';
-let lastLeaderboard=[],audioCtx=null;
+let lastLeaderboard=[];
+let audioCtx=null;
 
-// ── AUDIO ──
+// ══════ AUDIO ══════
 function getAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 function playTone(f,type='sine',dur=0.15,vol=0.3){try{const c=getAudio(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type=type;o.frequency.value=f;g.gain.setValueAtTime(vol,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+dur);o.start();o.stop(c.currentTime+dur);}catch(e){}}
 function playDuck(){[300,400,350,250].forEach((f,i)=>setTimeout(()=>playTone(f,'square',0.08,0.15),i*70));}
 function playJackpot(){[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,'square',0.3,0.25),i*80));}
-function playSkinSound(s){const m={classic:()=>playTone(440,'square',0.1,0.2),gold:()=>playTone(660,'triangle',0.15,0.25),ice:()=>playTone(880,'sine',0.2,0.15),space:()=>playTone(220,'sawtooth',0.15,0.2),nuclear:()=>{playTone(100,'sawtooth',0.1,0.3);setTimeout(()=>playTone(200,'sawtooth',0.1,0.3),100);},fire:()=>playTone(330,'sawtooth',0.1,0.25),lava:()=>playTone(150,'sawtooth',0.15,0.3),toxic:()=>playTone(400,'square',0.1,0.2),disco:()=>{playTone(523,'square',0.08,0.2);setTimeout(()=>playTone(659,'square',0.08,0.2),80);},rainbow:()=>playDuck(),diamond:()=>playTone(1047,'triangle',0.2,0.3)};(m[s]||m.classic)();}
+function playSkinSound(skin){
+  const s={classic:()=>playTone(440,'square',0.1,0.2),gold:()=>playTone(660,'triangle',0.15,0.25),ice:()=>playTone(880,'sine',0.2,0.15),space:()=>playTone(220,'sawtooth',0.15,0.2),nuclear:()=>{playTone(100,'sawtooth',0.1,0.3);setTimeout(()=>playTone(200,'sawtooth',0.1,0.3),100);},fire:()=>playTone(330,'sawtooth',0.1,0.25),lava:()=>playTone(150,'sawtooth',0.15,0.3),toxic:()=>playTone(400,'square',0.1,0.2),disco:()=>{playTone(523,'square',0.08,0.2);setTimeout(()=>playTone(659,'square',0.08,0.2),80);},rainbow:()=>playDuck(),diamond:()=>playTone(1047,'triangle',0.2,0.3)};
+  (s[skin]||s.classic)();
+}
 
-// ── INIT ──
+// ══════ INIT ══════
 function init(){
   generateStars();renderSkins();applySkin(currentSkin,false);
   renderAchievements();updateMyCount();updateThermo();loadLeaderboard();
   const saved=localStorage.getItem('pseudo');
   if(saved){document.getElementById('pseudoInput').value=saved;loadMyScore(saved);}
   document.getElementById('pseudoInput').addEventListener('input',function(){localStorage.setItem('pseudo',this.value);updateDefiLink();});
-  document.getElementById('pseudoInput').addEventListener('change',function(){const p=this.value.trim();if(p)loadMyScore(p);});
+  document.getElementById('pseudoInput').addEventListener('change',function(){
+    const pseudo=this.value.trim();
+    if(pseudo) loadMyScore(pseudo);
+  });
   updateDefiLink();
   const params=new URLSearchParams(window.location.search);
   const challenger=params.get('challenger'),cs=params.get('score');
@@ -509,24 +415,20 @@ function init(){
 
 function generateStars(){
   const c=document.getElementById('stars');
-  for(let i=0;i<100;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+0.5;s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*4}s;`;c.appendChild(s);}
+  for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s;`;c.appendChild(s);}
 }
 
-// ── SKINS ──
+// ══════ SKINS ══════
 function renderSkins(){
   const grid=document.getElementById('skinGrid');grid.innerHTML='';
   SKINS.forEach(skin=>{
     const unlocked=myClicks>=skin.req,active=currentSkin===skin.id;
     const div=document.createElement('div');
     div.className=`skin-card${active?' active':''}${!unlocked?' locked':''}`;div.id='skin_'+skin.id;
-    div.innerHTML=`${!unlocked?'<span class="skin-lock-icon">🔒</span>':''}<span class="skin-preview">${skin.emoji}</span><span class="skin-name">${skin.name}</span><span class="skin-req" style="color:${unlocked?skin.color:'#ff6600'}">${unlocked?(active?'Actif ✓':'Disponible'):`${skin.req} clics`}</span>`;
+    div.innerHTML=`${!unlocked?'<span class="skin-lock-icon">🔒</span>':''}<span class="skin-preview">${skin.emoji}</span><span class="skin-name">${skin.name}</span><span class="skin-req">${unlocked?(active?'✅ Actif':'Cliquer'):skin.req+' clics'}</span>`;
     if(unlocked)div.onclick=()=>selectSkin(skin.id);
     grid.appendChild(div);
   });
-  // Next skin hint
-  const nextSkin=SKINS.find(s=>myClicks<s.req);
-  const hint=document.getElementById('nextSkinHint');
-  if(nextSkin&&hint)hint.innerHTML=`Prochain skin : ${nextSkin.emoji} <strong>${nextSkin.name}</strong> dans <span>${(nextSkin.req-myClicks).toLocaleString('fr')} clics</span>`;
 }
 
 function selectSkin(id){
@@ -541,24 +443,30 @@ function applySkin(id,animate){
   SKINS.forEach(s=>document.body.classList.remove('s-'+s.id));
   document.body.classList.add('s-'+id);
   document.getElementById('theButton').innerHTML=SKIN_TEXTS[id]||'APPUIE<br>DESSUS';
-  if(animate){const btn=document.getElementById('theButton');btn.style.transform='scale(1.25) rotate(-5deg)';setTimeout(()=>btn.style.transform='',350);}
+  if(animate){const btn=document.getElementById('theButton');btn.style.transform='scale(1.2)';setTimeout(()=>btn.style.transform='',300);}
 }
 
 function checkNewSkins(){
   SKINS.forEach(skin=>{
     const el=document.getElementById('skin_'+skin.id);
-    if(!el||!el.classList.contains('locked'))return;
-    if(myClicks>=skin.req){showToast(`🎨 NOUVEAU SKIN DÉBLOQUÉ : ${skin.name} ${skin.emoji} !`,'#ffcc00');renderSkins();}
+    if(!el)return;
+    if(el.classList.contains('locked')&&myClicks>=skin.req){
+      showToast(`🎨 NOUVEAU SKIN : ${skin.name} ${skin.emoji} DÉBLOQUÉ !`,'#ffcc00');
+      renderSkins();
+    }
   });
 }
 
-// ── CLICK ──
+// ══════ CLICK ══════
 function handleClick(event){
-  myClicks++;localStorage.setItem('myClicks',myClicks);playSkinSound(currentSkin);
-  const btn=document.getElementById('theButton');btn.classList.add('pressed');setTimeout(()=>btn.classList.remove('pressed'),120);
-  updateMyCount();showReaction();updateCombo();updateThermo();spawnParticles(event);checkAchievements();checkNewSkins();
+  myClicks++;localStorage.setItem('myClicks',myClicks);
+  playSkinSound(currentSkin);
+  const btn=document.getElementById('theButton');
+  btn.classList.add('pressed');setTimeout(()=>btn.classList.remove('pressed'),150);
+  updateMyCount();showReaction();updateCombo();updateThermo();
+  spawnParticles(event);checkAchievements();checkNewSkins();
   if(myClicks===jackpotNext){triggerJackpot();jackpotNext+=100;}
-  if(myClicks%5===0){document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),350);}
+  if(myClicks%5===0){document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),400);}
   if(combo>=20&&!isPanicMode)triggerPanicMode();
   if(myClicks>30&&!isRunningAway&&Math.random()<0.08)makeButtonRunAway();
   if(myClicks>=5)showProvoc();
@@ -580,14 +488,16 @@ function showReaction(){
 
 function showProvoc(){
   const sec=document.getElementById('provocSection');sec.style.display='block';
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'toi';
   const milestones=[10,25,50,100,250,500,1000,2000,5000];
   const next=milestones.find(m=>m>myClicks)||myClicks*2;
   const tpl=PROVOCS[Math.floor(Math.random()*PROVOCS.length)];
-  document.getElementById('provocText').textContent=tpl.replace('{next}',next.toLocaleString('fr')).replace('{current}',myClicks.toLocaleString('fr'));
+  document.getElementById('provocText').textContent=tpl.replace('{pseudo}',pseudo).replace('{next}',next.toLocaleString('fr')).replace('{current}',myClicks.toLocaleString('fr'));
 }
 
 function updateDefiLink(){
-  const pseudo=document.getElementById('pseudoInput').value.trim(),box=document.getElementById('defiLink');
+  const pseudo=document.getElementById('pseudoInput').value.trim();
+  const box=document.getElementById('defiLink');
   if(!pseudo){box.textContent='Entre ton pseudo d\'abord 👆';return;}
   const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
   box.textContent=url;box.setAttribute('data-url',url);
@@ -607,16 +517,12 @@ function copyDefiLink(){
 function shareDefi(){
   const pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';
   const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;
-  const txt=encodeURIComponent(`😤 ${pseudo} te défie ! J'ai ${myClicks} clics... Tu fais mieux ? 🔴 ${url}`);
+  const txt=encodeURIComponent(`😤 ${pseudo} te défie ! J'ai ${myClicks} clics sur LE BOUTON QUI SERT À RIEN... Tu fais mieux ? 🔴 ${url}`);
   window.open('https://wa.me/?text='+txt,'_blank');
 }
 
-function updateThermo(){
-  const l=THERMO.find(l=>myClicks>=l.min&&myClicks<l.max)||THERMO[THERMO.length-1];
-  document.getElementById('thermoBar').style.width=l.pct+'%';
-  document.getElementById('thermoEmoji').textContent=l.emoji;
-  document.getElementById('thermoText').textContent=l.text;
-}
+const THERMO=[{min:0,max:10,pct:5,emoji:'🧊',text:'Cerveau froid. Encore.'},{min:10,max:30,pct:15,emoji:'😐',text:'Légèrement débile. On progresse.'},{min:30,max:60,pct:30,emoji:'🌡️',text:'Température de débilité : tiède.'},{min:60,max:100,pct:45,emoji:'🔥',text:'Ça chauffe sérieusement.'},{min:100,max:200,pct:60,emoji:'😵',text:'DANGER : cerveau surchauffé.'},{min:200,max:500,pct:75,emoji:'💀',text:'ALERTE ROUGE : t\'as perdu la raison.'},{min:500,max:1000,pct:90,emoji:'🌋',text:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!'},{min:1000,max:Infinity,pct:100,emoji:'☢️',text:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.'}];
+function updateThermo(){const l=THERMO.find(l=>myClicks>=l.min&&myClicks<l.max)||THERMO[THERMO.length-1];document.getElementById('thermoBar').style.width=l.pct+'%';document.getElementById('thermoEmoji').textContent=l.emoji;document.getElementById('thermoText').textContent=l.text;}
 
 function updateCombo(){combo++;clearTimeout(comboTimer);comboTimer=setTimeout(()=>{combo=0;updateComboUI();if(isPanicMode)stopPanicMode();},1500);updateComboUI();}
 function updateComboUI(){
@@ -635,42 +541,45 @@ function triggerJackpot(){
   const idx=Math.min(Math.floor(myClicks/100)-1,JACKPOT_MSGS.length-1);
   document.getElementById('jackpotMsg').textContent=JACKPOT_MSGS[idx]||`${myClicks} CLICS ! T'ES MALADE !`;
   const b=document.getElementById('jackpotBanner');b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
-  setTimeout(()=>b.classList.remove('show'),3500);spawnMassConfetti();
+  setTimeout(()=>b.classList.remove('show'),3000);spawnMassConfetti();
 }
 
-function triggerPanicMode(){isPanicMode=true;document.body.classList.add('panic');document.getElementById('panicOverlay').classList.add('show');document.getElementById('mainTitle').textContent='😱 PANIQUE TOTALE 😱';showToast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000');playTone(200,'sawtooth',0.5,0.4);}
-function stopPanicMode(){isPanicMode=false;document.body.classList.remove('panic');document.getElementById('panicOverlay').classList.remove('show');document.getElementById('mainTitle').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';}
+function triggerPanicMode(){isPanicMode=true;document.body.classList.add('panic');document.getElementById('panicOverlay').classList.add('show');document.getElementById('mainTitle').textContent='😱 PANIQUE TOTALE 😱';document.getElementById('subtitle').textContent='TON CERVEAU EST EN TRAIN DE FONDRE !!!';showToast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000');playTone(200,'sawtooth',0.5,0.4);}
+function stopPanicMode(){isPanicMode=false;document.body.classList.remove('panic');document.getElementById('panicOverlay').classList.remove('show');document.getElementById('mainTitle').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';document.getElementById('subtitle').textContent='Le jeu le plus inutile — et pourtant tu vas pas t\'arrêter';}
 
 function makeButtonRunAway(){
   isRunningAway=true;const btn=document.getElementById('theButton');
   showToast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !','#ff6600');
   let count=0;const times=3+Math.floor(Math.random()*4);
-  const iv=setInterval(()=>{if(count>=times){btn.style.transform='';isRunningAway=false;clearInterval(iv);return;}btn.style.transform=`translate(${Math.random()*130-65}px,${Math.random()*80-40}px) rotate(${Math.random()*25-12}deg)`;count++;},260);
-  setTimeout(()=>{if(isRunningAway){btn.style.transform='';isRunningAway=false;clearInterval(iv);}},times*260+500);
+  const iv=setInterval(()=>{
+    if(count>=times){btn.style.transform='';isRunningAway=false;clearInterval(iv);return;}
+    btn.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*70-35}px) rotate(${Math.random()*20-10}deg)`;count++;
+  },280);
+  setTimeout(()=>{if(isRunningAway){btn.style.transform='';isRunningAway=false;clearInterval(iv);}},times*280+500);
 }
 
 function spawnParticles(e){
   const emojis=SKIN_PARTICLES[currentSkin]||['💥','⭐','✨'];
-  const count=Math.min(3+Math.floor(combo/4),14);
+  const count=Math.min(3+Math.floor(combo/4),12);
   const x=(e&&e.clientX)?e.clientX:window.innerWidth/2,y=(e&&e.clientY)?e.clientY:window.innerHeight/2;
   for(let i=0;i<count;i++){
     const p=document.createElement('div');p.className='particle';
     p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
     p.style.left=x+'px';p.style.top=y+'px';
-    p.style.setProperty('--dx',(Math.random()*260-130)+'px');p.style.setProperty('--dy',(Math.random()*-260-60)+'px');p.style.setProperty('--dr',(Math.random()*720-360)+'deg');
-    p.style.animationDelay=(i*0.035)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),1400);
+    p.style.setProperty('--dx',(Math.random()*240-120)+'px');p.style.setProperty('--dy',(Math.random()*-240-50)+'px');p.style.setProperty('--dr',(Math.random()*720-360)+'deg');
+    p.style.animationDelay=(i*0.04)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),1600);
   }
 }
 
 function spawnMassConfetti(){
   const colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#ffffff'];
-  for(let i=0;i<100;i++){
+  for(let i=0;i<80;i++){
     const c=document.createElement('div');c.className='confetti-piece';
     c.style.background=colors[Math.floor(Math.random()*colors.length)];
     c.style.left=(Math.random()*100)+'vw';c.style.top='-20px';
     c.style.setProperty('--dx',(Math.random()*200-100)+'px');c.style.setProperty('--dy',(80+Math.random()*60)+'vh');c.style.setProperty('--dr',(Math.random()*720-360)+'deg');c.style.setProperty('--dur',(1.5+Math.random())+'s');
-    c.style.animationDelay=(Math.random()*0.5)+'s';c.style.borderRadius=Math.random()>0.5?'50%':'3px';
-    document.body.appendChild(c);setTimeout(()=>c.remove(),2600);
+    c.style.animationDelay=(Math.random()*0.5)+'s';c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    document.body.appendChild(c);setTimeout(()=>c.remove(),2500);
   }
 }
 
@@ -694,35 +603,37 @@ function checkAchievements(){
 function showToast(msg,color='#aa66ff'){
   const existing=document.querySelectorAll('.toast').length;
   const t=document.createElement('div');t.className='toast';t.textContent=msg;
-  t.style.background=color+'ee';t.style.bottom=(20+existing*52)+'px';
+  t.style.background=color;t.style.bottom=(20+existing*56)+'px';
   document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
 }
 
 async function loadMyScore(pseudo){
-  if(!pseudo)return;
+  if(!pseudo) return;
   try{
-    const res=await fetch(API+'/getMyScore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo})});
+    showToast('🔄 Chargement de ton score...','#333');
+    const res=await fetch(API_BASE+'/getMyScore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo})});
     const data=await res.json();
-    if(data.found&&data.total_clicks>myClicks){
-      myClicks=data.total_clicks;localStorage.setItem('myClicks',myClicks);
+    if(data.found && data.total_clicks > myClicks){
+      myClicks=data.total_clicks;
+      localStorage.setItem('myClicks',myClicks);
       updateMyCount();updateThermo();renderAchievements();checkNewSkins();renderSkins();
       showToast(`✅ Score récupéré : ${myClicks.toLocaleString('fr')} clics !`,'#00aa55');
-    }else if(data.found){
-      showToast(`✅ Connecté — ${myClicks.toLocaleString('fr')} clics`,'#00aa55');
-    }else{
-      showToast('👋 Nouveau joueur ! Tes clics seront sauvegardés.','#6644ff');
+    } else if(data.found){
+      showToast(`✅ Connecté ! ${myClicks.toLocaleString('fr')} clics`,'#00aa55');
+    } else {
+      showToast('👋 Nouveau joueur ! Tes clics seront sauvegardés.','#aa66ff');
     }
     loadLeaderboard();
   }catch(e){}
 }
 
 async function trackClick(pseudo,reaction){
-  try{await fetch(API+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo,reaction})});if(myClicks%5===0){loadLeaderboard();updateDefiLink();}}catch{}
+  try{await fetch(API_BASE+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo,reaction})});if(myClicks%5===0){loadLeaderboard();updateDefiLink();}}catch{}
 }
 
 async function loadLeaderboard(){
   try{
-    const res=await fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const res=await fetch(API_BASE+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
     const data=await res.json();
     const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
     const myPrevRank=lastLeaderboard.findIndex(r=>r.pseudo===pseudo);
@@ -730,7 +641,7 @@ async function loadLeaderboard(){
     if(myPrevRank>=0&&myNewRank>myPrevRank)showToast(`😱 ${(data.leaderboard||[])[myNewRank-1]?.pseudo||'Quelqu\'un'} t'a dépassé !`,'#ff2222');
     lastLeaderboard=data.leaderboard||[];
     renderLeaderboard(data.leaderboard||[],data.globalClicks||0);
-  }catch{document.getElementById('lbContent').innerHTML='<p style="text-align:center;color:#222;padding:16px">Classement indisponible</p>';}
+  }catch{document.getElementById('lbContent').innerHTML='<p style="color:#444;text-align:center">Classement indisponible</p>';}
 }
 
 function renderLeaderboard(rows,globalClicks){
@@ -741,16 +652,24 @@ function renderLeaderboard(rows,globalClicks){
   const myIdx=rows.findIndex(r=>r.pseudo===pseudo);
   const myRankEl=document.getElementById('myRank');if(myRankEl)myRankEl.textContent=myIdx>=0?`#${myIdx+1}`:'—';
   const lb=document.getElementById('lbContent');
-  if(!rows.length){lb.innerHTML='<p style="text-align:center;color:#222;padding:16px">Sois le premier ! 👆</p>';return;}
-  lb.innerHTML=rows.map((r,i)=>`<div class="lb-row${r.pseudo===pseudo?' me':''}"><span class="lb-rank">${medals[i]||(i+1)}</span><span class="lb-pseudo">${esc(r.pseudo||'Anonyme')}${r.pseudo===pseudo?'<span class="lb-you-tag">toi</span>':''}</span><span class="lb-clicks">${(r.total_clicks||0).toLocaleString('fr')} clics</span></div>`).join('');
+  if(!rows.length){lb.innerHTML='<p style="color:#444;text-align:center">Sois le premier ! 👆</p>';return;}
+  lb.innerHTML=rows.map((r,i)=>`<div class="lb-row ${r.pseudo===pseudo?'me':''}"><span class="lb-rank">${medals[i]||(i+1)}</span><span class="lb-pseudo">${esc(r.pseudo||'Anonyme')} ${r.pseudo===pseudo?'← toi':''}</span><span class="lb-clicks">${(r.total_clicks||0).toLocaleString('fr')} clics</span></div>`).join('');
 }
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function showCertificate(){const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';document.getElementById('certName').textContent=pseudo;document.getElementById('certClicks').textContent=myClicks.toLocaleString('fr');document.getElementById('certModal').classList.add('show');}
+
+function showCertificate(){
+  const pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  document.getElementById('certName').textContent=pseudo;
+  document.getElementById('certClicks').textContent=myClicks.toLocaleString('fr');
+  document.getElementById('certModal').classList.add('show');
+}
 function closeCert(){document.getElementById('certModal').classList.remove('show');}
 document.getElementById('certModal').addEventListener('click',function(e){if(e.target===this)closeCert();});
+
 function shareTwitter(){const txt=encodeURIComponent(`J'ai cliqué ${myClicks} fois sur un bouton inutile 🔴 Rejoins ma misère : ${PAGE_URL} #LeBoutonQuiSertARien`);window.open('https://twitter.com/intent/tweet?text='+txt,'_blank');}
 function shareWhatsapp(){const pseudo=document.getElementById('pseudoInput').value.trim()||'Moi';const url=`${PAGE_URL}?challenger=${encodeURIComponent(pseudo)}&score=${myClicks}`;const txt=encodeURIComponent(`😂 J'ai ${myClicks} clics sur LE BOUTON QUI SERT À RIEN ! Tu fais mieux ? 🔴 ${url}`);window.open('https://wa.me/?text='+txt,'_blank');}
+
 document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='Enter'){e.preventDefault();handleClick(null);}});
 
 init();
