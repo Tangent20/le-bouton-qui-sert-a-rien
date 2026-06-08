@@ -379,7 +379,7 @@
       background:#000;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;padding:24px;
-      transition:opacity .5s ease, transform .5s ease;
+      transition:opacity 1.2s ease, transform 1.2s ease;
     }
     #landing.hide{opacity:0;transform:scale(1.04);pointer-events:none;}
     .landing-emoji{font-size:5rem;animation:landingBounce 1s ease-in-out infinite alternate;display:block;margin-bottom:8px;}
@@ -427,7 +427,7 @@
       <div class="lstat"><span class="lstat-val" id="landingPlayers">…</span><span class="lstat-label">Joueurs actifs</span></div>
     </div>
     <button class="landing-cta" onclick="startGame()">APPUIE ICI 👆</button>
-    <p class="landing-hint">Appuie n'importe où pour commencer</p>
+    <p class="landing-hint">👆 Appuie sur le bouton pour commencer</p>
   </div>
   <!-- ══════════════════════════════ -->
 
@@ -1609,9 +1609,11 @@ document.addEventListener('click',function(e){
 var landingDismissed = localStorage.getItem('landingDismissed') === '1';
 
 function startGame(){
+  // Anti-skip : ignorer si landing affiché depuis moins de 1.5s
+  if(Date.now() - _landingShownAt < 1500) return;
   var l = document.getElementById('landing');
   l.classList.add('hide');
-  setTimeout(function(){ l.style.display='none'; }, 520);
+  setTimeout(function(){ l.style.display='none'; }, 1300);
   localStorage.setItem('landingDismissed','1');
   // Jouer un petit son de départ
   try{
@@ -1632,20 +1634,10 @@ function startGame(){
   }catch(e){}
 }
 
-// Clic n'importe où sur le landing pour démarrer
-document.getElementById('landing').addEventListener('pointerdown', function(e){
-  if(e.target.id !== 'landing' && !e.target.closest) return;
-  startGame();
-});
+// Seul le bouton CTA démarre le jeu — pas de clic accidentel
 
-// Si déjà joué récemment → skip landing (après 1h)
-var lastVisit = parseInt(localStorage.getItem('lastVisit') || '0');
-var now = Date.now();
-if(now - lastVisit < 3600000) {
-  // Retour joueur : skip landing direct
-  document.getElementById('landing').style.display = 'none';
-}
-localStorage.setItem('lastVisit', now);
+// Landing toujours visible à chaque visite
+localStorage.setItem('lastVisit', Date.now());
 
 // Stats live sur la landing
 function updateLandingStats(){
@@ -1659,6 +1651,7 @@ function updateLandingStats(){
       if(lg && d.globalClicks) lg.textContent = parseInt(d.globalClicks).toLocaleString('fr');
     }).catch(function(){if(lg) lg.textContent='∞';});
 }
+var _landingShownAt = Date.now();
 updateLandingStats();
 
 init();
