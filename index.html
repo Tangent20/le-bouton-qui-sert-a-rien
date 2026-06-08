@@ -716,6 +716,9 @@ var SKINS = [
   {id:'disco',nm:'Disco',e:'🪩',req:1000,c:'#ff00ff'},
   {id:'rainbow',nm:'Rainbow',e:'🌈',req:2000,c:'#ffffff'},
   {id:'diamond',nm:'Diamant',e:'💎',req:5000,c:'#88ccff'},
+  {id:'fart',nm:'Prout 💨',e:'💨',req:150,c:'#88ff44'},
+  {id:'dog',nm:'Chien',e:'🐶',req:350,c:'#ffaa44'},
+  {id:'cat',nm:'Chat',e:'🐱',req:450,c:'#ffcc88'},
 ];
 var SKIN_TXT = {classic:'APPUIE<br>DESSUS',gold:'CLIQUE<br>OR!',ice:'❄️ ICE<br>CLICK',space:'🚀 SPACE<br>GO!',nuclear:'☢️ BOOM<br>!!!',fire:'🔥 FIRE<br>!!',lava:'🌋 HOT<br>!!!',toxic:'☣️ BIO<br>CLICK',mystery:'❓???<br>!!!',disco:'🪩 DISCO<br>BABY!',rainbow:'🌈 CLICK<br>FOU!',diamond:'💎 DIAM<br>CLICK'};
 var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
@@ -1249,6 +1252,7 @@ function handleClick(ev){
   localStorage.setItem(dk,dayClicks);
   markPlayed();
   playSound();
+  playSpecialSkinSound(curSkin);
   var b=document.getElementById('btn');
   b.classList.add('pressed');
   setTimeout(function(){b.classList.remove('pressed');},115);
@@ -1587,6 +1591,85 @@ function init(){
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(3+Math.random()*2)*60000);
+}
+
+
+/* ══════ SONS SPÉCIAUX SKINS ══════ */
+function playFartSound(){
+  try{
+    var c=getACtx();
+    // Bruit de pet = bruit blanc + oscillateur basse fréquence
+    var buf=c.createBuffer(1,c.sampleRate*0.5,c.sampleRate);
+    var data=buf.getChannelData(0);
+    for(var i=0;i<data.length;i++){
+      data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,0.5);
+    }
+    var src=c.createBufferSource();
+    src.buffer=buf;
+    var g=c.createGain();
+    var f=c.createBiquadFilter();
+    f.type='bandpass';
+    f.frequency.setValueAtTime(300,c.currentTime);
+    f.frequency.exponentialRampToValueAtTime(80,c.currentTime+0.5);
+    f.Q.value=0.8;
+    src.connect(f);f.connect(g);g.connect(c.destination);
+    g.gain.setValueAtTime(0.9,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.5);
+    src.start();src.stop(c.currentTime+0.55);
+  }catch(e){}
+}
+
+function playDogSound(){
+  try{
+    var c=getACtx();
+    // Aboiement = 2 oscillateurs courts
+    function bark(freq,start,dur){
+      var o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type='sawtooth';
+      o.frequency.setValueAtTime(freq,c.currentTime+start);
+      o.frequency.exponentialRampToValueAtTime(freq*0.6,c.currentTime+start+dur);
+      g.gain.setValueAtTime(0,c.currentTime+start);
+      g.gain.linearRampToValueAtTime(0.5,c.currentTime+start+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+start+dur);
+      o.start(c.currentTime+start);
+      o.stop(c.currentTime+start+dur+0.05);
+    }
+    bark(520,0,0.12);
+    bark(480,0.18,0.1);
+    bark(500,0.32,0.13);
+  }catch(e){}
+}
+
+function playCatSound(){
+  try{
+    var c=getACtx();
+    // Miaulement = oscillateur qui monte puis descend
+    var o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type='sine';
+    o.frequency.setValueAtTime(400,c.currentTime);
+    o.frequency.exponentialRampToValueAtTime(900,c.currentTime+0.15);
+    o.frequency.exponentialRampToValueAtTime(600,c.currentTime+0.45);
+    o.frequency.exponentialRampToValueAtTime(400,c.currentTime+0.7);
+    g.gain.setValueAtTime(0,c.currentTime);
+    g.gain.linearRampToValueAtTime(0.45,c.currentTime+0.05);
+    g.gain.setValueAtTime(0.45,c.currentTime+0.4);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.75);
+    // Vibrato pour le côté "miaou"
+    var lfo=c.createOscillator(),lfoG=c.createGain();
+    lfo.type='sine';lfo.frequency.value=5;
+    lfoG.gain.value=30;
+    lfo.connect(lfoG);lfoG.connect(o.frequency);
+    lfo.start();lfo.stop(c.currentTime+0.75);
+    o.start();o.stop(c.currentTime+0.8);
+  }catch(e){}
+}
+
+function playSpecialSkinSound(skinId){
+  if(skinId==='fart') playFartSound();
+  else if(skinId==='dog') playDogSound();
+  else if(skinId==='cat') playCatSound();
 }
 
 /* ══════ MODAUX LÉGAUX ══════ */
