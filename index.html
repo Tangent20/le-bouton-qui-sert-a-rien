@@ -766,20 +766,43 @@ var SKIN_TXT = {
 var SKIN_PT = {classic:['💥','⭐','✨','🔴'],gold:['⭐','✨','🌟','💛'],ice:['❄️','💙','🌨️'],space:['🌟','🚀','⭐'],nuclear:['☢️','💥','💚'],fire:['🔥','💥','✨'],lava:['🌋','🔥','💥'],toxic:['☣️','💚','🟢'],mystery:['❓','🎲','✨','💫'],disco:['🎉','✨','🎊'],rainbow:['🌈','✨','🎉'],diamond:['💎','✨','⭐']};
 
 var TITLES = [
-  {req:0,t:'Néophyte du Néant'},{req:10,t:'Apprenti Inutile'},
-  {req:50,t:'Padawan du Vide'},{req:100,t:'Maître du Rien'},
-  {req:250,t:'Seigneur des Clics'},{req:500,t:'Baron de l\'Inutilité'},
-  {req:1000,t:'Roi des Sans-Vie'},{req:2000,t:'Dieu du Bouton'},
-  {req:5000,t:'LÉGENDE ÉTERNELLE'},
+  {req:0,      t:'Neophyte du Neant'},
+  {req:10,     t:'Apprenti Inutile'},
+  {req:50,     t:'Padawan du Vide'},
+  {req:150,    t:'Stagiaire Sans-But'},
+  {req:300,    t:'Maitre du Rien'},
+  {req:600,    t:'Seigneur des Clics'},
+  {req:1000,   t:'Baron Inutile'},
+  {req:1800,   t:'Comte Debile'},
+  {req:3000,   t:'Duc du Neant Total'},
+  {req:5000,   t:'Roi des Sans-Vie'},
+  {req:8000,   t:'Empereur du Vide'},
+  {req:12000,  t:'Dieu du Bouton'},
+  {req:20000,  t:'TITAN COSMIQUE'},
+  {req:35000,  t:'ANOMALIE GALACTIQUE'},
+  {req:60000,  t:'TRANSCENDE'},
+  {req:100000, t:'L\'ELU — FIN DU JEU ?'},
 ];
 function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITLES[i].req)t=TITLES[i];}return t;}
 function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
 
 var MISSIONS_DEF=[
-  {id:'d50',  nm:'50 clics aujourd\'hui',       tgt:50,   type:'day'},
-  {id:'d200', nm:'200 clics dans la journée',     tgt:200,  type:'day'},
-  {id:'combo',nm:'Atteins un combo x25',          tgt:25,   type:'combo'},
-  {id:'d500', nm:'500 clics — pas de pause !',    tgt:500,  type:'day'},
+  {id:'d25',   nm:'25 clics aujourd\'hui',              tgt:25,    type:'day',   xp:10},
+  {id:'d100',  nm:'100 clics dans la journee',           tgt:100,   type:'day',   xp:25},
+  {id:'d300',  nm:'300 clics - meme pas chaud',          tgt:300,   type:'day',   xp:60},
+  {id:'d750',  nm:'750 clics - t\'as pas de vie',       tgt:750,   type:'day',   xp:150},
+  {id:'d1500', nm:'1500 clics - diagnostic etabli',      tgt:1500,  type:'day',   xp:300},
+  {id:'d3000', nm:'3000 clics en 1 jour - legendaire',   tgt:3000,  type:'day',   xp:700},
+  {id:'c10',   nm:'Combo x10 en rafale',                 tgt:10,    type:'combo', xp:20},
+  {id:'c25',   nm:'Combo x25 - les doigts chauffent',    tgt:25,    type:'combo', xp:50},
+  {id:'c50',   nm:'Combo x50 - incontrôlable',           tgt:50,    type:'combo', xp:120},
+  {id:'c100',  nm:'Combo x100 - cerveau deconnecte',     tgt:100,   type:'combo', xp:300},
+  {id:'t500',  nm:'500 clics au total',                  tgt:500,   type:'total', xp:50},
+  {id:'t2000', nm:'2000 clics - t\'es malade',          tgt:2000,  type:'total', xp:150},
+  {id:'t5000', nm:'5000 clics - consulte un medecin',    tgt:5000,  type:'total', xp:400},
+  {id:'t10000',nm:'10 000 clics - MONSTRE',              tgt:10000, type:'total', xp:1000},
+  {id:'t25000',nm:'25 000 clics - plus rien a faire',    tgt:25000, type:'total', xp:2500},
+  {id:'t50000',nm:'50 000 clics - DIEU DU RIEN',         tgt:50000, type:'total', xp:5000},
 ];
 
 var REACTIONS=[
@@ -810,16 +833,26 @@ function personalReaction(p){
 }
 
 var PROVOCS=[
-  "T'as même pas {next} clics... t'appelles ça jouer ?",
-  "Tu vas vraiment t'arrêter là ? À {cur} clics ?",
-  "Même ta grand-mère ferait mieux. Allez, {next} !",
+  "T'as meme pas {next} clics... c'est ca jouer ?",
+  "Tu vas vraiment t'arreter la ? A {cur} clics ?",
+  "Meme ta grand-mere ferait mieux. Allez, {next} !",
   "Le bouton te juge. {next} clics minimum.",
-  "Y'a des gens à {next} clics pendant que toi tu roupilles.",
-  "Sérieusement ? {cur} clics ? C'est tout ?",
-  "Le record est loin. T'as peur ?",
-  "T'es à {cur}... le prochain palier c'est {next}.",
+  "Y'a des gens a {next} clics pendant que toi tu dors.",
+  "Serieusement ? {cur} clics ? C'est tout ?",
+  "Le record est loin. T'as peur ou t'es juste lent ?",
+  "T'es a {cur}... le prochain palier c'est {next}. ALLEZ.",
   "Dans 5 minutes tu peux doubler ton score. Essaie.",
-  "Ta série de {streak} jours mérite mieux que ça.",
+  "Ta serie de {streak} jours merite mieux que ca.",
+  "Tu sais que {next} clics c'est la prochaine recompense... non ?",
+  "PSST. T'es a {cur}. Quelqu'un vient de passer devant toi.",
+  "{next} clics. C'est vraiment si dur que ca ?",
+  "J'ai vu des tortues plus rapides. {next} clics. Vas-y.",
+  "Ton cerveau dit stop. Ignore-le. {next} clics.",
+  "A {cur} clics t'es encore un amateur. {next} pour changer ca.",
+  "Le bouton attend. Il a toute la nuit. Toi aussi non ?",
+  "FOMO active : quelqu'un vient de debloquer un skin. T'es ou ?",
+  "Encore {next} clics et t'es dans une autre categorie.",
+  "Chaque clic te rapproche de... rien. Mais t'arrives pas a t'arreter.",
 ];
 
 var MYSTERY_EVTS=[
@@ -854,17 +887,23 @@ var MICRO_MILESTONES=(function(){
 })();
 
 var ACHIEVEMENTS=[
-  {id:'a1', e:'👆', nm:'Premier Clic',      req:1},
-  {id:'a2', e:'🔟', nm:'Dizaine',            req:10},
-  {id:'a3', e:'🔥', nm:'En Feu',             req:100},
-  {id:'a4', e:'💯', nm:'Centenaire',          req:500},
-  {id:'a5', e:'🤡', nm:'Vrai Clown',          req:1000},
-  {id:'a6', e:'💀', nm:'Aucune Vie',          req:2500},
-  {id:'a7', e:'👑', nm:'Roi du Vide',         req:5000},
-  {id:'a8', e:'🤯', nm:'Cerveau Cramé',       req:10000},
-  {id:'a9', e:'👽', nm:'Plus Humain',         req:20000},
-  {id:'a10',e:'🐐', nm:'LÉGENDE',             req:50000},
-  {id:'a11',e:'👁️', nm:'L\'ÉLU',            req:100000},
+  {id:'a1',  e:'👆', nm:'Premier Clic',             req:1},
+  {id:'a2',  e:'🔟', nm:'Dizaine de honte',           req:10},
+  {id:'a3',  e:'💪', nm:'Centenaire',                 req:100},
+  {id:'a4',  e:'🔥', nm:'En Feu',                     req:250},
+  {id:'a5',  e:'💯', nm:'Demi-millier',                req:500},
+  {id:'a6',  e:'🤡', nm:'Vrai Clown',                  req:1000},
+  {id:'a7',  e:'😤', nm:'Acharne du Bouton',           req:2000},
+  {id:'a8',  e:'💀', nm:'Aucune Vie',                  req:3500},
+  {id:'a9',  e:'👑', nm:'Roi du Vide',                 req:5000},
+  {id:'a10', e:'🤯', nm:'Cerveau Crame',               req:7500},
+  {id:'a11', e:'🧠', nm:'Anomalie Neurologique',       req:10000},
+  {id:'a12', e:'👽', nm:'Plus Vraiment Humain',        req:15000},
+  {id:'a13', e:'⚡', nm:'Force de la Nature',          req:20000},
+  {id:'a14', e:'🏔', nm:'Sommet de l\'Inutile',       req:30000},
+  {id:'a15', e:'🌋', nm:'Eruption Totale',             req:50000},
+  {id:'a16', e:'🐐', nm:'GOAT DU RIEN',                req:75000},
+  {id:'a17', e:'👁', nm:'L\'ELU',                    req:100000},
 ];
 
 /* ══════ STATE ══════ */
@@ -877,7 +916,7 @@ var curSkin=(function(){
 var combo=0,comboTimer=null,maxCombo=0;
 var lastReaction='';
 var panic=false,running=false,mysteryActive=false;
-var jackpotNext=Math.ceil((clicks+1)/500)*500;
+var jackpotNext=Math.ceil((clicks+1)/750)*750;
 var dayClicks=0;
 var streak=parseInt(localStorage.getItem('streak')||'0');
 var lastPlayDate=localStorage.getItem('lastPlayDate')||'';
@@ -1140,6 +1179,7 @@ function renderMissions(){
     var m=MISSIONS_DEF[i];
     var prog=0,done=false;
     if(m.type==='combo'){prog=Math.min(maxCombo,m.tgt);done=maxCombo>=m.tgt;}
+    else if(m.type==='total'){prog=Math.min(clicks,m.tgt);done=clicks>=m.tgt;}
     else{prog=Math.min(dayClicks,m.tgt);done=dayClicks>=m.tgt;}
     var pct=Math.round((prog/m.tgt)*100);
     html+='<div class="mrow'+(done?' done':'')+'"><span class="micon">'+(done?'✅':'🎯')+'</span>';
@@ -1311,7 +1351,7 @@ function handleClick(ev){
   scheduleRender();
   checkAch();
   checkNewSkins();
-  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=500;}
+  if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=750;}
   if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
   if(combo>=40&&!panic)triggerPanic();
   if(clicks>30&&!running&&Math.random()<.03)makeButtonRun();
@@ -1347,14 +1387,16 @@ function showReaction(){
 
 /* ══════ THERMO ══════ */
 var THERMO=[
-  {min:0,max:50,t:'Niveau débilité : glacial',c:'#555'},
-  {min:50,max:200,t:'Légèrement débile. On progresse.',c:'#555'},
-  {min:200,max:500,t:'Température de débilité : tiède.',c:'#ff6600'},
-  {min:500,max:1000,t:'Ça chauffe sérieusement.',c:'#ff6600'},
-  {min:1000,max:3000,t:'DANGER : cerveau surchauffé.',c:'#ff4444'},
-  {min:3000,max:8000,t:'ALERTE ROUGE : t\'as perdu la raison.',c:'#ff2222'},
-  {min:8000,max:20000,t:'ÉRUPTION CÉRÉBRALE IMMINENTE !!!',c:'#ff0000'},
-  {min:20000,max:Infinity,t:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.',c:'#ff0000'},
+  {min:0,     max:30,    t:'Temperature debi: ZERO',           c:'#555'},
+  {min:30,    max:100,   t:'Legerement debile. Rien de grave.', c:'#666'},
+  {min:100,   max:300,   t:'Tiede. T\'essaies au moins.',      c:'#888'},
+  {min:300,   max:700,   t:'Ca commence a chauffer serieux.',   c:'#ff9900'},
+  {min:700,   max:1500,  t:'DANGER : cerveau en surchauffe.',   c:'#ff6600'},
+  {min:1500,  max:3000,  t:'ALERTE : consulte un specialiste.', c:'#ff4400'},
+  {min:3000,  max:6000,  t:'ALERTE ROUGE : raison perdue.',     c:'#ff2222'},
+  {min:6000,  max:12000, t:'ERUPTION CEREBRALE IMMINENTE !!!',  c:'#ff0000'},
+  {min:12000, max:30000, t:'ZONE DE DANGER — EVACUEZ.',         c:'#ff0000'},
+  {min:30000, max:Infinity,t:'CERVEAU EN FEU. APPEL URGENCE.',  c:'#ff0000'},
 ];
 function renderThermo(){
   var l=THERMO[0];
