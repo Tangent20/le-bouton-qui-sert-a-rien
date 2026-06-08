@@ -1168,7 +1168,7 @@ function scheduleRender(){
     _renderPending=false;
     renderXP();
     renderMicro();
-    renderMissions();
+    // renderMissions() ici = trop lourd — géré par setInterval(60s)
   });
 }
 
@@ -1768,10 +1768,10 @@ function handleClick(ev){
   _lastClickTime=now;
   var bonus=eventMultiplier||1;
   clicks+=bonus;
-  localStorage.setItem('clicks',clicks);
+  if(clicks%10===0)localStorage.setItem('clicks',clicks); // batch localStorage (perf)
   var dk='dc_'+new Date().toDateString();
   dayClicks+=bonus;
-  localStorage.setItem(dk,dayClicks);
+  if(clicks%10===0)localStorage.setItem(dk,dayClicks);
   markPlayed();
   playSound();
   playSpecialSkinSound(curSkin);
@@ -1787,7 +1787,7 @@ function handleClick(ev){
   checkAch();if(_defiTarget)updateDefi();
   checkNewSkins();
   if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=500;}
-  if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
+  if(clicks%50===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
   if(combo>=40&&!panic)triggerPanic();
   if(clicks>30&&!running&&Math.random()<.03)makeButtonRun();
   if(clicks>=5&&!provocTimer)startProvoc();
@@ -1990,10 +1990,20 @@ function loadMyScore(pseudo){
       setTimeout(loadLeaderboard, 500);
     }).catch(function(){});
 }
+/* ══ BATCH SYNC ══ — 1 requête toutes les 3s max, pas à chaque clic */
+var _batchClicks=0, _batchReaction='', _batchTimer=null;
 function trackClick(pseudo,reaction){
   if(!IS_ONLINE)return;
-  fetch(API+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pseudo:pseudo,reaction:reaction})})
-    .then(function(){if(clicks%5===0)loadLeaderboard();}).catch(function(){});
+  _batchClicks++;
+  _batchReaction=reaction||_batchReaction;
+  if(_batchTimer)return; // déjà en attente
+  _batchTimer=setTimeout(function(){
+    var n=_batchClicks, r=_batchReaction;
+    _batchClicks=0; _batchReaction=''; _batchTimer=null;
+    fetch(API+'/trackClick',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({pseudo:pseudo,reaction:r,count:n})})
+      .catch(function(){});
+  },3000);
 }
 function loadLeaderboard(){
   if(!IS_ONLINE){document.getElementById('lbContent').innerHTML='<p style="text-align:center;color:#999;padding:12px">📴 Classement indisponible hors ligne</p>';return;}
@@ -2295,6 +2305,14 @@ function loadLeaderboardVs(){
     }).catch(function(){el.innerHTML='<p style="color:#f55;text-align:center">Erreur chargement</p>';});
 }
 
+
+/* ══ FLUSH localStorage avant fermeture ══ */
+window.addEventListener('beforeunload', function(){
+  localStorage.setItem('clicks', clicks);
+  var dk='dc_'+new Date().toDateString();
+  localStorage.setItem(dk, dayClicks);
+  if(_batchTimer){ clearTimeout(_batchTimer); _batchTimer=null; }
+});
 
 init();
 </script>
