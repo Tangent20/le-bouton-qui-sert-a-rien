@@ -1246,9 +1246,9 @@ function endDuel(forced){
   }
   var win=_vsMyDuelScore>_vsThemDuelScore;
   var draw=_vsMyDuelScore===_vsThemDuelScore;
-  var tauntsWin=['T'as tout déchiré 🔥','Même ton adversaire applaudit (de loin).','GG ! Il reviendra se venger.','Facile. Trop facile. 😏'];
-  var tauntsLose=['Ouch... Même le bouton est déçu.','Il t'a crush comme une crêpe.','T'avais qu'à cliquer plus vite, non ?','Next fois tu dors pas avant le duel.'];
-  var tauntsDraw=['Égalité... Vous êtes aussi inutiles l'un que l'autre.','Match nul. Le bouton rigole de vous deux.','Personne n'a gagné. Personne n'a perdu. Personne ne gagne au final.'];
+  var tauntsWin=["T'as tout déchiré 🔥","Même ton adversaire applaudit (de loin).","GG ! Il reviendra se venger.","Facile. Trop facile. 😏"];
+  var tauntsLose=["Ouch... Même le bouton est déçu.","Il t'a crush comme une crêpe.","T'avais qu'à cliquer plus vite, non ?","Next fois tu dors pas avant le duel."];
+  var tauntsDraw=["Égalité... Vous êtes aussi inutiles l'un que l'autre.","Match nul. Le bouton rigole de vous deux.","Personne n'a gagné. Personne n'a perdu. Personne ne gagne au final."];
   var taunts=draw?tauntsDraw:win?tauntsWin:tauntsLose;
   var taunt=taunts[Math.floor(Math.random()*taunts.length)];
   document.getElementById('duelModal').classList.remove('on');
