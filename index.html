@@ -738,7 +738,8 @@
       <p>Ce site est un jeu en ligne à but purement ludique et non commercial. L'éditeur ne saurait être tenu responsable des dommages directs ou indirects liés à l'utilisation du site.</p>
 
       <h3>Données personnelles</h3>
-      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez l'éditeur via le formulaire de contact (email en cours de création).</p>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez :<br>
+      <a href="mailto:terrible3311@outlook.fr" style="color:#ff6600;">terrible3311@outlook.fr</a></p>
     </div>
   </div>
 
@@ -997,8 +998,8 @@ var prevLb=[];
 var provocTimer=null,audioCtx=null;
 var eventMultiplier=1,comboFrozen=false,activeEvent=null,eventInterval=null;
 var _lastClickTime=0;
-var _pendingSync=[];  // clics en attente de sync hors ligne
-var _renderPending=false;  // throttle renders
+var _rafPending=false;
+var _pendingSync=[];  // clics en attente de sync hors ligne  // throttle renders
 var _toastFlags=(function(){
   // Persister les flags dans localStorage pour survivre aux rechargements
   try{ return JSON.parse(localStorage.getItem('_tf')||'{}'); }
@@ -1025,7 +1026,8 @@ resizeCanvas();
 window.addEventListener('resize',function(){resizeCanvas();particles=[];rafId=null;});
 
 function drawLoop(){
-  if(rafId) return; // déjà en cours
+  if(document.hidden)return;
+  if(rafId)return;
   function frame(){
     // Reset propre : on travaille en physical pixels directement
     var dpr=window.devicePixelRatio||1;
@@ -1084,6 +1086,7 @@ function burstParticles(x,y,count){
 }
 
 function spawnParticles(ev,count){
+  if(particles.length>16)return;
   // Utiliser les coords figées au moment du clic (capturées dans _lastPointerX/Y)
   // Ces coords ne changent PAS si le bouton se déplace ensuite
   var x=_lastPointerX, y=_lastPointerY;
@@ -1091,6 +1094,7 @@ function spawnParticles(ev,count){
 }
 
 function spawnConfetti(){
+  if(particles.length>20)return;
   var colors=['#ff2222','#ffcc00','#00ff88','#00ccff','#ff66ff','#ff6600','#fff'];
   for(var i=0;i<80;i++){
     (function(ii){
@@ -1114,17 +1118,16 @@ function spawnConfetti(){
 
 /* ══════ THROTTLE RENDER ══════ */
 function scheduleRender(){
-  if(_renderPending)return;
-  _renderPending=true;
+  if(_rafPending)return;
+  _rafPending=true;
   requestAnimationFrame(function(){
-    _renderPending=false;
+    _rafPending=false;
+    drawLoop();
     renderXP();
     renderMicro();
     renderMissions();
   });
 }
-
-/* ══════ OFFLINE ══════ */
 function updateOnlineStatus(){
   IS_ONLINE=navigator.onLine;
   var bar=document.getElementById('offlineBar');
@@ -1182,7 +1185,7 @@ function checkStreak(){
   if(lastPlayDate===today){}
   else if(lastPlayDate===yesterday){streak++;localStorage.setItem('streak',streak);}
   else{streak=lastPlayDate?1:1;localStorage.setItem('streak',streak);}
-  document.getElementById('streakCount').textContent=streak;
+  var sc=document.getElementById('streakCount');if(sc)sc.textContent=streak;
   var pill=document.getElementById('streakPill');
   pill.textContent='🔥 Série : '+streak+' jour'+(streak>1?'s':'');
   pill.className='streak-pill'+(streak>0?'':' dead');
@@ -1194,7 +1197,7 @@ function markPlayed(){
 }
 
 /* ══════ FOMO ══════ */
-function updateFomo(){document.getElementById('fomoCount').textContent=Math.floor(Math.random()*55+18);}
+function updateFomo(){var _fc=document.getElementById('fomoCount');if(_fc)_fc.textContent=Math.floor(Math.random()*55+18);}
 
 /* ══════ XP ══════ */
 function renderXP(){
@@ -1367,7 +1370,7 @@ function checkNewSkins(){
 
 /* ══════ ACHIEVEMENTS ══════ */
 function renderAch(){
-  var g=document.getElementById('achGrid');g.innerHTML='';
+  var g=document.getElementById('achGrid');if(!g)return;g.innerHTML='';
   for(var i=0;i<ACHIEVEMENTS.length;i++){
     var a=ACHIEVEMENTS[i],ok=clicks>=a.req;
     var d=document.createElement('div');d.className='ach-card'+(ok?' unlocked':'');d.id='ac_'+a.id;
@@ -1405,7 +1408,7 @@ function renderProvoc(){
 function handleClick(ev){
     try{if(navigator.vibrate)navigator.vibrate(12);}catch(e){}
   var now=Date.now();
-  if(now-_lastClickTime<150)return;
+  if(now-_lastClickTime<80)return;
   _lastClickTime=now;
   var bonus=eventMultiplier||1;
   clicks+=bonus;
@@ -1428,7 +1431,7 @@ function handleClick(ev){
   checkAch();
   checkNewSkins();
   if(clicks>=jackpotNext){triggerJackpot();jackpotNext+=500;}
-  if(clicks%5===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},360);}
+  if(clicks%10===0){document.body.classList.add('shake');setTimeout(function(){document.body.classList.remove('shake');},300);}
   if(combo>=40&&!panic)triggerPanic();
   if(clicks>30&&!running&&Math.random()<.03)makeButtonRun();
   if(clicks>=5&&!provocTimer)startProvoc();
@@ -1447,7 +1450,7 @@ function renderMyCount(){
   var el=document.getElementById('myCount');
   if(!el)return;
   el.textContent=clicks.toLocaleString('fr');
-  el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+  el.classList.remove('pop');requestAnimationFrame(function(){el.classList.add('pop');});
   // Titre dynamique — addiction mentale
   var n = clicks;
   var titles_dyn = [
@@ -1529,7 +1532,8 @@ function triggerPanic(){
   toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000',true);playTone(200,'sawtooth',.5,.4);
 }
 function stopPanic(){
-  panic=false;document.body.classList.remove('panic');document.getElementById('panicFrame').classList.remove('on');
+  panic=false;document.body.classList.remove('panic');
+  var pf=document.getElementById('panicFrame');if(pf)pf.classList.remove('on');
   document.getElementById('title').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
 }
 function makeButtonRun(){
@@ -1670,9 +1674,11 @@ function loadLeaderboard(){
     }).catch(function(){});
 }
 function renderLB(rows,globalClicks){
+  var _h=JSON.stringify(rows);if(_h===window._lastLBHash)return;window._lastLBHash=_h;
   var gc=document.getElementById('globalCount');
   if(gc){gc.textContent=globalClicks.toLocaleString('fr');gc.classList.remove('pop');void gc.offsetWidth;gc.classList.add('pop');}
-  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  var _pi=document.getElementById('pseudoInput');
+  var pseudo=(_pi?_pi.value.trim():'')||'Anonyme';
   var medals=['🥇','🥈','🥉'];
   var myIdx=-1;for(var i=0;i<rows.length;i++){if(rows[i].pseudo===pseudo){myIdx=i;break;}}
   document.getElementById('myRank').textContent=myIdx>=0?'#'+(myIdx+1):'—';
