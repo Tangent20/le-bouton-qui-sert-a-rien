@@ -470,27 +470,6 @@ footer{
 @media(min-width:480px){
   #wrap{border-left:1px solid #111;border-right:1px solid #111;}
 }
-
-/* ══ LÉGAL — NOTES & TABLE COOKIES ═══════════════════════════ */
-.legal-note{font-size:.63rem;color:#444;padding:5px 8px;background:#0a0a0a;border-left:2px solid #222;border-radius:0 4px 4px 0;margin-bottom:10px;display:block;}
-.cookie-table{width:100%;border-collapse:collapse;font-size:.66rem;margin-top:6px;}
-.cookie-table th{text-align:left;padding:4px 7px;color:#555;border-bottom:1px solid #1e1e1e;font-weight:bold;}
-.cookie-table td{padding:4px 7px;color:#aaa;border-bottom:1px solid #111;vertical-align:top;}
-.cookie-table td code{font-family:monospace;color:#aa77ff;font-size:.63rem;}
-.cookie-table tr:last-child td{border-bottom:none;}
-
-/* ══ FOOTER REFAIT ════════════════════════════════════════════ */
-footer{background:#060606;border-top:1px solid #141414;padding:16px 14px 90px;}
-footer .footer-links{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
-footer .footer-links a{color:#2e2e2e;font-size:.66rem;text-decoration:none;padding:3px 7px;border:1px solid #1a1a1a;border-radius:20px;transition:color .15s,border-color .15s;}
-footer .footer-links a:hover{color:#666;border-color:#333;}
-footer .footer-info{font-size:.62rem;color:#252525;margin-bottom:6px;}
-footer .footer-info a{color:#2e2e2e;text-decoration:none;}
-footer .footer-info a:hover{color:#555;}
-footer .footer-badges{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
-footer .footer-badge{background:#0d0d0d;border:1px solid #181818;color:#282828;font-size:.56rem;padding:2px 7px;border-radius:20px;}
-footer .footer-copy{font-size:.58rem;color:#1a1a1a;}
-footer .footer-copy a{color:#222;text-decoration:none;}
 </style>
 </head>
 
@@ -511,22 +490,17 @@ footer .footer-copy a{color:#222;text-decoration:none;}
 <div class="legal-modal" id="modalMentions">
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalMentions')">✕</button>
-    <h2>📋 Mentions légales</h2>
-    <p class="legal-note">Conformément à la loi n° 2004-575 du 21 juin 2004 (LCEN)</p>
+    <h2>📋 Mentions Légales</h2>
     <h3>Éditeur</h3>
-    <p><strong>Charly Soudan</strong><br>
-    Personne physique — démarches d'immatriculation en cours (micro-entreprise)<br>
-    36 avenue du Parc, 93290 Tremblay-en-France, France<br>
-    📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
+    <p><strong>Charly Soudan</strong><br>36 avenue du Parc<br>93290 Tremblay-en-France — France<br>Particulier — démarches d'immatriculation en cours</p>
     <h3>Hébergement</h3>
-    <p><strong>GitHub Pages</strong> — GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA<br>
-    <strong>Base44</strong> (serveur & base de données) — serveurs UE — <a href="https://base44.com" target="_blank" rel="noopener">base44.com</a></p>
+    <p><strong>Base44</strong> — <a href="https://base44.com" target="_blank">https://base44.com</a></p>
     <h3>Propriété intellectuelle</h3>
-    <p>L'ensemble du contenu du jeu (textes, code, visuels, sons, nom) est la propriété de Charly Soudan, protégé par le Code de la Propriété Intellectuelle (L.111-1 et s.). Toute reproduction sans autorisation est interdite (art. L.122-4 CPI).</p>
-    <h3>Responsabilité</h3>
-    <p>Service de divertissement gratuit, sans achat intégré, sans publicité. L'éditeur décline toute responsabilité liée à une utilisation addictive du service.</p>
-    <h3>Droit applicable</h3>
-    <p>Droit français — tribunaux français compétents en cas de litige.</p>
+    <p>L'ensemble du contenu (textes, code, visuels) est la propriété exclusive de Charly Soudan. Toute reproduction sans autorisation est interdite.</p>
+    <h3>Données personnelles (RGPD)</h3>
+    <p>Tu peux exercer ton droit d'accès, rectification ou suppression en contactant : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
+    <h3>Cookies</h3>
+    <p>Ce site utilise uniquement le localStorage pour sauvegarder ta progression localement. Aucun cookie tiers, aucune publicité.</p>
   </div>
 </div>
 
@@ -534,127 +508,36 @@ footer .footer-copy a{color:#222;text-decoration:none;}
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalCGU')">✕</button>
     <h2>📜 Conditions Générales d'Utilisation</h2>
-    <p class="legal-note">Version du 10 juin 2026</p>
-    <h3>Art. 1 — Objet</h3>
-    <p>Les présentes CGU régissent l'utilisation du jeu "Le Bouton Qui Sert À Rien". En accédant au jeu, l'utilisateur accepte sans réserve ces conditions.</p>
-    <h3>Art. 2 — Service</h3>
-    <p>Jeu de type clicker entièrement gratuit. <strong>Aucun achat intégré. Aucune publicité. Aucun abonnement.</strong></p>
-    <h3>Art. 3 — Compte (optionnel)</h3>
-    <p>La création d'un compte nécessite : pseudo (3–20 caractères), email valide, mot de passe (6 caractères min.). Aucune donnée bancaire collectée. Le compte permet de synchroniser la progression sur plusieurs appareils.</p>
-    <h3>Art. 4 — Règles</h3>
-    <ul>
-      <li><strong>Interdiction absolue</strong> de bots, auto-clickers, scripts automatiques → suppression du compte sans préavis</li>
-      <li>Pseudo non offensant, non discriminatoire</li>
-      <li>Interdiction de pirater ou compromettre le service</li>
-      <li>Interdiction d'usurper l'identité d'un autre utilisateur</li>
-    </ul>
-    <h3>Art. 5 — Compte</h3>
-    <p>L'utilisateur est responsable de ses identifiants. Compromission à signaler à <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a>. L'éditeur peut supprimer tout compte contrevenant aux CGU.</p>
-    <h3>Art. 6 — Mineurs</h3>
-    <p>Classé <strong>PEGI 3</strong> (tout public). Utilisation des moins de 15 ans sous contrôle parental. Aucune donnée de mineur de moins de 15 ans collectée volontairement (art. 8 RGPD).</p>
-    <h3>Art. 7 — Responsabilité</h3>
-    <p>Service fourni "en l'état". L'éditeur n'est pas responsable de perte de progression, dommages liés à l'utilisation ou indisponibilité du service.</p>
-    <h3>Art. 8 — Données & Cookies</h3>
-    <p>Voir : <a href="#" onclick="closeModal('modalCGU');openModal('modalConfidentialite');return false;">Confidentialité & RGPD</a> · <a href="#" onclick="closeModal('modalCGU');openModal('modalCookies');return false;">Cookies</a></p>
-    <h3>Art. 9 — Modification</h3>
-    <p>CGU modifiables à tout moment. Version en vigueur = celle affichée. Utilisation continue = acceptation des nouvelles CGU.</p>
-    <h3>Art. 10 — Droit applicable</h3>
-    <p>Droit français. Résolution amiable privilégiée : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a>. À défaut : tribunaux français. Médiation consommateur disponible (art. L.612-1 C. conso.).</p>
+    <h3>Article 1 — Objet</h3>
+    <p>Les présentes CGU régissent l'accès et l'utilisation du jeu "Le Bouton Qui Sert À Rien", accessible à l'adresse <a href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/" target="_blank">tangent20.github.io</a>.</p>
+    <h3>Article 2 — Accès</h3>
+    <p>Le jeu est accessible gratuitement, sans inscription obligatoire. La création de compte est optionnelle et permet de sauvegarder sa progression.</p>
+    <h3>Article 3 — Règles</h3>
+    <p>L'utilisation de bots, scripts automatiques ou toute technique de triche est strictement interdite et entraîne la suppression du compte.</p>
+    <h3>Article 4 — Responsabilité</h3>
+    <p>Ce jeu est purement ludique et non commercial. L'éditeur ne peut être tenu responsable d'une addiction au bouton rouge.</p>
+    <h3>Article 5 — Modification</h3>
+    <p>Les CGU peuvent être modifiées à tout moment. La version en vigueur est celle affichée sur le site.</p>
   </div>
 </div>
 
 <div class="legal-modal" id="modalConfidentialite">
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalConfidentialite')">✕</button>
-    <h2>🔒 Confidentialité & RGPD</h2>
-    <p class="legal-note">Conforme au Règlement (UE) 2016/679 (RGPD) et à la loi Informatique et Libertés — Version du 10 juin 2026</p>
-    <h3>Responsable du traitement</h3>
-    <p><strong>Charly Soudan</strong> — 36 avenue du Parc, 93290 Tremblay-en-France<br>
-    📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
+    <h2>🔒 Politique de Confidentialité</h2>
     <h3>Données collectées</h3>
-    <p><strong>Sans compte :</strong> pseudo choisi (ou "Anonyme") + score → classement public uniquement. Aucune donnée personnelle identifiable.</p>
-    <p><strong>Avec compte :</strong> email (connexion, jamais affiché), pseudo, score, combo, streak, skins. Mot de passe haché SHA-256 + sel — jamais stocké en clair.</p>
-    <h3>Bases légales</h3>
-    <ul>
-      <li><strong>Consentement</strong> (Art. 6.1.a) — création de compte, collecte email</li>
-      <li><strong>Intérêt légitime</strong> (Art. 6.1.f) — classement anonyme</li>
-      <li><strong>Exécution du contrat</strong> (Art. 6.1.b) — synchro multi-appareils</li>
-    </ul>
-    <h3>Destinataires</h3>
-    <p>Aucune donnée vendue ou cédée. Sous-traitants : <strong>Base44</strong> (BDD, serveurs UE, conforme RGPD), <strong>GitHub Pages</strong> (hébergement statique).</p>
-    <h3>Conservation</h3>
-    <ul>
-      <li>Compte : jusqu'à suppression sur demande</li>
-      <li>Classement (pseudo + score) : indéfiniment sauf demande</li>
-      <li>Logs techniques : 30 jours max</li>
-    </ul>
-    <h3>Tes droits (RGPD)</h3>
-    <ul>
-      <li>🔍 <strong>Accès</strong> (Art. 15) — copie de tes données</li>
-      <li>✏️ <strong>Rectification</strong> (Art. 16) — corriger des données</li>
-      <li>🗑️ <strong>Effacement</strong> (Art. 17) — "droit à l'oubli"</li>
-      <li>⏸️ <strong>Limitation</strong> (Art. 18) — suspendre le traitement</li>
-      <li>🚫 <strong>Opposition</strong> (Art. 21) — s'opposer au traitement</li>
-      <li>📦 <strong>Portabilité</strong> (Art. 20) — recevoir tes données</li>
-    </ul>
-    <p>Exercer tes droits : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> — délai 30 jours max.<br>
-    Réclamation : <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a> — 3 Place de Fontenoy, 75007 Paris.</p>
-    <h3>Sécurité</h3>
-    <ul>
-      <li>Communications chiffrées HTTPS/TLS</li>
-      <li>Mots de passe hachés (SHA-256 + sel unique)</li>
-      <li>Accès aux données protégé par jetons d'authentification</li>
-    </ul>
-    <h3>Cookies et stockage local</h3>
-    <p>Aucun cookie publicitaire ni traceur tiers. Voir la <a href="#" onclick="closeModal('modalConfidentialite');openModal('modalCookies');return false;">Politique des Cookies</a> pour le détail complet.</p>
+    <p>Sans compte : seul ton pseudo (ou "Anonyme") et ton score sont stockés dans notre base de données pour le classement. Rien d'autre.</p>
+    <p>Avec un compte : email (chiffré), pseudo, score, skins débloqués, streak. Ton mot de passe est haché (SHA-256 + sel). Il n'est jamais stocké en clair.</p>
+    <h3>Utilisation</h3>
+    <p>Ces données servent uniquement à afficher le classement et sauvegarder ta progression. Elles ne sont ni vendues, ni partagées avec des tiers.</p>
+    <h3>Durée de conservation</h3>
+    <p>Tes données sont conservées jusqu'à suppression de ton compte, sur simple demande à <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a>.</p>
+    <h3>Droits</h3>
+    <p>Conformément au RGPD, tu as le droit d'accéder, rectifier, supprimer tes données. Contact : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> — Autorité compétente : <a href="https://www.cnil.fr" target="_blank">CNIL</a>.</p>
+    <h3>Mineurs</h3>
+    <p>Ce jeu est classé PEGI 3 (tout public). Aucune donnée n'est volontairement collectée sur les mineurs.</p>
   </div>
 </div>
-
-<div class="legal-modal" id="modalCookies">
-  <div class="legal-box">
-    <button class="legal-close" onclick="closeModal('modalCookies')">✕</button>
-    <h2>🍪 Cookies & Stockage local</h2>
-    <p class="legal-note">Directive ePrivacy (2002/58/CE) · Recommandations CNIL (délibération n° 2020-091) — Version du 10 juin 2026</p>
-    <h3>Position : zéro cookie tiers</h3>
-    <p>Ce site <strong>n'utilise aucun cookie publicitaire, de tracking ou d'analyse.</strong><br>
-    Nous utilisons uniquement le <strong>localStorage</strong> de ton navigateur — données stockées sur ton appareil uniquement, jamais envoyées automatiquement, illisibles par d'autres sites.<br>
-    <strong>Aucune bannière de consentement n'est requise</strong> (traceurs strictement nécessaires, exemptés selon délibération CNIL n° 2020-091).</p>
-    <h3>Ce que nous ne faisons PAS</h3>
-    <ul>
-      <li>❌ Cookies publicitaires (Google Ads, Facebook Pixel…)</li>
-      <li>❌ Analytics (Google Analytics, Hotjar, Matomo…)</li>
-      <li>❌ Réseaux sociaux avec tracking</li>
-      <li>❌ Fingerprinting ou profilage comportemental</li>
-    </ul>
-    <h3>Données stockées localement</h3>
-    <table class="cookie-table">
-      <tr><th>Clé</th><th>Contenu</th><th>Finalité</th><th>Durée</th></tr>
-      <tr><td><code>clicks</code></td><td>Nombre</td><td>Score local</td><td>Indéfinie</td></tr>
-      <tr><td><code>skin</code></td><td>Texte</td><td>Apparence choisie</td><td>Indéfinie</td></tr>
-      <tr><td><code>streak</code></td><td>Nombre</td><td>Série quotidienne</td><td>Indéfinie</td></tr>
-      <tr><td><code>lastPlayed</code></td><td>Date</td><td>Calcul de la série</td><td>Indéfinie</td></tr>
-      <tr><td><code>maxCombo</code></td><td>Nombre</td><td>Meilleur combo</td><td>Indéfinie</td></tr>
-      <tr><td><code>pseudo</code></td><td>Texte</td><td>Mémoriser le pseudo</td><td>Indéfinie</td></tr>
-      <tr><td><code>authToken</code></td><td>Jeton chiffré</td><td>Session compte</td><td>Jusqu'à déconnexion</td></tr>
-      <tr><td><code>lang</code></td><td>Code langue</td><td>Langue choisie</td><td>Indéfinie</td></tr>
-      <tr><td><code>dc_[date]</code></td><td>Nombre</td><td>Clics du jour</td><td>Quotidienne</td></tr>
-      <tr><td><code>ach_*</code></td><td>Booléen</td><td>Succès débloqués</td><td>Indéfinie</td></tr>
-    </table>
-    <h3>Comment effacer ces données</h3>
-    <ul>
-      <li><strong>Chrome / Edge :</strong> F12 → Application → Local Storage → Supprimer</li>
-      <li><strong>Firefox :</strong> F12 → Stockage → Stockage local → Sélectionner et supprimer</li>
-      <li><strong>Safari :</strong> Préférences → Confidentialité → Gérer les données du site</li>
-      <li><strong>Mobile :</strong> Paramètres navigateur → Effacer les données de navigation</li>
-    </ul>
-    <p><strong>Attention :</strong> effacer supprime ta progression locale. Avec un compte, ta progression reste sur nos serveurs.</p>
-    <h3>Contact & réclamation</h3>
-    <p>📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> ·
-    🏛️ <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL — www.cnil.fr</a></p>
-  </div>
-</div>
-
-
 
 <!-- ══ JACKPOT MODAL ═══════════════════════════════════════ -->
 <div id="jackpotModal">
@@ -707,7 +590,7 @@ footer .footer-copy a{color:#222;text-decoration:none;}
       🔥 <span class="streak-num" id="streakCount">0</span>j
     </div>
     <div style="font-size:.72rem;color:var(--muted);">
-      🌍 <span id="fomoCount" class="fomo-num">—</span> joueurs actifs
+      🌍 <span id="fomoCount" class="fomo-num">—</span> en ligne
     </div>
     <div style="font-size:.72rem;color:var(--muted);cursor:pointer;" onclick="showTab('compte')" id="topbarUser">
       👤 Compte
@@ -719,7 +602,7 @@ footer .footer-copy a{color:#222;text-decoration:none;}
 
   <!-- Pseudo -->
   <div id="pseudoWrap">
-    <input type="text" id="pseudoInput" placeholder="Ton pseudo (affiché dans le classement)" maxlength="20" autocomplete="nickname" spellcheck="false"/>
+    <input type="text" id="pseudoInput" placeholder="Ton pseudo (visible dans le classement)" maxlength="20" autocomplete="off"/>
   </div>
 
   <!-- Stats -->
@@ -730,7 +613,7 @@ footer .footer-copy a{color:#222;text-decoration:none;}
     </div>
     <div class="sbox">
       <span class="sval" id="countCombo">0</span>
-      <span class="slb">Enchaîn. max</span>
+      <span class="slb">Combo max</span>
     </div>
     <div class="sbox">
       <span class="sval" id="myRank">—</span>
@@ -738,7 +621,7 @@ footer .footer-copy a{color:#222;text-decoration:none;}
     </div>
     <div class="sbox">
       <span class="sval" id="eventMult">x1</span>
-      <span class="slb">Bonus événement</span>
+      <span class="slb">Multiplicateur</span>
     </div>
   </div>
 
@@ -762,13 +645,13 @@ footer .footer-copy a{color:#222;text-decoration:none;}
       <span class="tb-icon">🎮</span><span class="tb-label">Jeu</span>
     </button>
     <button class="tab-btn" id="tab-skins" onclick="showTab('skins')">
-      <span class="tb-icon">🎨</span><span class="tb-label">Apparences</span>
+      <span class="tb-icon">🎨</span><span class="tb-label">Skins</span>
     </button>
     <button class="tab-btn" id="tab-classement" onclick="showTab('classement')">
       <span class="tb-icon">🏆</span><span class="tb-label">Classement</span>
     </button>
     <button class="tab-btn" id="tab-compte" onclick="showTab('compte')">
-      <span class="tb-icon">👤</span><span class="tb-label">Mon Espace</span>
+      <span class="tb-icon">👤</span><span class="tb-label">Compte</span>
     </button>
   </div>
 
@@ -782,7 +665,7 @@ footer .footer-copy a{color:#222;text-decoration:none;}
       <!-- Bouton -->
       <div id="btnWrap">
         <div class="btn-glow"></div>
-        <button id="btn" onclick="handleClick(event)" ontouchstart="handleClick(event)" aria-label="Cliquer sur le bouton">
+        <button id="btn" onclick="handleClick(event)" ontouchstart="handleClick(event)">
           APPUIE<br>DESSUS
         </button>
       </div>
@@ -794,10 +677,10 @@ footer .footer-copy a{color:#222;text-decoration:none;}
       <!-- Réaction -->
       <div id="reaction"></div>
 
-      <!-- Enchaînement -->
+      <!-- Combo -->
       <div id="comboWrap">
         <div class="combo-header">
-          <span>⚡ Enchaînement</span>
+          <span>⚡ Combo</span>
           <span class="combo-val" id="comboText">x1</span>
         </div>
         <div class="combo-track"><div class="combo-fill" id="comboFill" style="width:0%"></div></div>
@@ -814,8 +697,8 @@ footer .footer-copy a{color:#222;text-decoration:none;}
     </div>
 
     <!-- Missions du jour -->
-    <div id="missionsBlock" style="border-top:1px solid #1a1a1a;margin-top:8px;padding-top:4px;">
-      <div class="missions-title">📋 Défis du jour</div>
+    <div id="missionsBlock">
+      <div class="missions-title">📋 Missions du jour</div>
       <div id="mList"></div>
     </div>
 
@@ -830,15 +713,15 @@ footer .footer-copy a{color:#222;text-decoration:none;}
       </div>
 
       <div class="skin-tier">
-        <div class="skin-tier-label">⭐ DÉBUTANT — 0 à 250 clics</div>
+        <div class="skin-tier-label">⭐ DÉBUTANT (0–250 clics)</div>
         <div class="skins-grid" id="skinGridDebutant"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-label">🔥 INTERMÉDIAIRE — 500 à 2 000 clics</div>
+        <div class="skin-tier-label">🔥 INTERMÉDIAIRE (500–2000 clics)</div>
         <div class="skins-grid" id="skinGridInter"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-label">💎 EXPERT — 3 000 à 10 000 clics</div>
+        <div class="skin-tier-label">💎 EXPERT (3000–10000 clics)</div>
         <div class="skins-grid" id="skinGridExpert"></div>
       </div>
     </div>
@@ -848,8 +731,8 @@ footer .footer-copy a{color:#222;text-decoration:none;}
   <div class="tab-section" id="classement">
     <div id="jeuClassement">
       <div class="lb-header">
-        <span class="lb-title">🏆 Classement Mondial</span>
-        <span class="lb-global">🌍 <span id="globalCount">—</span> clics au total</span>
+        <span class="lb-title">🏆 Classement mondial</span>
+        <span class="lb-global">Total : <span id="globalCount">—</span></span>
       </div>
       <div id="podium" class="lb-podium"></div>
       <div id="lbContent"></div>
@@ -870,8 +753,8 @@ footer .footer-copy a{color:#222;text-decoration:none;}
 
         <!-- Connexion -->
         <div id="formLogin" class="auth-form">
-          <div class="auth-form-title">Content de te revoir ! 🔥</div>
-          <div class="auth-form-sub">Reconnecte-toi et reprends là où tu t'es arrêté(e).</div>
+          <div class="auth-form-title">Bon retour ! 👋</div>
+          <div class="auth-form-sub">Connecte-toi pour retrouver ta progression sur n'importe quel appareil.</div>
           <input class="auth-input" type="text" id="loginId" placeholder="Email ou pseudo" autocomplete="username"/>
           <input class="auth-input" type="password" id="loginPwd" placeholder="Mot de passe" autocomplete="current-password"/>
           <button class="auth-btn" id="loginBtn" onclick="doLogin()">🔐 Se connecter</button>
@@ -904,8 +787,8 @@ footer .footer-copy a{color:#222;text-decoration:none;}
 
         <div class="profile-stats">
           <div class="pst"><span class="pst-val" id="pStatClics">0</span><span class="pst-lb">🖱️ Clics</span></div>
-          <div class="pst"><span class="pst-val" id="pStatStreak">0</span><span class="pst-lb">🔥 Série</span></div>
-          <div class="pst"><span class="pst-val" id="pStatCombo">0</span><span class="pst-lb">⚡ Meilleur enchaîn.</span></div>
+          <div class="pst"><span class="pst-val" id="pStatStreak">0</span><span class="pst-lb">🔥 Streak</span></div>
+          <div class="pst"><span class="pst-val" id="pStatCombo">0</span><span class="pst-lb">⚡ Combo max</span></div>
           <div class="pst"><span class="pst-val" id="pStatRank">—</span><span class="pst-lb">🏆 Rang</span></div>
         </div>
 
@@ -926,27 +809,11 @@ footer .footer-copy a{color:#222;text-decoration:none;}
 <!-- ══ FOOTER ═════════════════════════════════════════════ -->
 <footer>
   <div class="footer-links">
-    <a href="#" onclick="openModal('modalMentions');return false;">📋 Mentions légales</a>
-    <a href="#" onclick="openModal('modalCGU');return false;">📜 CGU</a>
-    <a href="#" onclick="openModal('modalConfidentialite');return false;">🔒 Confidentialité &amp; RGPD</a>
-    <a href="#" onclick="openModal('modalCookies');return false;">🍪 Cookies</a>
+    <a href="#" onclick="openModal('modalMentions');return false;">Mentions légales</a>
+    <a href="#" onclick="openModal('modalCGU');return false;">CGU</a>
+    <a href="#" onclick="openModal('modalConfidentialite');return false;">Confidentialité</a>
   </div>
-  <div class="footer-info">
-    📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> ·
-    Charly Soudan — 36 av. du Parc, 93290 Tremblay-en-France
-  </div>
-  <div class="footer-badges">
-    <span class="footer-badge">PEGI 3</span>
-    <span class="footer-badge">🆓 Gratuit</span>
-    <span class="footer-badge">🚫 Sans achat</span>
-    <span class="footer-badge">🔒 RGPD</span>
-    <span class="footer-badge">🍪 Sans tracking</span>
-    <span class="footer-badge">🇫🇷 Droit français</span>
-  </div>
-  <div class="footer-copy">
-    © 2026 Charly Soudan · Tous droits réservés ·
-    <a href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/" target="_blank" rel="noopener">tangent20.github.io</a>
-  </div>
+  <div>© 2026 Charly Soudan • <a href="mailto:terrible3311@outlook.fr" style="color:#555">terrible3311@outlook.fr</a> • PEGI 3 • Gratuit • Sans achat</div>
 </footer>
 
 <script>
@@ -1330,12 +1197,12 @@ var SKIN_TXT = {
   'dog':'OUAF\n🐶',
   'cat':'MIAOU\n🐱',
   'gold':'FRAPPE\n🥇',
-  'ice':'GELÉ\n❄️',
+  'ice':'FREEZE\n❄️',
   'fire':'BRÛLE\n🔥',
-  'space':'COSMOS\n🌌',
+  'space':'LAUNCH\n🌌',
   'toxic':'DANGER\n☣️',
-  'disco':'DANSE\n🪩',
-  'lava':'ÉRUPTION\n🌋',
+  'disco':'GROOVE\n🪩',
+  'lava':'ERUPTION\n🌋',
   'nuclear':'FUSION\n☢️',
   'rainbow':'GLITCH\n🌈',
   'diamond':'LÉGENDE\n💎',
@@ -1896,7 +1763,7 @@ async function loadEventsForProfile() {
 
 function updateTopbarUser(pseudo) {
   var el = document.getElementById('topbarUser');
-  if (el) el.textContent = pseudo ? '👤 ' + pseudo : '👤 Mon espace';
+  if (el) el.textContent = pseudo ? '👤 ' + pseudo : '👤 Compte';
 }
 
 function refreshProfileTab() {
