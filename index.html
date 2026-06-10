@@ -1400,6 +1400,7 @@ function renderProvoc(){
 
 /* ══════ CLICK HANDLER ══════ */
 function handleClick(ev){
+    if(navigator.vibrate){navigator.vibrate(12);}
   var now=Date.now();
   if(now-_lastClickTime<150)return;
   _lastClickTime=now;
@@ -1443,6 +1444,21 @@ function renderMyCount(){
   var el=document.getElementById('myCount');
   el.textContent=clicks.toLocaleString('fr');
   el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+  // Titre dynamique — addiction mentale
+  var n = myClicks;
+  var titles_dyn = [
+    [0,    '🔴 Clique... ou regrette'],
+    [10,   '😬 '+n+' clics — t\'arrives à t\'arrêter ?'],
+    [50,   '🔥 '+n+' — tu peux pas t\'arrêter'],
+    [200,  '😤 '+n+' — tout le monde te regarde'],
+    [500,  '👑 '+n+' — légende en construction'],
+    [1000, '🤯 '+n+' — t\'es malade (respect)'],
+    [5000, '👁️ '+n+' — le bouton t\'appartient'],
+    [10000,'🏆 '+n+' — TOP MONDIAL EN VUE'],
+  ];
+  var ttl = '🔴 Le Bouton Qui Sert À Rien';
+  for(var _t=0;_t<titles_dyn.length;_t++){if(n>=titles_dyn[_t][0])ttl=titles_dyn[_t][1];}
+  document.title = ttl;
 }
 
 /* ══════ REACTION ══════ */
@@ -1908,6 +1924,16 @@ function updateLandingStats(){
 var _landingShownAt = Date.now();
 updateLandingStats();
 
+
+// Page Visibility — titre qui provoque le retour
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden){
+    var away = ['👀 Tu reviendras...','😈 Le bouton t\'attend','🔴 Clique ou abandonne','💀 Pendant ce temps d\'autres cliquent...'];
+    document.title = away[Math.floor(Math.random()*away.length)];
+  } else {
+    document.title = '🔴 Le Bouton Qui Sert À Rien';
+  }
+});
 init();
 </script>
 </body>
