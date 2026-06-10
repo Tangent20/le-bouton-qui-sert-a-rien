@@ -68,7 +68,7 @@
 
     /* TOPBAR */
     .topbar{text-align:center;padding:6px 12px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
-    .streak-pill{background:linear-gradient(135deg,#ff6600,#ffcc00);color:#000;font-weight:900;padding:3px 10px;border-radius:20px;font-size:.72rem;}
+    .streak-pill{background:#1a1a1a;border:2px solid #333;color:#aaa;padding:4px 12px;border-radius:20px;font-size:.82rem;font-weight:900;transition:all .3s;}
     .streak-pill.dead{background:#222;color:#bbb;}
     .fomo{color:#00ff88;font-weight:900;}
     .season-info{color:#aaa;font-size:.7rem;}
@@ -415,6 +415,16 @@
     body.s-dog .glow{background:radial-gradient(circle,#ffaa0044,transparent 70%);}
     body.s-cat #btn{background:radial-gradient(circle at 35% 35%,#ffccee,#dd44aa 55%,#881166);box-shadow:0 8px 0 #551144,0 14px 30px #ff66aa55;}
     body.s-cat .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
+
+    /* ── TABS NAV ── */
+    .tabs-nav{display:flex;justify-content:center;gap:8px;margin:8px 10px 2px;position:sticky;top:0;z-index:50;background:#0a0a0a;padding:7px 0 5px;border-bottom:1px solid #1a1a1a;}
+    .tab-btn{flex:1;max-width:130px;background:#141414;border:1.5px solid #2a2a2a;color:#888;padding:8px 4px;border-radius:12px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .18s;letter-spacing:.3px;}
+    .tab-btn.active{background:linear-gradient(135deg,#cc0000,#ff4400);border-color:#ff3333;color:#fff;box-shadow:0 0 14px #ff000066;}
+    .tab-btn:active{transform:scale(.96);}
+    .tab-section{display:none;}
+    .tab-section.active{display:block;}
+
+    @keyframes streakPulse{0%,100%{box-shadow:0 0 10px #ff880066;}50%{box-shadow:0 0 22px #ff8800cc;}}
 </style>
 </head>
 <body class="s-classic">
@@ -503,7 +513,14 @@
       <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
     </div>
 
-    <div class="missions">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('jeu')">🎮 Jeu</button>
+      <button class="tab-btn" onclick="showTab('skins')">🎨 Skins</button>
+      <button class="tab-btn" onclick="showTab('classement')">🏆 Classement</button>
+    </div>
+
+    <div id="tab-jeu" class="tab-section active">
+<div class="missions">
       <div class="mhead"><h2>🎯 MISSIONS DU JOUR</h2><span class="mreset" id="mReset">…</span></div>
       <div id="mList"></div>
     </div>
@@ -526,6 +543,9 @@
       <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
     </div>
 
+    </div><!-- /tab-jeu -->
+
+    <div id="tab-skins" class="tab-section">
     <div class="skins">
       <div class="skins-header">
         <h2>🎨 SKINS</h2>
@@ -540,10 +560,15 @@
       <div class="ach-grid" id="achGrid"></div>
     </div>
 
+    </div><!-- /tab-skins -->
+
+    <div id="tab-classement" class="tab-section">
     <div class="lb">
       <h2>🏆 CLASSEMENT MONDIAL</h2>
       <div id="lbContent"><p style="text-align:center;color:#aaa;padding:12px">Chargement...</p></div>
     </div>
+
+    </div><!-- /tab-classement -->
 
     <div class="share" style="display:flex;gap:6px;justify-content:center;padding:5px 13px 16px;flex-wrap:wrap;">
       <button style="background:linear-gradient(135deg,#111,#252525);border:1px solid #2a2a2a;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareTwitter()">🐦 Twitter/X</button>
@@ -746,10 +771,18 @@ function getTitle(n){var t=TITLES[0];for(var i=0;i<TITLES.length;i++){if(n>=TITL
 function getNextTitle(n){for(var i=0;i<TITLES.length;i++){if(TITLES[i].req>n)return TITLES[i];}return null;}
 
 var MISSIONS_DEF=[
-  {id:'d50',  nm:'50 clics aujourd\'hui',       tgt:50,   type:'day'},
-  {id:'d200', nm:'200 clics dans la journée',     tgt:200,  type:'day'},
-  {id:'combo',nm:'Atteins un combo x25',          tgt:25,   type:'combo'},
-  {id:'d500', nm:'500 clics — pas de pause !',    tgt:500,  type:'day'},
+  {id:'d50',   nm:'50 clics aujourd\'hui',             tgt:50,   type:'day'},
+  {id:'d200',  nm:'200 clics dans la journée',           tgt:200,  type:'day'},
+  {id:'d500',  nm:'500 clics — pas de pause !',          tgt:500,  type:'day'},
+  {id:'d1000', nm:'1000 clics en une journée 🤯',        tgt:1000, type:'day'},
+  {id:'d2000', nm:'2000 clics — t\'as vraiment rien',    tgt:2000, type:'day'},
+  {id:'c10',   nm:'Combo x10 — enchaîne !',              tgt:10,   type:'combo'},
+  {id:'combo', nm:'Combo x25 — en transe',               tgt:25,   type:'combo'},
+  {id:'c50',   nm:'Combo x50 — T\'es une machine 🤖',    tgt:50,   type:'combo'},
+  {id:'t100',  nm:'Atteins 100 clics au total',          tgt:100,  type:'total'},
+  {id:'t500',  nm:'Atteins 500 clics au total',          tgt:500,  type:'total'},
+  {id:'t1000', nm:'1000 clics — bienvenue en enfer',     tgt:1000, type:'total'},
+  {id:'t5000', nm:'5000 clics — t\'as plus de vie',      tgt:5000, type:'total'},
 ];
 
 var REACTIONS=[
@@ -790,6 +823,16 @@ var PROVOCS=[
   "T'es à {cur}... le prochain palier c'est {next}.",
   "Dans 5 minutes tu peux doubler ton score. Essaie.",
   "Ta série de {streak} jours mérite mieux que ça.",
+  "Arrête de lire et appuie. {next} clics.",
+  "{cur} clics. Pathétique. Le bouton rigole.",
+  "T'as commencé ? Alors finis. {next} clics.",
+  "Chaque seconde sans cliquer c'est une défaite.",
+  "Ton pouce sert à quoi là ? Clique !",
+  "Je t'ai vu t'arrêter. C'était nul. {next}.",
+  "Le joueur au-dessus de toi vient de cliquer.",
+  "T'es à {cur}. La honte commence à {next}.",
+  "Un autre joueur vient de passer {next}. Toi non.",
+  "Streak {streak} jours. Gâche pas ça maintenant.",
 ];
 
 var MYSTERY_EVTS=[
@@ -1560,6 +1603,18 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ══════ INIT ══════ */
+
+function showTab(name){
+  var sections=['jeu','skins','classement'];
+  sections.forEach(function(s){
+    var sec=document.getElementById('tab-'+s);
+    var btn=document.querySelector('.tab-btn[onclick*=\''+s+'\']');
+    if(sec) sec.classList.toggle('active', s===name);
+    if(btn) btn.classList.toggle('active', s===name);
+  });
+  if(name==='classement') loadLeaderboard();
+}
+
 function init(){
   genStars();
   checkStreak();
