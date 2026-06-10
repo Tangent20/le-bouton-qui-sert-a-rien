@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" id="htmlRoot">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>🔴 Le Bouton Qui Sert À Rien</title>
 <meta name="description" content="Le jeu clicker le plus addictif d'internet. Clique sur le bouton rouge, grimpe dans le classement, débloque 15 skins. 100% gratuit."/>
+<!-- Hreflang international — conformité Google Play / App Store -->
+<link rel="alternate" hreflang="fr" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=fr"/>
+<link rel="alternate" hreflang="en" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=en"/>
+<link rel="alternate" hreflang="es" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=es"/>
+<link rel="alternate" hreflang="pt" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=pt"/>
+<link rel="alternate" hreflang="de" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=de"/>
+<link rel="alternate" hreflang="it" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=it"/>
+<link rel="alternate" hreflang="ja" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=ja"/>
+<link rel="alternate" hreflang="ar" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/?lang=ar"/>
+<link rel="alternate" hreflang="x-default" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/"/>
 <meta name="robots" content="index,follow"/>
 <meta name="author" content="Charly Soudan"/>
 <link rel="canonical" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/"/>
@@ -14,13 +24,20 @@
 <meta property="og:url" content="https://tangent20.github.io/le-bouton-qui-sert-a-rien/"/>
 <meta property="og:image" content="https://media.base44.com/images/public/6a25fda89561913dceec4ffc/362718f9d_generated_image.png"/>
 <meta property="og:locale" content="fr_FR"/>
+<meta property="og:locale:alternate" content="en_US"/>
+<meta property="og:locale:alternate" content="es_ES"/>
+<meta property="og:locale:alternate" content="pt_BR"/>
+<meta property="og:locale:alternate" content="de_DE"/>
+<meta property="og:locale:alternate" content="it_IT"/>
+<meta property="og:locale:alternate" content="ja_JP"/>
+<meta property="og:locale:alternate" content="ar_SA"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="theme-color" content="#0a0a0a"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Le Bouton"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Le Bouton Qui Sert À Rien","description":"Le jeu clicker le plus addictif d'internet.","url":"https://tangent20.github.io/le-bouton-qui-sert-a-rien/","author":{"@type":"Person","name":"Charly Soudan","email":"terrible3311@outlook.fr"},"genre":["Clicker","Casual"],"gamePlatform":["Web","Android","iOS"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Le Bouton Qui Sert À Rien","alternateName":["The Useless Button","El Botón Inútil","O Botão Inútil","Der Nutzlose Knopf","Il Bottone Inutile","役に立たないボタン"],"description":"Le jeu clicker le plus addictif d'internet. 100% gratuit, disponible sur Android, iOS et Web.","url":"https://tangent20.github.io/le-bouton-qui-sert-a-rien/","inLanguage":["fr","en","es","pt","de","it","ja","ar"],"author":{"@type":"Person","name":"Charly Soudan","email":"terrible3311@outlook.fr"},"genre":["Clicker","Casual","Idle"],"gamePlatform":["Web","Android","iOS","Google Play","Apple App Store"],"applicationCategory":"Game","operatingSystem":["Android","iOS","Windows","macOS","Linux"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5","ratingCount":"1","bestRating":"5"}}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overscroll-behavior:none;}
@@ -466,6 +483,15 @@ body.shake{animation:sk .28s ease-in-out;}
 #legalFooter a{color:#333;text-decoration:none;margin:0 5px;}
 #legalFooter a:hover{color:#666;}
 
+/* ══ BARRE LANGUE ════════════════════════════════════════════ */
+#langBar{flex-wrap:wrap;gap:4px;}
+#langBar button:hover{opacity:.8;}
+[dir="rtl"] #wrap{direction:rtl;}
+[dir="rtl"] .tab-btn{direction:rtl;}
+[dir="rtl"] .lb-row{flex-direction:row-reverse;}
+[dir="rtl"] .mission-card{flex-direction:row-reverse;}
+[dir="rtl"] .lb-row.me{border-left:none;border-right:3px solid var(--red);}
+
 /* ══ RESPONSIVE ══════════════════════════════════════════════ */
 @media(min-width:480px){#wrap{border-left:1px solid #111;border-right:1px solid #111;}}
 @media(max-width:360px){.sv{font-size:.8rem;}}
@@ -585,7 +611,7 @@ body.shake{animation:sk .28s ease-in-out;}
     <span class="jp-e" id="jpEmoji">🎉</span>
     <div class="jp-t" id="jpTitle">PALIER ATTEINT !</div>
     <div class="jp-s" id="jpSub">Incroyable. Tu continues ?</div>
-    <button class="jp-close" onclick="closeJackpot()">🔴 Continuer à cliquer</button>
+    <button class="jp-close" id="jpCloseBtn" onclick="closeJackpot()">🔴 Continuer à cliquer</button>
   </div>
 </div>
 
@@ -595,34 +621,37 @@ body.shake{animation:sk .28s ease-in-out;}
     <div style="font-size:2.4rem;margin-bottom:8px" id="msEmoji">👁️</div>
     <div style="font-size:1rem;font-weight:bold;color:#cc88ff;margin-bottom:6px">ÉVÉNEMENT MYSTÈRE</div>
     <div style="font-size:.82rem;color:#999;line-height:1.5" id="msText">Le bouton t'observe...</div>
-    <button class="ms-close" onclick="closeMystery()">OK je suis flippé</button>
+    <button class="ms-close" id="msCloseBtn" onclick="closeMystery()">OK je suis flippé</button>
   </div>
 </div>
 
 <!-- ══ LANDING ════════════════════════════════════════════════ -->
 <div id="landing">
   <div class="land-pulse">🔴</div>
-  <div class="land-title">LE BOUTON<br><em>QUI SERT À RIEN</em></div>
-  <p class="land-sub">Le jeu le plus inutile d'internet.<br>Et pourtant… <strong style="color:#fff">tu peux pas t'arrêter.</strong></p>
+  <div class="land-title" id="landTitleEl">LE BOUTON<br><em>QUI SERT À RIEN</em></div>
+  <p class="land-sub" id="landSubEl">Le jeu le plus inutile d'internet.<br>Et pourtant… <strong style="color:#fff">tu peux pas t'arrêter.</strong></p>
   <div class="land-live">
-    <div class="lv"><div class="lv-n" id="landClics">—</div><div class="lv-l">Clics mondiaux</div></div>
-    <div class="lv"><div class="lv-n" id="landJoueurs">—</div><div class="lv-l">Joueurs uniques</div></div>
+    <div class="lv"><div class="lv-n" id="landClics">—</div><div class="lv-l" id="landClicsLbl">Clics mondiaux</div></div>
+    <div class="lv"><div class="lv-n" id="landJoueurs">—</div><div class="lv-l" id="landJoueursLbl">Joueurs uniques</div></div>
   </div>
-  <button class="land-btn" onclick="startGame()">🔴 APPUIE SUR LE BOUTON</button>
-  <div class="land-note">100% gratuit · 0% utile · PEGI 3 · Aucun achat</div>
+  <button class="land-btn" id="landBtnEl" onclick="startGame()">🔴 APPUIE SUR LE BOUTON</button>
+  <div class="land-note" id="landNoteEl">100% gratuit · 0% utile · PEGI 3 · Aucun achat</div>
 </div>
 
 <!-- ══ WRAP PRINCIPAL ════════════════════════════════════════ -->
 <div id="wrap" style="display:none;">
 
-  <div id="offlineBar">📴 Hors ligne — clics sauvegardés localement !</div>
+  <div id="offlineBar"><span id="offlineBarEl">📴 Hors ligne — clics sauvegardés localement !</span></div>
 
   <!-- Topbar -->
   <div id="topbar">
-    <div class="tp-pill">🔥 Série <span class="tp-hl" id="streakNum">0</span>j</div>
-    <div class="tp-pill">🌍 <span class="tp-green" id="fomoNum">—</span> en jeu</div>
+    <div class="tp-pill"><span id="streakLbl">🔥 Série</span> <span class="tp-hl" id="streakNum">0</span>j</div>
+    <div class="tp-pill">🌍 <span class="tp-green" id="fomoNum">—</span> <span id="fomoLbl">en jeu</span></div>
     <div class="tp-pill" style="cursor:pointer" onclick="showTab('compte')" id="topbarUser">👤 Mon espace</div>
   </div>
+
+  <!-- Sélecteur langue -->
+  <div id="langBar" style="display:flex;align-items:center;justify-content:flex-end;padding:0 14px 4px;gap:4px;flex-wrap:wrap;"></div>
 
   <!-- Bannière événement -->
   <div id="eventBanner"></div>
@@ -653,10 +682,10 @@ body.shake{animation:sk .28s ease-in-out;}
 
   <!-- Navigation -->
   <div id="tabsNav">
-    <button class="tab-btn active" id="tab-jeu" onclick="showTab('jeu')"><span class="ti">🎮</span><span class="tl">Jeu</span></button>
-    <button class="tab-btn" id="tab-skins" onclick="showTab('skins')"><span class="ti">🎨</span><span class="tl">Apparences</span></button>
-    <button class="tab-btn" id="tab-classement" onclick="showTab('classement')"><span class="ti">🏆</span><span class="tl">Classement</span></button>
-    <button class="tab-btn" id="tab-compte" onclick="showTab('compte')"><span class="ti">👤</span><span class="tl">Mon Espace</span></button>
+    <button class="tab-btn active" id="tab-jeu" onclick="showTab('jeu')"><span class="ti">🎮</span><span class="tl" id="tabLabelJeu">Jeu</span></button>
+    <button class="tab-btn" id="tab-skins" onclick="showTab('skins')"><span class="ti">🎨</span><span class="tl" id="tabLabelSkins">Apparences</span></button>
+    <button class="tab-btn" id="tab-classement" onclick="showTab('classement')"><span class="ti">🏆</span><span class="tl" id="tabLabelClassement">Classement</span></button>
+    <button class="tab-btn" id="tab-compte" onclick="showTab('compte')"><span class="ti">👤</span><span class="tl" id="tabLabelCompte">Mon Espace</span></button>
   </div>
 
   <!-- ══ TAB JEU ════════════════════════════════════════════ -->
@@ -684,7 +713,7 @@ body.shake{animation:sk .28s ease-in-out;}
 
       <!-- Compteur -->
       <div id="myCount">0</div>
-      <div class="count-sub">clics au total</div>
+      <div class="count-sub" id="countSubEl">clics au total</div>
 
       <!-- Réaction -->
       <div id="reaction"></div>
@@ -695,7 +724,7 @@ body.shake{animation:sk .28s ease-in-out;}
       <!-- Enchaînement -->
       <div id="comboWrap">
         <div class="combo-hdr">
-          <span>⚡ Enchaînement</span>
+          <span id="comboLblEl">⚡ Enchaînement</span>
           <span class="combo-val" id="comboTxt">x1</span>
         </div>
         <div class="combo-track"><div class="combo-fill" id="comboFill" style="width:0%"></div></div>
@@ -704,7 +733,7 @@ body.shake{animation:sk .28s ease-in-out;}
       <!-- Mondial -->
       <div id="thermoWrap">
         <div class="thermo-hdr">
-          <span>🌍 Progression mondiale</span>
+          <span id="thermoLblEl">🌍 Progression mondiale</span>
           <span id="thermoVal">0</span>
         </div>
         <div class="thermo-track"><div class="thermo-fill" id="thermoFill" style="width:0%"></div></div>
@@ -713,7 +742,7 @@ body.shake{animation:sk .28s ease-in-out;}
 
     <!-- Défis du jour -->
     <div id="missionsBlock">
-      <div class="miss-hdr">🎯 Défis du jour <span id="missDoneCount"></span></div>
+      <div class="miss-hdr"><span id="missionsTitleEl">🎯 Défis du jour</span> <span id="missDoneCount"></span></div>
       <div id="mList"></div>
     </div>
 
@@ -727,15 +756,15 @@ body.shake{animation:sk .28s ease-in-out;}
         <span class="skins-unlocked-count" id="skinsCount">0 / 15</span>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-hdr">⭐ DÉBUTANT — 0 à 250 clics</div>
+        <div class="skin-tier-hdr" id="tierLblDebutant">⭐ DÉBUTANT — 0 à 250 clics</div>
         <div class="skins-grid" id="skinGridDebutant"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-hdr">🔥 INTERMÉDIAIRE — 500 à 2 000 clics</div>
+        <div class="skin-tier-hdr" id="tierLblInter">🔥 INTERMÉDIAIRE — 500 à 2 000 clics</div>
         <div class="skins-grid" id="skinGridInter"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-hdr">💎 EXPERT — 3 000 à 10 000 clics</div>
+        <div class="skin-tier-hdr" id="tierLblExpert">💎 EXPERT — 3 000 à 10 000 clics</div>
         <div class="skins-grid" id="skinGridExpert"></div>
       </div>
     </div>
@@ -745,12 +774,12 @@ body.shake{animation:sk .28s ease-in-out;}
   <div class="tab-section" id="classement">
     <div id="jeuClassement">
       <div class="lb-hdr">
-        <span class="lb-hdr-title">🏆 Classement Mondial</span>
+        <span class="lb-hdr-title" id="lbTitleEl">🏆 Classement Mondial</span>
         <span class="lb-global-count">🌍 <b id="globalCount">—</b> clics au total</span>
       </div>
       <div id="podium" class="lb-podium"></div>
       <div id="lbContent" class="lb-list"></div>
-      <div class="lb-myrank-row">Mon rang mondial : <b id="myRankLb">—</b></div>
+      <div class="lb-myrank-row"><span id="lbMyRankLbl">Mon rang mondial :</span> <b id="myRankLb">—</b></div>
     </div>
   </div><!-- /classement -->
 
@@ -766,23 +795,23 @@ body.shake{animation:sk .28s ease-in-out;}
         </div>
         <!-- Connexion -->
         <div id="formLogin" class="auth-form">
-          <div class="auth-ftitle">Content de te revoir ! 🔥</div>
-          <div class="auth-fsub">Reconnecte-toi et reprends là où tu t'es arrêté(e).</div>
+          <div class="auth-ftitle" id="authWelcomeEl">Content de te revoir ! 🔥</div>
+          <div class="auth-fsub" id="authWelcomeSubEl">Reconnecte-toi et reprends là où tu t'es arrêté(e).</div>
           <input class="auth-inp" type="text" id="loginId" placeholder="Email ou pseudo" autocomplete="username"/>
           <input class="auth-inp" type="password" id="loginPwd" placeholder="Mot de passe" autocomplete="current-password"/>
-          <button class="auth-cta" id="loginBtn" onclick="doLogin()">🔐 Se connecter</button>
+          <button class="auth-cta" id="loginBtn" onclick="doLogin()"><span id="authBtnLoginEl">🔐 Se connecter</span></button>
           <div class="auth-err" id="loginErr"></div>
         </div>
         <!-- Inscription -->
         <div id="formRegister" class="auth-form" style="display:none;">
-          <div class="auth-ftitle">Crée ton compte 🎮</div>
-          <div class="auth-fsub">Sauvegarde ta progression sur tous tes appareils et rejoins le classement officiel.</div>
+          <div class="auth-ftitle" id="authRegTitleEl">Crée ton compte 🎮</div>
+          <div class="auth-fsub" id="authRegSubEl">Sauvegarde ta progression sur tous tes appareils et rejoins le classement officiel.</div>
           <input class="auth-inp" type="text" id="regPseudo" placeholder="Pseudo (3–20 caractères)" maxlength="20" autocomplete="username"/>
           <input class="auth-inp" type="email" id="regEmail" placeholder="Email" autocomplete="email"/>
           <input class="auth-inp" type="password" id="regPwd" placeholder="Mot de passe (6 caractères min)" autocomplete="new-password"/>
-          <button class="auth-cta" id="registerBtn" onclick="doRegister()">✨ Créer mon compte</button>
+          <button class="auth-cta" id="registerBtn" onclick="doRegister()"><span id="authBtnRegEl">✨ Créer mon compte</span></button>
           <div class="auth-err" id="registerErr"></div>
-          <div class="auth-legal-note">🔒 Aucune donnée vendue. <a href="#" onclick="openModal('modalRGPD');return false;">Politique de confidentialité</a></div>
+          <div class="auth-legal-note"><span id="authLegalEl">🔒 Aucune donnée vendue.</span> <a href="#" id="authLegalLinkEl" onclick="openModal('modalRGPD');return false;">Politique de confidentialité</a></div>
         </div>
       </div>
 
@@ -797,16 +826,16 @@ body.shake{animation:sk .28s ease-in-out;}
           </div>
         </div>
         <div class="profil-stats">
-          <div class="ps-box"><span class="ps-val" id="psClics">0</span><span class="ps-lb">🖱️ Clics</span></div>
-          <div class="ps-box"><span class="ps-val" id="psSerie">0</span><span class="ps-lb">🔥 Série</span></div>
-          <div class="ps-box"><span class="ps-val" id="psChain">0</span><span class="ps-lb">⚡ Enchaîn.</span></div>
-          <div class="ps-box"><span class="ps-val" id="psRang">—</span><span class="ps-lb">🏆 Rang</span></div>
+          <div class="ps-box"><span class="ps-val" id="psClics">0</span><span class="ps-lb" id="psLblClics">🖱️ Clics</span></div>
+          <div class="ps-box"><span class="ps-val" id="psSerie">0</span><span class="ps-lb" id="psLblSerie">🔥 Série</span></div>
+          <div class="ps-box"><span class="ps-val" id="psChain">0</span><span class="ps-lb" id="psLblChain">⚡ Enchaîn.</span></div>
+          <div class="ps-box"><span class="ps-val" id="psRang">—</span><span class="ps-lb" id="psLblRang">🏆 Rang</span></div>
         </div>
-        <div class="profil-section-title">🎨 Apparences débloquées</div>
+        <div class="profil-section-title" id="profilSkinsTitle">🎨 Apparences débloquées</div>
         <div id="profilSkinsList"></div>
-        <div class="profil-section-title">🎯 Événements actifs</div>
+        <div class="profil-section-title" id="profilEventsTitle">🎯 Événements actifs</div>
         <div id="profilEvents" class="profil-events"></div>
-        <button class="profil-logout" onclick="doLogout()">🚪 Se déconnecter</button>
+        <button class="profil-logout" id="profilLogoutBtn" onclick="doLogout()">🚪 Se déconnecter</button>
       </div>
 
     </div>
@@ -816,9 +845,9 @@ body.shake{animation:sk .28s ease-in-out;}
 
 <!-- ══ PIED DE PAGE LÉGAL (discret) ═════════════════════════ -->
 <div id="legalFooter">
-  <a href="#" onclick="openModal('modalMentions');return false;">Mentions légales</a> ·
-  <a href="#" onclick="openModal('modalCGU');return false;">CGU</a> ·
-  <a href="#" onclick="openModal('modalRGPD');return false;">Confidentialité & RGPD</a> ·
+  <a href="#" id="legalMentionsLnk" onclick="openModal('modalMentions');return false;">Mentions légales</a> ·
+  <a href="#" id="legalCGULnk" onclick="openModal('modalCGU');return false;">CGU</a> ·
+  <a href="#" id="legalRGPDLnk" onclick="openModal('modalRGPD');return false;">Confidentialité & RGPD</a> ·
   © 2026 Charly Soudan · <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> · PEGI 3
 </div>
 
@@ -830,6 +859,663 @@ body.shake{animation:sk .28s ease-in-out;}
 ══════════════════════════════════════════════════════════════ */
 
 var API = 'https://superagent-ceec4ffc.base44.app/functions';
+
+/* ══════════════════════════════════════════════════════════════
+   SYSTÈME I18N — 8 LANGUES
+   Google Play, App Store, Samsung Galaxy, Amazon, Microsoft Store
+══════════════════════════════════════════════════════════════ */
+var I18N = {
+  fr:{
+    lang:'fr', flag:'🇫🇷', nom:'Français',
+    dir:'ltr',
+    landTitle:'LE BOUTON<br><em>QUI SERT À RIEN</em>',
+    landSub:'Le jeu le plus inutile d\'internet.<br>Et pourtant… <strong style="color:#fff">tu peux pas t\'arrêter.</strong>',
+    landCta:'🔴 APPUIE SUR LE BOUTON',
+    landNote:'100% gratuit · 0% utile · PEGI 3 · Aucun achat',
+    landClicsLbl:'Clics mondiaux', landJoueursLbl:'Joueurs uniques',
+    pseudoPlaceholder:'Ton pseudo (visible dans le classement)',
+    tabJeu:'Jeu', tabSkins:'Apparences', tabClassement:'Classement', tabCompte:'Mon Espace',
+    btnTxt:'APPUIE<br>DESSUS', countSub:'clics au total',
+    comboLbl:'⚡ Enchaînement', thermoLbl:'🌍 Progression mondiale',
+    missionsTitle:'🎯 Défis du jour',
+    lbTitle:'🏆 Classement Mondial', lbTotal:'clics au total', lbMyRank:'Mon rang mondial :',
+    authCnx:'🔐 Connexion', authInsc:'✨ Inscription',
+    authWelcome:'Content de te revoir ! 🔥', authWelcomeSub:'Reconnecte-toi et reprends là où tu t\'es arrêté(e).',
+    authRegTitle:'Crée ton compte 🎮', authRegSub:'Sauvegarde ta progression sur tous tes appareils.',
+    authPseudoPlaceholder:'Pseudo (3–20 caractères)',
+    authEmailPlaceholder:'Email',
+    authPwdLoginPlaceholder:'Mot de passe',
+    authPwdRegPlaceholder:'Mot de passe (6 caractères min)',
+    authBtnLogin:'🔐 Se connecter', authBtnRegister:'✨ Créer mon compte',
+    authLegal:'🔒 Aucune donnée vendue.',
+    authLegalLink:'Politique de confidentialité',
+    profilSkinsTitle:'🎨 Apparences débloquées',
+    profilEventsTitle:'🎯 Événements actifs',
+    profilLogout:'🚪 Se déconnecter',
+    profilStatsClics:'🖱️ Clics', profilStatsSerie:'🔥 Série', profilStatsChain:'⚡ Enchaîn.', profilStatsRang:'🏆 Rang',
+    streakLabel:'🔥 Série', enJeu:'en jeu',
+    jpClose:'🔴 Continuer à cliquer',
+    msClose:'OK je suis flippé',
+    legalMentions:'Mentions légales', legalCGU:'CGU', legalRGPD:'Confidentialité & RGPD',
+    offlineTxt:'📴 Hors ligne — clics sauvegardés localement !',
+    microLblPrefix:'Prochain palier : ', microLblSuffix:' clics',
+    xpMaxTxt:'MAX !',
+    toast_skin:'Apparence débloquée : ', toast_ach:'Succès : ', toast_login:'✅ Connecté : ', toast_logout:'👋 Déconnecté',
+    toast_register:'🎉 Compte créé ! Bienvenue ',
+    toast_streak:'🔥 Série de ', toast_streakSuffix:' jours ! Continue !',
+    noEvents:'Aucun événement en cours 😢', noEventsLoad:'Impossible de charger les événements',
+    evBadgeActive:'🟢 EN COURS', evBadgeUpcoming:'🕐 À VENIR',
+    evMetaPrefix:'x', evMetaClics:' clics · Fin le ', evMetaJoueurs:' joueurs',
+    errorFields:'Remplis tous les champs !', errorPseudoShort:'Pseudo trop court (3 caractères min)',
+    errorNetwork:'Erreur réseau 😬',
+    rankMyLabel:'Non classé',
+    skinsUnlocked:'Débloqué', skinsCount:' / 15',
+    tierDebutant:'⭐ DÉBUTANT — 0 à 250 clics',
+    tierInter:'🔥 INTERMÉDIAIRE — 500 à 2 000 clics',
+    tierExpert:'💎 EXPERT — 3 000 à 10 000 clics',
+    missCompleted:' complétés',
+    topbarUser:'👤 Mon espace',
+    podiumLabel:'clics',
+    provocs:[
+      "T'as même pas <strong class='pt-hl'>{next}</strong> clics... t'appelles ça jouer ?",
+      "Tu vas vraiment t'arrêter là ? À <strong class='pt-hl'>{cur}</strong> clics ?",
+      "Même ta grand-mère ferait mieux. Allez, <strong class='pt-hl'>{next}</strong> !",
+      "Le bouton te juge. <strong class='pt-hl'>{next}</strong> clics minimum.",
+      "Sérieusement ? <strong class='pt-hl'>{cur}</strong> clics ? C'est <em>tout</em> ?",
+      "T'es à {cur}… le prochain skin c'est à <strong class='pt-hl'>{next}</strong>.",
+      "HONTE. {cur} clics c'est tout ce que t'as ?",
+      "Le bouton t'a dit : encore un peu. <em>T'obéis.</em>",
+      "À <strong class='pt-hl'>{next}</strong> clics tu débloques quelque chose.",
+      "Tu peux pas t'arrêter. C'est scientifique.",
+    ],
+  },
+  en:{
+    lang:'en', flag:'🇬🇧', nom:'English',
+    dir:'ltr',
+    landTitle:'THE BUTTON<br><em>THAT DOES NOTHING</em>',
+    landSub:'The most useless game on the internet.<br>And yet… <strong style="color:#fff">you can\'t stop.</strong>',
+    landCta:'🔴 PRESS THE BUTTON',
+    landNote:'100% free · 0% useful · PEGI 3 · No purchases',
+    landClicsLbl:'Worldwide clicks', landJoueursLbl:'Unique players',
+    pseudoPlaceholder:'Your username (shown on leaderboard)',
+    tabJeu:'Game', tabSkins:'Skins', tabClassement:'Leaderboard', tabCompte:'My Space',
+    btnTxt:'PRESS<br>ME', countSub:'total clicks',
+    comboLbl:'⚡ Combo', thermoLbl:'🌍 World progress',
+    missionsTitle:'🎯 Daily challenges',
+    lbTitle:'🏆 World Leaderboard', lbTotal:'total clicks', lbMyRank:'My world rank:',
+    authCnx:'🔐 Sign in', authInsc:'✨ Sign up',
+    authWelcome:'Welcome back! 🔥', authWelcomeSub:'Sign in and pick up where you left off.',
+    authRegTitle:'Create account 🎮', authRegSub:'Save your progress on all your devices.',
+    authPseudoPlaceholder:'Username (3–20 chars)',
+    authEmailPlaceholder:'Email',
+    authPwdLoginPlaceholder:'Password',
+    authPwdRegPlaceholder:'Password (min 6 chars)',
+    authBtnLogin:'🔐 Sign in', authBtnRegister:'✨ Create account',
+    authLegal:'🔒 No data sold.',
+    authLegalLink:'Privacy policy',
+    profilSkinsTitle:'🎨 Unlocked skins',
+    profilEventsTitle:'🎯 Active events',
+    profilLogout:'🚪 Sign out',
+    profilStatsClics:'🖱️ Clicks', profilStatsSerie:'🔥 Streak', profilStatsChain:'⚡ Best combo', profilStatsRang:'🏆 Rank',
+    streakLabel:'🔥 Streak', enJeu:'online',
+    jpClose:'🔴 Keep clicking',
+    msClose:'OK I\'m scared',
+    legalMentions:'Legal notice', legalCGU:'Terms', legalRGPD:'Privacy & GDPR',
+    offlineTxt:'📴 Offline — clicks saved locally!',
+    microLblPrefix:'Next milestone: ', microLblSuffix:' clicks',
+    xpMaxTxt:'MAX!',
+    toast_skin:'Skin unlocked: ', toast_ach:'Achievement: ', toast_login:'✅ Signed in: ', toast_logout:'👋 Signed out',
+    toast_register:'🎉 Account created! Welcome ',
+    toast_streak:'🔥 ', toast_streakSuffix:'-day streak! Keep going!',
+    noEvents:'No active events 😢', noEventsLoad:'Could not load events',
+    evBadgeActive:'🟢 ACTIVE', evBadgeUpcoming:'🕐 UPCOMING',
+    evMetaPrefix:'x', evMetaClics:' clicks · Ends ', evMetaJoueurs:' players',
+    errorFields:'Fill in all fields!', errorPseudoShort:'Username too short (3 chars min)',
+    errorNetwork:'Network error 😬',
+    rankMyLabel:'Unranked',
+    skinsUnlocked:'Unlocked', skinsCount:' / 15',
+    tierDebutant:'⭐ BEGINNER — 0 to 250 clicks',
+    tierInter:'🔥 INTERMEDIATE — 500 to 2,000 clicks',
+    tierExpert:'💎 EXPERT — 3,000 to 10,000 clicks',
+    missCompleted:' completed',
+    topbarUser:'👤 My space',
+    podiumLabel:'clicks',
+    provocs:[
+      "You don't even have <strong class='pt-hl'>{next}</strong> clicks... you call that playing?",
+      "Really gonna stop at <strong class='pt-hl'>{cur}</strong> clicks?",
+      "My grandma clicks faster. Come on, <strong class='pt-hl'>{next}</strong>!",
+      "The button judges you. <strong class='pt-hl'>{next}</strong> clicks minimum.",
+      "Seriously? <strong class='pt-hl'>{cur}</strong> clicks? That\'s <em>it</em>?",
+      "At {cur}… next skin unlocks at <strong class='pt-hl'>{next}</strong>.",
+      "SHAME. {cur} clicks is all you\'ve got?",
+      "The button said: one more. <em>You obey.</em>",
+      "At <strong class='pt-hl'>{next}</strong> clicks something unlocks.",
+      "You can\'t stop. It\'s scientific.",
+    ],
+  },
+  es:{
+    lang:'es', flag:'🇪🇸', nom:'Español',
+    dir:'ltr',
+    landTitle:'EL BOTÓN<br><em>QUE NO SIRVE</em>',
+    landSub:'El juego más inútil de internet.<br>Y aun así… <strong style="color:#fff">no puedes parar.</strong>',
+    landCta:'🔴 PULSA EL BOTÓN',
+    landNote:'100% gratis · 0% útil · PEGI 3 · Sin compras',
+    landClicsLbl:'Clics mundiales', landJoueursLbl:'Jugadores únicos',
+    pseudoPlaceholder:'Tu apodo (visible en el ranking)',
+    tabJeu:'Juego', tabSkins:'Skins', tabClassement:'Clasificación', tabCompte:'Mi Espacio',
+    btnTxt:'PULSA<br>AQUÍ', countSub:'clics totales',
+    comboLbl:'⚡ Combo', thermoLbl:'🌍 Progreso mundial',
+    missionsTitle:'🎯 Desafíos diarios',
+    lbTitle:'🏆 Clasificación Mundial', lbTotal:'clics totales', lbMyRank:'Mi posición:',
+    authCnx:'🔐 Iniciar sesión', authInsc:'✨ Registrarse',
+    authWelcome:'¡Bienvenido de vuelta! 🔥', authWelcomeSub:'Inicia sesión y retoma donde lo dejaste.',
+    authRegTitle:'Crear cuenta 🎮', authRegSub:'Guarda tu progreso en todos tus dispositivos.',
+    authPseudoPlaceholder:'Apodo (3–20 caracteres)',
+    authEmailPlaceholder:'Email',
+    authPwdLoginPlaceholder:'Contraseña',
+    authPwdRegPlaceholder:'Contraseña (mín. 6 caracteres)',
+    authBtnLogin:'🔐 Iniciar sesión', authBtnRegister:'✨ Crear cuenta',
+    authLegal:'🔒 Sin datos vendidos.',
+    authLegalLink:'Política de privacidad',
+    profilSkinsTitle:'🎨 Skins desbloqueados',
+    profilEventsTitle:'🎯 Eventos activos',
+    profilLogout:'🚪 Cerrar sesión',
+    profilStatsClics:'🖱️ Clics', profilStatsSerie:'🔥 Racha', profilStatsChain:'⚡ Combo', profilStatsRang:'🏆 Rango',
+    streakLabel:'🔥 Racha', enJeu:'en juego',
+    jpClose:'🔴 Seguir clicando',
+    msClose:'OK estoy asustado',
+    legalMentions:'Aviso legal', legalCGU:'Términos', legalRGPD:'Privacidad & RGPD',
+    offlineTxt:'📴 Sin conexión — clics guardados localmente!',
+    microLblPrefix:'Siguiente hito: ', microLblSuffix:' clics',
+    xpMaxTxt:'¡MÁX!',
+    toast_skin:'Skin desbloqueado: ', toast_ach:'Logro: ', toast_login:'✅ Conectado: ', toast_logout:'👋 Desconectado',
+    toast_register:'🎉 ¡Cuenta creada! Bienvenido ',
+    toast_streak:'🔥 ¡Racha de ', toast_streakSuffix:' días! ¡Sigue así!',
+    noEvents:'Sin eventos activos 😢', noEventsLoad:'No se pudo cargar los eventos',
+    evBadgeActive:'🟢 ACTIVO', evBadgeUpcoming:'🕐 PRÓXIMO',
+    evMetaPrefix:'x', evMetaClics:' clics · Fin el ', evMetaJoueurs:' jugadores',
+    errorFields:'¡Rellena todos los campos!', errorPseudoShort:'Apodo demasiado corto (mín. 3 caracteres)',
+    errorNetwork:'Error de red 😬',
+    rankMyLabel:'Sin clasificar',
+    skinsUnlocked:'Desbloqueado', skinsCount:' / 15',
+    tierDebutant:'⭐ PRINCIPIANTE — 0 a 250 clics',
+    tierInter:'🔥 INTERMEDIO — 500 a 2.000 clics',
+    tierExpert:'💎 EXPERTO — 3.000 a 10.000 clics',
+    missCompleted:' completados',
+    topbarUser:'👤 Mi espacio',
+    podiumLabel:'clics',
+    provocs:[
+      "Ni tienes <strong class='pt-hl'>{next}</strong> clics… ¿lo llamas jugar?",
+      "¿De verdad vas a parar en <strong class='pt-hl'>{cur}</strong> clics?",
+      "Mi abuela clica más rápido. Venga, <strong class='pt-hl'>{next}</strong>!",
+      "El botón te juzga. Mínimo <strong class='pt-hl'>{next}</strong> clics.",
+      "¿En serio? ¿<strong class='pt-hl'>{cur}</strong> clics? ¿Eso es <em>todo</em>?",
+      "Estás en {cur}… el próximo skin en <strong class='pt-hl'>{next}</strong>.",
+      "VERGÜENZA. ¿{cur} clics es todo lo que tienes?",
+      "El botón dijo: uno más. <em>Le obedeces.</em>",
+      "En <strong class='pt-hl'>{next}</strong> clics se desbloquea algo.",
+      "No puedes parar. Es científico.",
+    ],
+  },
+  pt:{
+    lang:'pt', flag:'🇧🇷', nom:'Português',
+    dir:'ltr',
+    landTitle:'O BOTÃO<br><em>QUE NÃO SERVE</em>',
+    landSub:'O jogo mais inútil da internet.<br>E mesmo assim… <strong style="color:#fff">você não consegue parar.</strong>',
+    landCta:'🔴 APERTE O BOTÃO',
+    landNote:'100% grátis · 0% útil · PEGI 3 · Sem compras',
+    landClicsLbl:'Cliques mundiais', landJoueursLbl:'Jogadores únicos',
+    pseudoPlaceholder:'Seu apelido (visível no ranking)',
+    tabJeu:'Jogo', tabSkins:'Skins', tabClassement:'Ranking', tabCompte:'Meu Espaço',
+    btnTxt:'APERTE<br>AQUI', countSub:'cliques no total',
+    comboLbl:'⚡ Combo', thermoLbl:'🌍 Progresso mundial',
+    missionsTitle:'🎯 Desafios diários',
+    lbTitle:'🏆 Ranking Mundial', lbTotal:'cliques totais', lbMyRank:'Minha posição:',
+    authCnx:'🔐 Entrar', authInsc:'✨ Criar conta',
+    authWelcome:'Bem-vindo de volta! 🔥', authWelcomeSub:'Entre e continue de onde parou.',
+    authRegTitle:'Criar conta 🎮', authRegSub:'Salve seu progresso em todos os dispositivos.',
+    authPseudoPlaceholder:'Apelido (3–20 caracteres)',
+    authEmailPlaceholder:'Email',
+    authPwdLoginPlaceholder:'Senha',
+    authPwdRegPlaceholder:'Senha (mín. 6 caracteres)',
+    authBtnLogin:'🔐 Entrar', authBtnRegister:'✨ Criar conta',
+    authLegal:'🔒 Nenhum dado vendido.',
+    authLegalLink:'Política de privacidade',
+    profilSkinsTitle:'🎨 Skins desbloqueados',
+    profilEventsTitle:'🎯 Eventos ativos',
+    profilLogout:'🚪 Sair',
+    profilStatsClics:'🖱️ Cliques', profilStatsSerie:'🔥 Sequência', profilStatsChain:'⚡ Combo', profilStatsRang:'🏆 Posição',
+    streakLabel:'🔥 Sequência', enJeu:'online',
+    jpClose:'🔴 Continuar clicando',
+    msClose:'OK estou com medo',
+    legalMentions:'Aviso legal', legalCGU:'Termos', legalRGPD:'Privacidade & RGPD',
+    offlineTxt:'📴 Offline — cliques salvos localmente!',
+    microLblPrefix:'Próximo marco: ', microLblSuffix:' cliques',
+    xpMaxTxt:'MÁX!',
+    toast_skin:'Skin desbloqueado: ', toast_ach:'Conquista: ', toast_login:'✅ Conectado: ', toast_logout:'👋 Desconectado',
+    toast_register:'🎉 Conta criada! Bem-vindo ',
+    toast_streak:'🔥 ', toast_streakSuffix:' dias seguidos! Continue!',
+    noEvents:'Sem eventos ativos 😢', noEventsLoad:'Não foi possível carregar eventos',
+    evBadgeActive:'🟢 ATIVO', evBadgeUpcoming:'🕐 EM BREVE',
+    evMetaPrefix:'x', evMetaClics:' cliques · Fim em ', evMetaJoueurs:' jogadores',
+    errorFields:'Preencha todos os campos!', errorPseudoShort:'Apelido muito curto (mín. 3 caracteres)',
+    errorNetwork:'Erro de rede 😬',
+    rankMyLabel:'Sem classificação',
+    skinsUnlocked:'Desbloqueado', skinsCount:' / 15',
+    tierDebutant:'⭐ INICIANTE — 0 a 250 cliques',
+    tierInter:'🔥 INTERMEDIÁRIO — 500 a 2.000 cliques',
+    tierExpert:'💎 ESPECIALISTA — 3.000 a 10.000 cliques',
+    missCompleted:' concluídos',
+    topbarUser:'👤 Meu espaço',
+    podiumLabel:'cliques',
+    provocs:[
+      "Você nem tem <strong class='pt-hl'>{next}</strong> cliques... chama isso de jogar?",
+      "Vai mesmo parar em <strong class='pt-hl'>{cur}</strong> cliques?",
+      "Minha avó clica mais rápido. Vamos, <strong class='pt-hl'>{next}</strong>!",
+      "O botão te julga. Mínimo <strong class='pt-hl'>{next}</strong> cliques.",
+      "Sério? <strong class='pt-hl'>{cur}</strong> cliques? É <em>tudo</em>?",
+      "Está em {cur}… próxima skin em <strong class='pt-hl'>{next}</strong>.",
+      "VERGONHA. {cur} cliques é tudo que você tem?",
+      "O botão disse: mais um. <em>Você obedece.</em>",
+      "Em <strong class='pt-hl'>{next}</strong> cliques algo se desbloqueia.",
+      "Você não consegue parar. É científico.",
+    ],
+  },
+  de:{
+    lang:'de', flag:'🇩🇪', nom:'Deutsch',
+    dir:'ltr',
+    landTitle:'DER KNOPF<br><em>DER NICHTS TUT</em>',
+    landSub:'Das nutzloseste Spiel im Internet.<br>Und trotzdem… <strong style="color:#fff">du kannst nicht aufhören.</strong>',
+    landCta:'🔴 DRÜCK DEN KNOPF',
+    landNote:'100% kostenlos · 0% nützlich · PEGI 3 · Keine Käufe',
+    landClicsLbl:'Weltweite Klicks', landJoueursLbl:'Einzigartige Spieler',
+    pseudoPlaceholder:'Dein Nutzername (in der Rangliste sichtbar)',
+    tabJeu:'Spiel', tabSkins:'Skins', tabClassement:'Rangliste', tabCompte:'Mein Bereich',
+    btnTxt:'DRÜCK<br>MICH', countSub:'Klicks gesamt',
+    comboLbl:'⚡ Kombo', thermoLbl:'🌍 Weltweiter Fortschritt',
+    missionsTitle:'🎯 Tagesaufgaben',
+    lbTitle:'🏆 Weltrangliste', lbTotal:'Klicks gesamt', lbMyRank:'Mein Weltrang:',
+    authCnx:'🔐 Anmelden', authInsc:'✨ Registrieren',
+    authWelcome:'Willkommen zurück! 🔥', authWelcomeSub:'Melde dich an und mach weiter wo du aufgehört hast.',
+    authRegTitle:'Konto erstellen 🎮', authRegSub:'Speichere deinen Fortschritt auf allen Geräten.',
+    authPseudoPlaceholder:'Nutzername (3–20 Zeichen)',
+    authEmailPlaceholder:'E-Mail',
+    authPwdLoginPlaceholder:'Passwort',
+    authPwdRegPlaceholder:'Passwort (mind. 6 Zeichen)',
+    authBtnLogin:'🔐 Anmelden', authBtnRegister:'✨ Konto erstellen',
+    authLegal:'🔒 Keine Daten verkauft.',
+    authLegalLink:'Datenschutz',
+    profilSkinsTitle:'🎨 Freigeschaltete Skins',
+    profilEventsTitle:'🎯 Aktive Ereignisse',
+    profilLogout:'🚪 Abmelden',
+    profilStatsClics:'🖱️ Klicks', profilStatsSerie:'🔥 Streak', profilStatsChain:'⚡ Kombo', profilStatsRang:'🏆 Rang',
+    streakLabel:'🔥 Streak', enJeu:'online',
+    jpClose:'🔴 Weiterklicken',
+    msClose:'OK ich bin erschrocken',
+    legalMentions:'Impressum', legalCGU:'Nutzungsbedingungen', legalRGPD:'Datenschutz & DSGVO',
+    offlineTxt:'📴 Offline — Klicks lokal gespeichert!',
+    microLblPrefix:'Nächster Meilenstein: ', microLblSuffix:' Klicks',
+    xpMaxTxt:'MAX!',
+    toast_skin:'Skin freigeschaltet: ', toast_ach:'Erfolg: ', toast_login:'✅ Angemeldet: ', toast_logout:'👋 Abgemeldet',
+    toast_register:'🎉 Konto erstellt! Willkommen ',
+    toast_streak:'🔥 ', toast_streakSuffix:' Tage in Folge! Weiter so!',
+    noEvents:'Keine aktiven Ereignisse 😢', noEventsLoad:'Ereignisse konnten nicht geladen werden',
+    evBadgeActive:'🟢 AKTIV', evBadgeUpcoming:'🕐 BALD',
+    evMetaPrefix:'x', evMetaClics:' Klicks · Ende ', evMetaJoueurs:' Spieler',
+    errorFields:'Bitte alle Felder ausfüllen!', errorPseudoShort:'Nutzername zu kurz (mind. 3 Zeichen)',
+    errorNetwork:'Netzwerkfehler 😬',
+    rankMyLabel:'Unplatziert',
+    skinsUnlocked:'Freigeschaltet', skinsCount:' / 15',
+    tierDebutant:'⭐ ANFÄNGER — 0 bis 250 Klicks',
+    tierInter:'🔥 FORTGESCHRITTEN — 500 bis 2.000 Klicks',
+    tierExpert:'💎 EXPERTE — 3.000 bis 10.000 Klicks',
+    missCompleted:' abgeschlossen',
+    topbarUser:'👤 Mein Bereich',
+    podiumLabel:'Klicks',
+    provocs:[
+      "Noch nicht mal <strong class='pt-hl'>{next}</strong> Klicks... nennst du das spielen?",
+      "Wirklich aufhören bei <strong class='pt-hl'>{cur}</strong> Klicks?",
+      "Meine Oma klickt schneller. Los, <strong class='pt-hl'>{next}</strong>!",
+      "Der Knopf urteilt. Mindestens <strong class='pt-hl'>{next}</strong> Klicks.",
+      "Ernst? <strong class='pt-hl'>{cur}</strong> Klicks? Das ist <em>alles</em>?",
+      "Bei {cur}… nächster Skin bei <strong class='pt-hl'>{next}</strong>.",
+      "SCHANDE. {cur} Klicks ist alles was du hast?",
+      "Der Knopf sagte: noch einer. <em>Du gehorchst.</em>",
+      "Bei <strong class='pt-hl'>{next}</strong> Klicks schaltet sich etwas frei.",
+      "Du kannst nicht aufhören. Das ist wissenschaftlich.",
+    ],
+  },
+  it:{
+    lang:'it', flag:'🇮🇹', nom:'Italiano',
+    dir:'ltr',
+    landTitle:'IL BOTTONE<br><em>CHE NON SERVE</em>',
+    landSub:'Il gioco più inutile di internet.<br>Eppure… <strong style="color:#fff">non riesci a fermarti.</strong>',
+    landCta:'🔴 PREMI IL BOTTONE',
+    landNote:'100% gratis · 0% utile · PEGI 3 · Nessun acquisto',
+    landClicsLbl:'Click mondiali', landJoueursLbl:'Giocatori unici',
+    pseudoPlaceholder:'Il tuo nome (visibile in classifica)',
+    tabJeu:'Gioco', tabSkins:'Skin', tabClassement:'Classifica', tabCompte:'Il Mio Spazio',
+    btnTxt:'PREMI<br>QUI', countSub:'click totali',
+    comboLbl:'⚡ Combo', thermoLbl:'🌍 Progresso mondiale',
+    missionsTitle:'🎯 Sfide giornaliere',
+    lbTitle:'🏆 Classifica Mondiale', lbTotal:'click totali', lbMyRank:'Il mio posto:',
+    authCnx:'🔐 Accedi', authInsc:'✨ Registrati',
+    authWelcome:'Bentornato! 🔥', authWelcomeSub:'Accedi e riprendi da dove ti eri fermato.',
+    authRegTitle:'Crea account 🎮', authRegSub:'Salva i tuoi progressi su tutti i dispositivi.',
+    authPseudoPlaceholder:'Nome utente (3–20 caratteri)',
+    authEmailPlaceholder:'Email',
+    authPwdLoginPlaceholder:'Password',
+    authPwdRegPlaceholder:'Password (min. 6 caratteri)',
+    authBtnLogin:'🔐 Accedi', authBtnRegister:'✨ Crea account',
+    authLegal:'🔒 Nessun dato venduto.',
+    authLegalLink:'Informativa privacy',
+    profilSkinsTitle:'🎨 Skin sbloccate',
+    profilEventsTitle:'🎯 Eventi attivi',
+    profilLogout:'🚪 Esci',
+    profilStatsClics:'🖱️ Click', profilStatsSerie:'🔥 Serie', profilStatsChain:'⚡ Combo', profilStatsRang:'🏆 Rango',
+    streakLabel:'🔥 Serie', enJeu:'in gioco',
+    jpClose:'🔴 Continua a cliccare',
+    msClose:'OK ho paura',
+    legalMentions:'Note legali', legalCGU:'Termini', legalRGPD:'Privacy & GDPR',
+    offlineTxt:'📴 Offline — click salvati localmente!',
+    microLblPrefix:'Prossimo traguardo: ', microLblSuffix:' click',
+    xpMaxTxt:'MAX!',
+    toast_skin:'Skin sbloccata: ', toast_ach:'Traguardo: ', toast_login:'✅ Connesso: ', toast_logout:'👋 Disconnesso',
+    toast_register:'🎉 Account creato! Benvenuto ',
+    toast_streak:'🔥 ', toast_streakSuffix:' giorni di fila! Continua!',
+    noEvents:'Nessun evento attivo 😢', noEventsLoad:'Impossibile caricare gli eventi',
+    evBadgeActive:'🟢 ATTIVO', evBadgeUpcoming:'🕐 IN ARRIVO',
+    evMetaPrefix:'x', evMetaClics:' click · Fine il ', evMetaJoueurs:' giocatori',
+    errorFields:'Compila tutti i campi!', errorPseudoShort:'Nome utente troppo corto (min. 3 caratteri)',
+    errorNetwork:'Errore di rete 😬',
+    rankMyLabel:'Non classificato',
+    skinsUnlocked:'Sbloccato', skinsCount:' / 15',
+    tierDebutant:'⭐ PRINCIPIANTE — 0 a 250 click',
+    tierInter:'🔥 INTERMEDIO — 500 a 2.000 click',
+    tierExpert:'💎 ESPERTO — 3.000 a 10.000 click',
+    missCompleted:' completati',
+    topbarUser:'👤 Il mio spazio',
+    podiumLabel:'click',
+    provocs:[
+      "Non hai nemmeno <strong class='pt-hl'>{next}</strong> click... chiami questo giocare?",
+      "Davvero ti fermi a <strong class='pt-hl'>{cur}</strong> click?",
+      "Mia nonna clicca più veloce. Dai, <strong class='pt-hl'>{next}</strong>!",
+      "Il bottone ti giudica. Minimo <strong class='pt-hl'>{next}</strong> click.",
+      "Sul serio? <strong class='pt-hl'>{cur}</strong> click? È <em>tutto</em>?",
+      "Sei a {cur}… prossima skin a <strong class='pt-hl'>{next}</strong>.",
+      "VERGOGNA. {cur} click è tutto quello che hai?",
+      "Il bottone ha detto: ancora uno. <em>Obbedisci.</em>",
+      "A <strong class='pt-hl'>{next}</strong> click si sblocca qualcosa.",
+      "Non puoi fermarti. È scientifico.",
+    ],
+  },
+  ja:{
+    lang:'ja', flag:'🇯🇵', nom:'日本語',
+    dir:'ltr',
+    landTitle:'役に立たない<br><em>ボタン</em>',
+    landSub:'インターネットで最も無駄なゲーム。<br>それでも… <strong style="color:#fff">止まれない。</strong>',
+    landCta:'🔴 ボタンを押せ',
+    landNote:'完全無料 · PEGI 3 · 課金なし',
+    landClicsLbl:'世界のクリック数', landJoueursLbl:'ユニークプレイヤー数',
+    pseudoPlaceholder:'ニックネーム（ランキングに表示）',
+    tabJeu:'ゲーム', tabSkins:'スキン', tabClassement:'ランキング', tabCompte:'マイページ',
+    btnTxt:'押せ<br>！', countSub:'クリック（合計）',
+    comboLbl:'⚡ コンボ', thermoLbl:'🌍 世界の進捗',
+    missionsTitle:'🎯 デイリーチャレンジ',
+    lbTitle:'🏆 世界ランキング', lbTotal:'クリック合計', lbMyRank:'自分のランク：',
+    authCnx:'🔐 ログイン', authInsc:'✨ 新規登録',
+    authWelcome:'おかえり！ 🔥', authWelcomeSub:'ログインして続きからプレイ。',
+    authRegTitle:'アカウント作成 🎮', authRegSub:'全デバイスで進捗を保存。',
+    authPseudoPlaceholder:'ユーザー名（3〜20文字）',
+    authEmailPlaceholder:'メールアドレス',
+    authPwdLoginPlaceholder:'パスワード',
+    authPwdRegPlaceholder:'パスワード（6文字以上）',
+    authBtnLogin:'🔐 ログイン', authBtnRegister:'✨ アカウント作成',
+    authLegal:'🔒 データは販売しません。',
+    authLegalLink:'プライバシーポリシー',
+    profilSkinsTitle:'🎨 解放済みスキン',
+    profilEventsTitle:'🎯 開催中イベント',
+    profilLogout:'🚪 ログアウト',
+    profilStatsClics:'🖱️ クリック', profilStatsSerie:'🔥 連続日数', profilStatsChain:'⚡ コンボ', profilStatsRang:'🏆 ランク',
+    streakLabel:'🔥 連続', enJeu:'プレイ中',
+    jpClose:'🔴 クリックを続ける',
+    msClose:'わかった',
+    legalMentions:'法的通知', legalCGU:'利用規約', legalRGPD:'プライバシー & GDPR',
+    offlineTxt:'📴 オフライン — クリックはローカルに保存済み！',
+    microLblPrefix:'次のマイルストーン：', microLblSuffix:'クリック',
+    xpMaxTxt:'MAX！',
+    toast_skin:'スキン解放：', toast_ach:'実績：', toast_login:'✅ ログイン：', toast_logout:'👋 ログアウト',
+    toast_register:'🎉 アカウント作成完了！ようこそ',
+    toast_streak:'🔥 ', toast_streakSuffix:'日連続！続けよう！',
+    noEvents:'開催中イベントなし 😢', noEventsLoad:'イベントを読み込めませんでした',
+    evBadgeActive:'🟢 開催中', evBadgeUpcoming:'🕐 まもなく',
+    evMetaPrefix:'×', evMetaClics:'クリック · 終了：', evMetaJoueurs:'人参加',
+    errorFields:'全てのフィールドを入力してください！', errorPseudoShort:'ユーザー名が短すぎます（3文字以上）',
+    errorNetwork:'通信エラー 😬',
+    rankMyLabel:'未ランク',
+    skinsUnlocked:'解放済み', skinsCount:' / 15',
+    tierDebutant:'⭐ 初心者 — 0〜250クリック',
+    tierInter:'🔥 中級者 — 500〜2,000クリック',
+    tierExpert:'💎 上級者 — 3,000〜10,000クリック',
+    missCompleted:' 完了',
+    topbarUser:'👤 マイページ',
+    podiumLabel:'クリック',
+    provocs:[
+      "<strong class='pt-hl'>{next}</strong>クリックもないの？これをゲームと呼ぶの？",
+      "本当に<strong class='pt-hl'>{cur}</strong>クリックで止まるの？",
+      "おばあちゃんの方が速い。<strong class='pt-hl'>{next}</strong>いこう！",
+      "ボタンが審判してる。最低<strong class='pt-hl'>{next}</strong>クリック。",
+      "マジで？<strong class='pt-hl'>{cur}</strong>クリック？それが<em>全て</em>？",
+      "{cur}クリック…次のスキンは<strong class='pt-hl'>{next}</strong>。",
+      "恥ずかしい。{cur}クリックが全て？",
+      "ボタンが言った：もう一度。<em>従え。</em>",
+      "<strong class='pt-hl'>{next}</strong>クリックで何かが解放される。",
+      "止まれない。科学的に証明されている。",
+    ],
+  },
+  ar:{
+    lang:'ar', flag:'🇸🇦', nom:'العربية',
+    dir:'rtl',
+    landTitle:'الزر<br><em>الذي لا يفيد</em>',
+    landSub:'أكثر لعبة عديمة الفائدة على الإنترنت.<br>ومع ذلك… <strong style="color:#fff">لا تستطيع التوقف.</strong>',
+    landCta:'🔴 اضغط الزر',
+    landNote:'مجاني 100٪ · 0٪ مفيد · PEGI 3 · بدون مشتريات',
+    landClicsLbl:'نقرات عالمية', landJoueursLbl:'لاعبون فريدون',
+    pseudoPlaceholder:'اسمك المستعار (يظهر في الترتيب)',
+    tabJeu:'لعبة', tabSkins:'أشكال', tabClassement:'ترتيب', tabCompte:'مساحتي',
+    btnTxt:'اضغط<br>هنا', countSub:'نقرات إجمالية',
+    comboLbl:'⚡ تسلسل', thermoLbl:'🌍 تقدم عالمي',
+    missionsTitle:'🎯 تحديات اليوم',
+    lbTitle:'🏆 الترتيب العالمي', lbTotal:'نقرات إجمالية', lbMyRank:'مرتبتي:',
+    authCnx:'🔐 تسجيل الدخول', authInsc:'✨ إنشاء حساب',
+    authWelcome:'مرحباً بعودتك! 🔥', authWelcomeSub:'سجّل دخولك وتابع من حيث توقفت.',
+    authRegTitle:'إنشاء حساب 🎮', authRegSub:'احفظ تقدمك على جميع أجهزتك.',
+    authPseudoPlaceholder:'اسم مستعار (3–20 حرف)',
+    authEmailPlaceholder:'البريد الإلكتروني',
+    authPwdLoginPlaceholder:'كلمة المرور',
+    authPwdRegPlaceholder:'كلمة المرور (6 أحرف على الأقل)',
+    authBtnLogin:'🔐 تسجيل الدخول', authBtnRegister:'✨ إنشاء حساب',
+    authLegal:'🔒 لا يُباع أي بيانات.',
+    authLegalLink:'سياسة الخصوصية',
+    profilSkinsTitle:'🎨 الأشكال المفتوحة',
+    profilEventsTitle:'🎯 الأحداث النشطة',
+    profilLogout:'🚪 تسجيل الخروج',
+    profilStatsClics:'🖱️ نقرات', profilStatsSerie:'🔥 سلسلة', profilStatsChain:'⚡ تسلسل', profilStatsRang:'🏆 مرتبة',
+    streakLabel:'🔥 سلسلة', enJeu:'في اللعبة',
+    jpClose:'🔴 الاستمرار في النقر',
+    msClose:'حسنًا فهمت',
+    legalMentions:'إشعار قانوني', legalCGU:'الشروط', legalRGPD:'الخصوصية والسياسة',
+    offlineTxt:'📴 غير متصل — النقرات محفوظة محليًا!',
+    microLblPrefix:'المرحلة التالية: ', microLblSuffix:' نقرات',
+    xpMaxTxt:'الحد الأقصى!',
+    toast_skin:'تم فتح الشكل: ', toast_ach:'إنجاز: ', toast_login:'✅ متصل: ', toast_logout:'👋 تم تسجيل الخروج',
+    toast_register:'🎉 تم إنشاء الحساب! مرحباً ',
+    toast_streak:'🔥 ', toast_streakSuffix:' أيام متتالية! استمر!',
+    noEvents:'لا توجد أحداث نشطة 😢', noEventsLoad:'تعذّر تحميل الأحداث',
+    evBadgeActive:'🟢 نشط', evBadgeUpcoming:'🕐 قريبًا',
+    evMetaPrefix:'×', evMetaClics:' نقرات · ينتهي ', evMetaJoueurs:' لاعبين',
+    errorFields:'يُرجى ملء جميع الحقول!', errorPseudoShort:'الاسم المستعار قصير جداً (3 أحرف على الأقل)',
+    errorNetwork:'خطأ في الشبكة 😬',
+    rankMyLabel:'غير مصنّف',
+    skinsUnlocked:'مفتوح', skinsCount:' / 15',
+    tierDebutant:'⭐ مبتدئ — 0 إلى 250 نقرة',
+    tierInter:'🔥 متوسط — 500 إلى 2,000 نقرة',
+    tierExpert:'💎 خبير — 3,000 إلى 10,000 نقرة',
+    missCompleted:' مكتمل',
+    topbarUser:'👤 مساحتي',
+    podiumLabel:'نقرات',
+    provocs:[
+      "ليس لديك حتى <strong class='pt-hl'>{next}</strong> نقرة... تسمي هذا لعبًا؟",
+      "ستتوقف فعلاً عند <strong class='pt-hl'>{cur}</strong> نقرة؟",
+      "جدتي تنقر أسرع منك. يلا، <strong class='pt-hl'>{next}</strong>!",
+      "الزر يحكم عليك. الحد الأدنى <strong class='pt-hl'>{next}</strong> نقرة.",
+      "بجدية؟ <strong class='pt-hl'>{cur}</strong> نقرة؟ هذا <em>كل شيء</em>؟",
+      "أنت عند {cur}… الشكل التالي عند <strong class='pt-hl'>{next}</strong>.",
+      "عار. {cur} نقرة هو كل ما تملكه؟",
+      "قال الزر: واحدة أخرى. <em>أطع.</em>",
+      "عند <strong class='pt-hl'>{next}</strong> نقرة شيء ما يفتح.",
+      "لا تستطيع التوقف. هذا علمي.",
+    ],
+  },
+};
+
+/* ── I18N ÉTAT ─────────────────────────────────────────────── */
+var _lang = 'fr';
+var _t = I18N.fr; // traduction courante
+
+function detectLang(){
+  // 1. Paramètre URL ?lang=XX
+  var urlParams = new URLSearchParams(window.location.search);
+  var langParam = urlParams.get('lang');
+  if(langParam && I18N[langParam]){ return langParam; }
+  // 2. localStorage
+  var saved = localStorage.getItem('lang');
+  if(saved && I18N[saved]){ return saved; }
+  // 3. Navigateur
+  var nav = (navigator.language||navigator.userLanguage||'fr').toLowerCase().split('-')[0];
+  if(I18N[nav]){ return nav; }
+  // 4. Fallback français
+  return 'fr';
+}
+
+function setLang(code){
+  if(!I18N[code]) return;
+  _lang = code;
+  _t = I18N[code];
+  localStorage.setItem('lang', code);
+  // Mettre à jour la balise html lang + dir
+  var htmlRoot = document.getElementById('htmlRoot');
+  if(htmlRoot){ htmlRoot.lang = code; htmlRoot.dir = _t.dir; }
+  applyTranslations();
+  renderLangBar();
+}
+
+function applyTranslations(){
+  // Landing
+  safeHTML('landTitleEl', _t.landTitle);
+  safeHTML('landSubEl', _t.landSub);
+  safeText('landBtnEl', _t.landCta);
+  safeText('landNoteEl', _t.landNote);
+  safeText('landClicsLbl', _t.landClicsLbl);
+  safeText('landJoueursLbl', _t.landJoueursLbl);
+  // Pseudo
+  var pi = document.getElementById('pseudoInput');
+  if(pi) pi.placeholder = _t.pseudoPlaceholder;
+  // Tabs
+  safeText('tabLabelJeu', _t.tabJeu);
+  safeText('tabLabelSkins', _t.tabSkins);
+  safeText('tabLabelClassement', _t.tabClassement);
+  safeText('tabLabelCompte', _t.tabCompte);
+  // Bouton
+  var btn = document.getElementById('btn');
+  if(btn && SKIN_TXT && curSkin==='classic'){
+    btn.innerHTML = _t.btnTxt;
+  }
+  // Compteur
+  safeText('countSubEl', _t.countSub);
+  // Combo + thermo
+  safeText('comboLblEl', _t.comboLbl);
+  safeText('thermoLblEl', _t.thermoLbl);
+  // Missions
+  safeText('missionsTitleEl', _t.missionsTitle);
+  // Classement
+  safeText('lbTitleEl', _t.lbTitle);
+  safeText('lbMyRankLbl', _t.lbMyRank);
+  // Auth
+  safeText('authBtnCnx', _t.authCnx);
+  safeText('authBtnInsc', _t.authInsc);
+  safeText('authWelcomeEl', _t.authWelcome);
+  safeText('authWelcomeSubEl', _t.authWelcomeSub);
+  safeText('authRegTitleEl', _t.authRegTitle);
+  safeText('authRegSubEl', _t.authRegSub);
+  safeText('authBtnLoginEl', _t.authBtnLogin);
+  safeText('authBtnRegEl', _t.authBtnRegister);
+  safeText('authLegalEl', _t.authLegal);
+  safeText('authLegalLinkEl', _t.authLegalLink);
+  var iids = ['loginId','loginPwd','regPseudo','regEmail','regPwd'];
+  var iphs = [_t.authEmailPlaceholder, _t.authPwdLoginPlaceholder, _t.authPseudoPlaceholder, _t.authEmailPlaceholder, _t.authPwdRegPlaceholder];
+  document.getElementById('loginId') && (document.getElementById('loginId').placeholder = _t.authEmailPlaceholder);
+  document.getElementById('loginPwd') && (document.getElementById('loginPwd').placeholder = _t.authPwdLoginPlaceholder);
+  document.getElementById('regPseudo') && (document.getElementById('regPseudo').placeholder = _t.authPseudoPlaceholder);
+  document.getElementById('regEmail') && (document.getElementById('regEmail').placeholder = _t.authEmailPlaceholder);
+  document.getElementById('regPwd') && (document.getElementById('regPwd').placeholder = _t.authPwdRegPlaceholder);
+  // Profil
+  safeText('profilSkinsTitle', _t.profilSkinsTitle);
+  safeText('profilEventsTitle', _t.profilEventsTitle);
+  safeText('profilLogoutBtn', _t.profilLogout);
+  safeText('psLblClics', _t.profilStatsClics);
+  safeText('psLblSerie', _t.profilStatsSerie);
+  safeText('psLblChain', _t.profilStatsChain);
+  safeText('psLblRang', _t.profilStatsRang);
+  // Topbar
+  safeText('topbarUser', _t.topbarUser);
+  safeText('streakLbl', _t.streakLabel);
+  safeText('fomoLbl', _t.enJeu);
+  // Skin tiers
+  safeText('tierLblDebutant', _t.tierDebutant);
+  safeText('tierLblInter', _t.tierInter);
+  safeText('tierLblExpert', _t.tierExpert);
+  // Footer
+  safeText('legalMentionsLnk', _t.legalMentions);
+  safeText('legalCGULnk', _t.legalCGU);
+  safeText('legalRGPDLnk', _t.legalRGPD);
+  // Jackpot close
+  safeText('jpCloseBtn', _t.jpClose);
+  // Mystery close
+  safeText('msCloseBtn', _t.msClose);
+  // Offline
+  safeText('offlineBarEl', _t.offlineTxt);
+  // Micro
+  renderMicro();
+  // Provocs (reset)
+  PROVOCS = _t.provocs;
+  if(provocTimer){ clearInterval(provocTimer); provocTimer=null; if(clicks>=5) startProvoc(); }
+  // RTL support
+  document.body.dir = _t.dir || 'ltr';
+}
+
+function safeText(id, txt){
+  var el = document.getElementById(id); if(el && txt !== undefined) el.textContent = txt;
+}
+function safeHTML(id, html){
+  var el = document.getElementById(id); if(el && html !== undefined) el.innerHTML = html;
+}
+
+function renderLangBar(){
+  var bar = document.getElementById('langBar'); if(!bar) return;
+  bar.innerHTML = '';
+  Object.keys(I18N).forEach(function(code){
+    var l = I18N[code];
+    var btn = document.createElement('button');
+    btn.style.cssText = 'background:'+(code===_lang?'rgba(255,26,26,.2)':'rgba(255,255,255,.04)')+';border:1px solid '+(code===_lang?'rgba(255,26,26,.4)':'#222')+';border-radius:20px;padding:3px 7px;font-size:.65rem;cursor:pointer;color:'+(code===_lang?'#ff4444':'#888')+';transition:.15s;white-space:nowrap;';
+    btn.textContent = l.flag + ' ' + l.nom;
+    btn.title = l.nom;
+    btn.onclick = (function(c){ return function(){ setLang(c); }; })(code);
+    bar.appendChild(btn);
+  });
+}
+
+
 
 /* ── SKINS ─────────────────────────────────────────────────── */
 var SKINS = [
@@ -1687,6 +2373,9 @@ function init(){
   document.addEventListener('pointermove',function(e){ _lastPointerX=e.clientX; _lastPointerY=e.clientY; });
   if(clicks>=5) startProvoc();
   showTab('jeu');
+  // I18N — détection et application de la langue
+  setLang(detectLang());
+  renderLangBar();
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
