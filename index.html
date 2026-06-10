@@ -115,7 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 14px 6px;
   background:linear-gradient(180deg,rgba(5,5,5,1) 0%,transparent 100%);
-  position:sticky;top:0;z-index:30;gap:6px;
+  position:relative;z-index:30;gap:6px;
 }
 .tp-pill{
   background:var(--bg3);border-radius:20px;padding:5px 10px;
@@ -160,7 +160,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 #tabsNav{
   display:flex;background:var(--bg2);
   border-bottom:1px solid var(--border);
-  position:sticky;top:48px;z-index:20;
+  position:sticky;top:0;z-index:20;
 }
 .tab-btn{
   flex:1;padding:10px 2px;border:none;background:transparent;
@@ -492,6 +492,15 @@ body.shake{animation:sk .28s ease-in-out;}
 [dir="rtl"] .mission-card{flex-direction:row-reverse;}
 [dir="rtl"] .lb-row.me{border-left:none;border-right:3px solid var(--red);}
 
+/* ══ SÉLECTEUR LANGUE FIXE ══════════════════════════════════ */
+#langBar{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+#langToggle{background:rgba(18,18,18,.95);border:1px solid #2a2a2a;border-radius:20px;padding:4px 9px;font-size:.7rem;cursor:pointer;color:#888;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);white-space:nowrap;}
+#langPanel{background:rgba(12,12,12,.97);border:1px solid #252525;border-radius:12px;padding:6px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+[dir="rtl"] #wrap{direction:rtl;}
+[dir="rtl"] .lb-row{flex-direction:row-reverse;}
+[dir="rtl"] .lb-row.me{border-left:none;border-right:3px solid var(--red);}
+[dir="rtl"] .mission-card{flex-direction:row-reverse;}
+
 /* ══ RESPONSIVE ══════════════════════════════════════════════ */
 @media(min-width:480px){#wrap{border-left:1px solid #111;border-right:1px solid #111;}}
 @media(max-width:360px){.sv{font-size:.8rem;}}
@@ -649,9 +658,6 @@ body.shake{animation:sk .28s ease-in-out;}
     <div class="tp-pill">🌍 <span class="tp-green" id="fomoNum">—</span> <span id="fomoLbl">en jeu</span></div>
     <div class="tp-pill" style="cursor:pointer" onclick="showTab('compte')" id="topbarUser">👤 Mon espace</div>
   </div>
-
-  <!-- Sélecteur langue -->
-  <div id="langBar" style="display:flex;align-items:center;justify-content:flex-end;padding:0 14px 4px;gap:4px;flex-wrap:wrap;"></div>
 
   <!-- Bannière événement -->
   <div id="eventBanner"></div>
@@ -844,6 +850,7 @@ body.shake{animation:sk .28s ease-in-out;}
 </div><!-- /wrap -->
 
 <!-- ══ PIED DE PAGE LÉGAL (discret) ═════════════════════════ -->
+<div id="langBar" style="position:fixed;bottom:32px;right:8px;z-index:200;"></div>
 <div id="legalFooter">
   <a href="#" id="legalMentionsLnk" onclick="openModal('modalMentions');return false;">Mentions légales</a> ·
   <a href="#" id="legalCGULnk" onclick="openModal('modalCGU');return false;">CGU</a> ·
@@ -851,7 +858,10 @@ body.shake{animation:sk .28s ease-in-out;}
   © 2026 Charly Soudan · <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> · PEGI 3
 </div>
 
-<script>
+<script>function fmt(n){
+  try{ return n.toLocaleString(_lang||'fr'); }catch(e){ return String(n); }
+}
+
 'use strict';
 /* ══════════════════════════════════════════════════════════════
    LE BOUTON QUI SERT À RIEN — v13.0
@@ -1427,10 +1437,8 @@ function applyTranslations(){
   safeText('tabLabelClassement', _t.tabClassement);
   safeText('tabLabelCompte', _t.tabCompte);
   // Bouton
-  var btn = document.getElementById('btn');
-  if(btn && SKIN_TXT && curSkin==='classic'){
-    btn.innerHTML = _t.btnTxt;
-  }
+  // Pas de modification du bouton pendant les traductions (cause de bugs)
+  // Le bouton sera mis à jour lors du prochain updateSkin()
   // Compteur
   safeText('countSubEl', _t.countSub);
   // Combo + thermo
@@ -1488,7 +1496,7 @@ function applyTranslations(){
   // Micro
   renderMicro();
   // Provocs (reset)
-  PROVOCS = _t.provocs;
+  // PROVOCS n'est plus réassigné ici — renderProvoc lit _t.provocs directement
   if(provocTimer){ clearInterval(provocTimer); provocTimer=null; if(clicks>=5) startProvoc(); }
   // RTL support
   document.body.dir = _t.dir || 'ltr';
@@ -1503,16 +1511,45 @@ function safeHTML(id, html){
 
 function renderLangBar(){
   var bar = document.getElementById('langBar'); if(!bar) return;
-  bar.innerHTML = '';
-  Object.keys(I18N).forEach(function(code){
-    var l = I18N[code];
-    var btn = document.createElement('button');
-    btn.style.cssText = 'background:'+(code===_lang?'rgba(255,26,26,.2)':'rgba(255,255,255,.04)')+';border:1px solid '+(code===_lang?'rgba(255,26,26,.4)':'#222')+';border-radius:20px;padding:3px 7px;font-size:.65rem;cursor:pointer;color:'+(code===_lang?'#ff4444':'#888')+';transition:.15s;white-space:nowrap;';
-    btn.textContent = l.flag + ' ' + l.nom;
-    btn.title = l.nom;
-    btn.onclick = (function(c){ return function(){ setLang(c); }; })(code);
-    bar.appendChild(btn);
-  });
+  // Bouton toggle langue visible
+  if(!bar._built){
+    bar._built = true;
+    var toggle = document.createElement('button');
+    toggle.id = 'langToggle';
+    toggle.style.cssText = 'background:rgba(20,20,20,.95);border:1px solid #333;border-radius:20px;padding:4px 9px;font-size:.75rem;cursor:pointer;color:#aaa;backdrop-filter:blur(4px);';
+    toggle.onclick = function(){
+      var panel = document.getElementById('langPanel');
+      if(panel) panel.style.display = panel.style.display==='none' ? 'flex' : 'none';
+    };
+    bar.appendChild(toggle);
+    var panel = document.createElement('div');
+    panel.id = 'langPanel';
+    panel.style.cssText = 'display:none;flex-direction:column;gap:3px;background:rgba(15,15,15,.97);border:1px solid #252525;border-radius:12px;padding:6px;backdrop-filter:blur(8px);';
+    Object.keys(I18N).forEach(function(code){
+      var l = I18N[code];
+      var btn = document.createElement('button');
+      btn.dataset.langCode = code;
+      btn.style.cssText = 'background:transparent;border:none;border-radius:8px;padding:4px 8px;font-size:.7rem;cursor:pointer;color:#aaa;text-align:left;white-space:nowrap;';
+      btn.textContent = l.flag + ' ' + l.nom;
+      btn.onmouseenter = function(){ this.style.background='rgba(255,26,26,.15)'; this.style.color='#ff4444'; };
+      btn.onmouseleave = function(){ this.style.background=_lang===this.dataset.langCode?'rgba(255,26,26,.15)':'transparent'; this.style.color=_lang===this.dataset.langCode?'#ff4444':'#aaa'; };
+      btn.onclick = (function(c){ return function(){ setLang(c); document.getElementById('langPanel').style.display='none'; }; })(code);
+      panel.appendChild(btn);
+    });
+    bar.appendChild(panel);
+  }
+  // Mettre à jour le toggle avec la langue active
+  var toggle2 = document.getElementById('langToggle');
+  if(toggle2) toggle2.textContent = I18N[_lang].flag + ' ' + I18N[_lang].nom;
+  // Mettre à jour les styles des boutons du panel
+  var panel2 = document.getElementById('langPanel');
+  if(panel2){
+    panel2.querySelectorAll('button[data-lang-code]').forEach(function(b){
+      var isActive = b.dataset.langCode === _lang;
+      b.style.background = isActive ? 'rgba(255,26,26,.15)' : 'transparent';
+      b.style.color = isActive ? '#ff4444' : '#aaa';
+    });
+  }
 }
 
 
@@ -1816,7 +1853,7 @@ function drawLoop(){
 ══════════════════════════════════════════════════════════════ */
 function renderMyCount(){
   var el=document.getElementById('myCount'); if(!el) return;
-  el.textContent=clicks.toLocaleString('fr');
+  el.textContent=fmt(clicks);
   el.classList.remove('pop');
   requestAnimationFrame(function(){ el.classList.add('pop'); });
 }
@@ -1826,13 +1863,13 @@ function renderXP(){
   var tidx=0;
   for(var i=0;i<TITRES.length;i++){ if(clicks>=TITRES[i].req) tidx=i; }
   var nxt=tidx<TITRES.length-1?TITRES[tidx+1]:null;
-  var nx=document.getElementById('xpNext'); if(nx) nx.textContent=nxt?nxt.req.toLocaleString('fr')+' clics':'MAX !';
+  var nx=document.getElementById('xpNext'); if(nx) nx.textContent=nxt?nxt.fmt(req)+' clics':'MAX !';
   var fill=document.getElementById('xpFill');
   if(fill){ var pct=nxt?Math.min(100,((clicks-TITRES[tidx].req)/(nxt.req-TITRES[tidx].req))*100):100; fill.style.width=pct.toFixed(1)+'%'; }
 }
 function renderMicro(){
   var nxt=nextMilestone(clicks), prv=prevMilestone(clicks);
-  var lbl=document.getElementById('microLbl'); if(lbl) lbl.textContent='Prochain palier : '+nxt.toLocaleString('fr')+' clics';
+  var lbl=document.getElementById('microLbl'); if(lbl) lbl.textContent='Prochain palier : '+fmt(nxt)+' clics';
   var fill=document.getElementById('microFill');
   if(fill){ var pct=nxt>prv?Math.min(100,((clicks-prv)/(nxt-prv))*100):100; fill.style.width=pct.toFixed(1)+'%'; }
 }
@@ -1844,7 +1881,7 @@ function renderCombo(){
 function renderThermo(){
   var fill=document.getElementById('thermoFill'); var val=document.getElementById('thermoVal');
   if(fill) fill.style.width=Math.min(100,(globalClicksTotal/10000)*100)+'%';
-  if(val) val.textContent=globalClicksTotal.toLocaleString('fr');
+  if(val) val.textContent=fmt(globalClicksTotal);
 }
 function updateFomo(){
   var el=document.getElementById('fomoNum');
@@ -1859,7 +1896,7 @@ function showReaction(){
   setTimeout(function(){ el.style.opacity='0'; },550);
 }
 function updateDayCount(){
-  var el=document.getElementById('countDay'); if(el) el.textContent=dayClicks.toLocaleString('fr');
+  var el=document.getElementById('countDay'); if(el) el.textContent=fmt(dayClicks);
 }
 function updateEventMult(){
   var el=document.getElementById('eventMult'); if(el) el.textContent='x'+eventMultiplier;
@@ -1911,7 +1948,7 @@ function renderSkins(){
       var ok=clicks>=s.req, active=curSkin===s.id;
       var card=document.createElement('div');
       card.className='skin-card'+(ok?'':' locked')+(active?' active':'');
-      card.innerHTML='<span class="sk-e">'+s.e+'</span><span class="sk-nm">'+s.nm+'</span><span class="sk-rq">'+(ok?'✅ Débloqué':s.req.toLocaleString('fr')+' clics')+'</span>'+(!ok?'<span class="sk-lock">🔒</span>':'');
+      card.innerHTML='<span class="sk-e">'+s.e+'</span><span class="sk-nm">'+s.nm+'</span><span class="sk-rq">'+(ok?'✅ Débloqué':s.fmt(req)+' clics')+'</span>'+(!ok?'<span class="sk-lock">🔒</span>':'');
       if(ok){ card.onclick=(function(sid){ return function(){ updateSkin(sid); }; })(s.id); card.title=s.desc; }
       grid.appendChild(card);
     });
@@ -1938,7 +1975,7 @@ function renderMissions(){
     else{ prog=Math.min(clicks,m.tgt); isDone=clicks>=m.tgt; }
     if(isDone) done++;
     var pct=Math.min(100,(prog/m.tgt)*100);
-    html+='<div class="mission-card'+(isDone?' done':'')+'"><div class="mc-ico">'+m.e+'</div><div class="mc-body"><div class="mc-name">'+m.nm+'</div><div class="mc-bar"><div class="mc-fill" style="width:'+pct.toFixed(1)+'%"></div></div><div class="mc-pct">'+prog.toLocaleString('fr')+' / '+m.tgt.toLocaleString('fr')+'</div></div><div class="mc-check">'+(isDone?'✅':'')+'</div></div>';
+    html+='<div class="mission-card'+(isDone?' done':'')+'"><div class="mc-ico">'+m.e+'</div><div class="mc-body"><div class="mc-name">'+m.nm+'</div><div class="mc-bar"><div class="mc-fill" style="width:'+pct.toFixed(1)+'%"></div></div><div class="mc-pct">'+fmt(prog)+' / '+m.fmt(tgt)+'</div></div><div class="mc-check">'+(isDone?'✅':'')+'</div></div>';
   });
   ml.innerHTML=html;
   var dc=document.getElementById('missDoneCount'); if(dc) dc.textContent=done+'/'+MISSIONS.length+' complétés';
@@ -1950,9 +1987,9 @@ function renderMissions(){
 function renderLB(rows, globalClicks){
   var pseudo=(document.getElementById('pseudoInput')||{}).value||'';
   pseudo=pseudo.trim()||'Anonyme';
-  var gc=document.getElementById('globalCount'); if(gc) gc.textContent=(globalClicks||0).toLocaleString('fr');
+  var gc=document.getElementById('globalCount'); if(gc) gc.textContent=fmt(globalClicks||0);
   globalClicksTotal=globalClicks||0; renderThermo();
-  var lc=document.getElementById('landClics'); if(lc) lc.textContent=(globalClicks||0).toLocaleString('fr');
+  var lc=document.getElementById('landClics'); if(lc) lc.textContent=fmt(globalClicks||0);
   var lj=document.getElementById('landJoueurs'); if(lj) lj.textContent=rows.length;
   // Podium
   var pod=document.getElementById('podium');
@@ -1964,7 +2001,7 @@ function renderLB(rows, globalClicks){
     order.forEach(function(r,i){
       if(!r) return;
       var isMe=r.pseudo===pseudo;
-      h+='<div class="p-box '+cls[i]+(isMe?' me':'')+'" '+(isMe?'style="border-color:rgba(255,26,26,.5)"':'')+'>'+'<span class="p-medal">'+medals[i]+'</span>'+'<span class="p-name">'+(isMe?'👤 ':'')+r.pseudo+'</span>'+'<span class="p-score">'+((r.total_clicks||0).toLocaleString('fr'))+' clics</span>'+'</div>';
+      h+='<div class="p-box '+cls[i]+(isMe?' me':'')+'" '+(isMe?'style="border-color:rgba(255,26,26,.5)"':'')+'>'+'<span class="p-medal">'+medals[i]+'</span>'+'<span class="p-name">'+(isMe?'👤 ':'')+r.pseudo+'</span>'+'<span class="p-score">'+(fmt(r.total_clicks||0))+' clics</span>'+'</div>';
     });
     pod.innerHTML=h;
   }
@@ -1972,7 +2009,7 @@ function renderLB(rows, globalClicks){
   var myIdx=-1, h2='';
   rows.slice(0,10).forEach(function(r,i){
     var isMe=r.pseudo===pseudo; if(isMe) myIdx=i;
-    h2+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rk">'+(i+1)+'</span><span class="lb-ps">'+(isMe?'👤 ':'')+r.pseudo+'</span><span class="lb-sc">'+((r.total_clicks||0).toLocaleString('fr'))+'</span></div>';
+    h2+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rk">'+(i+1)+'</span><span class="lb-ps">'+(isMe?'👤 ':'')+r.pseudo+'</span><span class="lb-sc">'+(fmt(r.total_clicks||0))+'</span></div>';
   });
   lb.innerHTML=h2;
   var mr=document.getElementById('myRankStat'); if(mr) mr.textContent=myIdx>=0?'#'+(myIdx+1):'—';
@@ -2006,10 +2043,14 @@ function markPlayed(){
   var last=localStorage.getItem('lastPlayed');
   if(last!==today){
     var yest=new Date(Date.now()-86400000).toDateString();
-    if(last===yest) streak++; else streak=1;
+    if(last===yest) streak++; else if(last) streak=1; else streak=Math.max(streak,1);
     localStorage.setItem('streak',streak);
     localStorage.setItem('lastPlayed',today);
-    if(streak>1) toast('🔥 Série de '+streak+' jours ! Continue !','#ff6600');
+    if(streak>1){
+      var sfx=(_t&&_t.toast_streakSuffix)||' jours ! Continue !';
+      var spfx=(_t&&_t.toast_streak)||'🔥 Série de ';
+      toast(spfx+streak+sfx,'#ff6600');
+    }
   }
   var sc=document.getElementById('streakNum'); if(sc) sc.textContent=streak;
 }
@@ -2038,8 +2079,9 @@ window.addEventListener('offline',function(){ IS_ONLINE=false; updateOfflineBar(
 function renderProvoc(){
   var el=document.getElementById('provocText'); if(!el) return;
   var nxt=nextMilestone(clicks);
-  var msg=PROVOCS[Math.floor(Math.random()*PROVOCS.length)];
-  msg=msg.replace(/\{cur\}/g,clicks.toLocaleString('fr')).replace(/\{next\}/g,nxt.toLocaleString('fr')).replace(/\{streak\}/g,streak);
+  var provList=(_t&&_t.provocs&&_t.provocs.length)?_t.provocs:PROVOCS;
+  var msg=provList[Math.floor(Math.random()*provList.length)];
+  msg=msg.replace(/\{cur\}/g,fmt(clicks)).replace(/\{next\}/g,fmt(nxt)).replace(/\{streak\}/g,streak);
   el.innerHTML=msg;
   el.style.opacity='.4';
   setTimeout(function(){ el.style.opacity='1'; },80);
@@ -2062,7 +2104,7 @@ function triggerJackpot(){
   if(msg){
     if(em) em.textContent=msg.e; if(ti) ti.textContent=msg.t; if(su) su.textContent=msg.s;
   } else {
-    if(em) em.textContent='🎯'; if(ti) ti.textContent=clicks.toLocaleString('fr')+' CLICS !'; if(su) su.textContent='Encore un peu… tu peux faire mieux.';
+    if(em) em.textContent='🎯'; if(ti) ti.textContent=fmt(clicks)+' CLICS !'; if(su) su.textContent='Encore un peu… tu peux faire mieux.';
   }
   var jm=document.getElementById('jackpotModal'); if(jm) jm.classList.add('show');
 }
@@ -2151,7 +2193,7 @@ function handleClick(ev){
   if(ev&&ev.type==='touchstart') ev.preventDefault();
   try{ if(navigator.vibrate) navigator.vibrate(14); }catch(e){}
   var now=Date.now();
-  if(now-_lastClickTime<75) return;
+  if(now-_lastClickTime<50) return;
   _lastClickTime=now;
   if(ev){
     if(ev.touches&&ev.touches[0]){ _lastPointerX=ev.touches[0].clientX; _lastPointerY=ev.touches[0].clientY; }
@@ -2200,8 +2242,10 @@ function handleClick(ev){
 function showTab(id){
   var tabs=['jeu','skins','classement','compte'];
   tabs.forEach(function(t){
-    var s=document.getElementById(t); if(s) s.style.display=t===id?'block':'none';
-    var b=document.getElementById('tab-'+t); if(b) b.classList.toggle('active',t===id);
+    var s=document.getElementById(t);
+    if(s){ s.classList.toggle('active',t===id); s.style.display=''; }
+    var b=document.getElementById('tab-'+t);
+    if(b) b.classList.toggle('active',t===id);
   });
   if(id==='classement') loadLeaderboard();
   if(id==='skins') renderSkins();
@@ -2375,7 +2419,6 @@ function init(){
   showTab('jeu');
   // I18N — détection et application de la langue
   setLang(detectLang());
-  renderLangBar();
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
