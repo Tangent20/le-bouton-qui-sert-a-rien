@@ -530,38 +530,10 @@
     :focus-visible{outline:2px solid #ff4444;outline-offset:2px;}
     /* Input autocomplete fond sombre */
     input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #111 inset;-webkit-text-fill-color:#fff;}
-  
-/* ══ SECTION COMPTE ══════════════════════════════════════════ */
-#tab-compte{padding:12px;}
-.compte-card{background:#0e0e0e;border:1.5px solid #1e1e1e;border-radius:12px;padding:16px;margin:8px auto;max-width:440px;}
-.compte-card h3{color:#ccc;font-size:.85rem;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid #1a1a1a;padding-bottom:6px;}
-.compte-avatar{width:60px;height:60px;border-radius:50%;background:#1a1a1a;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 10px;}
-.compte-pseudo{font-size:1.1rem;font-weight:900;color:#fff;text-align:center;margin-bottom:4px;}
-.compte-title{font-size:.72rem;color:#888;text-align:center;margin-bottom:12px;}
-.compte-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px;}
-.compte-stat{background:#141414;border-radius:8px;padding:8px 10px;text-align:center;}
-.compte-stat .cval{font-size:1.1rem;font-weight:900;color:#ff4444;}
-.compte-stat .clbl{font-size:.62rem;color:#555;margin-top:2px;}
-.compte-form input{width:100%;box-sizing:border-box;background:#111;border:1px solid #222;color:#ccc;padding:9px 12px;border-radius:8px;font-size:.8rem;margin-bottom:8px;outline:none;}
-.compte-form input:focus{border-color:#444;}
-.compte-form button{width:100%;padding:10px;border-radius:8px;border:none;cursor:pointer;font-size:.82rem;font-weight:700;margin-bottom:6px;}
-.btn-register{background:#ff4444;color:#fff;}
-.btn-register:hover{background:#cc3333;}
-.btn-login{background:#1a1a1a;color:#ccc;border:1px solid #333;}
-.btn-login:hover{background:#252525;}
-.btn-logout{background:#111;color:#555;border:1px solid #1a1a1a;font-size:.75rem;}
-.btn-logout:hover{color:#888;border-color:#333;}
-.compte-msg{font-size:.72rem;color:#ff4444;text-align:center;min-height:16px;margin-top:4px;}
-.compte-msg.ok{color:#44aa44;}
-.compte-divider{text-align:center;color:#333;font-size:.7rem;margin:6px 0;}
-/* Tabs — 4 colonnes quand compte actif */
-.tabs-nav-4{grid-template-columns:repeat(4,1fr)!important;}
-/* PWA install btn */
-#pwaBtn{display:none;position:fixed;bottom:70px;right:12px;z-index:300;background:#ff4444;color:#fff;border:none;border-radius:24px;padding:8px 16px;font-size:.75rem;font-weight:700;cursor:pointer;box-shadow:0 3px 12px #ff444466;}
-</style>
-<body>
-
-  <!-- ══ LANDING ═══════════════════════════════════════════════ -->
+  </style>
+</head>
+<body class="s-classic">
+  <!-- ══════ LANDING SCREEN ══════ -->
   <div id="landing">
     <span class="landing-emoji">🔴</span>
     <div class="landing-title">LE BOUTON<br>QUI SERT À RIEN</div>
@@ -579,8 +551,14 @@
     <button class="landing-cta" onclick="startGame()">APPUIE ICI 👆</button>
     <p class="landing-hint">👆 Appuie sur le bouton pour commencer</p>
   </div>
+  <!-- ══════════════════════════════ -->
 
-  <!-- ══ MODALS SYSTÈME ════════════════════════════════════════ -->
+
+  <canvas id="particleCanvas"></canvas>
+  <div class="bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="panic-frame" id="panicFrame"></div>
+
   <div class="jackpot" id="jackpotModal">
     <div class="jackpot-inner"><h2>🎰 JACKPOT !!!</h2><p id="jackpotMsg"></p></div>
   </div>
@@ -593,23 +571,12 @@
     <button class="overtake-btn" onclick="closeOvertake()">⚡ REVANCHE !</button>
   </div>
 
-  <!-- ══ BOUTON PWA ════════════════════════════════════════════ -->
-  <button id="pwaBtn" onclick="installPWA()">📲 Installer l'app</button>
+  <button class="pwa-btn" id="pwaBtn">📲 Installer l'app</button>
 
-  <!-- ══ WRAP PRINCIPAL ════════════════════════════════════════ -->
   <div class="wrap">
+    <div class="offline-bar" id="offlineBar">📴 Mode <span>HORS LIGNE</span> — tes clics sont sauvegardés localement !</div>
+    <div class="challenger" id="challenger">⚔️ <strong id="cName"></strong> te défie — Score à battre : <strong id="cScore"></strong> clics 😤</div>
 
-    <!-- Barre hors ligne -->
-    <div id="offlineBar" style="display:none;background:#ff4400;color:#fff;text-align:center;padding:6px;font-size:.75rem;">
-      📴 Mode hors ligne — tes clics sont sauvegardés localement !
-    </div>
-
-    <!-- Défi en cours -->
-    <div id="challenger" style="display:none;">
-      <div id="cName"></div><div id="cScore"></div>
-    </div>
-
-    <!-- Topbar : streak · joueurs en ligne · saison -->
     <div class="topbar">
       <div id="streakPill" class="streak-pill dead">🔥 0 jour</div>
       <span class="topbar-sep">|</span>
@@ -618,28 +585,23 @@
       <span class="season-info" id="seasonInfo">Saison en cours</span>
     </div>
 
-    <!-- Bandeau événement -->
     <div class="event-box" id="eventBox">
       <div><span class="event-name" id="evName">DOUBLE CLICS</span><span class="event-badge" id="evBadge">x2</span></div>
       <span class="event-time" id="evTimer">--:--</span>
       <span class="event-desc" id="evDesc">Chaque clic compte double !</span>
     </div>
 
-    <!-- Titre -->
     <header>
       <span id="title">🔴 LE BOUTON QUI SERT À RIEN 🔴</span>
       <span id="subtitle">Le jeu le plus inutile d'internet — et pourtant tu peux pas t'arrêter</span>
     </header>
 
-    <!-- Navigation tabs -->
-    <div class="tabs-nav tabs-nav-4">
+    <div class="tabs-nav">
       <button class="tab-btn active" onclick="showTab('jeu')">🎮 Jeu</button>
       <button class="tab-btn" onclick="showTab('skins')">🎨 Skins</button>
       <button class="tab-btn" onclick="showTab('classement')">🏆 Classement</button>
-      <button class="tab-btn" onclick="showTab('compte')">👤 Compte</button>
     </div>
 
-    <!-- ══ TAB JEU ════════════════════════════════════════════ -->
     <div id="tab-jeu" class="tab-section active">
       <div class="pseudo-wrap">
         <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
@@ -679,10 +641,8 @@
         <div class="mhead"><h2>🎯 MISSIONS DU JOUR</h2><span class="mreset" id="mReset">…</span></div>
         <div id="mList"></div>
       </div>
-    </div>
-    <!-- /tab-jeu -->
+    </div><!-- /tab-jeu -->
 
-    <!-- ══ TAB SKINS ══════════════════════════════════════════ -->
     <div id="tab-skins" class="tab-section">
       <div class="skins">
         <div class="skins-header">
@@ -696,10 +656,8 @@
         <h2>🏅 SUCCÈS INUTILES</h2>
         <div class="ach-grid" id="achGrid"></div>
       </div>
-    </div>
-    <!-- /tab-skins -->
+    </div><!-- /tab-skins -->
 
-    <!-- ══ TAB CLASSEMENT ════════════════════════════════════ -->
     <div id="tab-classement" class="tab-section">
       <div class="lb">
         <h2>🏆 CLASSEMENT MONDIAL</h2>
@@ -710,61 +668,8 @@
         <button class="sh-wa" onclick="shareWhatsapp()">💬 WhatsApp</button>
         <button class="sh-df" onclick="copyDefi()">⚔️ Mon défi</button>
       </div>
-    </div>
-    <!-- /tab-classement -->
+    </div><!-- /tab-classement -->
 
-    <!-- ══ TAB COMPTE ══════════════════════════════════════════ -->
-    <div id="tab-compte" class="tab-section" style="display:none;">
-
-      <!-- Bloc connecté -->
-      <div id="compteConnecte" style="display:none;">
-        <div class="compte-card">
-          <div class="compte-avatar" id="compteAvatar">😈</div>
-          <div class="compte-pseudo" id="comptePseudo">—</div>
-          <div class="compte-title" id="compteXpTitle">Néophyte du Néant</div>
-          <div class="compte-stats-grid">
-            <div class="compte-stat"><div class="cval" id="compteClics">0</div><div class="clbl">Total clics</div></div>
-            <div class="compte-stat"><div class="cval" id="compteCombo">0</div><div class="clbl">Meilleur combo</div></div>
-            <div class="compte-stat"><div class="cval" id="compteStreak">0</div><div class="clbl">🔥 Streak</div></div>
-            <div class="compte-stat"><div class="cval" id="compteSkins">0</div><div class="clbl">Skins débloqués</div></div>
-          </div>
-        </div>
-        <div class="compte-card" style="margin-top:8px;">
-          <h3>⚙️ Mon compte</h3>
-          <button class="btn-logout" onclick="deconnecterCompte()" style="width:100%;padding:10px;border-radius:8px;border:1px solid #1a1a1a;background:#111;color:#555;cursor:pointer;font-size:.75rem;">🚪 Se déconnecter</button>
-        </div>
-      </div>
-
-      <!-- Bloc non connecté -->
-      <div id="compteDeconnecte">
-        <!-- Inscription -->
-        <div class="compte-card">
-          <h3>✨ Créer un compte</h3>
-          <p style="font-size:.72rem;color:#555;margin:0 0 12px;">Sauvegarde ta progression · Joue sur tous tes appareils</p>
-          <div class="compte-form">
-            <input type="text" id="regPseudo" placeholder="Pseudo (3-20 caractères)" maxlength="20"/>
-            <input type="email" id="regEmail" placeholder="Email"/>
-            <input type="password" id="regPassword" placeholder="Mot de passe (6 caractères min.)"/>
-            <button class="btn-register" onclick="inscrireCompte()">🚀 Créer mon compte</button>
-          </div>
-          <div class="compte-msg" id="regMsg"></div>
-        </div>
-        <!-- Connexion -->
-        <div class="compte-card" style="margin-top:8px;">
-          <h3>🔑 Déjà un compte ?</h3>
-          <div class="compte-form">
-            <input type="email" id="loginEmail" placeholder="Email"/>
-            <input type="password" id="loginPassword" placeholder="Mot de passe"/>
-            <button class="btn-login" onclick="connecterCompte()">🔑 Se connecter</button>
-          </div>
-          <div class="compte-msg" id="loginMsg"></div>
-        </div>
-      </div>
-
-    </div>
-    <!-- /tab-compte -->
-
-    <!-- ══ FOOTER ════════════════════════════════════════════ -->
     <footer>
       <div class="footer-top">
         <div class="footer-col">
@@ -807,9 +712,8 @@
       </div>
     </footer>
 
-  </div><!-- /wrap -->
 
-  <!-- ══ MODALS LÉGAUX ═════════════════════════════════════════ -->
+  <!-- MODAL MENTIONS LÉGALES -->
   <div class="legal-modal" id="modalMentions">
     <div class="legal-box">
       <button class="legal-close" onclick="closeModal('modalMentions')">✕</button>
@@ -837,6 +741,8 @@
       <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez l'éditeur via le formulaire de contact (email en cours de création).</p>
     </div>
   </div>
+
+  <!-- MODAL CGU -->
   <div class="legal-modal" id="modalCGU">
     <div class="legal-box">
       <button class="legal-close" onclick="closeModal('modalCGU')">✕</button>
@@ -869,6 +775,8 @@
       <em>(Adresse email en cours de création — les coordonnées seront mises à jour dès disponibilité)</em></p>
     </div>
   </div>
+
+  <!-- MODAL CONFIDENTIALITÉ / RGPD -->
   <div class="legal-modal" id="modalConfidentialite">
     <div class="legal-box">
       <button class="legal-close" onclick="closeModal('modalConfidentialite')">✕</button>
@@ -916,7 +824,7 @@
       <p>Vous pouvez adresser une réclamation à la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
     </div>
   </div>
-
+  </div>
 
 <script>
 'use strict';
@@ -1818,6 +1726,17 @@ document.addEventListener('keydown',function(e){
 
 /* ══════ INIT ══════ */
 
+function showTab(name){
+  var sections=['jeu','skins','classement'];
+  sections.forEach(function(s){
+    var sec=document.getElementById('tab-'+s);
+    var btn=document.querySelector('.tab-btn[onclick*=\''+s+'\']');
+    if(sec) sec.classList.toggle('active', s===name);
+    if(btn) btn.classList.toggle('active', s===name);
+  });
+  if(name==='classement') loadLeaderboard();
+}
+
 function init(){
   genStars();
   checkStreak();
@@ -2023,107 +1942,6 @@ document.addEventListener('visibilitychange', function(){
   }
 });
 init();
-
-
-// ══ COMPTE ════════════════════════════════════════════════════
-var API_BASE = 'https://superagent-ceec4ffc.base44.app/api/functions';
-
-function showTab(name){
-  var sections=['jeu','skins','classement','compte'];
-  sections.forEach(function(s){
-    var sec=document.getElementById('tab-'+s);
-    var btn=document.querySelector('.tab-btn[onclick*=\''+s+'\']');
-    if(sec) sec.style.display=(s===name)?'block':'none';
-    if(btn) btn.classList.toggle('active', s===name);
-  });
-  if(name==='classement') loadLeaderboard();
-  if(name==='compte') refreshCompte();
-  var titles={jeu:'🔴 Jeu',skins:'🎨 Skins',classement:'🏆 Classement',compte:'👤 Compte'};
-  document.title=(titles[name]||'🔴 Le Bouton Qui Sert À Rien');
-}
-
-function refreshCompte(){
-  var token=localStorage.getItem('authToken');
-  var pseudo=localStorage.getItem('pseudo');
-  var dc=document.getElementById('compteConnecte');
-  var dd=document.getElementById('compteDeconnecte');
-  if(token && pseudo){
-    if(dc) dc.style.display='block';
-    if(dd) dd.style.display='none';
-    var el=function(id){return document.getElementById(id);};
-    if(el('comptePseudo')) el('comptePseudo').textContent=pseudo;
-    if(el('compteClics')) el('compteClics').textContent=fmt(clicks||0);
-    if(el('compteCombo')) el('compteCombo').textContent=fmt(maxCombo||0);
-    if(el('compteStreak')) el('compteStreak').textContent=streak||0;
-    if(el('compteXpTitle')) el('compteXpTitle').textContent=getXpTitle(clicks||0);
-    var skins=JSON.parse(localStorage.getItem('unlockedSkins')||'[]');
-    if(el('compteSkins')) el('compteSkins').textContent=skins.length;
-    // Avatar basé sur skin actuelle
-    var skinEmojis={default:'😈',fart:'💨',dog:'🐶',cat:'🐱',fire:'🔥',ice:'❄️',gold:'👑',rainbow:'🌈',dark:'💀',neon:'⚡',pixel:'🕹️',star:'⭐',diamond:'💎',galaxy:'🌌',secret:'🔴'};
-    if(el('compteAvatar')) el('compteAvatar').textContent=skinEmojis[curSkin]||'😈';
-  } else {
-    if(dc) dc.style.display='none';
-    if(dd) dd.style.display='block';
-  }
-}
-
-function inscrireCompte(){
-  var pseudo=document.getElementById('regPseudo').value.trim();
-  var email=document.getElementById('regEmail').value.trim();
-  var pass=document.getElementById('regPassword').value;
-  var msg=document.getElementById('regMsg');
-  if(!pseudo||pseudo.length<3){msg.textContent='Pseudo trop court (3 min.)';return;}
-  if(!email||!email.includes('@')){msg.textContent='Email invalide';return;}
-  if(!pass||pass.length<6){msg.textContent='Mot de passe trop court (6 min.)';return;}
-  msg.textContent='Inscription en cours…';
-  fetch(API_BASE+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({action:'register',pseudo:pseudo,email:email,password:pass,clicks:clicks||0})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.token){
-      localStorage.setItem('authToken',d.token);
-      localStorage.setItem('pseudo',pseudo);
-      document.getElementById('pseudoInput').value=pseudo;
-      msg.className='compte-msg ok';
-      msg.textContent='✅ Compte créé ! Bienvenue '+pseudo+' 🎉';
-      setTimeout(refreshCompte,800);
-    } else {
-      msg.textContent=d.error||'Erreur lors de l\'inscription';
-    }
-  }).catch(function(){msg.textContent='Erreur réseau. Réessaie.';});
-}
-
-function connecterCompte(){
-  var email=document.getElementById('loginEmail').value.trim();
-  var pass=document.getElementById('loginPassword').value;
-  var msg=document.getElementById('loginMsg');
-  if(!email||!pass){msg.textContent='Remplis tous les champs';return;}
-  msg.textContent='Connexion…';
-  fetch(API_BASE+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({action:'login',email:email,password:pass})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.token){
-      localStorage.setItem('authToken',d.token);
-      localStorage.setItem('pseudo',d.pseudo||email);
-      if(d.clicks) { clicks=d.clicks; localStorage.setItem('clicks',clicks); renderMyCount(); }
-      document.getElementById('pseudoInput').value=d.pseudo||'';
-      msg.className='compte-msg ok';
-      msg.textContent='✅ Connecté ! Content de te revoir 👋';
-      setTimeout(refreshCompte,800);
-    } else {
-      msg.textContent=d.error||'Email ou mot de passe incorrect';
-    }
-  }).catch(function(){msg.textContent='Erreur réseau. Réessaie.';});
-}
-
-function deconnecterCompte(){
-  localStorage.removeItem('authToken');
-  refreshCompte();
-}
-// ══ FIN COMPTE ════════════════════════════════════════════════
 </script>
 </body>
-</html>
-
 </html>
