@@ -1,4 +1,81 @@
-<!DOCTYPE html>
+<!DOCTYPE
+
+  <!-- ══ TAB COMPTE ══════════════════════════════════════════ -->
+  <section class="tab-content" id="compte" style="display:none;">
+    <div class="compte-wrap">
+
+      <!-- ── CONNECTÉ ──────────────────────────────────── -->
+      <div id="profileLoggedIn" style="display:none;">
+        <div class="profile-header">
+          <div class="profile-avatar" id="profileAvatar">🎮</div>
+          <div class="profile-info">
+            <div class="profile-name" id="profileName">—</div>
+            <div class="profile-email" id="profileEmail">—</div>
+            <div class="profile-badge" id="profileTitle">—</div>
+          </div>
+        </div>
+
+        <div class="profile-stats-grid">
+          <div class="pstat"><span class="pstat-val" id="pClicks">0</span><span class="pstat-lb">🖱️ Clics</span></div>
+          <div class="pstat"><span class="pstat-val" id="pStreak">0</span><span class="pstat-lb">🔥 Streak</span></div>
+          <div class="pstat"><span class="pstat-val" id="pCombo">0</span><span class="pstat-lb">⚡ Meilleur combo</span></div>
+          <div class="pstat"><span class="pstat-val" id="pRank">—</span><span class="pstat-lb">🏆 Rang mondial</span></div>
+        </div>
+
+        <!-- Événements actifs -->
+        <div class="profile-section">
+          <h3>🎯 Événements en cours</h3>
+          <div id="eventsListProfile"><p style="color:#666;text-align:center">Chargement...</p></div>
+        </div>
+
+        <!-- Skins débloqués -->
+        <div class="profile-section">
+          <h3>🎨 Mes skins débloqués</h3>
+          <div id="profileSkinsList" class="profile-skins-list"></div>
+        </div>
+
+        <div class="profile-actions">
+          <button class="profile-btn-danger" onclick="logoutAccount()">🚪 Se déconnecter</button>
+        </div>
+      </div>
+
+      <!-- ── NON CONNECTÉ ───────────────────────────────── -->
+      <div id="profileLoggedOut">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">🔐 Connexion</button>
+          <button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')">✨ Créer un compte</button>
+        </div>
+
+        <!-- CONNEXION -->
+        <div id="authLogin">
+          <div class="auth-form">
+            <p class="auth-desc">Connecte-toi pour sauvegarder ta progression et participer aux compétitions.</p>
+            <input type="email" id="loginEmail" placeholder="Email ou pseudo" autocomplete="email"/>
+            <input type="password" id="loginPassword" placeholder="Mot de passe" autocomplete="current-password"/>
+            <button class="auth-btn-primary" onclick="doLogin()">🔐 Se connecter</button>
+            <div id="loginError" class="auth-error"></div>
+          </div>
+        </div>
+
+        <!-- INSCRIPTION -->
+        <div id="authRegister" style="display:none;">
+          <div class="auth-form">
+            <p class="auth-desc">Crée ton compte pour sauvegarder tes clics, participer aux événements et accéder au classement officiel.</p>
+            <input type="text" id="regPseudo" placeholder="Pseudo (visible dans le classement)" maxlength="20"/>
+            <input type="email" id="regEmail" placeholder="Email" autocomplete="email"/>
+            <input type="password" id="regPassword" placeholder="Mot de passe (6 chars min)" autocomplete="new-password"/>
+            <button class="auth-btn-primary" onclick="doRegister()">✨ Créer mon compte</button>
+            <div id="registerError" class="auth-error"></div>
+          </div>
+        </div>
+
+        <div class="auth-footer-note">
+          <small>🔒 Tes données restent privées. Aucune donnée vendue. <a href="#" onclick="openModal('modalConfidentialite');return false;" style="color:#ff6600;">Politique de confidentialité</a></small>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- /compte --> html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -11,6 +88,56 @@
   <meta name="author" content="Charly Soudan"/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/"/>
+
+  <!-- ══ SEO AVANCÉ ══ -->
+  <meta name="description" content="Le jeu clicker le plus inutile d'internet. Clique sur le bouton rouge, grimpe dans le classement mondial, débloque 15 skins. 100% gratuit, sans pub."/>
+  <meta name="keywords" content="jeu bouton, clicker game, jeu inutile, clicker français, jeu addictif, bouton rouge, jeu gratuit, classement mondial"/>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+  <meta name="author" content="Charly Soudan"/>
+  <meta name="category" content="Games"/>
+  <meta name="language" content="French"/>
+  <meta name="revisit-after" content="3 days"/>
+
+  <!-- Open Graph enrichi -->
+  <meta property="og:type" content="game"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="Le Bouton Qui Sert À Rien"/>
+
+  <!-- Schema.org JSON-LD pour Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Le Bouton Qui Sert À Rien",
+    "description": "Le jeu clicker le plus inutile d'internet. 100% gratuit, 0% utile.",
+    "url": "https://tangent20.github.io/le-bouton-qui-sert-a-rien/",
+    "image": "https://media.base44.com/images/public/6a25fda89561913dceec4ffc/362718f9d_generated_image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Charly Soudan",
+      "email": "terrible3311@outlook.fr"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Charly Soudan"
+    },
+    "genre": ["Clicker", "Casual", "Idle"],
+    "gamePlatform": ["Web", "Android", "iOS"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "ratingCount": "1"
+    }
+  }
+  </script>
 
   <!-- Open Graph (Facebook, Discord, WhatsApp, LinkedIn) -->
   <meta property="og:type" content="website"/>
@@ -530,6 +657,42 @@
     :focus-visible{outline:2px solid #ff4444;outline-offset:2px;}
     /* Input autocomplete fond sombre */
     input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #111 inset;-webkit-text-fill-color:#fff;}
+  
+    /* ══ ESPACE COMPTE ══════════════════════════════════════ */
+    .compte-wrap{padding:12px 0 80px;}
+    .profile-header{display:flex;align-items:center;gap:14px;background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:14px;}
+    .profile-avatar{font-size:3rem;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#222;border-radius:50%;}
+    .profile-name{font-size:1.3rem;font-weight:bold;color:#fff;}
+    .profile-email{font-size:.8rem;color:#888;margin-top:2px;}
+    .profile-badge{background:#ff2222;color:#fff;border-radius:20px;padding:3px 10px;font-size:.75rem;margin-top:6px;display:inline-block;}
+    .profile-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+    .pstat{background:#1a1a1a;border-radius:10px;padding:12px 6px;text-align:center;}
+    .pstat-val{display:block;font-size:1.3rem;font-weight:bold;color:#ff4444;}
+    .pstat-lb{display:block;font-size:.68rem;color:#888;margin-top:3px;}
+    .profile-section{background:#1a1a1a;border-radius:12px;padding:14px;margin:10px 0;}
+    .profile-section h3{margin:0 0 10px;color:#ff6600;font-size:.95rem;}
+    .profile-skins-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .profile-skin-chip{background:#222;border-radius:20px;padding:5px 12px;font-size:.8rem;border:1px solid #333;}
+    .profile-actions{margin-top:16px;text-align:center;}
+    .profile-btn-danger{background:transparent;border:1px solid #ff2222;color:#ff2222;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:.9rem;}
+    .profile-btn-danger:hover{background:#ff2222;color:#fff;}
+    /* Auth forms */
+    .auth-tabs{display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;border:1px solid #222;}
+    .auth-tab{flex:1;padding:11px;background:#111;border:none;color:#888;cursor:pointer;font-size:.9rem;transition:.2s;}
+    .auth-tab.active{background:#ff2222;color:#fff;font-weight:bold;}
+    .auth-form{display:flex;flex-direction:column;gap:10px;}
+    .auth-desc{color:#888;font-size:.85rem;text-align:center;margin:0 0 6px;}
+    .auth-form input{background:#1a1a1a;border:1.5px solid #2a2a2a;color:#fff;padding:12px 14px;border-radius:10px;font-size:.9rem;outline:none;width:100%;box-sizing:border-box;}
+    .auth-form input:focus{border-color:#ff4444;}
+    .auth-btn-primary{background:linear-gradient(135deg,#ff2222,#ff6600);color:#fff;border:none;border-radius:10px;padding:13px;font-size:1rem;font-weight:bold;cursor:pointer;width:100%;}
+    .auth-btn-primary:hover{opacity:.9;}
+    .auth-error{color:#ff4444;font-size:.82rem;text-align:center;min-height:18px;}
+    .auth-footer-note{text-align:center;margin-top:14px;color:#555;}
+    /* Events dans profil */
+    .event-item{background:#222;border-left:3px solid #ff6600;padding:10px 12px;border-radius:0 8px 8px 0;margin:6px 0;}
+    .event-item .ev-title{font-weight:bold;font-size:.9rem;}
+    .event-item .ev-meta{font-size:.75rem;color:#888;margin-top:3px;}
+    .event-item .ev-badge{background:#ff6600;color:#fff;border-radius:20px;padding:2px 8px;font-size:.7rem;margin-left:6px;}
   </style>
 </head>
 <body class="s-classic">
@@ -600,6 +763,7 @@
       <button class="tab-btn active" onclick="showTab('jeu')">🎮 Jeu</button>
       <button class="tab-btn" onclick="showTab('skins')">🎨 Skins</button>
       <button class="tab-btn" onclick="showTab('classement')">🏆 Classement</button>
+      <button class="tab-btn" id="tabCompte" onclick="showTab('compte')">👤 Compte</button>
     </div>
 
     <div id="tab-jeu" class="tab-section active">
@@ -1787,6 +1951,7 @@ function init(){
 
   updateFomo();
   setInterval(updateFomo,14000);
+  setTimeout(tryAutoLogin, 1200);
   if(clicks>=5)startProvoc();
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
@@ -1947,6 +2112,191 @@ document.addEventListener('visibilitychange', function(){
     document.title = '🔴 Le Bouton Qui Sert À Rien';
   }
 });
+
+/* ══════════════════════════════════════════════════════
+   ESPACE COMPTE — AUTH & PROFIL
+══════════════════════════════════════════════════════ */
+var _authToken = localStorage.getItem('authToken') || null;
+var _authPlayer = null;
+
+function switchAuthTab(tab){
+  document.getElementById('authTabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('authTabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('authLogin').style.display  = tab==='login'?'':'none';
+  document.getElementById('authRegister').style.display = tab==='register'?'':'none';
+}
+
+async function doLogin(){
+  var emailOrPseudo = (document.getElementById('loginEmail').value||'').trim();
+  var password = document.getElementById('loginPassword').value||'';
+  var errEl = document.getElementById('loginError');
+  errEl.textContent='';
+  if(!emailOrPseudo||!password){errEl.textContent='Remplis tous les champs !';return;}
+  var btn = document.querySelector('#authLogin .auth-btn-primary');
+  btn.textContent='⏳ Connexion...'; btn.disabled=true;
+  try{
+    var isEmail = emailOrPseudo.includes('@');
+    var body = {action:'login', password:password};
+    if(isEmail) body.email=emailOrPseudo; else body.pseudo=emailOrPseudo;
+    var res = await fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    var data = await res.json();
+    if(data.ok){
+      _authToken = data.token;
+      _authPlayer = data.player;
+      localStorage.setItem('authToken', data.token);
+      // Sync clics locaux si supérieur
+      if(clicks > (data.player.total_clicks||0)){
+        await fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:'update_profile',token:data.token,updates:{total_clicks:clicks,streak:streak,best_combo:maxCombo}})});
+      } else {
+        clicks = data.player.total_clicks || clicks;
+        localStorage.setItem('clicks', clicks);
+        renderMyCount();renderXP();renderMicro();renderSkins();checkNewSkins();
+      }
+      // Sync pseudo
+      if(data.player.pseudo){
+        document.getElementById('pseudoInput').value = data.player.pseudo;
+        localStorage.setItem('pseudo', data.player.pseudo);
+      }
+      showProfileLoggedIn(data.player);
+      toast('✅ Connecté en tant que '+data.player.pseudo+' !','#00aa55');
+    } else {
+      errEl.textContent = data.error || 'Erreur de connexion';
+    }
+  }catch(e){errEl.textContent='Erreur réseau 😬';}
+  btn.textContent='🔐 Se connecter'; btn.disabled=false;
+}
+
+async function doRegister(){
+  var pseudo = (document.getElementById('regPseudo').value||'').trim();
+  var email = (document.getElementById('regEmail').value||'').trim();
+  var password = document.getElementById('regPassword').value||'';
+  var errEl = document.getElementById('registerError');
+  errEl.textContent='';
+  if(!pseudo||!email||!password){errEl.textContent='Remplis tous les champs !';return;}
+  if(pseudo.length<3){errEl.textContent='Pseudo trop court (3 chars min)';return;}
+  var btn = document.querySelector('#authRegister .auth-btn-primary');
+  btn.textContent='⏳ Création...'; btn.disabled=true;
+  try{
+    var res = await fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'register',pseudo:pseudo,email:email,password:password,
+        device:navigator.userAgent.includes('Mobile')?'mobile':'desktop'})});
+    var data = await res.json();
+    if(data.ok){
+      _authToken = data.token;
+      _authPlayer = data.player;
+      localStorage.setItem('authToken', data.token);
+      document.getElementById('pseudoInput').value = pseudo;
+      localStorage.setItem('pseudo', pseudo);
+      showProfileLoggedIn(data.player);
+      toast('🎉 Compte créé ! Bienvenue '+pseudo+' !','#00aa55');
+      // Sync clics existants
+      if(clicks > 0){
+        await fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:'update_profile',token:data.token,updates:{total_clicks:clicks,streak:streak,best_combo:maxCombo}})});
+      }
+    } else {
+      errEl.textContent = data.error || 'Erreur inscription';
+    }
+  }catch(e){errEl.textContent='Erreur réseau 😬';}
+  btn.textContent='✨ Créer mon compte'; btn.disabled=false;
+}
+
+function logoutAccount(){
+  _authToken = null; _authPlayer = null;
+  localStorage.removeItem('authToken');
+  var lo = document.getElementById('profileLoggedOut');
+  var li = document.getElementById('profileLoggedIn');
+  if(lo) lo.style.display='';
+  if(li) li.style.display='none';
+  toast('👋 Déconnecté','#888');
+}
+
+function showProfileLoggedIn(player){
+  var lo = document.getElementById('profileLoggedOut');
+  var li = document.getElementById('profileLoggedIn');
+  if(lo) lo.style.display='none';
+  if(li) li.style.display='';
+  var av = SKINS.find(function(s){return s.id===(player.current_skin||'classic');});
+  var el;
+  el=document.getElementById('profileAvatar'); if(el) el.textContent=av?av.e:'🎮';
+  el=document.getElementById('profileName'); if(el) el.textContent=player.pseudo||'—';
+  el=document.getElementById('profileEmail'); if(el) el.textContent=player.email||'—';
+  el=document.getElementById('profileTitle'); if(el) el.textContent=getTitle(player.total_clicks||clicks).t;
+  el=document.getElementById('pClicks'); if(el) el.textContent=(player.total_clicks||clicks).toLocaleString('fr');
+  el=document.getElementById('pStreak'); if(el) el.textContent=(player.streak||streak||0);
+  el=document.getElementById('pCombo'); if(el) el.textContent=(player.best_combo||maxCombo||0);
+  // Rang
+  loadLeaderboardForRank(player.pseudo);
+  // Skins
+  renderProfileSkins(player.total_clicks||clicks);
+  // Événements
+  loadEventsForProfile();
+}
+
+function renderProfileSkins(totalClicks){
+  var el = document.getElementById('profileSkinsList'); if(!el)return;
+  var unlocked = SKINS.filter(function(s){return totalClicks>=s.req;});
+  el.innerHTML = unlocked.map(function(s){
+    return '<div class="profile-skin-chip">'+s.e+' '+s.nm+'</div>';
+  }).join('');
+}
+
+async function loadLeaderboardForRank(pseudo){
+  try{
+    var res = await fetch(API+'/getLeaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    var data = await res.json();
+    var rows = data.leaderboard||[];
+    var idx = rows.findIndex(function(r){return r.pseudo===pseudo;});
+    var el = document.getElementById('pRank');
+    if(el) el.textContent = idx>=0 ? '#'+(idx+1) : '—';
+  }catch(e){}
+}
+
+async function loadEventsForProfile(){
+  var el = document.getElementById('eventsListProfile'); if(!el)return;
+  try{
+    var res = await fetch(API+'/manageEvents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list'})});
+    var data = await res.json();
+    var active = (data.events||[]).filter(function(e){return e.status==='active'||e.status==='upcoming';});
+    if(active.length===0){el.innerHTML='<p style="color:#666;text-align:center">Aucun événement en cours</p>';return;}
+    el.innerHTML = active.map(function(e){
+      var badge = e.status==='active'?'🟢 EN COURS':'🕐 À VENIR';
+      var end = e.end_date?new Date(e.end_date).toLocaleDateString('fr-FR'):'?';
+      return '<div class="event-item"><span class="ev-title">'+e.title+'<span class="ev-badge">'+badge+'</span></span><div class="ev-meta">x'+e.multiplier+' clics • Fin le '+end+' • '+(e.participants_count||0)+' joueurs</div></div>';
+    }).join('');
+  }catch(e){el.innerHTML='<p style="color:#666">Impossible de charger les événements</p>';}
+}
+
+// Auto-connexion au démarrage si token sauvegardé
+async function tryAutoLogin(){
+  if(!_authToken)return;
+  try{
+    var res = await fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'verify_token',token:_authToken})});
+    var data = await res.json();
+    if(data.ok){
+      _authPlayer = data.player;
+      showProfileLoggedIn(data.player);
+      // Sync silencieux
+      if(clicks > (data.player.total_clicks||0)){
+        fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:'update_profile',token:_authToken,updates:{total_clicks:clicks,streak:streak,best_combo:maxCombo}})});
+      } else if(data.player.total_clicks > clicks){
+        clicks = data.player.total_clicks;
+        localStorage.setItem('clicks', clicks);
+        renderMyCount();renderXP();renderMicro();renderSkins();checkNewSkins();
+      }
+      // Update badge tab Compte
+      var tabBtn = document.getElementById('tabCompte');
+      if(tabBtn) tabBtn.textContent = '👤 '+data.player.pseudo;
+    } else {
+      localStorage.removeItem('authToken');
+      _authToken = null;
+    }
+  }catch(e){}
+}
+
 init();
 </script>
 </body>
