@@ -501,6 +501,36 @@ body.shake{animation:sk .28s ease-in-out;}
 [dir="rtl"] .lb-row.me{border-left:none;border-right:3px solid var(--red);}
 [dir="rtl"] .mission-card{flex-direction:row-reverse;}
 
+
+/* ══ FOOTER ═══════════════════════════════════════════════════ */
+#legalFooter{background:#060606;border-top:1px solid #141414;padding:18px 14px 110px;}
+.footer-inner{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:11px;}
+.footer-brand{display:flex;align-items:flex-start;gap:9px;}
+.footer-logo{font-size:1.5rem;flex-shrink:0;line-height:1;}
+.footer-title{font-size:.8rem;font-weight:900;color:#3a3a3a;letter-spacing:.3px;}
+.footer-tagline{font-size:.62rem;color:#222;margin-top:1px;}
+.footer-links{display:flex;flex-wrap:wrap;align-items:center;gap:3px 2px;}
+.footer-links a{color:#2e2e2e;font-size:.66rem;text-decoration:none;padding:2px 5px;border-radius:3px;transition:color .15s;white-space:nowrap;}
+.footer-links a:hover{color:#555;}
+.footer-sep{color:#1e1e1e;font-size:.62rem;}
+.footer-contact{font-size:.63rem;color:#252525;display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.footer-contact a{color:#2e2e2e;text-decoration:none;}
+.footer-contact a:hover{color:#555;}
+.footer-badges{display:flex;flex-wrap:wrap;gap:4px;}
+.footer-badge{background:#0e0e0e;border:1px solid #1a1a1a;color:#2a2a2a;font-size:.56rem;padding:2px 7px;border-radius:20px;white-space:nowrap;}
+.footer-badge.pegi{border-color:#1e1e00;color:#333;}
+.footer-copy{font-size:.58rem;color:#1a1a1a;}
+.footer-copy a{color:#252525;text-decoration:none;}
+.footer-copy a:hover{color:#444;}
+/* Notes légales */
+.legal-note-top{font-size:.64rem;color:#444;margin-bottom:10px;padding:5px 8px;background:#0a0a0a;border-left:2px solid #222;border-radius:0 4px 4px 0;}
+/* Table cookies */
+.cookie-table{width:100%;border-collapse:collapse;font-size:.68rem;margin-top:6px;}
+.cookie-table th{text-align:left;padding:5px 7px;color:#666;border-bottom:1px solid #1e1e1e;font-weight:bold;}
+.cookie-table td{padding:4px 7px;color:#bbb;border-bottom:1px solid #141414;vertical-align:top;}
+.cookie-table td code{font-family:monospace;color:#cc88ff;font-size:.65rem;}
+.cookie-table tr:last-child td{border-bottom:none;}
+
 /* ══ RESPONSIVE ══════════════════════════════════════════════ */
 @media(min-width:480px){#wrap{border-left:1px solid #111;border-right:1px solid #111;}}
 @media(max-width:360px){.sv{font-size:.8rem;}}
@@ -515,104 +545,175 @@ body.shake{animation:sk .28s ease-in-out;}
 <div id="toastWrap"></div>
 
 <!-- ══ MODALS LÉGALES ════════════════════════════════════════ -->
+<!-- ══ MODAL MENTIONS LÉGALES ════════════════════════════════ -->
 <div class="legal-modal" id="modalMentions">
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalMentions')">✕</button>
     <h2>📋 Mentions légales</h2>
+    <p class="legal-note-top">Conformément à la loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique (LCEN)</p>
     <h3>Éditeur du site</h3>
-    <p><strong>Charly Soudan</strong>, personne physique domiciliée au :<br>36 avenue du Parc, 93290 Tremblay-en-France — France<br>
-    Démarches d'immatriculation en cours (micro-entreprise).<br>
-    Contact : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
+    <p><strong>Charly Soudan</strong><br>
+    Personne physique — démarches d'immatriculation en cours (micro-entreprise)<br>
+    Adresse : 36 avenue du Parc, 93290 Tremblay-en-France, France<br>
+    📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
     <h3>Hébergement</h3>
-    <p><strong>GitHub Pages</strong> — GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis.<br>
-    <strong>Base44</strong> (fonctions serveur) — <a href="https://base44.com" target="_blank">https://base44.com</a></p>
+    <p><strong>GitHub Pages</strong> (site statique)<br>
+    GitHub, Inc. — 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br>
+    <a href="https://pages.github.com" target="_blank" rel="noopener">https://pages.github.com</a></p>
+    <p><strong>Base44</strong> (fonctions serveur &amp; base de données)<br>
+    <a href="https://base44.com" target="_blank" rel="noopener">https://base44.com</a> — serveurs hébergés dans l'UE</p>
     <h3>Propriété intellectuelle</h3>
-    <p>L'ensemble du contenu (textes, code source, visuels, sons, nom du jeu) est la propriété exclusive de Charly Soudan. Toute reproduction, représentation ou modification sans autorisation écrite préalable est interdite (art. L.122-4 CPI).</p>
+    <p>L'ensemble du contenu du jeu (textes, code, visuels, sons, nom) est la propriété exclusive de Charly Soudan, protégé par le Code de la Propriété Intellectuelle (art. L.111-1 et suivants). Toute reproduction sans autorisation écrite est interdite (art. L.122-4 CPI).</p>
     <h3>Responsabilité</h3>
-    <p>Ce jeu est un service de divertissement gratuit à caractère humoristique. Il ne comporte aucun achat intégré, aucun contenu payant, aucune publicité tierce. L'éditeur ne peut être tenu responsable d'une utilisation abusive ou addictive de ce service.</p>
+    <p>Service de divertissement gratuit, sans but lucratif. Aucun achat intégré, aucune publicité. L'éditeur ne peut être tenu responsable d'une utilisation addictive de ce service.</p>
     <h3>Droit applicable</h3>
-    <p>Le présent site est soumis au droit français. En cas de litige, les tribunaux français sont seuls compétents.</p>
+    <p>Droit français. En cas de litige : tribunaux français compétents.</p>
+    <h3>Contact</h3>
+    <p>📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
   </div>
 </div>
 
+<!-- ══ MODAL CGU ══════════════════════════════════════════════ -->
 <div class="legal-modal" id="modalCGU">
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalCGU')">✕</button>
-    <h2>📜 Conditions générales d'utilisation</h2>
+    <h2>📜 Conditions Générales d'Utilisation</h2>
+    <p class="legal-note-top">Version au 10 juin 2026</p>
     <h3>Article 1 — Objet et acceptation</h3>
-    <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du jeu en ligne "Le Bouton Qui Sert À Rien". En accédant au jeu, l'utilisateur accepte sans réserve les présentes CGU.</p>
-    <h3>Article 2 — Accès au service</h3>
-    <p>Le service est accessible gratuitement à toute personne disposant d'un accès à Internet. La création d'un compte est <strong>optionnelle</strong> et sert uniquement à sauvegarder sa progression. Aucune information bancaire n'est demandée. Aucun achat n'est possible.</p>
-    <h3>Article 3 — Règles d'utilisation</h3>
+    <p>Les présentes CGU régissent l'utilisation du jeu "Le Bouton Qui Sert À Rien". En accédant au jeu, l'utilisateur accepte sans réserve ces conditions.</p>
+    <h3>Article 2 — Description du service</h3>
+    <p>Jeu de type clicker gratuit, accessible via navigateur web et PWA mobile. <strong>Aucun achat intégré. Aucune publicité. Aucun abonnement.</strong></p>
+    <h3>Article 3 — Accès et compte</h3>
+    <p>Service accessible sans inscription. La création d'un compte (optionnel) nécessite un pseudo (3–20 caractères), un email valide et un mot de passe (6 caractères minimum). Aucune information bancaire collectée.</p>
+    <h3>Article 4 — Règles d'utilisation</h3>
     <ul>
-      <li>L'utilisation de bots, scripts automatiques ou tout mécanisme artificiel est strictement interdite et entraîne la suppression immédiate du compte.</li>
-      <li>Les pseudos offensants, discriminatoires ou portant atteinte aux droits de tiers sont interdits.</li>
-      <li>L'utilisateur s'engage à ne pas tenter de pirater, altérer ou compromettre le service.</li>
+      <li><strong>Interdiction formelle</strong> de bots, auto-clickers ou scripts automatiques — suppression immédiate du compte sans préavis</li>
+      <li>Pseudo non offensant, non discriminatoire</li>
+      <li>Interdiction de pirater ou compromettre le service</li>
+      <li>Interdiction d'usurper l'identité d'un autre utilisateur</li>
     </ul>
-    <h3>Article 4 — Limitation de responsabilité</h3>
-    <p>Ce jeu est proposé "en l'état". L'éditeur ne garantit pas une disponibilité ininterrompue du service. La progression peut être réinitialisée en cas de maintenance ou d'incident technique. L'éditeur ne saurait être tenu responsable d'un préjudice lié à l'utilisation du service.</p>
-    <h3>Article 5 — Données personnelles</h3>
-    <p>Les données collectées sont limitées au strict nécessaire (pseudo, score, email si compte créé). Elles ne sont ni vendues, ni partagées. Voir la Politique de confidentialité.</p>
+    <h3>Article 5 — Compte utilisateur</h3>
+    <p>L'utilisateur est responsable de ses identifiants. En cas de compromission : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a>. L'éditeur peut supprimer tout compte enfreignant les CGU, sans préavis.</p>
     <h3>Article 6 — Mineurs</h3>
-    <p>Ce jeu est classé <strong>PEGI 3</strong> (tout public). Il ne contient aucun contenu violent, sexuel ou inapproprié pour les mineurs. Aucune donnée personnelle n'est volontairement collectée concernant les enfants de moins de 15 ans.</p>
-    <h3>Article 7 — Modification et résiliation</h3>
-    <p>L'éditeur se réserve le droit de modifier les CGU à tout moment. La version en vigueur est celle affichée sur le site. L'éditeur peut suspendre ou clôturer le service à tout moment, sans préavis.</p>
-    <h3>Article 8 — Droit applicable et juridiction</h3>
-    <p>Les présentes CGU sont soumises au droit français. Tout litige relève de la compétence exclusive des tribunaux français.</p>
+    <p>Classé <strong>PEGI 3</strong> (tout public, dès 3 ans). Utilisation par les moins de 15 ans sous contrôle parental. Aucune donnée personnelle de mineurs de moins de 15 ans collectée volontairement (art. 8 RGPD &amp; loi française).</p>
+    <h3>Article 7 — Propriété intellectuelle</h3>
+    <p>Aucun droit de propriété transféré à l'utilisateur. Les pseudos et scores restent la propriété des utilisateurs, avec une licence d'affichage accordée à l'éditeur pour le classement.</p>
+    <h3>Article 8 — Limitation de responsabilité</h3>
+    <p>Service fourni "en l'état". L'éditeur n'est pas responsable de la perte de progression, de dommages liés à l'utilisation ou d'indisponibilité du service.</p>
+    <h3>Article 9 — Données personnelles &amp; Cookies</h3>
+    <p>Voir : <a href="#" onclick="closeModal('modalCGU');openModal('modalRGPD');return false;">Politique de confidentialité &amp; RGPD</a> et <a href="#" onclick="closeModal('modalCGU');openModal('modalCookies');return false;">Politique des cookies</a>.</p>
+    <h3>Article 10 — Modification des CGU</h3>
+    <p>CGU modifiables à tout moment. Version en vigueur : celle affichée, datée en en-tête. L'utilisation continue du service vaut acceptation.</p>
+    <h3>Article 11 — Droit applicable — Médiation</h3>
+    <p>Droit français. Résolution amiable privilégiée via <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a>. À défaut : tribunaux français compétents. Médiation consommateur disponible (art. L.612-1 Code conso.).</p>
   </div>
 </div>
 
+<!-- ══ MODAL RGPD ═════════════════════════════════════════════ -->
 <div class="legal-modal" id="modalRGPD">
   <div class="legal-box">
     <button class="legal-close" onclick="closeModal('modalRGPD')">✕</button>
-    <h2>🔒 Politique de confidentialité & RGPD</h2>
-    <h3>Responsable du traitement</h3>
-    <p>Charly Soudan — 36 avenue du Parc, 93290 Tremblay-en-France<br>
-    Contact DPO : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
-    <h3>Données collectées</h3>
+    <h2>🔒 Politique de confidentialité &amp; RGPD</h2>
+    <p class="legal-note-top">Version au 10 juin 2026 — Conforme au Règlement (UE) 2016/679 (RGPD) et à la loi Informatique et Libertés modifiée</p>
+    <h3>1. Responsable du traitement</h3>
+    <p><strong>Charly Soudan</strong> — 36 avenue du Parc, 93290 Tremblay-en-France<br>
+    📧 Contact DPO : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></p>
+    <h3>2. Données collectées</h3>
+    <p><strong>Sans compte :</strong> pseudo choisi (ou "Anonyme") et score — affichage classement uniquement. Aucune donnée personnelle identifiable.</p>
+    <p><strong>Avec compte :</strong> email (connexion, jamais affiché), pseudo, score, combo, streak, skins, titre XP, appareil. Mot de passe haché (SHA-256 + sel unique) — jamais en clair.</p>
+    <h3>3. Bases légales</h3>
     <ul>
-      <li><strong>Sans compte :</strong> pseudo (ou "Anonyme") et score — stockés dans notre base de données pour le classement public. Aucune donnée personnelle identifiable.</li>
-      <li><strong>Avec compte :</strong> adresse email, pseudo, score total, skins débloqués, série de jours (streak). Le mot de passe est stocké sous forme hachée (SHA-256 + sel unique) — jamais en clair.</li>
+      <li><strong>Consentement</strong> (Art. 6.1.a) — création de compte, collecte email</li>
+      <li><strong>Intérêt légitime</strong> (Art. 6.1.f) — classement anonyme, statistiques</li>
+      <li><strong>Exécution du contrat</strong> (Art. 6.1.b) — synchronisation multi-appareils</li>
     </ul>
-    <h3>Finalités du traitement</h3>
+    <h3>4. Destinataires</h3>
+    <p>Aucune donnée vendue, louée ou cédée. Sous-traitants : <strong>Base44</strong> (BDD, serveurs UE, conforme RGPD), <strong>GitHub Pages</strong> (hébergement statique, sans accès aux données).</p>
+    <h3>5. Durée de conservation</h3>
     <ul>
-      <li>Affichage du classement mondial</li>
-      <li>Sauvegarde et synchronisation de la progression sur plusieurs appareils</li>
-      <li>Envoi de rapports d'activité à l'éditeur (usage interne uniquement)</li>
+      <li>Compte : jusqu'à suppression sur demande</li>
+      <li>Classement (pseudo + score) : indéfiniment, sauf demande de suppression</li>
+      <li>Logs techniques : 30 jours maximum</li>
     </ul>
-    <h3>Base légale</h3>
-    <p>Traitement fondé sur le <strong>consentement</strong> (Art. 6.1.a RGPD) lors de la création de compte et sur l'<strong>intérêt légitime</strong> pour le classement anonyme.</p>
-    <h3>Destinataires</h3>
-    <p>Aucune donnée n'est vendue ni transmise à des tiers à des fins commerciales. Les données sont hébergées chez Base44 (infrastructure sécurisée, serveurs en UE).</p>
-    <h3>Durée de conservation</h3>
-    <p>Données de compte : jusqu'à suppression du compte sur demande.<br>
-    Données de classement (pseudo + score) : conservées indéfiniment à moins de demande de suppression.<br>
-    Logs techniques : 30 jours maximum.</p>
-    <h3>Droits des utilisateurs (RGPD)</h3>
-    <p>Conformément au Règlement Général sur la Protection des Données (UE 2016/679) et à la loi Informatique et Libertés modifiée, vous disposez des droits suivants :</p>
+    <h3>6. Vos droits (RGPD)</h3>
     <ul>
-      <li><strong>Droit d'accès</strong> — obtenir une copie de vos données</li>
-      <li><strong>Droit de rectification</strong> — corriger des données inexactes</li>
-      <li><strong>Droit à l'effacement</strong> ("droit à l'oubli") — demander la suppression</li>
-      <li><strong>Droit d'opposition</strong> — s'opposer au traitement</li>
-      <li><strong>Droit à la portabilité</strong> — recevoir vos données dans un format lisible</li>
+      <li>🔍 <strong>Accès</strong> (Art. 15) — copie de vos données</li>
+      <li>✏️ <strong>Rectification</strong> (Art. 16) — corriger des données inexactes</li>
+      <li>🗑️ <strong>Effacement</strong> (Art. 17) — "droit à l'oubli"</li>
+      <li>⏸️ <strong>Limitation</strong> (Art. 18) — limiter le traitement</li>
+      <li>🚫 <strong>Opposition</strong> (Art. 21) — s'opposer au traitement</li>
+      <li>📦 <strong>Portabilité</strong> (Art. 20) — recevoir vos données</li>
+      <li>🔙 <strong>Retrait du consentement</strong> — à tout moment</li>
     </ul>
-    <p>Pour exercer ces droits : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a><br>
-    Délai de réponse : 30 jours maximum.<br>
-    Autorité compétente : <a href="https://www.cnil.fr" target="_blank">Commission Nationale de l'Informatique et des Libertés (CNIL)</a> — 3 Place de Fontenoy, 75007 Paris.</p>
-    <h3>Cookies et stockage local</h3>
-    <p>Ce site n'utilise <strong>aucun cookie tiers</strong>, aucun traceur publicitaire, aucun outil d'analyse externe. La progression est sauvegardée dans le <strong>localStorage</strong> de votre navigateur, un mécanisme de stockage local qui ne quitte jamais votre appareil sauf action volontaire (création de compte).</p>
-    <h3>Sécurité</h3>
-    <p>Les communications sont chiffrées via HTTPS. Les mots de passe sont hachés avant stockage. L'accès aux données est restreint à l'éditeur via des jetons d'authentification sécurisés.</p>
-    <h3>Disponibilité sur différents appareils</h3>
-    <p>Le jeu est accessible sur :<br>
-    📱 <strong>Android</strong> (Chrome, Firefox, Samsung Internet) — PWA installable<br>
-    📱 <strong>iPhone / iPad</strong> (Safari, Chrome iOS) — PWA installable<br>
-    💻 <strong>Ordinateur</strong> (Windows, macOS, Linux) — tout navigateur récent<br>
-    🛒 <strong>Google Play Store</strong> — version PWA packagée (à venir)<br>
-    🛒 <strong>Apple App Store</strong> — version hybride (à venir)</p>
+    <p>Exercer vos droits : <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a><br>
+    Délai de réponse : 30 jours max (Art. 12).<br>
+    Réclamation : <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a> — 3 Place de Fontenoy, 75007 Paris.</p>
+    <h3>7. Sécurité</h3>
+    <ul>
+      <li>Communications chiffrées HTTPS/TLS</li>
+      <li>Mots de passe hachés (SHA-256 + sel)</li>
+      <li>Accès restreint par jetons d'authentification sécurisés</li>
+    </ul>
+    <h3>8. Appareils supportés</h3>
+    <ul>
+      <li>📱 Android (Chrome, Firefox, Samsung Internet) — PWA installable</li>
+      <li>📱 iPhone/iPad (Safari, Chrome iOS) — PWA installable</li>
+      <li>💻 PC Windows/macOS/Linux — tout navigateur moderne</li>
+      <li>🛒 Google Play Store &amp; Apple App Store (publication prévue)</li>
+    </ul>
+    <h3>9. Cookies et localStorage</h3>
+    <p>Voir la <a href="#" onclick="closeModal('modalRGPD');openModal('modalCookies');return false;">Politique des Cookies</a> pour le détail complet.</p>
   </div>
 </div>
+
+<!-- ══ MODAL COOKIES ══════════════════════════════════════════ -->
+<div class="legal-modal" id="modalCookies">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeModal('modalCookies')">✕</button>
+    <h2>🍪 Politique des Cookies &amp; Stockage local</h2>
+    <p class="legal-note-top">Conforme à la directive ePrivacy (2002/58/CE) et aux recommandations CNIL — Version au 10 juin 2026</p>
+    <h3>1. Notre position : zéro cookie tiers</h3>
+    <p>Ce site <strong>n'utilise aucun cookie</strong> publicitaire, de tracking ou d'analyse. <strong>Aucune bannière de consentement n'est requise</strong> car nous n'utilisons que des traceurs strictement nécessaires au fonctionnement du service (exemptés de consentement selon la délibération CNIL n° 2020-091 du 17 sept. 2020).</p>
+    <p>Nous utilisons le <strong>localStorage</strong> de votre navigateur — données stockées uniquement sur votre appareil, jamais envoyées automatiquement, illisibles par d'autres sites.</p>
+    <h3>2. Ce que nous NE faisons PAS</h3>
+    <ul>
+      <li>❌ Cookies publicitaires (Google Ads, Facebook Pixel…)</li>
+      <li>❌ Outils d'analyse (Google Analytics, Matomo, Hotjar…)</li>
+      <li>❌ Boutons de réseaux sociaux avec tracking</li>
+      <li>❌ Régies publicitaires tierces</li>
+      <li>❌ Fingerprinting ou tout profilage comportemental</li>
+    </ul>
+    <h3>3. Données stockées localement</h3>
+    <table class="cookie-table">
+      <tr><th>Clé</th><th>Contenu</th><th>Finalité</th><th>Durée</th></tr>
+      <tr><td><code>clicks</code></td><td>Nombre</td><td>Score local</td><td>Indéfinie</td></tr>
+      <tr><td><code>skin</code></td><td>Texte</td><td>Apparence choisie</td><td>Indéfinie</td></tr>
+      <tr><td><code>streak</code></td><td>Nombre</td><td>Série quotidienne</td><td>Indéfinie</td></tr>
+      <tr><td><code>lastPlayed</code></td><td>Date</td><td>Calcul de la série</td><td>Indéfinie</td></tr>
+      <tr><td><code>maxCombo</code></td><td>Nombre</td><td>Meilleur enchaînement</td><td>Indéfinie</td></tr>
+      <tr><td><code>pseudo</code></td><td>Texte</td><td>Mémoriser le pseudo</td><td>Indéfinie</td></tr>
+      <tr><td><code>authToken</code></td><td>Jeton chiffré</td><td>Session de compte</td><td>Jusqu'à déconnexion</td></tr>
+      <tr><td><code>lang</code></td><td>Code langue</td><td>Langue choisie</td><td>Indéfinie</td></tr>
+      <tr><td><code>dc_[date]</code></td><td>Nombre</td><td>Clics du jour</td><td>Quotidienne</td></tr>
+      <tr><td><code>ach_*</code></td><td>Booléen</td><td>Succès débloqués</td><td>Indéfinie</td></tr>
+    </table>
+    <h3>4. Comment effacer ces données</h3>
+    <ul>
+      <li><strong>Chrome/Edge :</strong> F12 → Application → Local Storage → Supprimer</li>
+      <li><strong>Firefox :</strong> F12 → Stockage → Stockage local → Sélectionner et supprimer</li>
+      <li><strong>Safari :</strong> Préférences → Confidentialité → Gérer les données du site</li>
+      <li><strong>Mobile :</strong> Paramètres navigateur → Effacer les données de navigation</li>
+    </ul>
+    <p><strong>Attention :</strong> effacer supprime la progression locale. Si vous avez un compte, la progression reste sur nos serveurs.</p>
+    <h3>5. Base légale — Exemption</h3>
+    <p>Ces données relèvent des traceurs <strong>strictement nécessaires au fonctionnement</strong> du service, exemptés de consentement préalable (lignes directrices CNIL 2020, délibération n° 2020-091).</p>
+    <h3>6. Contact &amp; réclamation</h3>
+    <p>📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a><br>
+    🏛️ <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL — www.cnil.fr</a></p>
+  </div>
+</div>
+
+
 
 <!-- ══ JACKPOT MODAL ══════════════════════════════════════════ -->
 <div id="jackpotModal">
@@ -850,13 +951,46 @@ body.shake{animation:sk .28s ease-in-out;}
 </div><!-- /wrap -->
 
 <!-- ══ PIED DE PAGE LÉGAL (discret) ═════════════════════════ -->
+
+<!-- ══ PIED DE PAGE LÉGAL ════════════════════════════════════ -->
 <div id="langBar" style="position:fixed;bottom:32px;right:8px;z-index:200;"></div>
-<div id="legalFooter">
-  <a href="#" id="legalMentionsLnk" onclick="openModal('modalMentions');return false;">Mentions légales</a> ·
-  <a href="#" id="legalCGULnk" onclick="openModal('modalCGU');return false;">CGU</a> ·
-  <a href="#" id="legalRGPDLnk" onclick="openModal('modalRGPD');return false;">Confidentialité & RGPD</a> ·
-  © 2026 Charly Soudan · <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a> · PEGI 3
-</div>
+<footer id="legalFooter">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">🔴</span>
+      <div>
+        <div class="footer-title">Le Bouton Qui Sert À Rien</div>
+        <div class="footer-tagline">Le jeu le plus inutile d'internet — 100% gratuit, 0% utile</div>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Liens légaux">
+      <a href="#" id="legalMentionsLnk" onclick="openModal('modalMentions');return false;">Mentions légales</a>
+      <span class="footer-sep">·</span>
+      <a href="#" id="legalCGULnk" onclick="openModal('modalCGU');return false;">CGU</a>
+      <span class="footer-sep">·</span>
+      <a href="#" id="legalRGPDLnk" onclick="openModal('modalRGPD');return false;">Confidentialité &amp; RGPD</a>
+      <span class="footer-sep">·</span>
+      <a href="#" id="legalCookiesLnk" onclick="openModal('modalCookies');return false;">🍪 Cookies</a>
+    </nav>
+    <div class="footer-contact">
+      <span>📧 <a href="mailto:terrible3311@outlook.fr">terrible3311@outlook.fr</a></span>
+      <span class="footer-sep">·</span>
+      <span>Charly Soudan — 36 av. du Parc, 93290 Tremblay-en-France</span>
+    </div>
+    <div class="footer-badges">
+      <span class="footer-badge pegi">PEGI 3</span>
+      <span class="footer-badge">🆓 Gratuit</span>
+      <span class="footer-badge">🚫 Sans achat</span>
+      <span class="footer-badge">🔒 RGPD</span>
+      <span class="footer-badge">🍪 Sans tracking</span>
+      <span class="footer-badge">🇫🇷 Droit français</span>
+    </div>
+    <div class="footer-copy">
+      © 2026 Charly Soudan — Tous droits réservés ·
+      <a href="https://tangent20.github.io/le-bouton-qui-sert-a-rien/" target="_blank" rel="noopener">tangent20.github.io</a>
+    </div>
+  </div>
+</footer>
 
 <script>function fmt(n){
   try{ return n.toLocaleString(_lang||'fr'); }catch(e){ return String(n); }
