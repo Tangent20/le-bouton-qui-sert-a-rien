@@ -1199,7 +1199,8 @@ function updateFomo(){document.getElementById('fomoCount').textContent=Math.floo
 /* ══════ XP ══════ */
 function renderXP(){
   var cur=getTitle(clicks),nxt=getNextTitle(clicks);
-  document.getElementById('xpTitle').textContent=cur.t;
+  var _xpT=document.getElementById('xpTitle');if(!_xpT)return;
+  _xpT.textContent=cur.t;
   if(nxt){
     var prog=((clicks-cur.req)/(nxt.req-cur.req))*100;
     document.getElementById('xpFill').style.width=Math.min(prog,100)+'%';
@@ -1212,6 +1213,7 @@ function renderXP(){
 
 /* ══════ MICRO PALIERS ══════ */
 function renderMicro(){
+  if(!document.getElementById('microFill'))return;
   var next=null;
   for(var i=0;i<MICRO_MILESTONES.length;i++){if(MICRO_MILESTONES[i]>clicks){next=MICRO_MILESTONES[i];break;}}
   if(!next){document.getElementById('microFill').style.width='100%';document.getElementById('microNext').textContent='MAX !';return;}
@@ -1259,7 +1261,7 @@ function renderMissions(){
     html+='<div class="mprog-bg"><div class="mprog" style="width:'+pct+'%"></div></div></div>';
     html+='<span class="mreward">'+(done?'✔️ GG':pct+'%')+'</span></div>';
   }
-  document.getElementById('mList').innerHTML=html;
+  var _ml=document.getElementById('mList');if(_ml)_ml.innerHTML=html;
   var now=new Date(),tom=new Date(now);
   tom.setDate(now.getDate()+1);tom.setHours(0,0,0,0);
   var diff=tom-now,h=Math.floor(diff/3600000),mn=Math.floor((diff%3600000)/60000);
@@ -1268,6 +1270,7 @@ function renderMissions(){
 
 /* ══════ ÉVÉNEMENT ══════ */
 function startEvent(){
+  var eb=document.getElementById('eventBox');if(!eb)return;
   var ev=EVENTS_LIST[Math.floor(Math.random()*EVENTS_LIST.length)];
   activeEvent=ev;eventMultiplier=ev.mult;
   document.getElementById('evName').textContent=ev.name;
@@ -1297,7 +1300,7 @@ function endEvent(){
 
 /* ══════ SKINS ══════ */
 function renderSkins(){
-  var grid=document.getElementById('skinGrid');grid.innerHTML='';
+  var grid=document.getElementById('skinGrid');if(!grid)return;grid.innerHTML='';
   var unlocked=0;
   for(var i=0;i<SKINS.length;i++){
     var s=SKINS[i],ok=clicks>=s.req,active=curSkin===s.id;
@@ -1400,7 +1403,7 @@ function renderProvoc(){
 
 /* ══════ CLICK HANDLER ══════ */
 function handleClick(ev){
-    if(navigator.vibrate){navigator.vibrate(12);}
+    try{if(navigator.vibrate)navigator.vibrate(12);}catch(e){}
   var now=Date.now();
   if(now-_lastClickTime<150)return;
   _lastClickTime=now;
@@ -1442,10 +1445,11 @@ function handleClick(ev){
 
 function renderMyCount(){
   var el=document.getElementById('myCount');
+  if(!el)return;
   el.textContent=clicks.toLocaleString('fr');
   el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
   // Titre dynamique — addiction mentale
-  var n = myClicks;
+  var n = clicks;
   var titles_dyn = [
     [0,    '🔴 Clique... ou regrette'],
     [10,   '😬 '+n+' clics — t\'arrives à t\'arrêter ?'],
@@ -1485,6 +1489,7 @@ var THERMO=[
   {min:20000,max:Infinity,t:'CERVEAU EN FEU. ÉVACUEZ LA ZONE.',c:'#ff0000'},
 ];
 function renderThermo(){
+  var _rt=document.getElementById('subtitle');if(!_rt)return;
   var l=THERMO[0];
   for(var i=0;i<THERMO.length;i++){if(clicks>=THERMO[i].min&&clicks<THERMO[i].max){l=THERMO[i];break;}}
   var sub=document.getElementById('subtitle');sub.textContent=l.t;sub.style.color=l.c;
@@ -1518,6 +1523,7 @@ function triggerJackpot(){
   setTimeout(function(){m.classList.add('on');spawnConfetti();setTimeout(function(){m.classList.remove('on');},3500);},50);
 }
 function triggerPanic(){
+  if(panic)return;
   panic=true;document.body.classList.add('panic');document.getElementById('panicFrame').classList.add('on');
   document.getElementById('title').textContent='😱 PANIQUE TOTALE 😱';
   toast('😱 MODE PANIQUE ! ARRÊTE-TOI !!','#ff0000',true);playTone(200,'sawtooth',.5,.4);
@@ -1527,7 +1533,8 @@ function stopPanic(){
   document.getElementById('title').textContent='🔴 LE BOUTON QUI SERT À RIEN 🔴';
 }
 function makeButtonRun(){
-  running=true;var b=document.getElementById('btn');
+  var b=document.getElementById('btn');if(!b||running)return;
+  running=true;
   toast('😂 LE BOUTON ESSAIE DE S\'ENFUIR !','#ff6600',true);
   var n=0,times=3+Math.floor(Math.random()*4);
   var iv=setInterval(function(){
@@ -1669,7 +1676,7 @@ function renderLB(rows,globalClicks){
   var medals=['🥇','🥈','🥉'];
   var myIdx=-1;for(var i=0;i<rows.length;i++){if(rows[i].pseudo===pseudo){myIdx=i;break;}}
   document.getElementById('myRank').textContent=myIdx>=0?'#'+(myIdx+1):'—';
-  var lb=document.getElementById('lbContent');
+  var lb=document.getElementById('lbContent');if(!lb)return;
   if(!rows.length){lb.innerHTML='<p style="text-align:center;color:#aaa;padding:12px">Sois le premier ! 👆</p>';return;}
   var html='';
   for(var i=0;i<rows.length;i++){
