@@ -430,6 +430,27 @@
     .legal-box a{color:#ff6600;}
     .modal-close{position:absolute;top:10px;right:12px;background:none;border:none;color:#555;font-size:1.1rem;cursor:pointer;}
     .modal-close:hover{color:#fff;}
+
+    /* ═══ TAB COMPTE ═══ */
+    .compte-wrap{padding:14px;}
+    .profil-card{display:flex;align-items:center;gap:14px;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:16px;margin-bottom:12px;}
+    .profil-avatar{font-size:2.5rem;}
+    .profil-pseudo{font-size:1.1rem;font-weight:800;color:#fff;}
+    .profil-title{font-size:.75rem;color:#ff4444;margin-top:2px;}
+    .profil-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+    .pstat{background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:10px 4px;text-align:center;}
+    .pstat span{display:block;font-size:1.1rem;font-weight:800;color:#fff;}
+    .pstat small{font-size:.6rem;color:#555;margin-top:2px;display:block;}
+    .btn-deconnexion{width:100%;background:#1a0000;border:1px solid #ff4444;color:#ff4444;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;}
+    .auth-tabs{display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;border:1px solid #1e1e1e;}
+    .auth-tab-btn{flex:1;background:#0d0d0d;border:none;color:#555;padding:10px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.82rem;transition:all .2s;}
+    .auth-tab-btn.active{background:#ff4444;color:#fff;}
+    .auth-subtitle{color:#555;font-size:.75rem;text-align:center;margin:0 0 12px;}
+    .auth-input{width:100%;box-sizing:border-box;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:8px;padding:10px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.85rem;margin-bottom:8px;}
+    .auth-input:focus{outline:none;border-color:#ff4444;}
+    .auth-btn{width:100%;background:linear-gradient(135deg,#cc0000,#ff4444);border:none;color:#fff;padding:12px;border-radius:10px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.9rem;margin-top:4px;}
+    .auth-msg{font-size:.75rem;text-align:center;color:#ff6600;margin-top:8px;min-height:18px;}
+    .tabs-nav{grid-template-columns:repeat(4,1fr);}
 </style>
 </head>
 <body class="s-classic">
@@ -518,6 +539,7 @@
       <button class="tab-btn active" data-tab="jeu" onclick="showTab('jeu')">🎮 Jeu</button>
       <button class="tab-btn" data-tab="skins" onclick="showTab('skins')">🎨 Skins</button>
       <button class="tab-btn" data-tab="classement" onclick="showTab('classement')">🏆 Classement</button>
+      <button class="tab-btn" data-tab="compte" onclick="showTab('compte')">👤 Compte</button>
     </div>
     <div id="tab-jeu" class="tab-section" style="display:block;">
       <div class="game">
@@ -569,6 +591,58 @@
       <button style="background:linear-gradient(135deg,#aa0000,#ff6600);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="copyDefi()">⚔️ Mon défi</button>
     </div>
     </div><!-- /tab-classement -->
+
+    <!-- TAB COMPTE -->
+    <div id="tab-compte" class="tab-section" style="display:none;">
+      <div class="compte-wrap" id="compteWrap">
+
+        <!-- Profil connecté (affiché si connecté) -->
+        <div id="profilSection" style="display:none;">
+          <div class="profil-card">
+            <div class="profil-avatar" id="profilAvatar">👤</div>
+            <div class="profil-info">
+              <div class="profil-pseudo" id="profilPseudo">—</div>
+              <div class="profil-title" id="profilTitleDisplay">—</div>
+            </div>
+          </div>
+          <div class="profil-stats">
+            <div class="pstat"><span id="profilClicks">0</span><small>Clics total</small></div>
+            <div class="pstat"><span id="profilRank">—</span><small>Rang</small></div>
+            <div class="pstat"><span id="profilStreak">0</span><small>🔥 Streak</small></div>
+            <div class="pstat"><span id="profilSkins">0</span><small>Skins débloqués</small></div>
+          </div>
+          <button class="btn-deconnexion" onclick="deconnecterCompte()">🚪 Se déconnecter</button>
+        </div>
+
+        <!-- Formulaire auth (affiché si non connecté) -->
+        <div id="authSection">
+          <div class="auth-tabs">
+            <button class="auth-tab-btn active" onclick="switchAuth('login')" id="btnAuthLogin">Connexion</button>
+            <button class="auth-tab-btn" onclick="switchAuth('register')" id="btnAuthRegister">Inscription</button>
+          </div>
+
+          <!-- Connexion -->
+          <div id="loginForm">
+            <p class="auth-subtitle">Retrouve ta progression sur tous tes appareils</p>
+            <input class="auth-input" type="email" id="loginEmail" placeholder="Email" autocomplete="email"/>
+            <input class="auth-input" type="password" id="loginPassword" placeholder="Mot de passe" autocomplete="current-password"/>
+            <button class="auth-btn" id="connecterCompte" onclick="connecterCompte()">🔑 Se connecter</button>
+            <p class="auth-msg" id="loginMsg"></p>
+          </div>
+
+          <!-- Inscription -->
+          <div id="registerForm" style="display:none;">
+            <p class="auth-subtitle">Crée ton compte pour sauvegarder ta progression</p>
+            <input class="auth-input" type="text" id="regPseudo" placeholder="Pseudo (ex: MasterBouton69)" maxlength="20"/>
+            <input class="auth-input" type="email" id="regEmail" placeholder="Email"/>
+            <input class="auth-input" type="password" id="regPassword" placeholder="Mot de passe (min 6 car.)"/>
+            <button class="auth-btn" id="inscrireCompte" onclick="inscrireCompte()">🚀 Créer mon compte</button>
+            <p class="auth-msg" id="registerMsg"></p>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /tab-compte -->
 
     <footer>
     <div class="footer-top">
@@ -1481,13 +1555,14 @@ document.addEventListener('keydown',function(e){
 /* ══════ INIT ══════ */
 
 function showTab(name){
-  ['jeu','skins','classement'].forEach(function(t){
+  ['jeu','skins','classement','compte'].forEach(function(t){
     var sec=document.getElementById('tab-'+t);
     var btn=document.querySelector('.tab-btn[data-tab="'+t+'"]');
     if(sec) sec.style.display=(t===name)?'block':'none';
     if(btn) btn.classList.toggle('active', t===name);
   });
   if(name==='classement') loadLeaderboard();
+  if(name==='compte') checkAuthOnTabCompte();
 }
 function init(){
   genStars();
@@ -1682,6 +1757,109 @@ function updateLandingStats(){
 }
 var _landingShownAt = Date.now();
 updateLandingStats();
+
+
+/* ══════ COMPTE / AUTH ══════ */
+var _authToken = localStorage.getItem('authToken') || '';
+var _authPseudo = localStorage.getItem('authPseudo') || '';
+
+function switchAuth(mode){
+  document.getElementById('loginForm').style.display = mode==='login' ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = mode==='register' ? 'block' : 'none';
+  document.getElementById('btnAuthLogin').classList.toggle('active', mode==='login');
+  document.getElementById('btnAuthRegister').classList.toggle('active', mode==='register');
+}
+
+function inscrireCompte(){
+  var pseudo = (document.getElementById('regPseudo')||{}).value||'';
+  var email  = (document.getElementById('regEmail')||{}).value||'';
+  var pass   = (document.getElementById('regPassword')||{}).value||'';
+  var msg    = document.getElementById('registerMsg');
+  if(!pseudo||!email||!pass){if(msg)msg.textContent='Remplis tous les champs !';return;}
+  if(pass.length<6){if(msg)msg.textContent='Mot de passe trop court (min 6 car.)';return;}
+  if(msg)msg.textContent='Inscription en cours…';
+  fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'register',pseudo:pseudo,email:email,password:pass,clicks:clicks,streak:streak})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.success){
+      _authToken=d.token||''; _authPseudo=pseudo;
+      localStorage.setItem('authToken',_authToken);
+      localStorage.setItem('authPseudo',_authPseudo);
+      localStorage.setItem('pseudo',pseudo);
+      if(document.getElementById('pseudoInput')) document.getElementById('pseudoInput').value=pseudo;
+      if(msg)msg.textContent='';
+      renderProfilConnecte();
+    } else {
+      if(msg)msg.textContent=d.error||"Erreur lors de l\'inscription";
+    }
+  }).catch(function(){if(msg)msg.textContent='Erreur réseau.';});
+}
+
+function connecterCompte(){
+  var email = (document.getElementById('loginEmail')||{}).value||'';
+  var pass  = (document.getElementById('loginPassword')||{}).value||'';
+  var msg   = document.getElementById('loginMsg');
+  if(!email||!pass){if(msg)msg.textContent='Remplis tous les champs !';return;}
+  if(msg)msg.textContent='Connexion…';
+  fetch(API+'/playerAuth',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'login',email:email,password:pass})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.success){
+      _authToken=d.token||''; _authPseudo=d.pseudo||'';
+      localStorage.setItem('authToken',_authToken);
+      localStorage.setItem('authPseudo',_authPseudo);
+      localStorage.setItem('pseudo',_authPseudo);
+      if(d.clicks) clicks=d.clicks;
+      if(d.streak) streak=d.streak;
+      if(document.getElementById('pseudoInput')) document.getElementById('pseudoInput').value=_authPseudo;
+      renderMyCount(); renderXP(); checkStreak();
+      if(msg)msg.textContent='';
+      renderProfilConnecte();
+    } else {
+      if(msg)msg.textContent=d.error||'Email ou mot de passe incorrect';
+    }
+  }).catch(function(){if(msg)msg.textContent='Erreur réseau.';});
+}
+
+function deconnecterCompte(){
+  _authToken=''; _authPseudo='';
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('authPseudo');
+  renderProfilDeconnecte();
+}
+
+function renderProfilConnecte(){
+  var sec = document.getElementById('profilSection');
+  var auth = document.getElementById('authSection');
+  if(sec) sec.style.display='block';
+  if(auth) auth.style.display='none';
+  var pp = document.getElementById('profilPseudo');
+  var pt = document.getElementById('profilTitleDisplay');
+  var pc = document.getElementById('profilClicks');
+  var pr = document.getElementById('profilRank');
+  var ps = document.getElementById('profilStreak');
+  var psk = document.getElementById('profilSkins');
+  if(pp) pp.textContent = _authPseudo || pseudo || '—';
+  if(pt) pt.textContent = getXPTitle ? getXPTitle(clicks) : '—';
+  if(pc) pc.textContent = clicks.toLocaleString('fr');
+  if(pr) pr.textContent = document.getElementById('myRank') ? document.getElementById('myRank').textContent : '—';
+  if(ps) ps.textContent = streak;
+  if(psk){ var unlocked=SKINS.filter(function(s){return clicks>=(s.req||0);}).length; psk.textContent=unlocked+'/'+SKINS.length; }
+}
+
+function renderProfilDeconnecte(){
+  var sec = document.getElementById('profilSection');
+  var auth = document.getElementById('authSection');
+  if(sec) sec.style.display='none';
+  if(auth) auth.style.display='block';
+}
+
+function checkAuthOnTabCompte(){
+  if(_authToken && _authPseudo){ renderProfilConnecte(); }
+  else { renderProfilDeconnecte(); }
+}
 
 document.addEventListener('DOMContentLoaded',function(){init();});
 </script>
