@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
 
   <!-- SEO -->
   <title>🔴 Le Bouton Qui Sert À Rien — Le jeu le plus inutile d'internet</title>
@@ -120,7 +120,7 @@
 
     /* PSEUDO */
     .pseudo-wrap{text-align:center;margin:5px 13px 2px;}
-    .pseudo-wrap input{background:#111;border:1.5px solid #2a2a2a;color:#fff;padding:6px 14px;border-radius:20px;font-size:.82rem;font-family:'Nunito',sans-serif;outline:none;width:min(240px,78vw);text-align:center;transition:border-color .2s;}
+    .pseudo-wrap input{background:#0f0f0f;border:1.5px solid #2a2a2a;color:#eee;padding:7px 15px;border-radius:20px;font-size:.83rem;font-family:'Nunito',sans-serif;outline:none;width:min(250px,80vw);text-align:center;transition:border-color .2s;}.pseudo-wrap input:focus{border-color:#ff4444;outline:none;}
     .pseudo-wrap input:focus{border-color:#ff6600;box-shadow:0 0 10px #ff660033;}
 
     /* MISSIONS */
@@ -457,7 +457,39 @@
     /* iOS safe area */
     @supports(padding:max(0px)){
       body{padding-bottom:env(safe-area-inset-bottom);}
-    }</style>
+    }
+    .footer-sub{font-size:.65rem;color:#444;display:block;margin-top:5px;}
+
+    /* ── TABLETTE 768px ── */
+    @media(min-width:768px){
+      .footer-top{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+      .share-row button{font-size:.92rem;padding:10px 22px;}
+      .pseudo-wrap input{width:min(320px,60vw);}
+    }
+    /* ── DESKTOP 1024px ── */
+    @media(min-width:1024px){
+      .wrap{max-width:720px;}
+      .btn-wrap{width:300px !important;height:300px !important;}
+      .glow{width:285px !important;height:285px !important;}
+      #btn{font-size:clamp(1.9rem,5vw,2.5rem) !important;}
+      .stats{gap:8px;}
+      .sval{font-size:clamp(1.4rem,3vw,2rem);}
+    }
+    /* ── LARGE DESKTOP 1440px ── */
+    @media(min-width:1440px){
+      .wrap{max-width:780px;}
+    }
+    /* Touch target minimum 44px (Apple HIG / Android Material) */
+    .tab-btn{min-height:44px;}
+    .share-row button{min-height:44px;}
+    #btn{min-height:44px;}
+    /* Prevent text selection on buttons */
+    button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
+    /* Smooth scroll */
+    html{scroll-behavior:smooth;}
+    /* Scrollbar masqué sur mobile */
+    ::-webkit-scrollbar{width:0;height:0;}
+  </style>
 </head>
 <body class="s-classic">
   <!-- ══════ LANDING SCREEN ══════ -->
@@ -608,9 +640,10 @@
         <div class="footer-col">
           <h4>📋 Éditeur</h4>
           <address>
-            <strong style="color:#aaa">Charly Soudan</strong><br>
-            36 avenue du Parc, 93290 Tremblay-en-France<br>
-            <a href="mailto:contact@leboutonquisertarien.fr" style="color:#ff6600;text-decoration:none;">contact@leboutonquisertarien.fr</a>
+            <strong style="color:#ccc">Charly Soudan</strong><br>
+            36 avenue du Parc<br>
+            93290 Tremblay-en-France, France<br>
+            <a href="mailto:charlysoudan2@proton.me" style="color:#ff6600;text-decoration:none;">charlysoudan2@proton.me</a>
           </address>
         </div>
       </div>
@@ -627,13 +660,14 @@
         <span class="rating-badge">🟢 PEGI 3</span>
         <span class="rating-badge">👨‍👦 Convient à tous</span>
         <span class="rating-badge">🌐 Connexion requise</span>
-        <span class="rating-badge">🆓 Gratuit, sans achat</span>
+        <span class="rating-badge">🆓 Gratuit · Sans achat</span>
+        <span class="rating-badge">🔒 Données locales</span>
       </div>
       <div class="footer-bottom">
         <strong>© 2026 Le Bouton Qui Sert À Rien™</strong> — Tous droits réservés 😈<br>
-        Hébergé par <a href="https://base44.com" target="_blank" rel="noopener" style="color:#888">Base44</a>
+        Hébergé par <a href="https://base44.com" target="_blank" rel="noopener" style="color:#777">Base44</a>
         &nbsp;·&nbsp; Site personnel à but non commercial<br>
-        <span style="font-size:.65rem;color:#555;display:block;margin-top:4px;">Aucune donnée personnelle vendue · Aucun achat intégré · Données stockées localement</span>
+        <span class="footer-sub">Aucune donnée vendue · Aucun achat intégré · Stockage local uniquement</span>
       </div>
     </footer>
 
