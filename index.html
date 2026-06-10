@@ -590,7 +590,7 @@ footer{
       🔥 <span class="streak-num" id="streakCount">0</span>j
     </div>
     <div style="font-size:.72rem;color:var(--muted);">
-      🌍 <span id="fomoCount" class="fomo-num">—</span> en ligne
+      🌍 <span id="fomoCount" class="fomo-num">—</span> joueurs actifs
     </div>
     <div style="font-size:.72rem;color:var(--muted);cursor:pointer;" onclick="showTab('compte')" id="topbarUser">
       👤 Compte
@@ -602,7 +602,7 @@ footer{
 
   <!-- Pseudo -->
   <div id="pseudoWrap">
-    <input type="text" id="pseudoInput" placeholder="Ton pseudo (visible dans le classement)" maxlength="20" autocomplete="off"/>
+    <input type="text" id="pseudoInput" placeholder="Ton pseudo (affiché dans le classement)" maxlength="20" autocomplete="nickname" spellcheck="false"/>
   </div>
 
   <!-- Stats -->
@@ -613,7 +613,7 @@ footer{
     </div>
     <div class="sbox">
       <span class="sval" id="countCombo">0</span>
-      <span class="slb">Combo max</span>
+      <span class="slb">Enchaîn. max</span>
     </div>
     <div class="sbox">
       <span class="sval" id="myRank">—</span>
@@ -621,7 +621,7 @@ footer{
     </div>
     <div class="sbox">
       <span class="sval" id="eventMult">x1</span>
-      <span class="slb">Multiplicateur</span>
+      <span class="slb">Bonus événement</span>
     </div>
   </div>
 
@@ -645,13 +645,13 @@ footer{
       <span class="tb-icon">🎮</span><span class="tb-label">Jeu</span>
     </button>
     <button class="tab-btn" id="tab-skins" onclick="showTab('skins')">
-      <span class="tb-icon">🎨</span><span class="tb-label">Skins</span>
+      <span class="tb-icon">🎨</span><span class="tb-label">Apparences</span>
     </button>
     <button class="tab-btn" id="tab-classement" onclick="showTab('classement')">
       <span class="tb-icon">🏆</span><span class="tb-label">Classement</span>
     </button>
     <button class="tab-btn" id="tab-compte" onclick="showTab('compte')">
-      <span class="tb-icon">👤</span><span class="tb-label">Compte</span>
+      <span class="tb-icon">👤</span><span class="tb-label">Mon Espace</span>
     </button>
   </div>
 
@@ -665,7 +665,7 @@ footer{
       <!-- Bouton -->
       <div id="btnWrap">
         <div class="btn-glow"></div>
-        <button id="btn" onclick="handleClick(event)" ontouchstart="handleClick(event)">
+        <button id="btn" onclick="handleClick(event)" ontouchstart="handleClick(event)" aria-label="Cliquer sur le bouton">
           APPUIE<br>DESSUS
         </button>
       </div>
@@ -677,10 +677,10 @@ footer{
       <!-- Réaction -->
       <div id="reaction"></div>
 
-      <!-- Combo -->
+      <!-- Enchaînement -->
       <div id="comboWrap">
         <div class="combo-header">
-          <span>⚡ Combo</span>
+          <span>⚡ Enchaînement</span>
           <span class="combo-val" id="comboText">x1</span>
         </div>
         <div class="combo-track"><div class="combo-fill" id="comboFill" style="width:0%"></div></div>
@@ -697,8 +697,8 @@ footer{
     </div>
 
     <!-- Missions du jour -->
-    <div id="missionsBlock">
-      <div class="missions-title">📋 Missions du jour</div>
+    <div id="missionsBlock" style="border-top:1px solid #1a1a1a;margin-top:8px;padding-top:4px;">
+      <div class="missions-title">📋 Défis du jour</div>
       <div id="mList"></div>
     </div>
 
@@ -713,15 +713,15 @@ footer{
       </div>
 
       <div class="skin-tier">
-        <div class="skin-tier-label">⭐ DÉBUTANT (0–250 clics)</div>
+        <div class="skin-tier-label">⭐ DÉBUTANT — 0 à 250 clics</div>
         <div class="skins-grid" id="skinGridDebutant"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-label">🔥 INTERMÉDIAIRE (500–2000 clics)</div>
+        <div class="skin-tier-label">🔥 INTERMÉDIAIRE — 500 à 2 000 clics</div>
         <div class="skins-grid" id="skinGridInter"></div>
       </div>
       <div class="skin-tier">
-        <div class="skin-tier-label">💎 EXPERT (3000–10000 clics)</div>
+        <div class="skin-tier-label">💎 EXPERT — 3 000 à 10 000 clics</div>
         <div class="skins-grid" id="skinGridExpert"></div>
       </div>
     </div>
@@ -731,8 +731,8 @@ footer{
   <div class="tab-section" id="classement">
     <div id="jeuClassement">
       <div class="lb-header">
-        <span class="lb-title">🏆 Classement mondial</span>
-        <span class="lb-global">Total : <span id="globalCount">—</span></span>
+        <span class="lb-title">🏆 Classement Mondial</span>
+        <span class="lb-global">🌍 <span id="globalCount">—</span> clics au total</span>
       </div>
       <div id="podium" class="lb-podium"></div>
       <div id="lbContent"></div>
@@ -753,8 +753,8 @@ footer{
 
         <!-- Connexion -->
         <div id="formLogin" class="auth-form">
-          <div class="auth-form-title">Bon retour ! 👋</div>
-          <div class="auth-form-sub">Connecte-toi pour retrouver ta progression sur n'importe quel appareil.</div>
+          <div class="auth-form-title">Content de te revoir ! 🔥</div>
+          <div class="auth-form-sub">Reconnecte-toi et reprends là où tu t'es arrêté(e).</div>
           <input class="auth-input" type="text" id="loginId" placeholder="Email ou pseudo" autocomplete="username"/>
           <input class="auth-input" type="password" id="loginPwd" placeholder="Mot de passe" autocomplete="current-password"/>
           <button class="auth-btn" id="loginBtn" onclick="doLogin()">🔐 Se connecter</button>
@@ -787,8 +787,8 @@ footer{
 
         <div class="profile-stats">
           <div class="pst"><span class="pst-val" id="pStatClics">0</span><span class="pst-lb">🖱️ Clics</span></div>
-          <div class="pst"><span class="pst-val" id="pStatStreak">0</span><span class="pst-lb">🔥 Streak</span></div>
-          <div class="pst"><span class="pst-val" id="pStatCombo">0</span><span class="pst-lb">⚡ Combo max</span></div>
+          <div class="pst"><span class="pst-val" id="pStatStreak">0</span><span class="pst-lb">🔥 Série</span></div>
+          <div class="pst"><span class="pst-val" id="pStatCombo">0</span><span class="pst-lb">⚡ Meilleur enchaîn.</span></div>
           <div class="pst"><span class="pst-val" id="pStatRank">—</span><span class="pst-lb">🏆 Rang</span></div>
         </div>
 
@@ -1197,12 +1197,12 @@ var SKIN_TXT = {
   'dog':'OUAF\n🐶',
   'cat':'MIAOU\n🐱',
   'gold':'FRAPPE\n🥇',
-  'ice':'FREEZE\n❄️',
+  'ice':'GELÉ\n❄️',
   'fire':'BRÛLE\n🔥',
-  'space':'LAUNCH\n🌌',
+  'space':'COSMOS\n🌌',
   'toxic':'DANGER\n☣️',
-  'disco':'GROOVE\n🪩',
-  'lava':'ERUPTION\n🌋',
+  'disco':'DANSE\n🪩',
+  'lava':'ÉRUPTION\n🌋',
   'nuclear':'FUSION\n☢️',
   'rainbow':'GLITCH\n🌈',
   'diamond':'LÉGENDE\n💎',
@@ -1763,7 +1763,7 @@ async function loadEventsForProfile() {
 
 function updateTopbarUser(pseudo) {
   var el = document.getElementById('topbarUser');
-  if (el) el.textContent = pseudo ? '👤 ' + pseudo : '👤 Compte';
+  if (el) el.textContent = pseudo ? '👤 ' + pseudo : '👤 Mon espace';
 }
 
 function refreshProfileTab() {
