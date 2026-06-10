@@ -451,6 +451,30 @@
     .auth-btn{width:100%;background:linear-gradient(135deg,#cc0000,#ff4444);border:none;color:#fff;padding:12px;border-radius:10px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.9rem;margin-top:4px;}
     .auth-msg{font-size:.75rem;text-align:center;color:#ff6600;margin-top:8px;min-height:18px;}
     .tabs-nav{grid-template-columns:repeat(4,1fr);}
+
+    /* ═══ PODIUM CLASSEMENT ═══ */
+    .lb-podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:16px 8px 0;margin-bottom:8px;}
+    .podium-col{display:flex;flex-direction:column;align-items:center;min-width:80px;}
+    .pod-crown{font-size:1.2rem;margin-bottom:2px;}
+    .pod-avatar{font-size:1.5rem;margin-bottom:4px;}
+    .pod-pseudo{font-size:.68rem;font-weight:800;color:#fff;text-align:center;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .pod-score{font-size:.6rem;color:#888;margin-bottom:4px;}
+    .pod-block{width:100%;border-radius:6px 6px 0 0;}
+    .p1-block{height:60px;background:linear-gradient(180deg,#ffd700,#b8860b);}
+    .p2-block{height:44px;background:linear-gradient(180deg,#c0c0c0,#808080);}
+    .p3-block{height:30px;background:linear-gradient(180deg,#cd7f32,#8b4513);}
+    .lb-list{padding:0 8px 8px;}
+    .lb-row{display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid #111;transition:background .15s;}
+    .lb-row.me{background:#1a0000;border-left:3px solid #ff4444;}
+    .lb-row.top3{display:none;}
+    .lb-rank{min-width:28px;font-weight:800;color:#555;font-size:.8rem;}
+    .lb-row.me .lb-rank{color:#ff4444;}
+    .lb-pseudo{flex:1;font-size:.78rem;color:#ccc;display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
+    .lb-title{font-size:.6rem;color:#666;}
+    .lb-you{font-size:.6rem;color:#ff4444;font-weight:800;}
+    .lb-score{font-size:.75rem;color:#fff;font-weight:800;text-align:right;}
+    .lb-mypos{text-align:center;padding:10px;font-size:.75rem;color:#888;border-top:1px solid #111;}
+    .lb-mypos strong{color:#ff4444;}
 </style>
 </head>
 <body class="s-classic">
@@ -1499,25 +1523,60 @@ function loadLeaderboard(){
 }
 function renderLB(rows,globalClicks){
   var gc=document.getElementById('globalCount');
-  if(gc){gc.textContent=globalClicks.toLocaleString('fr');gc.classList.remove('pop');void gc.offsetWidth;gc.classList.add('pop');}
-  var pseudo=document.getElementById('pseudoInput').value.trim()||'Anonyme';
+  if(gc){gc.textContent=parseInt(globalClicks||0).toLocaleString('fr');gc.classList.remove('pop');void gc.offsetWidth;gc.classList.add('pop');}
+  var myPseudo=(document.getElementById('pseudoInput')||{value:''}).value.trim()||pseudo||'';
   var medals=['🥇','🥈','🥉'];
-  var myIdx=-1;for(var i=0;i<rows.length;i++){if(rows[i].pseudo===pseudo){myIdx=i;break;}}
-  document.getElementById('myRank').textContent=myIdx>=0?'#'+(myIdx+1):'—';
+  var myIdx=-1;
+  for(var i=0;i<rows.length;i++){if(rows[i].pseudo===myPseudo){myIdx=i;break;}}
+  var rankEl=document.getElementById('myRank');
+  if(rankEl) rankEl.textContent=myIdx>=0?'#'+(myIdx+1):'—';
   var lb=document.getElementById('lbContent');
-  if(!rows.length){lb.innerHTML='<p style="text-align:center;color:#aaa;padding:12px">Sois le premier ! 👆</p>';return;}
+  if(!lb) return;
+  if(!rows||!rows.length){lb.innerHTML='<p style="text-align:center;color:#aaa;padding:20px">Sois le premier ! 👆</p>';return;}
   var html='';
+  // Podium top 3
+  if(rows.length>=3){
+    html+='<div class="lb-podium">';
+    // 2e
+    html+='<div class="podium-col p2"><div class="pod-avatar">🥈</div>';
+    html+='<div class="pod-pseudo">'+esc(rows[1].pseudo||'?')+'</div>';
+    html+='<div class="pod-score">'+(rows[1].total_clicks||0).toLocaleString('fr')+'</div>';
+    html+='<div class="pod-block p2-block"></div></div>';
+    // 1er
+    html+='<div class="podium-col p1"><div class="pod-crown">👑</div><div class="pod-avatar">🥇</div>';
+    html+='<div class="pod-pseudo">'+esc(rows[0].pseudo||'?')+'</div>';
+    html+='<div class="pod-score">'+(rows[0].total_clicks||0).toLocaleString('fr')+'</div>';
+    html+='<div class="pod-block p1-block"></div></div>';
+    // 3e
+    html+='<div class="podium-col p3"><div class="pod-avatar">🥉</div>';
+    html+='<div class="pod-pseudo">'+esc(rows[2].pseudo||'?')+'</div>';
+    html+='<div class="pod-score">'+(rows[2].total_clicks||0).toLocaleString('fr')+'</div>';
+    html+='<div class="pod-block p3-block"></div></div>';
+    html+='</div>';
+  }
+  // Liste complète
+  html+='<div class="lb-list">';
   for(var i=0;i<rows.length;i++){
-    var r=rows[i],isMe=r.pseudo===pseudo;
-    var tt=getTitle(r.total_clicks||0).t;
-    html+='<div class="lb-row'+(isMe?' me':'')+'"><span class="lb-rank">'+(medals[i]||(i+1))+'</span>';
-    html+='<span class="lb-pseudo">'+esc(r.pseudo||'Anonyme')+'<span class="lb-title">'+tt+'</span>'+(isMe?'<span class="lb-you">← toi</span>':'')+'</span>';
-    html+='<span class="lb-score">'+(r.total_clicks||0).toLocaleString('fr')+'</span></div>';
+    var rw=rows[i],isMe=(rw.pseudo===myPseudo);
+    var tt=getTitle(rw.total_clicks||0).t;
+    var medal=medals[i]||(i+1);
+    html+='<div class="lb-row'+(isMe?' me':'')+(i<3?' top3':'')+'">'+
+      '<span class="lb-rank">'+medal+'</span>'+
+      '<span class="lb-pseudo">'+esc(rw.pseudo||'Anonyme')+
+        '<span class="lb-title"> '+tt+'</span>'+
+        (isMe?'<span class="lb-you"> ← toi</span>':'')+'</span>'+
+      '<span class="lb-score">'+(rw.total_clicks||0).toLocaleString('fr')+' clics</span>'+
+    '</div>';
+  }
+  html+='</div>';
+  // Encadré "ta position" si hors top visible
+  if(myIdx>=0){
+    html+='<div class="lb-mypos">Ta position : <strong>#'+(myIdx+1)+'</strong> — '+clicks.toLocaleString('fr')+' clics</div>';
+  } else if(myPseudo){
+    html+='<div class="lb-mypos">Clique plus pour entrer dans le classement ! 💪</div>';
   }
   lb.innerHTML=html;
 }
-
-/* ══════ SHARE ══════ */
 function copyDefi(){
   var pseudo=document.getElementById('pseudoInput').value.trim()||'Joueur';
   var url=PAGE_URL+'?challenger='+encodeURIComponent(pseudo)+'&score='+clicks;
@@ -1612,7 +1671,12 @@ function init(){
   if(IS_ONLINE){setTimeout(loadLeaderboard,1500);setInterval(loadLeaderboard,15000);}
   setInterval(renderMissions,60000);
   setTimeout(startEvent,(10+Math.random()*10)*60000);
-}
+  // Sync événement depuis le backend au démarrage
+  setTimeout(fetchActiveEvent, 2000);
+  setInterval(fetchActiveEvent, 5*60*1000);
+
+  setTimeout(fetchActiveEvent, 2000);
+  setInterval(fetchActiveEvent, 5*60*1000);}
 
 
 /* ══════ SONS SPÉCIAUX SKINS ══════ */
@@ -1859,6 +1923,86 @@ function renderProfilDeconnecte(){
 function checkAuthOnTabCompte(){
   if(_authToken && _authPseudo){ renderProfilConnecte(); }
   else { renderProfilDeconnecte(); }
+}
+
+
+/* ══════ VISITEURS / SESSION ══════ */
+var _visitStart = Date.now();
+var _visitLogged = false;
+
+function logVisitor(pseudo_val){
+  if(_visitLogged) return;
+  _visitLogged = true;
+  var dur = Math.round((Date.now() - _visitStart) / 1000);
+  var device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+  var country = navigator.language ? navigator.language.split('-').pop().toUpperCase() : 'XX';
+  var payload = {
+    pseudo: pseudo_val || pseudo || 'Anonyme',
+    total_clicks_session: clicks,
+    session_duration_sec: dur,
+    device: device,
+    country: country,
+    referrer: document.referrer || 'direct',
+    skin_used: curSkin || 'classic',
+    date: new Date().toISOString().split('T')[0]
+  };
+  try {
+    navigator.sendBeacon(API+'/trackClick',
+      JSON.stringify({action:'logVisitor', visitor: payload}));
+  } catch(e) {}
+}
+
+// Logger le visiteur quand il quitte
+window.addEventListener('beforeunload', function(){
+  logVisitor(pseudo || (document.getElementById('pseudoInput') ? document.getElementById('pseudoInput').value.trim() : ''));
+});
+
+// Logger après 30 secondes sur la page (visite qualifiée)
+setTimeout(function(){
+  if(!_visitLogged) logVisitor(pseudo);
+}, 30000);
+
+
+/* ══════ SYNC ÉVÉNEMENTS BACKEND ══════ */
+function fetchActiveEvent(){
+  if(!IS_ONLINE) return;
+  fetch(API+'/manageEvents',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'getActive'})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d && d.active && d.event){
+      var ev = d.event;
+      activeEvent = ev;
+      eventMultiplier = ev.multiplier || 1;
+      var evBox = document.getElementById('eventBox');
+      var evName = document.getElementById('evName');
+      var evBadge = document.getElementById('evBadge');
+      var evDesc = document.getElementById('evDesc');
+      var evTimer = document.getElementById('evTimer');
+      if(evName) evName.textContent = ev.title || 'ÉVÉNEMENT';
+      if(evBadge) evBadge.textContent = 'x'+(ev.multiplier||1);
+      if(evDesc) evDesc.textContent = ev.description || '';
+      if(evBox){ evBox.style.borderColor='#aa66ff'; evBox.classList.add('on'); }
+      // Afficher le temps restant
+      if(ev.end_date && evTimer){
+        var end = new Date(ev.end_date).getTime();
+        clearInterval(eventInterval);
+        eventInterval = setInterval(function(){
+          var rem = Math.max(0, Math.round((end - Date.now())/1000));
+          var m = Math.floor(rem/60), s = rem%60;
+          evTimer.textContent = m+':'+(s<10?'0':'')+s;
+          if(rem<=10) evTimer.style.color='#ff2222';
+          if(rem<=0){ clearInterval(eventInterval); endEvent(); }
+        },1000);
+      }
+    } else {
+      // Pas d'event actif — reset
+      eventMultiplier = 1; activeEvent = null;
+      var evBox = document.getElementById('eventBox');
+      if(evBox) evBox.classList.remove('on');
+    }
+  }).catch(function(){});
 }
 
 document.addEventListener('DOMContentLoaded',function(){init();});
