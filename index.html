@@ -67,7 +67,7 @@
     .challenger.on{display:block;}
 
     /* TOPBAR */
-    .topbar{text-align:center;padding:6px 12px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+    .topbar{padding:5px 12px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;font-size:.75rem;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:80;}.topbar-sep{color:#2a2a2a;}
     .streak-pill{background:#1a1a1a;border:2px solid #333;color:#aaa;padding:4px 12px;border-radius:20px;font-size:.82rem;font-weight:900;transition:all .3s;}
     .streak-pill.dead{background:#222;color:#bbb;}
     .fomo{color:#00ff88;font-weight:900;}
@@ -85,14 +85,14 @@
     .event-desc{font-size:.7rem;color:#886699;}
 
     /* HEADER */
-    header{text-align:center;padding:16px 14px 4px;}
+    header{text-align:center;padding:8px 14px 2px;}
     #title{font-family:'Bangers',cursive;font-size:clamp(1.9rem,8.5vw,4.5rem);letter-spacing:4px;color:#ff2222;text-shadow:0 0 18px #ff000077,3px 3px 0 #660000;animation:titlePulse 2.2s ease-in-out infinite;display:block;will-change:transform;}
     @keyframes titlePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
     #subtitle{display:block;font-size:clamp(.72rem,2.2vw,.92rem);color:#999;margin-top:3px;min-height:18px;transition:color .3s;}
 
     /* STATS */
-    .stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:8px 12px 3px;}
-    .sbox{background:#111;border:1.5px solid #1e1e1e;border-radius:13px;padding:8px 11px;text-align:center;flex:1;min-width:65px;max-width:95px;}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 12px 4px;}
+    .sbox{background:#111;border:1.5px solid #1e1e1e;border-radius:12px;padding:7px 5px;text-align:center;}
     .sval{font-size:clamp(1.1rem,3.8vw,1.75rem);font-weight:900;color:#ff6600;display:block;will-change:transform;}
     .sval.pop{animation:pop .22s ease;}
     @keyframes pop{0%{transform:scale(1.55);}100%{transform:scale(1);}}
@@ -135,7 +135,7 @@
     .mreward{font-size:.62rem;color:#ffcc00;font-weight:700;flex-shrink:0;}
 
     /* GAME */
-    .game{display:flex;flex-direction:column;align-items:center;padding:8px 13px;gap:9px;}
+    .game{display:flex;flex-direction:column;align-items:center;padding:10px 13px 6px;gap:10px;}
 
     /* BUTTON */
     .btn-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(210px,30vw,280px);height:clamp(210px,30vw,280px);}
@@ -417,15 +417,42 @@
     body.s-cat .glow{background:radial-gradient(circle,#ff44aa44,transparent 70%);}
 
     /* ── TABS NAV ── */
-    .tabs-nav{display:flex;justify-content:center;gap:8px;margin:8px 10px 2px;position:sticky;top:0;z-index:50;background:#0a0a0a;padding:7px 0 5px;border-bottom:1px solid #1a1a1a;}
-    .tab-btn{flex:1;max-width:130px;background:#141414;border:1.5px solid #2a2a2a;color:#888;padding:8px 4px;border-radius:12px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .18s;letter-spacing:.3px;}
-    .tab-btn.active{background:linear-gradient(135deg,#cc0000,#ff4400);border-color:#ff3333;color:#fff;box-shadow:0 0 14px #ff000066;}
-    .tab-btn:active{transform:scale(.96);}
+    .tabs-nav{display:grid;grid-template-columns:repeat(3,1fr);background:#0a0a0a;border-bottom:2px solid #1a1a1a;position:sticky;top:31px;z-index:70;}
+    .tab-btn{background:transparent;border:none;border-bottom:3px solid transparent;color:#555;padding:11px 4px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;transition:color .15s,border-color .15s;}
+    .tab-btn.active{border-bottom-color:#ff2222;color:#fff;}
+    .tab-btn:active{opacity:.7;}
     .tab-section{display:none;}
     .tab-section.active{display:block;}
 
     @keyframes streakPulse{0%,100%{box-shadow:0 0 10px #ff880066;}50%{box-shadow:0 0 22px #ff8800cc;}}
-</style>
+    /* SHARE ROW */
+    .share-row{display:flex;gap:8px;justify-content:center;padding:10px 12px 16px;flex-wrap:wrap;}
+    .share-row button{padding:9px 18px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;border:none;color:#fff;}
+    .sh-tw{background:linear-gradient(135deg,#111,#252525);border:1px solid #333 !important;}
+    .sh-wa{background:linear-gradient(135deg,#128c7e,#25d366);}
+    .sh-df{background:linear-gradient(135deg,#aa0000,#ff6600);}
+
+    /* FOOTER RATING */
+    .footer-rating{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:8px 12px;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;margin:6px 0;}
+    .rating-badge{background:#111;border:1px solid #222;border-radius:10px;padding:3px 10px;font-size:.68rem;color:#888;font-weight:700;}
+
+    /* RESPONSIVE */
+    @media(min-width:600px){
+      .wrap{border-left:1px solid #1a1a1a;border-right:1px solid #1a1a1a;min-height:100vh;}
+      .btn-wrap{width:260px !important;height:260px !important;}
+      .glow{width:245px !important;height:245px !important;}
+      .skin-grid{grid-template-columns:repeat(4,1fr) !important;}
+      .ach-grid{grid-template-columns:repeat(5,1fr) !important;}
+      .stats{grid-template-columns:repeat(4,1fr) !important;}
+    }
+    @media(min-width:900px){
+      .btn-wrap{width:280px !important;height:280px !important;}
+      .glow{width:265px !important;height:265px !important;}
+    }
+    /* iOS safe area */
+    @supports(padding:max(0px)){
+      body{padding-bottom:env(safe-area-inset-bottom);}
+    }</style>
 </head>
 <body class="s-classic">
   <!-- ══════ LANDING SCREEN ══════ -->
@@ -474,9 +501,9 @@
 
     <div class="topbar">
       <div id="streakPill" class="streak-pill dead">🔥 0 jour</div>
-      <span>|</span>
-      <span><span class="fomo" id="fomoCount">—</span> joueurs actifs 🔴</span>
-      <span>|</span>
+      <span class="topbar-sep">|</span>
+      <span><span class="fomo" id="fomoCount">—</span> joueurs 🔴</span>
+      <span class="topbar-sep">|</span>
       <span class="season-info" id="seasonInfo">Saison en cours</span>
     </div>
 
@@ -491,28 +518,6 @@
       <span id="subtitle">Le jeu le plus inutile d'internet — et pourtant tu peux pas t'arrêter</span>
     </header>
 
-    <div class="stats">
-      <div class="sbox"><span class="sval" id="globalCount">…</span><div class="slabel"><span class="live-dot"></span>Mondial</div></div>
-      <div class="sbox"><span class="sval" id="myCount">0</span><div class="slabel">Tes clics</div></div>
-      <div class="sbox"><span class="sval" id="myRank">—</span><div class="slabel">Rang</div></div>
-      <div class="sbox"><span class="sval" id="streakCount">0</span><div class="slabel">🔥 Jours</div></div>
-    </div>
-
-    <div class="xp-wrap">
-      <div class="xp-info"><span id="xpTitle">Néophyte du Néant</span><span id="xpNext"></span></div>
-      <div class="xp-bg"><div class="xp-fill" id="xpFill"></div></div>
-    </div>
-
-    <div class="micro-wrap">
-      <span class="micro-label">🎯 Palier</span>
-      <div class="micro-bg"><div class="micro-fill" id="microFill"></div></div>
-      <span class="micro-next" id="microNext">…</span>
-    </div>
-
-    <div class="pseudo-wrap">
-      <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
-    </div>
-
     <div class="tabs-nav">
       <button class="tab-btn active" onclick="showTab('jeu')">🎮 Jeu</button>
       <button class="tab-btn" onclick="showTab('skins')">🎨 Skins</button>
@@ -520,103 +525,113 @@
     </div>
 
     <div id="tab-jeu" class="tab-section active">
-
-    <!-- ⭐ BOUTON — star du jeu -->
-    <div class="game">
-      <div class="btn-wrap">
-        <div class="glow"></div>
-        <button id="btn">APPUIE<br>DESSUS</button>
+      <div class="pseudo-wrap">
+        <input type="text" id="pseudoInput" placeholder="Ton pseudo (ex: MasterBouton69)" maxlength="20"/>
       </div>
-      <div class="combo-wrap">
-        <div class="combo-label">Combo</div>
-        <div class="combo-bg"><div class="combo-fill" id="comboFill"></div></div>
-        <div class="combo-text" id="comboText"></div>
+      <div class="game">
+        <div class="btn-wrap">
+          <div class="glow"></div>
+          <button id="btn">APPUIE<br>DESSUS</button>
+        </div>
+        <div class="combo-wrap">
+          <div class="combo-label">Combo</div>
+          <div class="combo-bg"><div class="combo-fill" id="comboFill"></div></div>
+          <div class="combo-text" id="comboText"></div>
+        </div>
+        <div class="reaction" id="reaction"><span>👆 Appuie sur le bouton, espèce de curieux</span></div>
       </div>
-      <div class="reaction" id="reaction"><span>👆 Appuie sur le bouton, espèce de curieux</span></div>
-    </div>
-
-    <!-- Provoc -->
-    <div class="provoc">
-      <span class="provoc-text" id="provocText"></span>
-      <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
-    </div>
-
-    <!-- Missions — EN BAS -->
-    <div class="missions">
-      <div class="mhead"><h2>🎯 MISSIONS DU JOUR</h2><span class="mreset" id="mReset">…</span></div>
-      <div id="mList"></div>
-    </div>
-
+      <div class="provoc">
+        <span class="provoc-text" id="provocText"></span>
+        <button class="provoc-btn" id="provocBtn" style="display:none" onclick="shareDefi()">⚔️ Défier</button>
+      </div>
+      <div class="stats">
+        <div class="sbox"><span class="sval" id="globalCount">…</span><div class="slabel"><span class="live-dot"></span>Mondial</div></div>
+        <div class="sbox"><span class="sval" id="myCount">0</span><div class="slabel">Mes clics</div></div>
+        <div class="sbox"><span class="sval" id="myRank">—</span><div class="slabel">Rang</div></div>
+        <div class="sbox"><span class="sval" id="streakCount">0</span><div class="slabel">🔥 Jours</div></div>
+      </div>
+      <div class="xp-wrap">
+        <div class="xp-info"><span id="xpTitle">Néophyte du Néant</span><span id="xpNext"></span></div>
+        <div class="xp-bg"><div class="xp-fill" id="xpFill"></div></div>
+      </div>
+      <div class="micro-wrap">
+        <span class="micro-label">🎯 Palier</span>
+        <div class="micro-bg"><div class="micro-fill" id="microFill"></div></div>
+        <span class="micro-next" id="microNext">…</span>
+      </div>
+      <div class="missions">
+        <div class="mhead"><h2>🎯 MISSIONS DU JOUR</h2><span class="mreset" id="mReset">…</span></div>
+        <div id="mList"></div>
+      </div>
     </div><!-- /tab-jeu -->
 
     <div id="tab-skins" class="tab-section">
-    <div class="skins">
-      <div class="skins-header">
-        <h2>🎨 SKINS</h2>
-        <span class="skins-progress" id="skinsProgress"></span>
+      <div class="skins">
+        <div class="skins-header">
+          <h2>🎨 SKINS</h2>
+          <span class="skins-progress" id="skinsProgress"></span>
+        </div>
+        <div class="next-hint" id="nextHint"></div>
+        <div class="skin-grid" id="skinGrid"></div>
       </div>
-      <div class="next-hint" id="nextHint"></div>
-      <div class="skin-grid" id="skinGrid"></div>
-    </div>
-
-    <div class="ach">
-      <h2>🏅 SUCCÈS INUTILES</h2>
-      <div class="ach-grid" id="achGrid"></div>
-    </div>
-
+      <div class="ach">
+        <h2>🏅 SUCCÈS INUTILES</h2>
+        <div class="ach-grid" id="achGrid"></div>
+      </div>
     </div><!-- /tab-skins -->
 
     <div id="tab-classement" class="tab-section">
-    <div class="lb">
-      <h2>🏆 CLASSEMENT MONDIAL</h2>
-      <div id="lbContent"><p style="text-align:center;color:#aaa;padding:12px">Chargement...</p></div>
-    </div>
-
+      <div class="lb">
+        <h2>🏆 CLASSEMENT MONDIAL</h2>
+        <div id="lbContent"><p style="text-align:center;color:#aaa;padding:16px">Chargement...</p></div>
+      </div>
+      <div class="share-row">
+        <button class="sh-tw" onclick="shareTwitter()">🐦 Twitter/X</button>
+        <button class="sh-wa" onclick="shareWhatsapp()">💬 WhatsApp</button>
+        <button class="sh-df" onclick="copyDefi()">⚔️ Mon défi</button>
+      </div>
     </div><!-- /tab-classement -->
 
-    <div class="share" style="display:flex;gap:6px;justify-content:center;padding:5px 13px 16px;flex-wrap:wrap;">
-      <button style="background:linear-gradient(135deg,#111,#252525);border:1px solid #2a2a2a;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareTwitter()">🐦 Twitter/X</button>
-      <button style="background:linear-gradient(135deg,#128c7e,#25d366);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="shareWhatsapp()">💬 WhatsApp</button>
-      <button style="background:linear-gradient(135deg,#aa0000,#ff6600);border:none;color:#fff;padding:8px 16px;border-radius:19px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;" onclick="copyDefi()">⚔️ Mon défi</button>
-    </div>
-
     <footer>
-    <div class="footer-top">
-      <div class="footer-col">
-        <h4>🔴 Le Jeu</h4>
-        <p>Le jeu en ligne le plus inutile — et pourtant tu peux pas t'arrêter.<br>
-        Clique, grimpe dans le classement, débloque des skins.<br>
-        <strong style="color:#ff4444">100% gratuit. 0% utile.</strong></p>
+      <div class="footer-top">
+        <div class="footer-col">
+          <h4>🔴 Le Jeu</h4>
+          <p>Le jeu en ligne le plus inutile — et pourtant tu peux pas t'arrêter.<br>
+          Clique, grimpe dans le classement, débloque des skins.<br>
+          <strong style="color:#ff4444">100% gratuit. 0% utile.</strong></p>
+        </div>
+        <div class="footer-col">
+          <h4>📋 Éditeur</h4>
+          <address>
+            <strong style="color:#aaa">Charly Soudan</strong><br>
+            36 avenue du Parc, 93290 Tremblay-en-France<br>
+            <a href="mailto:contact@leboutonquisertarien.fr" style="color:#ff6600;text-decoration:none;">contact@leboutonquisertarien.fr</a>
+          </address>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>📋 Éditeur</h4>
-        <address>
-          <strong style="color:#aaa">Charly Soudan</strong><br>
-          36 avenue du Parc<br>
-          93290 Tremblay-en-France<br>
-          France<br>
-          <span style="color:#bbb;font-size:.68rem;font-style:italic">Particulier — immatriculation en cours</span>
-        </address>
+      <div class="footer-legal-links">
+        <a href="#" onclick="openModal('modalMentions');return false;">📋 Mentions légales</a>
+        <span>·</span>
+        <a href="#" onclick="openModal('modalCGU');return false;">📜 CGU</a>
+        <span>·</span>
+        <a href="#" onclick="openModal('modalConfidentialite');return false;">🔒 Confidentialité &amp; RGPD</a>
+        <span>·</span>
+        <a href="https://www.cnil.fr" target="_blank" rel="noopener">🛡️ CNIL</a>
       </div>
-    </div>
+      <div class="footer-rating">
+        <span class="rating-badge">🟢 PEGI 3</span>
+        <span class="rating-badge">👨‍👦 Convient à tous</span>
+        <span class="rating-badge">🌐 Connexion requise</span>
+        <span class="rating-badge">🆓 Gratuit, sans achat</span>
+      </div>
+      <div class="footer-bottom">
+        <strong>© 2026 Le Bouton Qui Sert À Rien™</strong> — Tous droits réservés 😈<br>
+        Hébergé par <a href="https://base44.com" target="_blank" rel="noopener" style="color:#888">Base44</a>
+        &nbsp;·&nbsp; Site personnel à but non commercial<br>
+        <span style="font-size:.65rem;color:#555;display:block;margin-top:4px;">Aucune donnée personnelle vendue · Aucun achat intégré · Données stockées localement</span>
+      </div>
+    </footer>
 
-    <div class="footer-legal-links">
-      <a href="#" onclick="openModal('modalMentions');return false;">📋 Mentions légales</a>
-      <span>·</span>
-      <a href="#" onclick="openModal('modalCGU');return false;">📜 CGU</a>
-      <span>·</span>
-      <a href="#" onclick="openModal('modalConfidentialite');return false;">🔒 Confidentialité & RGPD</a>
-      <span>·</span>
-      <a href="https://www.cnil.fr" target="_blank">🛡️ CNIL</a>
-    </div>
-
-    <div class="footer-bottom">
-      <strong>© 2026 Le Bouton Qui Sert À Rien™</strong> — Tous droits réservés 😈<br>
-      Hébergé par <a href="https://base44.com" target="_blank" style="color:#888">Base44</a>
-      &nbsp;·&nbsp; Site personnel à but non commercial
-      &nbsp;·&nbsp; Aucune donnée vendue ni partagée
-    </div>
-  </footer>
 
   <!-- MODAL MENTIONS LÉGALES -->
   <div class="legal-modal" id="modalMentions">
